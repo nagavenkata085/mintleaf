@@ -25,7 +25,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>plsql</artifactId>
+    <artifactId>mintleaf-plsql</artifactId>
 
     <dependencies>
         <dependency>

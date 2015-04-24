@@ -14,11 +14,11 @@
 #    limitations under the License.
 #
 
-db.url=jdbc:oracle:thin:@ec2-54-159-159-112.compute-1.amazonaws.com:1521:TESTDB
 
-db.username =SYS
+db.url=jdbc:oracle:thin:@oracle_instance:1521:TESTDB
 
-db.password=haha1234
+db.username = SYS or any DBA user
+
+db.password =<password>
 
 db.data.location=?/datafile10
-
