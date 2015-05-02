@@ -1,0 +1,8 @@
+org.qamatic.mintleaf.core
+org.qamatic.mintleaf.interfaces
+org.qamatic.mintleaf.oracle
+org.qamatic.mintleaf.oracle.argextensions
+org.qamatic.mintleaf.oracle.codeobjects
+org.qamatic.mintleaf.oracle.codevisitors
+org.qamatic.mintleaf.oracle.spring
+org.qamatic.mintleaf.oracle.typeobjects
