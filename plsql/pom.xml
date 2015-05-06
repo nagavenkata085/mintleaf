@@ -30,7 +30,7 @@
     <dependencies>
         <dependency>
             <groupId>org.qamatic</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>mintleaf-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

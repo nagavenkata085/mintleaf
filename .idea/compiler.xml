@@ -23,8 +23,15 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="core" />
+        <module name="examples" />
         <module name="plsql" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="core" target="1.5" />
+      <module name="examples" target="1.5" />
+      <module name="mintleaf" target="1.5" />
+      <module name="plsql" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
