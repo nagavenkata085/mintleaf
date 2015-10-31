@@ -52,7 +52,7 @@ public class TestDatabase {
             ds.setUsername(settings.getUsername());
             ds.setPassword(settings.getPassword());
             ds.setAccessToUnderlyingConnectionAllowed(true);
-            ds.setConnectionProperties("internal_logon=sysdba");
+            //ds.setConnectionProperties("internal_logon=sysdba");
             mvSysDbContext = new OracleDbContext(ds);
             mvSysDbContext.setDbSettings(settings);
         }

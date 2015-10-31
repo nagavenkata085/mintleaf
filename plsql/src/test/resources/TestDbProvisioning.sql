@@ -52,7 +52,7 @@ CREATE OR REPLACE PACKAGE BODY TestDbProvisioning AS
 	    execute immediate 'grant create table, create session, create view, create any context,create sequence, create trigger
 		     , alter session, administer database trigger, create role, create job
 		     , create materialized view ,create synonym to '|| pusername;
-	   	execute immediate 'grant select on v_$session to ' || pusername;
+	   	--execute immediate 'grant select on v_$session to ' || pusername;
    		 
 	end;
 

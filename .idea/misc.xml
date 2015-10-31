@@ -4,14 +4,6 @@
     <entry_points version="2.0" />
   </component>
   <component name="IdProvider" IDEtalkID="01B5954787E4C6A138515A736FAC2593" />
-  <component name="IvyIDEA.ProjectSettings">
-    <option name="artifactTypeSettings">
-      <ArtifactTypeSettings />
-    </option>
-    <option name="propertiesSettings">
-      <PropertiesSettings />
-    </option>
-  </component>
   <component name="JsBowerSettings">
     <exe-path>/usr/local/bin/bower</exe-path>
     <config-path />
@@ -33,7 +25,7 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

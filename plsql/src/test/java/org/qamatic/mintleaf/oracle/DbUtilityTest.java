@@ -269,7 +269,7 @@ public class DbUtilityTest extends OracleTestCase {
     @Test
     public void testIsDatabaseUserExists() {
         DbUtility utils = new DbUtility(getSchemaOwnerContext());
-        assertTrue("DBWORKSUser user not found: ", utils.isDatabaseUserExists("DBWORKSUser"));
+        assertTrue("DBWORKSUser user not found: ", utils.isDatabaseUserExists(getSchemaOwnerContext().getDbSettings().getUsername()));
     }
 
     @Test
