@@ -1,6 +1,6 @@
 language: java
 
-before_script:
+install:
   - mvn clean
 
 script:
