@@ -4,4 +4,4 @@ install:
   - mvn clean
 
 script:
-  - mvn install -DskipTests=true
+  - mvn install
