@@ -36,37 +36,35 @@ import static org.junit.Assert.*;
 
 public class ConnectionParameterTest {
 
-    private static DbSettings mvsettings;
-
-    @BeforeClass
-    public static void setup() throws Exception {
-        mvsettings = new DbConnectionProperties("test_db.properties");
-    }
 
     @Test
     public void testDefaultDevMode() {
-
-        assertFalse(mvsettings.isDebugEnabled());
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertFalse(settings.isDebugEnabled());
     }
 
     @Test
     public void testDataFileLocation() {
-        assertEquals("?/a_data_file0", mvsettings.getDataLocation());
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertEquals("?/a_data_file0", settings.getDataLocation());
     }
 
     @Test
     public void testJdbcUrl() {
-        assertNotNull(mvsettings.getJdbcUrl());
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertNotNull(settings.getJdbcUrl());
     }
 
     @Test
     public void testUsername() {
-        assertEquals("sys", mvsettings.getUsername().toLowerCase());
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertEquals("sys", settings.getUsername().toLowerCase());
     }
 
     @Test
     public void testPassword() {
-        assertEquals("1234", mvsettings.getPassword());
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertEquals("1234", settings.getPassword());
     }
 
 }

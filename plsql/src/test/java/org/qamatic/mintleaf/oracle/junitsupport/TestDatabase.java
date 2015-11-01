@@ -41,7 +41,12 @@ public class TestDatabase {
 
     public static DbContext getSchemaOwnerContext() {
         if (mvDbContext == null) {
-            DbSettings settings = new DbConnectionProperties("test_schema.properties");
+            DbSettings settings = new DbConnectionProperties();
+
+            settings.setJdbcUrl(System.getenv("TEST_DB_URL"));
+            settings.setUsername("TestUser1");
+            settings.setPassword("TestUser1Password");
+
             BasicDataSource ds = new BasicDataSource();
             mvDbContext = new OracleDbContext(ds);
             mvDbContext.setDbSettings(settings);
@@ -57,7 +62,12 @@ public class TestDatabase {
 
     public static DbContext getSysDbaContext() {
         if (mvSysDbContext == null) {
-            DbSettings settings = new DbConnectionProperties("test_sysdba.properties");
+            DbSettings settings = new DbConnectionProperties();
+
+            settings.setJdbcUrl(System.getenv("TEST_DB_URL"));
+            settings.setUsername(System.getenv("TEST_DB_MASTER_USERNAME"));
+            settings.setPassword(System.getenv("TEST_DB_MASTER_PASSWORD"));
+
             BasicDataSource ds = new BasicDataSource();
             ds.setUrl(settings.getJdbcUrl());
             ds.setUsername(settings.getUsername());
