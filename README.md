@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/senips/mintleaf.svg?branch=master)](https://travis-ci.org/senips/mintleaf)
+
 # MintLeaf
 
 Cloudify your database development on Continuous Delivery Model
