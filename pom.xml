@@ -39,7 +39,6 @@
     <modules>
         <module>core</module>
         <module>plsql</module>
-        <module>examples-oracle</module>
     </modules>
 
     <licenses>
