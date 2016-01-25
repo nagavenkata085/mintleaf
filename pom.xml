@@ -39,6 +39,7 @@
     <modules>
         <module>core</module>
         <module>plsql</module>
+        <module>h2db</module>
     </modules>
 
     <licenses>

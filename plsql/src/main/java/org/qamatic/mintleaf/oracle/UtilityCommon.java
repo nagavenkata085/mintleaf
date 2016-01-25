@@ -82,7 +82,7 @@ public class UtilityCommon extends BaseSqlObject {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(getDbContext().getDataSource());
             final StringBuilder sql = new StringBuilder(
                     String.format(
-                            "Select Column_Name , Data_Type TYPE_NAME, Data_Length, Data_Precision , Data_Scale,Char_Length from all_tab_columns where table_name = upper(DbUtility.getTableNameIfExists('%s')) and owner=DbUtility.getOwnerName('%s') ORDER BY column_id",
+                            "Select Column_Name , Data_Type TYPE_NAME, Data_Length, Data_Precision , Data_Scale,Char_Length from all_tab_columns where table_name = upper('%s') ORDER BY column_id",
                             objectName, objectName));
 
             jdbcTemplate.query(String.format("Select decode(object_type,'TYPE',1,0) istype FROM user_objects Where object_name = upper('%s')", objectName),

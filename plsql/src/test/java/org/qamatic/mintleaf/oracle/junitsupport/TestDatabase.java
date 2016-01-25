@@ -44,8 +44,8 @@ public class TestDatabase {
             DbSettings settings = new DbConnectionProperties();
 
             settings.setJdbcUrl(System.getenv("TEST_DB_URL"));
-            settings.setUsername("TestUser1");
-            settings.setPassword("TestUser1Password");
+            settings.setUsername("TestUser3");
+            settings.setPassword("TestUser3Password");
 
             BasicDataSource ds = new BasicDataSource();
             mvDbContext = new OracleDbContext(ds);
