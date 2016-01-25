@@ -38,12 +38,12 @@ import static org.junit.Assert.assertEquals;
 public class SqlColumnTest {
     @Test
     public void testSqlDataTypeCheckNULL() {
-        Assert.assertEquals(Types.NULL, new SqlColumn().getDatatype());
+        Assert.assertEquals(Types.NULL, new OracleSqlColumn().getDatatype());
     }
 
     @Test
     public void testSqlDataTypeAutoDetect() {
-        SqlColumn d = new SqlColumn();
+        SqlColumn d = new OracleSqlColumn();
 
         d.setTypeName("varchar2");
         d.setColumnSize(10);

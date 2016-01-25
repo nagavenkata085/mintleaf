@@ -231,7 +231,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
         SqlObjectMetaData result = new SqlObjectMetaData();
         for (Field field : getTypeObjectFields(type)) {
             TypeObjectField antot = field.getAnnotation(TypeObjectField.class);
-            SqlColumn colMetaData = new SqlColumn(antot.name(), antot.dataType());
+            SqlColumn colMetaData = new OracleSqlColumn(antot.name(), antot.dataType());
             colMetaData.setCalculated(antot.isCalculated());
             colMetaData.setIgnoreForTypeObjectCreation(antot.isIgnoreForTypeObjectCreation());
             colMetaData.setColumnSize(antot.columnSize());

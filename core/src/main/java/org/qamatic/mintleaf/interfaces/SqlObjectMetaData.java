@@ -38,11 +38,13 @@ public class SqlObjectMetaData {
 
     }
 
-    public SqlObjectMetaData(String... columns) {
-        for (String column : columns) {
-            mvcolumnsMetaData.add(new SqlColumn(column));
+    public SqlObjectMetaData(SqlColumn... columns) {
+        for (SqlColumn column : columns) {
+             
+            mvcolumnsMetaData.add(column);
         }
     }
+
 
     public void add(int idx, SqlColumn column) {
         mvcolumnsMetaData.add(idx, column);

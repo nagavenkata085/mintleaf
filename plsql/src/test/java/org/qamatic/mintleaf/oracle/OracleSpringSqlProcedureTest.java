@@ -152,7 +152,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         SqlTypeObjectValue value = p.getTypeObjectValue("result");
         assertNotNull(value);
         assertEquals("TE_EMPLOYEE", value.getTypeName());
-        value.getMetaData().add(new SqlColumn("emp_id", "number"));
+        value.getMetaData().add(new OracleSqlColumn("emp_id", "number"));
         assertEquals(31, value.getIntValue("emp_id"));
     }
 
@@ -239,7 +239,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
             }
         };
         p.createTypeObjectOutParameter("result", TStudentType.class);
-        p.getTypeObjectValue("result").getMetaData().add(new SqlColumn("student_id", "number"));
+        p.getTypeObjectValue("result").getMetaData().add(new OracleSqlColumn("student_id", "number"));
 
         TStudentType student = (TStudentType) p.getTypeObject("result");
 

@@ -50,8 +50,8 @@ public class OracleTypeObjectValueTest extends OracleTestCase {
 
     private static SqlObjectMetaData getSampleMetaData() {
         SqlObjectMetaData metadata = new SqlObjectMetaData();
-        metadata.add(new SqlColumn("emp_id", "number"));
-        metadata.add(new SqlColumn("emp_name", "varchar(2000)"));
+        metadata.add(new OracleSqlColumn("emp_id", "number"));
+        metadata.add(new OracleSqlColumn("emp_name", "varchar(2000)"));
         return metadata;
     }
 
@@ -63,8 +63,8 @@ public class OracleTypeObjectValueTest extends OracleTestCase {
     @Test
     public void testGetColumnUsingMetaData() throws SQLException {
         SqlTypeObjectValue obj = new MockOracleTypeObjectValue(getSchemaOwnerContext(), "Employee");
-        obj.getMetaData().add(new SqlColumn("emp_id", "number"));
-        obj.getMetaData().add(new SqlColumn("emp_name", "varchar(2000)"));
+        obj.getMetaData().add(new OracleSqlColumn("emp_id", "number"));
+        obj.getMetaData().add(new OracleSqlColumn("emp_name", "varchar(2000)"));
         mvtestObjects.clear();
         mvtestObjects.add("1");
         mvtestObjects.add("scott");
@@ -87,7 +87,7 @@ public class OracleTypeObjectValueTest extends OracleTestCase {
     @Test
     public void testgetIntValue() throws SQLException {
         SqlTypeObjectValue obj = new MockOracleTypeObjectValue(getSchemaOwnerContext(), "Employee");
-        obj.getMetaData().add(new SqlColumn("emp_id", "number"));
+        obj.getMetaData().add(new OracleSqlColumn("emp_id", "number"));
         mvtestObjects.clear();
         mvtestObjects.add(100);
         assertEquals(100, obj.getIntValue("emp_id"));

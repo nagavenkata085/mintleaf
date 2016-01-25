@@ -69,9 +69,9 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     @SuppressWarnings("boxing")
     private SqlTypeObjectValue getTestDataScott100(DbContext context) throws SQLException {
         SqlTypeObjectValue typeValue = new MockOracleTypeObjectValue(context, "Employee");
-        typeValue.getMetaData().add(new SqlColumn("ID", "number"));
-        typeValue.getMetaData().add(new SqlColumn("FIRST_NAME", "varchar(2000)"));
-        typeValue.getMetaData().add(new SqlColumn("LAST_NAME", "number"));
+        typeValue.getMetaData().add(new OracleSqlColumn("ID", "number"));
+        typeValue.getMetaData().add(new OracleSqlColumn("FIRST_NAME", "varchar(2000)"));
+        typeValue.getMetaData().add(new OracleSqlColumn("LAST_NAME", "number"));
         mvTestObjects.clear();
         mvTestObjects.add(100);
         mvTestObjects.add("scott");

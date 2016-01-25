@@ -45,15 +45,15 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
 
     private static SqlObjectMetaData getSampleMetaData() {
         SqlObjectMetaData metadata = new SqlObjectMetaData();
-        metadata.add(new SqlColumn("emp_id", "number"));
-        metadata.add(new SqlColumn("emp_name", "varchar(2000)"));
+        metadata.add(new OracleSqlColumn("emp_id", "number"));
+        metadata.add(new OracleSqlColumn("emp_name", "varchar(2000)"));
         return metadata;
     }
 
     @Test
     public void testDbObjectColumnMetaData() {
 
-        SqlColumn data = new SqlColumn("emp_id", "number");
+        SqlColumn data = new OracleSqlColumn("emp_id", "number");
         assertEquals("emp_id", data.getColumnName());
         assertEquals("number", data.getTypeName());
         data.setColumnName("emp_name");

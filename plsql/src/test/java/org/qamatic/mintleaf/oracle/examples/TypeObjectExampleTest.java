@@ -34,10 +34,7 @@ import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.core.SqlObjectDependsOn;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.oracle.DbAssert;
-import org.qamatic.mintleaf.oracle.DbUtility;
-import org.qamatic.mintleaf.oracle.OraclePackage;
-import org.qamatic.mintleaf.oracle.OracleTypeObject;
+import org.qamatic.mintleaf.oracle.*;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
 import java.io.IOException;
@@ -194,7 +191,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
 
         @Override
         public SqlObjectMetaData getMetaData() throws SQLException {
-            return new SqlObjectMetaData("id", "first_name", "last_name");
+            return new SqlObjectMetaData(new OracleSqlColumn("id"), new OracleSqlColumn("first_name"), new OracleSqlColumn("last_name"));
 
         }
     }

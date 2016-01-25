@@ -104,7 +104,7 @@ public class UtilityCommon extends BaseSqlObject {
                 @Override
                 public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-                    SqlColumn colMetaData = new SqlColumn();
+                    SqlColumn colMetaData = new OracleSqlColumn();
                     colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
                     colMetaData.setTypeName(rs.getString("TYPE_NAME"));
                     // colMetaData.setDatatype(rs.getString("DATA_TYPE"));
@@ -129,7 +129,7 @@ public class UtilityCommon extends BaseSqlObject {
         Connection dconn = getDbContext().getDataSource().getConnection();
         ResultSet rs = dconn.getMetaData().getColumns(null, getDbContext().getDbSettings().getUsername(), objectName, null);
         while (rs.next()) {
-            SqlColumn colMetaData = new SqlColumn();
+            SqlColumn colMetaData = new OracleSqlColumn();
             colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
             colMetaData.setTypeName(rs.getString("TYPE_NAME"));
             colMetaData.setDatatype(rs.getInt("DATA_TYPE"));

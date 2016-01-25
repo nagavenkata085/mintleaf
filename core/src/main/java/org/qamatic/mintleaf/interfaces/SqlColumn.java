@@ -30,29 +30,17 @@ package org.qamatic.mintleaf.interfaces;
 import java.sql.Date;
 import java.sql.Types;
 
-public class SqlColumn {
-    private String mvColumnName;
-    private String mvTypeName;
-    private int mvDatatype;
-    private boolean mvNullable;
-    private int mvColumnSize;
-    private int mvDecimalDigits;
-    private boolean mvCalculated;
-    private boolean mvIgnoreForTypeObjectCreation;
+public abstract class SqlColumn {
+    protected String mvColumnName;
+    protected String mvTypeName;
+    protected int mvDatatype;
+    protected boolean mvNullable;
+    protected int mvColumnSize;
+    protected int mvDecimalDigits;
+    protected boolean mvCalculated;
+    protected boolean mvIgnoreForTypeObjectCreation;
 
-    public SqlColumn() {
 
-    }
-
-    public SqlColumn(String column) {
-        mvColumnName = column;
-    }
-
-    public SqlColumn(String column, String typeName) {
-        mvColumnName = column;
-        mvTypeName = typeName;
-
-    }
 
     public String getColumnName() {
         return mvColumnName;
@@ -63,23 +51,6 @@ public class SqlColumn {
     }
 
     public String getTypeName() {
-        if ((mvTypeName == null) || (mvTypeName.contains("("))) {
-            return mvTypeName;
-        }
-        if (mvTypeName.equalsIgnoreCase("Date") || mvTypeName.equalsIgnoreCase("Blob") || mvTypeName.equalsIgnoreCase("SDO_GEOMETRY") || mvTypeName.toLowerCase().startsWith("timestamp")) {
-            return mvTypeName;
-        }
-
-        if ((getColumnSize() != 0) && (getDecimalDigits() == 0)) {
-            if (mvTypeName.equalsIgnoreCase("Varchar2")) {
-                return mvTypeName + "(" + getColumnSize() + " CHAR)";
-            }
-
-            return mvTypeName + "(" + getColumnSize() + ")";
-        }
-        if ((getColumnSize() != 0) && (getDecimalDigits() != 0)) {
-            return mvTypeName + "(" + getColumnSize() + "," + getDecimalDigits() + ")";
-        }
         return mvTypeName;
     }
 
@@ -125,24 +96,9 @@ public class SqlColumn {
 
     @SuppressWarnings("rawtypes")
     public Class getJavaDataType() {
-        switch (getDatatype()) {
-            case Types.DECIMAL:
-            case Types.DOUBLE:
-            case Types.FLOAT:
-            case Types.NUMERIC:
-                if (getDecimalDigits() != 0) {
-                    return Double.class;
-                }
-                return Integer.class;
 
-            case Types.DATE:
-            case Types.TIMESTAMP:
-                return Date.class;
+        return String.class;
 
-            default:
-                return String.class;
-
-        }
     }
 
     public boolean isCalculated() {
