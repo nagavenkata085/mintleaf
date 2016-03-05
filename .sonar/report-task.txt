@@ -1,0 +1,5 @@
+projectKey=org.qamatic
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/org.qamatic
+ceTaskId=AVNI3DGZoyDK4vLbDlMM
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVNI3DGZoyDK4vLbDlMM

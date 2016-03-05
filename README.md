@@ -17,6 +17,13 @@ Cloudify your database development on Continuous Delivery Model
 ## Architecture
 ![Architecture](https://github.com/senips/mintleaf/blob/master/img/mintleafarch.jpg)
 
+## Build
+mvn clean build
+
+For Sonar:
+
+mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test sonar:sonar
+
 ## License
 
 The MIT License (MIT)
