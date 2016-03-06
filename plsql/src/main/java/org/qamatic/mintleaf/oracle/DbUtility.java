@@ -28,24 +28,21 @@
 package org.qamatic.mintleaf.oracle;
 
 
-import org.qamatic.mintleaf.core.SqlObjectDependsOn;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
-import org.qamatic.mintleaf.oracle.typeobjects.TStringList;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@SqlObjectInfo(name = "DbUtility", source = "/DbUtility.sql")
-@SqlObjectDependsOn(Using = {TStringList.class})
+@SqlObjectInfo(name = "DbUtility")
 public class DbUtility extends OraclePackage implements DbUtilityIntf {
 
     public DbUtility(DbContext context) {
@@ -55,6 +52,11 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
     @Override
     public void drop() {
         // no need to drop, all test db assertions are depending on it.
+    }
+
+    @Override
+    public void create() throws SQLException, IOException {
+        //no need to create anything.
     }
 
     @Override
@@ -327,11 +329,16 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
     }
 
     @Override
-    public List<String> getPrimaryKeys(String tableName) {
+    public List<String> getPrimaryKeys(String ownerName, String tableName) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDbContext().getDataSource());
+
+        String owner = "";
+        if (ownerName != null){
+            owner = String.format(" and ucc.owner=Upper('%s')", ownerName);
+        }
         String sql = String
-                .format("select ucc.column_name as keyname from all_constraints uc, all_cons_columns ucc where uc.table_name = upper(DbUtility.getTableNameIfExists('%s')) and uc.constraint_type = 'P' and (uc.constraint_name=ucc.constraint_name) and  uc.owner=ucc.owner and ucc.owner=Upper(DbUtility.getOwnerName('%s'))",
-                        tableName, tableName);
+                .format("select ucc.column_name as keyname from all_constraints uc, all_cons_columns ucc where uc.table_name = upper('%s') and uc.constraint_type = 'P' and (uc.constraint_name=ucc.constraint_name) and  uc.owner=ucc.owner %s",
+                        tableName, owner);
         return jdbcTemplate
                 .query(sql, new RowMapper<String>() {
                     @Override
@@ -342,14 +349,6 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
                 });
     }
 
-    @Override
-    public String getTableNameIfExists(String psynonymvname) {
-        SqlProcedure proc = getFunction("getTableNameIfExists", Types.VARCHAR);
-        proc.createParameter("psynonymvname", Types.VARCHAR);
-        proc.setValue("psynonymvname", psynonymvname);
-        proc.execute();
-        return proc.getStringValue("result");
-    }
 
     @Override
     public List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData) {

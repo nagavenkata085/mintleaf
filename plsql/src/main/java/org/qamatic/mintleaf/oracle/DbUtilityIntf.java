@@ -118,9 +118,8 @@ public interface DbUtilityIntf {
 
     List<String> getSqlObjects(String objectType);
 
-    List<String> getPrimaryKeys(String tableName);
+    List<String> getPrimaryKeys(String ownerName, String tableName);
 
-    String getTableNameIfExists(String psynonymvname);
 
     List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData);
 

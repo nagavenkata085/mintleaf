@@ -38,7 +38,6 @@ import org.qamatic.mintleaf.interfaces.SqlObject;
 import org.qamatic.mintleaf.interfaces.SqlPackage;
 import org.qamatic.mintleaf.oracle.DbUtility;
 import org.qamatic.mintleaf.oracle.OraclePackage;
-import org.qamatic.mintleaf.oracle.typeobjects.TStringList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,11 +124,11 @@ public class SqlObjectHelperTest {
         List<Class<MockTestPackage3>> pkgList = new ArrayList<Class<MockTestPackage3>>();
         SqlObjectHelper.walkDependency(pkgList, MockTestPackage3.class);
 
-        assertEquals(pkgList.size(), 3);
+        assertEquals(pkgList.size(), 2);
 
-        assertEquals(pkgList.get(0), TStringList.class);
-        assertEquals(pkgList.get(1), DbUtility.class);
-        assertEquals(pkgList.get(2), MockTestPackage2.class);
+
+        assertEquals(pkgList.get(0), DbUtility.class);
+        assertEquals(pkgList.get(1), MockTestPackage2.class);
     }
 
     @Test
@@ -139,11 +138,11 @@ public class SqlObjectHelperTest {
         Class<? extends SqlObject>[] items = SqlObjectHelper.getDependencyItems(pkg);
         assertNotNull(items);
 
-        assertEquals(items.length, 3);
+        assertEquals(items.length, 2);
 
-        assertEquals(items[0], TStringList.class);
-        assertEquals(items[1], DbUtility.class);
-        assertEquals(items[2], MockTestPackage2.class);
+
+        assertEquals(items[0], DbUtility.class);
+        assertEquals(items[1], MockTestPackage2.class);
     }
 
     @Test
@@ -151,14 +150,13 @@ public class SqlObjectHelperTest {
         List<Class<MockTestPackage5>> pkgList = new ArrayList<Class<MockTestPackage5>>();
         SqlObjectHelper.walkDependency(pkgList, MockTestPackage5.class);
 
-        assertEquals(pkgList.size(), 5);
+        assertEquals(pkgList.size(), 4);
         Object[] items = pkgList.toArray();
 
-        assertEquals(items[0], TStringList.class);
-        assertEquals(items[1], DbUtility.class);
-        assertEquals(items[2], MockTestPackage2.class);
-        assertEquals(items[3], MockTestPackage3.class);
-        assertEquals(items[4], MockTestPackage4.class);
+        assertEquals(items[0], DbUtility.class);
+        assertEquals(items[1], MockTestPackage2.class);
+        assertEquals(items[2], MockTestPackage3.class);
+        assertEquals(items[3], MockTestPackage4.class);
 
     }
 
@@ -167,16 +165,16 @@ public class SqlObjectHelperTest {
         List<Class<MockTestPackageSelfDependency>> pkgList = new ArrayList<Class<MockTestPackageSelfDependency>>();
         SqlObjectHelper.walkDependency(pkgList, MockTestPackageSelfDependency.class);
 
-        assertEquals(pkgList.size(), 5);
+        assertEquals(pkgList.size(), 4);
         @SuppressWarnings("unchecked")
         Class<? extends SqlPackage>[] items = pkgList.toArray(new Class[pkgList.size()]);
 
 
-        assertEquals(items[0], TStringList.class);
-        assertEquals(items[1], DbUtility.class);
-        assertEquals(items[2], MockTestPackage2.class);
-        assertEquals(items[3], MockTestPackage3.class);
-        assertEquals(items[4], MockTestPackage4.class);
+
+        assertEquals(items[0], DbUtility.class);
+        assertEquals(items[1], MockTestPackage2.class);
+        assertEquals(items[2], MockTestPackage3.class);
+        assertEquals(items[3], MockTestPackage4.class);
 
     }
 
