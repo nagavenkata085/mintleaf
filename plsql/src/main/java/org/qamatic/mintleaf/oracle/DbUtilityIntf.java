@@ -125,7 +125,6 @@ public interface DbUtilityIntf {
 
     List<PLTableColumnDef> getTableColumnCodeObjects(String tableName) throws SQLException;
 
-    void createSynonym(String synonymName, String SchemaName, String objectName);
 
     void grantPrivilege(String schemaName, String privilegeName, String objectName);
 

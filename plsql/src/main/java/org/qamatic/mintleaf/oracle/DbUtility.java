@@ -269,12 +269,10 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         }
         logger.info("exec:" + typeName);
         JdbcTemplate template = new JdbcTemplate(getDbContext().getDataSource());
-        PLAlterType ptype = new PLAlterType(typeName);
 
-        template.execute(ptype.toString());
+        template.execute(String.format("alter type %s compile", typeName));
         if (getDbContext().isSqlObjectExists(typeName, "TYPE BODY", true)) {
-            ptype.setBody(true);
-            template.execute(ptype.toString());
+            template.execute(String.format("alter type %s compile body", typeName));
         }
 
     }
@@ -364,13 +362,6 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
     public List<PLTableColumnDef> getTableColumnCodeObjects(String tableName) throws SQLException {
         UtilityCommon utilityCommon = new UtilityCommon(getDbContext());
         return getTableColumnCodeObjects(utilityCommon.getObjectMetaData(tableName, true));
-    }
-
-    @Override
-    public void createSynonym(String synonymName, String SchemaName, String objectName) {
-
-        JdbcTemplate template = new JdbcTemplate(getDbContext().getDataSource());
-        template.execute(new PLCreateSynonym(synonymName, SchemaName, objectName).toString());
     }
 
     @Override
