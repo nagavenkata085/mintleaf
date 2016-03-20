@@ -41,7 +41,7 @@
     <dependencies>
         <dependency>
             <groupId>org.qamatic</groupId>
-            <artifactId>mintleaf-core</artifactId>
+            <artifactId>mintleaf-dbworks</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
