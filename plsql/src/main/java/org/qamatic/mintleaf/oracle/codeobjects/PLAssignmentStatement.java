@@ -27,26 +27,18 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.AssignmentStatement;
 import org.qamatic.mintleaf.interfaces.StatementObject;
 
-public class PLAssignmentStatement extends AssignmentStatement {
+public class PLAssignmentStatement  extends StatementObject {
 
     private StatementObject mvstmt;
     private boolean mvinplaceAssign;
+    private final String mvleftSide;
+    private final String mvrightSide;
 
     public PLAssignmentStatement(String leftSide, String rightSide) {
-        super(leftSide, rightSide);
-    }
-
-    public PLAssignmentStatement(String leftSide, StatementObject stmt) {
-        super(leftSide, stmt.toString());
-        mvstmt = stmt;
-    }
-
-    public PLAssignmentStatement(String leftSide, String rightSide, boolean inplaceAssign) {
-        super(leftSide, rightSide);
-        mvinplaceAssign = inplaceAssign;
+        mvleftSide = leftSide;
+        mvrightSide = rightSide;
     }
 
     @Override

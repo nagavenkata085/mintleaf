@@ -31,18 +31,17 @@
         <processorPath useClasspath="true" />
         <module name="mintleaf-core" />
       </profile>
-      <profile default="false" name="Annotation profile for h2db" enabled="true">
+      <profile default="false" name="Annotation profile for mintleaf-h2db" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="h2db" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="h2db" target="1.7" />
       <module name="mintleaf" target="1.7" />
       <module name="mintleaf-core" target="1.7" />
+      <module name="mintleaf-h2db" target="1.7" />
       <module name="mintleaf-plsql" target="1.7" />
     </bytecodeTargetLevel>
   </component>

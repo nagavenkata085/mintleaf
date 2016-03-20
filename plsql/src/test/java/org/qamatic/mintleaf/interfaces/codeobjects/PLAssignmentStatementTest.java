@@ -44,12 +44,5 @@ public class PLAssignmentStatementTest {
 
     }
 
-    @Test
-    public void testPLAssignmentStatementInPlaceAssign() {
-        assertEquals(String.format("x = y"), new PLAssignmentStatement("x", "y", true).toString());
 
-        assertEquals(String.format("target.x = to_date(source.x, 'ddmmyy')"),
-                new PLAssignmentStatement("target.x", "to_date(source.x, 'ddmmyy')", true).toString());
-
-    }
 }

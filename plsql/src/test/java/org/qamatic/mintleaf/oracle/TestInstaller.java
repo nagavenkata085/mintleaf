@@ -29,7 +29,6 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.DbModule;
-import org.qamatic.mintleaf.oracle.typeobjects.TStringList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -55,8 +54,7 @@ public class TestInstaller implements DbModule {
         provision.create();
 
         provision.recreateSchemaUser(mvSchemaOwnerDbContext.getDbSettings().getUsername(), mvSchemaOwnerDbContext.getDbSettings().getPassword());
-        TStringList s = new TStringList(mvSchemaOwnerDbContext);
-        s.createAll();
+
         if (mvSysDbContext.getDbSettings().isDebugEnabled()) {
 
             JdbcTemplate template = new JdbcTemplate(mvSysDbContext.getDataSource());

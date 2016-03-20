@@ -29,28 +29,12 @@ package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.DbAssert;
-import org.qamatic.mintleaf.oracle.DbUtility;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DbAssertsTest extends OracleTestCase {
-
-
-    @Test
-    public void testaPackage() throws SQLException, IOException {
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "DbUtility");
-    }
-
-    @Test
-    public void sqlutilsSelfTest() throws SQLException, IOException {
-        DbUtility utilPkg = new DbUtility(getSchemaOwnerContext());
-        DbAssert.assertPackageExists(utilPkg);
-    }
-
 
     @Test
     public void testAssertDateDifference() throws ParseException {

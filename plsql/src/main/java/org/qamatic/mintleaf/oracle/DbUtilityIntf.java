@@ -118,15 +118,13 @@ public interface DbUtilityIntf {
 
     List<String> getSqlObjects(String objectType);
 
-    List<String> getPrimaryKeys(String tableName);
+    List<String> getPrimaryKeys(String ownerName, String tableName);
 
-    String getTableNameIfExists(String psynonymvname);
 
     List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData);
 
     List<PLTableColumnDef> getTableColumnCodeObjects(String tableName) throws SQLException;
 
-    void createSynonym(String synonymName, String SchemaName, String objectName);
 
     void grantPrivilege(String schemaName, String privilegeName, String objectName);
 

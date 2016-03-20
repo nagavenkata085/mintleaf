@@ -368,16 +368,8 @@ public class DbUtilityTest extends OracleTestCase {
     @Test
     public void testGetUserObjectList() {
         DbUtility utils = new DbUtility(getSchemaOwnerContext());
-        boolean dblibPackageFound = false;
         List<String> list = utils.getSqlObjects("PACKAGE");
-        for (String string : list) {
-            if (string.equals("DBUTILITY")) {
-                dblibPackageFound = true;
-                break;
-            }
-        }
-
-        assertTrue("getSqlObjects does not return DbUtility", dblibPackageFound);
+        assertTrue("getSqlObjects does not return any one of the pacakge at least", list.size()!=0);
     }
 
     @Test
@@ -386,7 +378,7 @@ public class DbUtilityTest extends OracleTestCase {
                 "create person table"});
         try {
             DbUtility utils = new DbUtility(getSchemaOwnerContext());
-            List<String> keys = utils.getPrimaryKeys("person");
+            List<String> keys = utils.getPrimaryKeys(null, "person");
             assertEquals("ID", keys.get(0));
 
         } finally {
