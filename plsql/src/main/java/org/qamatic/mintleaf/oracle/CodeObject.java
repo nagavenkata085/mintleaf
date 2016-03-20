@@ -25,21 +25,8 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public abstract class CreateSynonym implements CodeObject {
-
-    protected String mvsynonymName;
-    protected String mvschemaName;
-    protected String mvobjectName;
-    protected String mvprivilegeName;
-
-    public CreateSynonym(String synonymName, String schemaName, String objectName) {
-
-        mvsynonymName = synonymName;
-        mvschemaName = schemaName;
-        mvobjectName = objectName;
-    }
-
+public interface CodeObject {
 
 }

@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.interfaces.codeobjects;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.interfaces.MemberField;
+import org.qamatic.mintleaf.oracle.MemberField;
 import org.qamatic.mintleaf.oracle.codeobjects.PLAssignmentStatement;
 import org.qamatic.mintleaf.oracle.codeobjects.PLMemberMethodParameter;
 import org.qamatic.mintleaf.oracle.codeobjects.PLMemberParameterDirection;

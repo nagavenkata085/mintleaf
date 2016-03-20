@@ -25,26 +25,16 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public class MethodPair {
+public abstract class StatementObject implements CodeObject {
+    private final CodeObjectCollection<StatementObject> mvstatements = new CodeObjects<StatementObject>();
 
-    private MemberMethod mvmemberMethod;
-    private MemberMethod mvmemberMethodBody;
-
-    public MemberMethod getMemberMethod() {
-        return mvmemberMethod;
+    public void addStatement(StatementObject stmt) {
+        mvstatements.add(stmt);
     }
 
-    public void setMemberMethod(MemberMethod memberMethod) {
-        mvmemberMethod = memberMethod;
-    }
-
-    public MemberMethod getMemberMethodBody() {
-        return mvmemberMethodBody;
-    }
-
-    public void setMemberMethodBody(MemberMethod memberMethodBody) {
-        mvmemberMethodBody = memberMethodBody;
+    public CodeObjectCollection<StatementObject> getStatements() {
+        return mvstatements;
     }
 }

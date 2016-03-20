@@ -25,12 +25,12 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public abstract class MemberMethodParameter extends MemberField {
+import java.util.ArrayList;
 
-    public MemberMethodParameter(String leftSide, String rightSide) {
-        super(leftSide, rightSide);
-    }
+public class CodeObjects<T extends CodeObject> extends ArrayList<T> implements CodeObjectCollection<T> {
+
+    private static final long serialVersionUID = -4863819368120962653L;
 
 }

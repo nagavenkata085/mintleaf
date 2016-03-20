@@ -25,16 +25,16 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public abstract class StatementObject implements CodeObject {
-    private final CodeObjectCollection<StatementObject> mvstatements = new CodeObjects<StatementObject>();
+public abstract class DropType implements CodeObject {
 
-    public void addStatement(StatementObject stmt) {
-        mvstatements.add(stmt);
+    protected String mvclassName;
+
+    public DropType(String className) {
+        mvclassName = className;
     }
 
-    public CodeObjectCollection<StatementObject> getStatements() {
-        return mvstatements;
-    }
+    @Override
+    public abstract String toString();
 }

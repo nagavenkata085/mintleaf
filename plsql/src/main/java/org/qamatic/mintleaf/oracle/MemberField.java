@@ -25,8 +25,22 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public interface CodeObject {
+import org.qamatic.mintleaf.interfaces.ColumnDef;
+
+public  class MemberField extends ColumnDef implements CodeObject {
+
+
+
+    public MemberField(String leftSide, String rightSide) {
+        super(leftSide, rightSide);
+    }
+
+
+    @Override
+    public String toString() {
+        return mvleftSide + " " + mvrightSide;
+    }
 
 }

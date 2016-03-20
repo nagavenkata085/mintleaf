@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.StatementObject;
+import org.qamatic.mintleaf.oracle.StatementObject;
 
 public class PLExecuteImmediate extends StatementObject {
 

@@ -25,29 +25,26 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public abstract class MemberField implements CodeObject {
+public class MethodPair {
 
-    protected final String mvleftSide;
-    protected final String mvrightSide;
+    private MemberMethod mvmemberMethod;
+    private MemberMethod mvmemberMethodBody;
 
-    public MemberField(String leftSide, String rightSide) {
-        mvleftSide = leftSide;
-        mvrightSide = rightSide;
+    public MemberMethod getMemberMethod() {
+        return mvmemberMethod;
     }
 
-    public String getLeftSide() {
-        return mvleftSide;
+    public void setMemberMethod(MemberMethod memberMethod) {
+        mvmemberMethod = memberMethod;
     }
 
-    public String getrightSide() {
-        return mvrightSide;
+    public MemberMethod getMemberMethodBody() {
+        return mvmemberMethodBody;
     }
 
-    @Override
-    public String toString() {
-        return mvleftSide + " " + mvrightSide;
+    public void setMemberMethodBody(MemberMethod memberMethodBody) {
+        mvmemberMethodBody = memberMethodBody;
     }
-
 }

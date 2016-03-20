@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.CodeObjectCollection;
-import org.qamatic.mintleaf.interfaces.CodeObjects;
-import org.qamatic.mintleaf.interfaces.StatementObject;
+import org.qamatic.mintleaf.oracle.CodeObjectCollection;
+import org.qamatic.mintleaf.oracle.CodeObjects;
+import org.qamatic.mintleaf.oracle.StatementObject;
 
 public class PLInsert extends StatementObject {
 

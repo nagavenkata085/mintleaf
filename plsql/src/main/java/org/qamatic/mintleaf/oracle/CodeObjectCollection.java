@@ -25,12 +25,10 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class CodeObjects<T extends CodeObject> extends ArrayList<T> implements CodeObjectCollection<T> {
-
-    private static final long serialVersionUID = -4863819368120962653L;
+public interface CodeObjectCollection<T extends CodeObject> extends List<T> {
 
 }

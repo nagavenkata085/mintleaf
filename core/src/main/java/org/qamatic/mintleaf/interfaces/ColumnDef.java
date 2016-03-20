@@ -27,10 +27,22 @@
 
 package org.qamatic.mintleaf.interfaces;
 
-public abstract class ColumnDef extends MemberField {
+public abstract class ColumnDef {
+
+
+    protected final String mvleftSide;
+    protected final String mvrightSide;
 
     public ColumnDef(String leftSide, String rightSide) {
-        super(leftSide, rightSide);
+        mvleftSide = leftSide;
+        mvrightSide = rightSide;
     }
 
+    public String getLeftSide() {
+        return mvleftSide;
+    }
+
+    public String getrightSide() {
+        return mvrightSide;
+    }
 }

@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.CodeObject;
+import org.qamatic.mintleaf.oracle.CodeObject;
 
 public class PLTypeMemberMethodBody extends PLMemberMethod {
 

@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.MemberField;
+import org.qamatic.mintleaf.oracle.MemberField;
 
 public class PLMemberField extends MemberField {
 

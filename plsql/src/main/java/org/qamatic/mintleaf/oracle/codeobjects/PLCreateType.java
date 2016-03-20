@@ -27,10 +27,10 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.CodeObject;
-import org.qamatic.mintleaf.interfaces.CodeObjectCollection;
-import org.qamatic.mintleaf.interfaces.CodeObjects;
-import org.qamatic.mintleaf.interfaces.CreateType;
+import org.qamatic.mintleaf.oracle.CodeObject;
+import org.qamatic.mintleaf.oracle.CodeObjectCollection;
+import org.qamatic.mintleaf.oracle.CodeObjects;
+import org.qamatic.mintleaf.oracle.CreateType;
 
 public class PLCreateType extends CreateType {
 

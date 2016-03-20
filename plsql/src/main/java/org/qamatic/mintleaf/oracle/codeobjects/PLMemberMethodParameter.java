@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.MemberMethodParameter;
+import org.qamatic.mintleaf.oracle.MemberMethodParameter;
 
 public class PLMemberMethodParameter extends MemberMethodParameter {
 

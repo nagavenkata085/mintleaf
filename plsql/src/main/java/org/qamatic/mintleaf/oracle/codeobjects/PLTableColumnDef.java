@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.ColumnDef;
+import org.qamatic.mintleaf.oracle.MemberField;
 
-public class PLTableColumnDef extends ColumnDef {
+public class PLTableColumnDef extends MemberField {
 
     public PLTableColumnDef(String leftSide, String rightSide) {
         super(leftSide, rightSide);

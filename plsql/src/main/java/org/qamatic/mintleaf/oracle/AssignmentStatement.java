@@ -25,16 +25,16 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public abstract class DropType implements CodeObject {
+public abstract class AssignmentStatement extends StatementObject {
 
-    protected String mvclassName;
+    protected final String mvleftSide;
+    protected final String mvrightSide;
 
-    public DropType(String className) {
-        mvclassName = className;
+    public AssignmentStatement(String leftSide, String rightSide) {
+        mvleftSide = leftSide;
+        mvrightSide = rightSide;
     }
 
-    @Override
-    public abstract String toString();
 }

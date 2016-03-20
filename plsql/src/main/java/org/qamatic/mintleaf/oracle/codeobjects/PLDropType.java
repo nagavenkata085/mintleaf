@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.codeobjects;
 
-import org.qamatic.mintleaf.interfaces.DropType;
+import org.qamatic.mintleaf.oracle.DropType;
 
 public class PLDropType extends DropType {
 

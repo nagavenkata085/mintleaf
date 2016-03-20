@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
 public abstract class CreateType implements CodeObject {
 

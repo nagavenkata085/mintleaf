@@ -25,16 +25,12 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public abstract class AssignmentStatement extends StatementObject {
+public abstract class MemberMethodParameter extends MemberField {
 
-    protected final String mvleftSide;
-    protected final String mvrightSide;
-
-    public AssignmentStatement(String leftSide, String rightSide) {
-        mvleftSide = leftSide;
-        mvrightSide = rightSide;
+    public MemberMethodParameter(String leftSide, String rightSide) {
+        super(leftSide, rightSide);
     }
 
 }
