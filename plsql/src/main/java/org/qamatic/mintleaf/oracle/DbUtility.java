@@ -59,7 +59,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         //no need to create anything.
     }
 
-    @Override
+
     public boolean isPackageExistsByName(String pkgName) {
         return isPackageInterfaceExists(pkgName);
     }
@@ -69,27 +69,27 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return isTableInterfaceExists(pkgName);
     }
 
-    @Override
+
     public boolean isPackageExists(String pkgName) {
         return isPackageInterfaceExists(pkgName);
     }
 
-    @Override
+
     public boolean isTypeExists(String typeName) {
         return isTypeExists(typeName, false);
     }
 
-    @Override
+
     public boolean isTypeBodyExists(String typeName) {
         return isTypeBodyExists(typeName, false);
     }
 
-    @Override
+
     public boolean isTypeBodyExists(String typeName, boolean igoreValidity) {
         return getDbContext().isSqlObjectExists(typeName, "TYPE BODY", igoreValidity);
     }
 
-    @Override
+
     public boolean isTypeExists(String typeName, boolean igoreValidity) {
         return getDbContext().isSqlObjectExists(typeName, "TYPE", igoreValidity);
     }
@@ -104,22 +104,22 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return getDbContext().isSqlObjectExists(triggerName, "TRIGGER", igoreValidity);
     }
 
-    @Override
+
     public boolean isSynonymExists(String synonymName) {
         return isSynonymExists(synonymName, false);
     }
 
-    @Override
+
     public boolean isSynonymExists(String synonymName, boolean igoreValidity) {
         return getDbContext().isSqlObjectExists(synonymName, "SYNONYM", igoreValidity);
     }
 
-    @Override
+
     public boolean isPackageExists(OraclePackage pkg) {
         return isPackageInterfaceExists(pkg.getName());
     }
 
-    @Override
+
     public boolean isPackageExists(Class<? extends OraclePackage> pkgClass) {
         SqlObjectInfo objAnnot = SqlObjectHelper.getDbObjectInfo(pkgClass);
         if (objAnnot == null) {
@@ -128,27 +128,27 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return isPackageInterfaceExists(objAnnot.name());
     }
 
-    @Override
+
     public boolean isPackageInterfaceExists(String pkgName) {
         return isUserObjectExists(pkgName, "PACKAGE");
     }
 
-    @Override
+
     public boolean isPackageInterfaceExists(String pkgName, boolean ignoreValidity) {
         return getDbContext().isSqlObjectExists(pkgName, "PACKAGE", ignoreValidity);
     }
 
-    @Override
+
     public boolean isPackageBodyExists(String pkgName) {
         return isUserObjectExists(pkgName, "PACKAGE BODY");
     }
 
-    @Override
+
     public boolean isTableInterfaceExists(String pkgName) {
         return isUserObjectExists(pkgName, "TABLE");
     }
 
-    @Override
+
     public boolean isSequenceExists(String sequenceName) {
 
         int cnt = getDbContext().getCount("user_sequences", "sequence_name = ?", new Object[]{sequenceName.toUpperCase()});
@@ -205,24 +205,24 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return getDbContext().getCount("all_users", "username = upper(?)", new Object[]{userName}) != 0;
     }
 
-    @Override
+
     public void createType(String typeName) {
         createType(typeName, null, null);
     }
 
-    @Override
+
     public void createType(String typeName, List<PLTableColumnDef> columns) {
 
         createType(typeName, null, columns);
     }
 
-    @Override
+
     public PLCreateType createType(String typeName, String parentClassName, List<PLTableColumnDef> columns) {
         return createType(typeName, parentClassName, columns, true);
 
     }
 
-    @Override
+
     public PLCreateType createType(String typeName, String parentClassName, List<PLTableColumnDef> columns, boolean bCreate) {
 
         PLCreateType t = new PLCreateType(typeName, parentClassName);
@@ -241,28 +241,28 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return t;
     }
 
-    @Override
+
     public void createType(String typeName, String parentClassName) {
 
         createType(typeName, parentClassName, new ArrayList<PLTableColumnDef>());
     }
 
-    @Override
+
     public PLCreateType createTypeFromTable(String typeName, String parentClassName, String tableName) throws SQLException {
         return createTypeFromTable(typeName, parentClassName, tableName, true);
     }
 
-    @Override
+
     public PLCreateType createTypeFromTable(String typeName, String parentClassName, String tableName, boolean bCreate) throws SQLException {
         return createType(typeName, parentClassName, getTableColumnCodeObjects(tableName), bCreate);
     }
 
-    @Override
+
     public void alterType(Class<? extends SqlTypeObject> aType) {
         alterType(SqlObjectHelper.getDbObjectInfo(aType).name());
     }
 
-    @Override
+
     public void alterType(String typeName) {
         if (!getDbContext().isSqlObjectExists(typeName, "TYPE", true)) {
             return;
@@ -277,7 +277,6 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
 
     }
 
-    @Override
     public void dropType(String typeName) {
 
         if (!getDbContext().isSqlObjectExists(typeName, "TYPE", true)) {
@@ -287,7 +286,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         template.execute(new PLDropType(typeName).toString());
     }
 
-    @Override
+
     public void dropPackage(String typeName) {
 
         if (!isPackageExists(typeName)) {
@@ -297,7 +296,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         template.execute(new PLDropPackage(typeName).toString());
     }
 
-    @Override
+
     public boolean isDependencyPackageExists(SqlStoredProcedureModule pkg) {
 
         Class<OraclePackage>[] items = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
@@ -309,7 +308,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return true;
     }
 
-    @Override
+
     public List<String> getUserTableList() {
         return getSqlObjects("TABLE");
     }
@@ -348,7 +347,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
     }
 
 
-    @Override
+
     public List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData) {
 
         List<PLTableColumnDef> list = new ArrayList<PLTableColumnDef>();
@@ -358,7 +357,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return list;
     }
 
-    @Override
+
     public List<PLTableColumnDef> getTableColumnCodeObjects(String tableName) throws SQLException {
         UtilityCommon utilityCommon = new UtilityCommon(getDbContext());
         return getTableColumnCodeObjects(utilityCommon.getObjectMetaData(tableName, true));

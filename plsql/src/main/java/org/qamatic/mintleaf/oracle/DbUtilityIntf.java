@@ -40,41 +40,12 @@ import java.util.List;
  * Created by Senthil Maruthaiappan on 4/6/15.
  */
 public interface DbUtilityIntf {
-    boolean isPackageExistsByName(String pkgName);
 
     boolean isTableExists(String pkgName);
-
-    boolean isPackageExists(String pkgName);
-
-    boolean isTypeExists(String typeName);
-
-    boolean isTypeBodyExists(String typeName);
-
-    boolean isTypeBodyExists(String typeName, boolean igoreValidity);
-
-    boolean isTypeExists(String typeName, boolean igoreValidity);
 
     boolean isTriggerExists(String triggerName);
 
     boolean isTriggerExists(String triggerName, boolean igoreValidity);
-
-    boolean isSynonymExists(String synonymName);
-
-    boolean isSynonymExists(String synonymName, boolean igoreValidity);
-
-    boolean isPackageExists(OraclePackage pkg);
-
-    boolean isPackageExists(Class<? extends OraclePackage> pkgClass);
-
-    boolean isPackageInterfaceExists(String pkgName);
-
-    boolean isPackageInterfaceExists(String pkgName, boolean ignoreValidity);
-
-    boolean isPackageBodyExists(String pkgName);
-
-    boolean isTableInterfaceExists(String pkgName);
-
-    boolean isSequenceExists(String sequenceName);
 
     boolean isUserObjectExists(String objectName, String objectType);
 
@@ -90,40 +61,9 @@ public interface DbUtilityIntf {
 
     boolean isDatabaseUserExists(String userName);
 
-    void createType(String typeName);
-
-    void createType(String typeName, List<PLTableColumnDef> columns);
-
-    PLCreateType createType(String typeName, String parentClassName, List<PLTableColumnDef> columns);
-
-    PLCreateType createType(String typeName, String parentClassName, List<PLTableColumnDef> columns, boolean bCreate);
-
-    void createType(String typeName, String parentClassName);
-
-    PLCreateType createTypeFromTable(String typeName, String parentClassName, String tableName) throws SQLException;
-
-    PLCreateType createTypeFromTable(String typeName, String parentClassName, String tableName, boolean bCreate) throws SQLException;
-
-    void alterType(Class<? extends SqlTypeObject> aType);
-
-    void alterType(String typeName);
-
-    void dropType(String typeName);
-
-    void dropPackage(String typeName);
-
-    boolean isDependencyPackageExists(SqlStoredProcedureModule pkg);
-
-    List<String> getUserTableList();
-
     List<String> getSqlObjects(String objectType);
 
     List<String> getPrimaryKeys(String ownerName, String tableName);
-
-
-    List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData);
-
-    List<PLTableColumnDef> getTableColumnCodeObjects(String tableName) throws SQLException;
 
 
     void grantPrivilege(String schemaName, String privilegeName, String objectName);
