@@ -32,6 +32,7 @@ import org.qamatic.mintleaf.core.BaseProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentTypeExtension;
+import org.qamatic.mintleaf.oracle.spring.OracleProcedureCall;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
@@ -45,7 +46,7 @@ public class BaseProcedureCallTest {
 
         MockProcedure p = new MockProcedure(null);
         p.setSql("getEmployee");
-        BaseProcedureCall call = new BaseProcedureCall(p);
+        BaseProcedureCall call = new OracleProcedureCall(p);
 
         assertEquals("declare\nbegin\ngetEmployee();\nend;\n", call.getCallString().toString());
     }
@@ -58,7 +59,7 @@ public class BaseProcedureCallTest {
         p.setFunction(true);
         p.setSql("getEmployee");
         p.createOutParameter("test1", Types.VARCHAR);
-        BaseProcedureCall call = new BaseProcedureCall(p);
+        BaseProcedureCall call = new OracleProcedureCall(p);
 
         assertEquals("declare\nbegin\n? := getEmployee();\nend;\n", call.getCallString().toString());
     }
@@ -71,7 +72,7 @@ public class BaseProcedureCallTest {
         p.setSql("getEmployee");
         p.createOutParameter("test1", Types.VARCHAR);
         p.createParameter("test2", Types.VARCHAR);
-        BaseProcedureCall call = new BaseProcedureCall(p);
+        BaseProcedureCall call = new OracleProcedureCall(p);
 
         assertEquals("declare\nbegin\n? := getEmployee(?);\nend;\n", call.getCallString().toString());
     }
@@ -83,7 +84,7 @@ public class BaseProcedureCallTest {
         p.setSql("getEmployee");
         p.createOutParameter("test1", Types.VARCHAR);
         p.createParameter("test2", Types.VARCHAR);
-        BaseProcedureCall call = new BaseProcedureCall(p);
+        BaseProcedureCall call = new OracleProcedureCall(p);
 
         assertEquals("declare\nbegin\ngetEmployee(?, ?);\nend;\n", call.getCallString().toString());
     }
@@ -96,7 +97,7 @@ public class BaseProcedureCallTest {
         p.setSqlReadyForUse(true);
         p.createOutParameter("test1", Types.VARCHAR);
         p.createParameter("test2", Types.VARCHAR);
-        BaseProcedureCall call = new BaseProcedureCall(p);
+        BaseProcedureCall call = new OracleProcedureCall(p);
 
         assertEquals("declare\nbegin\ngetEmployee\nend;\n", call.getCallString().toString());
     }
@@ -111,7 +112,7 @@ public class BaseProcedureCallTest {
         a1.setTypeExtension(new MockTypeExtension1());
         SqlArgument a2 = p.createParameter("test2", Types.VARCHAR);
         a2.setTypeExtension(new MockTypeExtension2());
-        BaseProcedureCall call = new BaseProcedureCall(p);
+        BaseProcedureCall call = new OracleProcedureCall(p);
         StringBuilder builder = new StringBuilder();
 
         builder.append("declare\n");
@@ -156,7 +157,7 @@ public class BaseProcedureCallTest {
         }
 
         @Override
-        public String getIdentifierDeclaration() {
+        public String getVariableDeclaration() {
 
             return "p1 VARCHAR2;";
         }
@@ -168,13 +169,13 @@ public class BaseProcedureCallTest {
         }
 
         @Override
-        public String getAssignmentCodeBeforeCall() {
+        public String getCodeBeforeCall() {
 
             return "p1 := x(?)";
         }
 
         @Override
-        public String getAssignmentCodeAfterCall() {
+        public String getCodeAfterCall() {
 
             return "? : xreverse(p1);";
         }
@@ -190,7 +191,7 @@ public class BaseProcedureCallTest {
         }
 
         @Override
-        public String getIdentifierDeclaration() {
+        public String getVariableDeclaration() {
 
             return "p2 VARCHAR2;";
         }
@@ -202,13 +203,13 @@ public class BaseProcedureCallTest {
         }
 
         @Override
-        public String getAssignmentCodeBeforeCall() {
+        public String getCodeBeforeCall() {
 
             return "p2 := y(?)";
         }
 
         @Override
-        public String getAssignmentCodeAfterCall() {
+        public String getCodeAfterCall() {
 
             return "? : yreverse(p2);";
         }

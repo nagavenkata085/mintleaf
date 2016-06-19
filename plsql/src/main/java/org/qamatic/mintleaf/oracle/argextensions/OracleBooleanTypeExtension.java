@@ -43,7 +43,7 @@ public class OracleBooleanTypeExtension extends OracleArgumentTypeExtension {
     }
 
     @Override
-    public String getAssignmentCodeBeforeCall() {
+    public String getCodeBeforeCall() {
         if (isResultsParameter()) {
             return "";
         }
@@ -51,7 +51,7 @@ public class OracleBooleanTypeExtension extends OracleArgumentTypeExtension {
     }
 
     @Override
-    public String getAssignmentCodeAfterCall() {
+    public String getCodeAfterCall() {
         if (isOutParameter()) {
             return "? := " + "bool2int(" + getUnsupportedVariable() + ");";
         }
@@ -59,9 +59,9 @@ public class OracleBooleanTypeExtension extends OracleArgumentTypeExtension {
     }
 
     @Override
-    public String getIdentifierDeclaration() {
+    public String getVariableDeclaration() {
 
-        return super.getIdentifierDeclaration();
+        return super.getVariableDeclaration();
     }
 
     @Override

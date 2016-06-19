@@ -115,9 +115,9 @@ public class OracleRecordTypeExtensionTest {
         ext.addTypeMap(new ArgumentTypeMap("id", "id"));
         ext.addTypeMap(new ArgumentTypeMap("name", "name"));
 
-        assertEquals("x_unsup ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD;\n", ext.getIdentifierDeclaration());
+        assertEquals("x_unsup ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD;\n", ext.getVariableDeclaration());
         ext.setOutParameter(true);
-        assertEquals("x_sup EMPLOYEE_TYPE;\nx_unsup ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD;\n", ext.getIdentifierDeclaration());
+        assertEquals("x_sup EMPLOYEE_TYPE;\nx_unsup ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD;\n", ext.getVariableDeclaration());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class OracleRecordTypeExtensionTest {
         ext.addTypeMap(new ArgumentTypeMap("id", "id"));
         ext.addTypeMap(new ArgumentTypeMap("name", "name"));
 
-        assertEquals("x_unsup := type_to_pl_x(?);", ext.getAssignmentCodeBeforeCall());
+        assertEquals("x_unsup := type_to_pl_x(?);", ext.getCodeBeforeCall());
     }
 
     @Test
@@ -140,13 +140,13 @@ public class OracleRecordTypeExtensionTest {
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
         ext.addTypeMap(new ArgumentTypeMap("id", "id"));
         ext.addTypeMap(new ArgumentTypeMap("name", "name"));
-        assertEquals("", ext.getAssignmentCodeAfterCall());
+        assertEquals("", ext.getCodeAfterCall());
         ext.setOutParameter(true);
 
-        assertEquals("? := pl_to_type_x(x_unsup);", ext.getAssignmentCodeAfterCall());
+        assertEquals("? := pl_to_type_x(x_unsup);", ext.getCodeAfterCall());
         ext.setResultsParameter(true);
 
-        assertEquals("? := pl_to_type_x(x_unsup);", ext.getAssignmentCodeAfterCall());
+        assertEquals("? := pl_to_type_x(x_unsup);", ext.getCodeAfterCall());
     }
 
     @Test
@@ -181,12 +181,12 @@ public class OracleRecordTypeExtensionTest {
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
 
-        assertEquals("", arg1.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("outparam_unsup := type_to_pl_outparam(outparam_sup);", arg2.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("inparam_unsup := type_to_pl_inparam(?);", arg3.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("", arg4.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("", arg5.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getTypeExtension().getAssignmentCodeBeforeCall());
+        assertEquals("", arg1.getTypeExtension().getCodeBeforeCall());
+        assertEquals("outparam_unsup := type_to_pl_outparam(outparam_sup);", arg2.getTypeExtension().getCodeBeforeCall());
+        assertEquals("inparam_unsup := type_to_pl_inparam(?);", arg3.getTypeExtension().getCodeBeforeCall());
+        assertEquals("", arg4.getTypeExtension().getCodeBeforeCall());
+        assertEquals("", arg5.getTypeExtension().getCodeBeforeCall());
+        assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getTypeExtension().getCodeBeforeCall());
 
         assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup, ?, ?, outparamA_unsup);", BaseProcedureCall.getMethodCall(p));
     }
@@ -204,12 +204,12 @@ public class OracleRecordTypeExtensionTest {
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
 
-        assertEquals("? := pl_to_type_result(result_unsup);", arg1.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("? := pl_to_type_outparam(outparam_unsup);", arg2.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("", arg3.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("", arg4.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("", arg5.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("? := bool2int(outparamA_unsup);", arg6.getTypeExtension().getAssignmentCodeAfterCall());
+        assertEquals("? := pl_to_type_result(result_unsup);", arg1.getTypeExtension().getCodeAfterCall());
+        assertEquals("? := pl_to_type_outparam(outparam_unsup);", arg2.getTypeExtension().getCodeAfterCall());
+        assertEquals("", arg3.getTypeExtension().getCodeAfterCall());
+        assertEquals("", arg4.getTypeExtension().getCodeAfterCall());
+        assertEquals("", arg5.getTypeExtension().getCodeAfterCall());
+        assertEquals("? := bool2int(outparamA_unsup);", arg6.getTypeExtension().getCodeAfterCall());
 
     }
 

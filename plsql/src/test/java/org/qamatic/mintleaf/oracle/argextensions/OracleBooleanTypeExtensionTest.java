@@ -47,7 +47,7 @@ public class OracleBooleanTypeExtensionTest {
         ext.setIdentifier("bVal");
         ext.setOutParameter(true);
         assertEquals("bVal", ext.getIdentifier());
-        assertEquals("bVal_sup INTEGER;\nbVal_unsup BOOLEAN;\n", ext.getIdentifierDeclaration());
+        assertEquals("bVal_sup INTEGER;\nbVal_unsup BOOLEAN;\n", ext.getVariableDeclaration());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class OracleBooleanTypeExtensionTest {
         ext.setIdentifier("bVal");
         ext.setOutParameter(false);
         assertEquals("bVal", ext.getIdentifier());
-        assertEquals("bVal_unsup BOOLEAN;\n", ext.getIdentifierDeclaration());
+        assertEquals("bVal_unsup BOOLEAN;\n", ext.getVariableDeclaration());
     }
 
     @Test
@@ -105,12 +105,12 @@ public class OracleBooleanTypeExtensionTest {
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
 
-        assertEquals("", arg1.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("outparam_unsup := int2bool(outparam_sup);", arg2.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("inparam_unsup := int2bool(?);", arg3.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("", arg4.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("", arg5.getTypeExtension().getAssignmentCodeBeforeCall());
-        assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getTypeExtension().getAssignmentCodeBeforeCall());
+        assertEquals("", arg1.getTypeExtension().getCodeBeforeCall());
+        assertEquals("outparam_unsup := int2bool(outparam_sup);", arg2.getTypeExtension().getCodeBeforeCall());
+        assertEquals("inparam_unsup := int2bool(?);", arg3.getTypeExtension().getCodeBeforeCall());
+        assertEquals("", arg4.getTypeExtension().getCodeBeforeCall());
+        assertEquals("", arg5.getTypeExtension().getCodeBeforeCall());
+        assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getTypeExtension().getCodeBeforeCall());
 
         assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup, ?, ?, outparamA_unsup);", BaseProcedureCall.getMethodCall(p));
     }
@@ -128,12 +128,12 @@ public class OracleBooleanTypeExtensionTest {
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
 
-        assertEquals("? := bool2int(result_unsup);", arg1.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("? := bool2int(outparam_unsup);", arg2.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("", arg3.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("", arg4.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("", arg5.getTypeExtension().getAssignmentCodeAfterCall());
-        assertEquals("? := bool2int(outparamA_unsup);", arg6.getTypeExtension().getAssignmentCodeAfterCall());
+        assertEquals("? := bool2int(result_unsup);", arg1.getTypeExtension().getCodeAfterCall());
+        assertEquals("? := bool2int(outparam_unsup);", arg2.getTypeExtension().getCodeAfterCall());
+        assertEquals("", arg3.getTypeExtension().getCodeAfterCall());
+        assertEquals("", arg4.getTypeExtension().getCodeAfterCall());
+        assertEquals("", arg5.getTypeExtension().getCodeAfterCall());
+        assertEquals("? := bool2int(outparamA_unsup);", arg6.getTypeExtension().getCodeAfterCall());
 
     }
 

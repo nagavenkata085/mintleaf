@@ -31,12 +31,12 @@ public interface SqlAnonymousCode extends SqlCode {
 
     String getIdentifier();
 
-    String getIdentifierDeclaration();
+    String getVariableDeclaration();
 
     String getTypeConversionCode();
 
-    String getAssignmentCodeBeforeCall();
+    String getCodeBeforeCall();
 
-    String getAssignmentCodeAfterCall();
+    String getCodeAfterCall();
 
 }

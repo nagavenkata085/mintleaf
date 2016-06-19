@@ -146,8 +146,8 @@ public class OracleSpringSqlArgumentCollection implements SqlArgumentCollection 
     }
 
     @Override
-    public String getIdentifierDeclaration() {
-        return getArgumentTypeExtensionSource(this, "getIdentifierDeclaration");
+    public String getVariableDeclaration() {
+        return getArgumentTypeExtensionSource(this, "getVariableDeclaration");
     }
 
     @Override
@@ -156,12 +156,12 @@ public class OracleSpringSqlArgumentCollection implements SqlArgumentCollection 
     }
 
     @Override
-    public String getAssignmentCodeBeforeCall() {
-        return getArgumentTypeExtensionSource(this, "getAssignmentCodeBeforeCall");
+    public String getCodeBeforeCall() {
+        return getArgumentTypeExtensionSource(this, "getCodeBeforeCall");
     }
 
     @Override
-    public String getAssignmentCodeAfterCall() {
-        return getArgumentTypeExtensionSource(this, "getAssignmentCodeAfterCall");
+    public String getCodeAfterCall() {
+        return getArgumentTypeExtensionSource(this, "getCodeAfterCall");
     }
 }

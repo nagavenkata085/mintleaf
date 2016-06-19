@@ -43,10 +43,10 @@ public class OracleArgumentTypeExtensionTest {
     public void testExtensionDefaultsValues() {
         SqlArgumentTypeExtension ext = new OracleArgumentTypeExtension();
         assertEquals("?", ext.getIdentifier());
-        assertEquals("", ext.getIdentifierDeclaration());
+        assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());
-        assertEquals("", ext.getAssignmentCodeAfterCall());
-        assertEquals("", ext.getAssignmentCodeBeforeCall());
+        assertEquals("", ext.getCodeAfterCall());
+        assertEquals("", ext.getCodeBeforeCall());
     }
 
     @Test
@@ -56,10 +56,10 @@ public class OracleArgumentTypeExtensionTest {
         SqlArgument arg = p.createParameter("test1", Types.VARCHAR);
         SqlArgumentTypeExtension ext = arg.getTypeExtension();
         assertEquals("?", ext.getIdentifier());
-        assertEquals("", ext.getIdentifierDeclaration());
+        assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());
-        assertEquals("", ext.getAssignmentCodeAfterCall());
-        assertEquals("", ext.getAssignmentCodeBeforeCall());
+        assertEquals("", ext.getCodeAfterCall());
+        assertEquals("", ext.getCodeBeforeCall());
     }
 
     @Test
@@ -69,10 +69,10 @@ public class OracleArgumentTypeExtensionTest {
         SqlArgument arg = p.createOutParameter("test1", Types.VARCHAR);
         SqlArgumentTypeExtension ext = arg.getTypeExtension();
         assertEquals("?", ext.getIdentifier());
-        assertEquals("", ext.getIdentifierDeclaration());
+        assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());
-        assertEquals("", ext.getAssignmentCodeAfterCall());
-        assertEquals("", ext.getAssignmentCodeBeforeCall());
+        assertEquals("", ext.getCodeAfterCall());
+        assertEquals("", ext.getCodeBeforeCall());
     }
 
     private class MockProcedure extends OracleSpringSqlProcedure {

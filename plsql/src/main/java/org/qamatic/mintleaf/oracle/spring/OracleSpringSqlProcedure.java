@@ -29,7 +29,6 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.ARRAY;
 import oracle.sql.STRUCT;
-import org.qamatic.mintleaf.core.BaseProcedureCall;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.ArgumentTypeMap;
@@ -102,7 +101,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
         if (isSqlReadyForUse() && mvsql.toLowerCase().startsWith("declare")) {
             return mvsql;
         }
-        ProcedureCall call = new BaseProcedureCall(this);
+        ProcedureCall call = new OracleProcedureCall(this);
         String callString = call.getCallString().toString();
 
         if (logger.isDebugEnabled()) {

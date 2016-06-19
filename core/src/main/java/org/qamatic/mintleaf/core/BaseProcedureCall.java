@@ -35,7 +35,7 @@ import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 public class BaseProcedureCall implements ProcedureCall {
 
     protected final StringBuilder mvProcCode = new StringBuilder();
-    private final SqlStoredProcedure mvProcedure;
+    protected final SqlStoredProcedure mvProcedure;
 
     public BaseProcedureCall(SqlStoredProcedure procedure) {
         mvProcedure = procedure;
@@ -71,7 +71,7 @@ public class BaseProcedureCall implements ProcedureCall {
         mvProcCode.append(txt).append("\n");
     }
 
-    private void addCode(String code) {
+    protected void addCode(String code) {
         if (code.length() != 0) {
             appendLine(code);
         }
@@ -80,21 +80,6 @@ public class BaseProcedureCall implements ProcedureCall {
     @Override
     public StringBuilder getCallString() {
 
-        if (mvProcedure.isSqlReadyForUse()) {
-            appendLine("declare\nbegin\n" + mvProcedure.getSql() + "\nend;");
-        } else {
-
-            appendLine("declare");
-
-            addCode(mvProcedure.getDeclaredArguments().getIdentifierDeclaration());
-            addCode(mvProcedure.getDeclaredArguments().getTypeConversionCode());
-
-            appendLine("begin");
-            addCode(mvProcedure.getDeclaredArguments().getAssignmentCodeBeforeCall());
-            appendLine(getMethodCall(mvProcedure));
-            addCode(mvProcedure.getDeclaredArguments().getAssignmentCodeAfterCall());
-            appendLine("end;");
-        }
 
         return mvProcCode;
     }

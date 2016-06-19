@@ -49,7 +49,7 @@ public class OracleArgumentTypeExtension implements SqlArgumentTypeExtension {
     }
 
     @Override
-    public String getIdentifierDeclaration() {
+    public String getVariableDeclaration() {
         if (getIdentifier().equals("?")) {
             return "";
         }
@@ -96,12 +96,12 @@ public class OracleArgumentTypeExtension implements SqlArgumentTypeExtension {
     }
 
     @Override
-    public String getAssignmentCodeBeforeCall() {
+    public String getCodeBeforeCall() {
         return "";
     }
 
     @Override
-    public String getAssignmentCodeAfterCall() {
+    public String getCodeAfterCall() {
         return "";
     }
 

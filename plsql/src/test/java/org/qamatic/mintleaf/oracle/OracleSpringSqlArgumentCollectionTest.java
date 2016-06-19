@@ -100,13 +100,13 @@ public class OracleSpringSqlArgumentCollectionTest {
     @Test
     public void testExtensionSoureIdentifierDeclaration() {
 
-        String actual = p.getDeclaredArguments().getIdentifierDeclaration();
+        String actual = p.getDeclaredArguments().getVariableDeclaration();
         assertEquals("", actual);
 
         a1.setTypeExtension(new MockTypeExtension1());
         a2.setTypeExtension(new MockTypeExtension2());
 
-        Assert.assertEquals("p1 VARCHAR2;\np2 VARCHAR2;\n", p.getDeclaredArguments().getIdentifierDeclaration());
+        Assert.assertEquals("p1 VARCHAR2;\np2 VARCHAR2;\n", p.getDeclaredArguments().getVariableDeclaration());
     }
 
     @Test
@@ -124,23 +124,23 @@ public class OracleSpringSqlArgumentCollectionTest {
     @Test
     public void testExtensionSoureAssignmentCodeBeforeCall() {
 
-        Assert.assertEquals("", p.getDeclaredArguments().getAssignmentCodeBeforeCall());
+        Assert.assertEquals("", p.getDeclaredArguments().getCodeBeforeCall());
 
         a1.setTypeExtension(new MockTypeExtension1());
         a2.setTypeExtension(new MockTypeExtension2());
 
-        Assert.assertEquals("p1 := x(?)\np2 := y(?)\n", p.getDeclaredArguments().getAssignmentCodeBeforeCall());
+        Assert.assertEquals("p1 := x(?)\np2 := y(?)\n", p.getDeclaredArguments().getCodeBeforeCall());
     }
 
     @Test
     public void testExtensionSoureAssignmentCodeAfterCall() {
 
-        Assert.assertEquals("", p.getDeclaredArguments().getAssignmentCodeAfterCall());
+        Assert.assertEquals("", p.getDeclaredArguments().getCodeAfterCall());
 
         a1.setTypeExtension(new MockTypeExtension1());
         a2.setTypeExtension(new MockTypeExtension2());
 
-        Assert.assertEquals("? : xreverse(p1);\n? : yreverse(p2);\n", p.getDeclaredArguments().getAssignmentCodeAfterCall());
+        Assert.assertEquals("? : xreverse(p1);\n? : yreverse(p2);\n", p.getDeclaredArguments().getCodeAfterCall());
     }
 
     @Test
@@ -219,7 +219,7 @@ public class OracleSpringSqlArgumentCollectionTest {
         }
 
         @Override
-        public String getIdentifierDeclaration() {
+        public String getVariableDeclaration() {
 
             return "p1 VARCHAR2;";
         }
@@ -231,13 +231,13 @@ public class OracleSpringSqlArgumentCollectionTest {
         }
 
         @Override
-        public String getAssignmentCodeBeforeCall() {
+        public String getCodeBeforeCall() {
 
             return "p1 := x(?)";
         }
 
         @Override
-        public String getAssignmentCodeAfterCall() {
+        public String getCodeAfterCall() {
 
             return "? : xreverse(p1);";
         }
@@ -253,7 +253,7 @@ public class OracleSpringSqlArgumentCollectionTest {
         }
 
         @Override
-        public String getIdentifierDeclaration() {
+        public String getVariableDeclaration() {
 
             return "p2 VARCHAR2;";
         }
@@ -265,13 +265,13 @@ public class OracleSpringSqlArgumentCollectionTest {
         }
 
         @Override
-        public String getAssignmentCodeBeforeCall() {
+        public String getCodeBeforeCall() {
 
             return "p2 := y(?)";
         }
 
         @Override
-        public String getAssignmentCodeAfterCall() {
+        public String getCodeAfterCall() {
 
             return "? : yreverse(p2);";
         }

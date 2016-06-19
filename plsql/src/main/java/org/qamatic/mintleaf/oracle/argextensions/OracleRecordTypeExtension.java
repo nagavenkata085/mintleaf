@@ -108,7 +108,7 @@ public class OracleRecordTypeExtension extends OracleArgumentTypeExtension imple
     }
 
     @Override
-    public String getAssignmentCodeBeforeCall() {
+    public String getCodeBeforeCall() {
         if (isResultsParameter()) {
             return "";
         }
@@ -128,7 +128,7 @@ public class OracleRecordTypeExtension extends OracleArgumentTypeExtension imple
     }
 
     @Override
-    public String getAssignmentCodeAfterCall() {
+    public String getCodeAfterCall() {
         if (isOutParameter()) {
             String v = "? := " + "pl_to_type_${variable}(" + getUnsupportedVariable() + ");";
             v = v.replace("${variable}", getIdentifier());
@@ -138,9 +138,9 @@ public class OracleRecordTypeExtension extends OracleArgumentTypeExtension imple
     }
 
     @Override
-    public String getIdentifierDeclaration() {
+    public String getVariableDeclaration() {
 
-        return super.getIdentifierDeclaration();
+        return super.getVariableDeclaration();
     }
 
     @Override
