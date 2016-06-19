@@ -32,7 +32,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlProcedure;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.DbAssert;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 
@@ -122,7 +122,7 @@ public class BooleanTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public boolean getBoolean() {
 
-            SqlProcedure proc = getProcedure(getAnonymousCode2());
+            SqlStoredProcedure proc = getProcedure(getAnonymousCode2());
             proc.createParameter("value1", Types.INTEGER);
             proc.createOutParameter("result", Types.INTEGER);
             proc.compile();
@@ -156,7 +156,7 @@ public class BooleanTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public boolean isGreaterThan100SpringCall(int value1) {
 
-            SqlProcedure proc = getFunction("isGreaterThan100");
+            SqlStoredProcedure proc = getFunction("isGreaterThan100");
             proc.createBooleanOutParameter("result");
             proc.createParameter("value1", Types.INTEGER);
             proc = proc.recompile();
@@ -170,7 +170,7 @@ public class BooleanTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public boolean isGreaterThan100SpringCallNoRecompileException(int value1) {
 
-            SqlProcedure proc = getFunction("isGreaterThan100");
+            SqlStoredProcedure proc = getFunction("isGreaterThan100");
             proc.createBooleanOutParameter("result");
             proc.createParameter("value1", Types.INTEGER);
 
@@ -184,7 +184,7 @@ public class BooleanTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public boolean isGreaterThan100TestingProcedureLogic(int value1) {
 
-            SqlProcedure proc = getProcedure("isGreaterThan100Proc");
+            SqlStoredProcedure proc = getProcedure("isGreaterThan100Proc");
             proc.createBooleanOutParameter("result");
             proc.createParameter("value1", Types.INTEGER);
             proc.createBooleanParameter("value2");

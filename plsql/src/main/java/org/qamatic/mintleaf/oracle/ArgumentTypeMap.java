@@ -25,19 +25,41 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public interface SqlPackage extends SqlObject {
-    SqlProcedure getProcedure(String procName);
+import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
 
-    SqlProcedure getFunction(String functionName);
+public class ArgumentTypeMap implements SqlArgumentTypeMap {
 
-    SqlProcedure getFunction(String functionName, int type);
+    private String mvcol1;
+    private String mvcol2;
 
-    SqlProcedure getFunction(String functionName, int type, String typeObjectName);
+    public ArgumentTypeMap() {
+    }
 
-    SqlProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass);
+    public ArgumentTypeMap(String col1, String col2) {
+        mvcol1 = col1;
+        mvcol2 = col2;
+    }
 
-    SqlValue getConstant(String constantName, int dataType);
+    @Override
+    public String getCol1() {
+        return mvcol1;
+    }
+
+    @Override
+    public void setCol1(String col1) {
+        mvcol1 = col1;
+    }
+
+    @Override
+    public String getCol2() {
+        return mvcol2;
+    }
+
+    @Override
+    public void setCol2(String col2) {
+        mvcol2 = col2;
+    }
 
 }

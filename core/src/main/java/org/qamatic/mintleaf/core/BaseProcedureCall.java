@@ -30,18 +30,18 @@ package org.qamatic.mintleaf.core;
 import org.qamatic.mintleaf.interfaces.ProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
-import org.qamatic.mintleaf.interfaces.SqlProcedure;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 
 public class BaseProcedureCall implements ProcedureCall {
 
     protected final StringBuilder mvProcCode = new StringBuilder();
-    private final SqlProcedure mvProcedure;
+    private final SqlStoredProcedure mvProcedure;
 
-    public BaseProcedureCall(SqlProcedure procedure) {
+    public BaseProcedureCall(SqlStoredProcedure procedure) {
         mvProcedure = procedure;
     }
 
-    public static String getMethodCall(SqlProcedure procedure) {
+    public static String getMethodCall(SqlStoredProcedure procedure) {
         String callString;
         SqlArgumentCollection parameters = procedure.getDeclaredArguments();
         int parameterCount = 0;

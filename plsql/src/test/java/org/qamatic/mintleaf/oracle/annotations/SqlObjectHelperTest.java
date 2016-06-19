@@ -35,7 +35,7 @@ import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlObject;
-import org.qamatic.mintleaf.interfaces.SqlPackage;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.DbUtility;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 
@@ -167,7 +167,7 @@ public class SqlObjectHelperTest {
 
         assertEquals(pkgList.size(), 4);
         @SuppressWarnings("unchecked")
-        Class<? extends SqlPackage>[] items = pkgList.toArray(new Class[pkgList.size()]);
+        Class<? extends SqlStoredProcedureModule>[] items = pkgList.toArray(new Class[pkgList.size()]);
 
 
 

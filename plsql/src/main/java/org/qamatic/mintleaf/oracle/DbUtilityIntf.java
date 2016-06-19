@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
-import org.qamatic.mintleaf.interfaces.SqlPackage;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.interfaces.SqlTypeObject;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
@@ -112,7 +112,7 @@ public interface DbUtilityIntf {
 
     void dropPackage(String typeName);
 
-    boolean isDependencyPackageExists(SqlPackage pkg);
+    boolean isDependencyPackageExists(SqlStoredProcedureModule pkg);
 
     List<String> getUserTableList();
 

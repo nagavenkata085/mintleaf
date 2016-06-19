@@ -28,7 +28,6 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.interfaces.ArgumentTypeMap;
 
 import static org.junit.Assert.assertEquals;
 

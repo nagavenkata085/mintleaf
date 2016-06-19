@@ -32,6 +32,7 @@ import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.core.BaseProcedureCall;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.interfaces.*;
+import org.qamatic.mintleaf.oracle.ArgumentTypeMap;
 import org.qamatic.mintleaf.oracle.CodeObject;
 import org.qamatic.mintleaf.oracle.DbUtility;
 import org.qamatic.mintleaf.oracle.MemberField;
@@ -52,16 +53,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OracleSpringSqlProcedure extends StoredProcedure implements SqlProcedure {
+public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStoredProcedure {
 
     private final HashMap<String, Object> mvinParamters = new HashMap<String, Object>();
-    private final SqlPackage mvpackage;
+    private final SqlStoredProcedureModule mvpackage;
     private String mvsql;
     private Map<String, Object> mvoutParamters = null;
     private boolean mvrecompiled;
     private Map<String, SqlTypeObject> mvtypeObjectRegistry;
 
-    public OracleSpringSqlProcedure(SqlPackage pkg) {
+    public OracleSpringSqlProcedure(SqlStoredProcedureModule pkg) {
         mvpackage = pkg;
         initDataSource();
     }
@@ -131,8 +132,8 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlProc
     }
 
     @Override
-    public SqlProcedure recompile() {
-        SqlProcedure proc = mvpackage.getProcedure(getCallString());
+    public SqlStoredProcedure recompile() {
+        SqlStoredProcedure proc = mvpackage.getProcedure(getCallString());
         proc.setSqlReadyForUse(true);
         List<SqlArgument> args = this.getDeclaredArguments().rebuildArguments();
         for (SqlArgument sqlArgument : args) {
@@ -147,7 +148,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlProc
     @Override
     public void execute() {
         if (!isRecompiled()) {
-            throw new UnsupportedOperationException("SqlProcedure is using type extension, you must call recompile before calling execute on this");
+            throw new UnsupportedOperationException("SqlStoredProcedure is using type extension, you must call recompile before calling execute on this");
         }
         mvoutParamters = executeInternal();
     }

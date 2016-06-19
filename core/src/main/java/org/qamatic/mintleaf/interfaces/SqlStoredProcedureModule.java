@@ -27,22 +27,17 @@
 
 package org.qamatic.mintleaf.interfaces;
 
-public abstract class ColumnDef {
+public interface SqlStoredProcedureModule extends SqlObject {
+    SqlStoredProcedure getProcedure(String procName);
 
+    SqlStoredProcedure getFunction(String functionName);
 
-    protected final String mvleftSide;
-    protected final String mvrightSide;
+    SqlStoredProcedure getFunction(String functionName, int type);
 
-    public ColumnDef(String leftSide, String rightSide) {
-        mvleftSide = leftSide;
-        mvrightSide = rightSide;
-    }
+    SqlStoredProcedure getFunction(String functionName, int type, String typeObjectName);
 
-    public String getLeftSide() {
-        return mvleftSide;
-    }
+    SqlStoredProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass);
 
-    public String getrightSide() {
-        return mvrightSide;
-    }
+    SqlValue getConstant(String constantName, int dataType);
+
 }

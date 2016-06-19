@@ -45,10 +45,10 @@ package org.qamatic.mintleaf.interfaces;/*
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public interface SqlProcedure extends SqlValue {
+public interface SqlStoredProcedure extends SqlValue {
     void execute();
 
-    SqlProcedure recompile();
+    SqlStoredProcedure recompile();
 
     boolean isRecompiled();
 

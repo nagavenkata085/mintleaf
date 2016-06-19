@@ -33,7 +33,7 @@ import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public abstract class OraclePackage extends BaseSqlObject implements SqlPackage {
+public abstract class OraclePackage extends BaseSqlObject implements SqlStoredProcedureModule {
 
     public OraclePackage(DbContext context) {
         super(context);
@@ -44,7 +44,7 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlPackage 
     }
 
     @Override
-    public SqlProcedure getFunction(String functionName) {
+    public SqlStoredProcedure getFunction(String functionName) {
         OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) createSqlProcedure();
         proc.setFunction(true);
         proc.setSqlReadyForUse(false);
@@ -52,8 +52,8 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlPackage 
         return proc;
     }
 
-    private SqlProcedure getFunction(String functionName, int type, boolean readyForUse, String typeObjectName) {
-        SqlProcedure proc = getFunction(functionName);
+    private SqlStoredProcedure getFunction(String functionName, int type, boolean readyForUse, String typeObjectName) {
+        SqlStoredProcedure proc = getFunction(functionName);
         proc.setSqlReadyForUse(readyForUse);
         proc.setSql(getPkgProcedureName(functionName));
         if (typeObjectName == null) {
@@ -65,9 +65,9 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlPackage 
     }
 
     @Override
-    public SqlProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass) {
+    public SqlStoredProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass) {
         try {
-            SqlProcedure proc = getFunction(functionName);
+            SqlStoredProcedure proc = getFunction(functionName);
             proc.setSqlReadyForUse(false);
             proc.setSql(getPkgProcedureName(functionName));
             proc.createTypeObjectOutParameter("result", typeObjectClass);
@@ -79,17 +79,17 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlPackage 
     }
 
     @Override
-    public SqlProcedure getFunction(String functionName, int type, String typeObjectName) {
+    public SqlStoredProcedure getFunction(String functionName, int type, String typeObjectName) {
         return getFunction(functionName, type, false, typeObjectName);
     }
 
     @Override
-    public SqlProcedure getFunction(String functionName, int type) {
+    public SqlStoredProcedure getFunction(String functionName, int type) {
         return getFunction(functionName, type, false, null);
     }
 
     @Override
-    public SqlProcedure getProcedure(String procName) {
+    public SqlStoredProcedure getProcedure(String procName) {
         OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) createSqlProcedure();
         proc.setSql(getPkgProcedureName(procName));
         return proc;
@@ -107,7 +107,7 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlPackage 
     @Override
     public SqlValue getConstant(String constantName, int dataType) {
 
-        SqlProcedure proc = getFunction(String.format("? := %s;", getPkgProcedureName(constantName)), dataType, true, null);
+        SqlStoredProcedure proc = getFunction(String.format("? := %s;", getPkgProcedureName(constantName)), dataType, true, null);
         proc.compile();
         proc.execute();
         return proc;
@@ -124,7 +124,7 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlPackage 
         template.execute("drop package " + this.getName());
     }
 
-    protected SqlProcedure createSqlProcedure() {
+    protected SqlStoredProcedure createSqlProcedure() {
         return new OracleSpringSqlProcedure(this);
     }
 

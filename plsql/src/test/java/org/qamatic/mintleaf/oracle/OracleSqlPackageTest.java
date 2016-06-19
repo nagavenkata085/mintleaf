@@ -33,8 +33,8 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectDependsOn;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlPackage;
-import org.qamatic.mintleaf.interfaces.SqlProcedure;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
 import java.io.IOException;
@@ -59,7 +59,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
 
     @Test
     public void TestPackageTest() {
-        SqlPackage pkg = new ATestPackage1(getSchemaOwnerContext());
+        SqlStoredProcedureModule pkg = new ATestPackage1(getSchemaOwnerContext());
         assertNotNull(pkg.getDbContext());
     }
 
@@ -134,7 +134,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         pkg.createAll();
         DbAssert.assertPackageExists(pkg);
 
-        SqlProcedure constValue = (SqlProcedure) pkg.getConstant("TEST_CONSTANT_VALUE", Types.VARCHAR);
+        SqlStoredProcedure constValue = (SqlStoredProcedure) pkg.getConstant("TEST_CONSTANT_VALUE", Types.VARCHAR);
         assertNotNull(constValue);
 
         assertEquals("declare\nbegin\n? := ATestPackage2.TEST_CONSTANT_VALUE;\nend;\n", constValue.getCallString());
@@ -176,7 +176,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
 
         @SuppressWarnings("boxing")
         public int FindMax(int value1, int value2) {
-            SqlProcedure proc = getFunction("FINDMAX", Types.INTEGER);
+            SqlStoredProcedure proc = getFunction("FINDMAX", Types.INTEGER);
             proc.createParameter("value1", Types.INTEGER);
             proc.createParameter("value2", Types.INTEGER);
             proc.compile();

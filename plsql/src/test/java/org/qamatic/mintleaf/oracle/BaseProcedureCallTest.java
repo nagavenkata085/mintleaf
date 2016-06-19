@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.BaseProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlPackage;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentTypeExtension;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
@@ -136,7 +136,7 @@ public class BaseProcedureCallTest {
 
     private class MockProcedure extends OracleSpringSqlProcedure {
 
-        public MockProcedure(SqlPackage pkg) {
+        public MockProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 

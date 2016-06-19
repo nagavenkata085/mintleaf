@@ -139,14 +139,14 @@ public class TypeObjectExampleTest extends OracleTestCase {
         }
 
         public TPerson getPerson() throws SQLException {
-            SqlProcedure proc = getFunction("getperson", TPerson.class);
+            SqlStoredProcedure proc = getFunction("getperson", TPerson.class);
             proc.execute();
             return (TPerson) proc.getTypeObject("result");
 
         }
 
         public void setPerson(TPerson person) {
-            SqlProcedure proc = getProcedure("setperson");
+            SqlStoredProcedure proc = getProcedure("setperson");
             proc.createTypeObjectParameter("person", TPerson.class);
             proc.setValue("person", person);
             proc.execute();
@@ -154,7 +154,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
         }
 
         public SqlTypeObjectValue getPersonUsingObjectValue() throws SQLException {
-            SqlProcedure proc = getFunction("getperson", TPerson.class);
+            SqlStoredProcedure proc = getFunction("getperson", TPerson.class);
             proc.execute();
             return proc.getTypeObject("result").getTypeObjectValue();
 
@@ -179,7 +179,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
         }
 
         public void setCustomData() {
-            SqlProcedure proc = getMemberProcedure("setCustomData");
+            SqlStoredProcedure proc = getMemberProcedure("setCustomData");
             proc.execute();
         }
 

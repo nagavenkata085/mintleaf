@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlProcedure;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 
 import java.sql.Types;
 
@@ -41,7 +41,7 @@ public class TestDbProvisioning extends OraclePackage {
     }
 
     public void dropSchemaUser(String userName) {
-        SqlProcedure proc = getProcedure("dropApplicationUser");
+        SqlStoredProcedure proc = getProcedure("dropApplicationUser");
         proc.createParameter("pusername", Types.VARCHAR);
         proc.compile();
         proc.setValue("pusername", userName);
@@ -49,7 +49,7 @@ public class TestDbProvisioning extends OraclePackage {
     }
 
     public void createSchemaUser(String userName, String appUserPassword) {
-        SqlProcedure proc = getProcedure("createApplicationUser");
+        SqlStoredProcedure proc = getProcedure("createApplicationUser");
         proc.createParameter("pusername", Types.VARCHAR);
         proc.createParameter("puserPassword", Types.VARCHAR);
         proc.compile();

@@ -32,7 +32,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.BaseProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlArgumentTypeExtension;
-import org.qamatic.mintleaf.interfaces.SqlPackage;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
@@ -139,7 +139,7 @@ public class OracleBooleanTypeExtensionTest {
 
     private class MockProcedure extends OracleSpringSqlProcedure {
 
-        public MockProcedure(SqlPackage pkg) {
+        public MockProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 

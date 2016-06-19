@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.examples;
 
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlProcedure;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 
 import java.sql.Types;
@@ -42,7 +42,7 @@ public class StringExample extends OraclePackage {
     }
 
     public String replaceSpaceWithDollarSign(String inputValue) {
-        SqlProcedure proc = getFunction("replace_Space_With_DollarSign", Types.VARCHAR);
+        SqlStoredProcedure proc = getFunction("replace_Space_With_DollarSign", Types.VARCHAR);
 
         proc.createParameter("pstr", Types.VARCHAR);
         proc.compile();

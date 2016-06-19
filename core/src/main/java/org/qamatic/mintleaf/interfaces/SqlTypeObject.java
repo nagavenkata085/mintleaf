@@ -39,7 +39,7 @@ public interface SqlTypeObject extends SqlObject {
 
     void autoBind() throws SQLException;
 
-    SqlProcedure getMemberProcedure(String memberProcName);
+    SqlStoredProcedure getMemberProcedure(String memberProcName);
 
     SqlObjectMetaData getMetaData() throws SQLException;
 

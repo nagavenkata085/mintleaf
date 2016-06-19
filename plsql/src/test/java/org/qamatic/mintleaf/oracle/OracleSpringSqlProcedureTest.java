@@ -192,7 +192,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
     @Test
     public void testPackageGetFunctionAsTypeObject() {
         MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        SqlProcedure p = pkg.getFunction("getStudent", TStudentType.class);
+        SqlStoredProcedure p = pkg.getFunction("getStudent", TStudentType.class);
 
         assertEquals(1, p.getDeclaredArguments().size());
         SqlArgument arg1 = p.getDeclaredArguments().get(0);
@@ -296,7 +296,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
     private class MockProcedureNoDb extends OracleSpringSqlProcedure {
         public final HashMap<String, Object> OutParamters = new HashMap<String, Object>();
 
-        public MockProcedureNoDb(SqlPackage pkg, String procedureName) {
+        public MockProcedureNoDb(SqlStoredProcedureModule pkg, String procedureName) {
             super(pkg);
 
         }

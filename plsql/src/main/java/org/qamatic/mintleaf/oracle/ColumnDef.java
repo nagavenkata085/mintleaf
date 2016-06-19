@@ -25,39 +25,24 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
-public class ArgumentTypeMap implements SqlArgumentTypeMap {
+public abstract class ColumnDef {
 
-    private String mvcol1;
-    private String mvcol2;
 
-    public ArgumentTypeMap() {
+    protected final String mvleftSide;
+    protected final String mvrightSide;
+
+    public ColumnDef(String leftSide, String rightSide) {
+        mvleftSide = leftSide;
+        mvrightSide = rightSide;
     }
 
-    public ArgumentTypeMap(String col1, String col2) {
-        mvcol1 = col1;
-        mvcol2 = col2;
+    public String getLeftSide() {
+        return mvleftSide;
     }
 
-    @Override
-    public String getCol1() {
-        return mvcol1;
+    public String getrightSide() {
+        return mvrightSide;
     }
-
-    @Override
-    public void setCol1(String col1) {
-        mvcol1 = col1;
-    }
-
-    @Override
-    public String getCol2() {
-        return mvcol2;
-    }
-
-    @Override
-    public void setCol2(String col2) {
-        mvcol2 = col2;
-    }
-
 }

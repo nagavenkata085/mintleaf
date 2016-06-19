@@ -27,8 +27,6 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.interfaces.ColumnDef;
-
 public  class MemberField extends ColumnDef implements CodeObject {
 
 

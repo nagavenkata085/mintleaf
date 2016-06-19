@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle.argextensions;
 import org.junit.Test;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlArgumentTypeExtension;
-import org.qamatic.mintleaf.interfaces.SqlPackage;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
@@ -77,7 +77,7 @@ public class OracleArgumentTypeExtensionTest {
 
     private class MockProcedure extends OracleSpringSqlProcedure {
 
-        public MockProcedure(SqlPackage pkg) {
+        public MockProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 

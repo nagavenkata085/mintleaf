@@ -298,7 +298,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
     }
 
     @Override
-    public boolean isDependencyPackageExists(SqlPackage pkg) {
+    public boolean isDependencyPackageExists(SqlStoredProcedureModule pkg) {
 
         Class<OraclePackage>[] items = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
         for (Class<OraclePackage> sqlClass : items) {
