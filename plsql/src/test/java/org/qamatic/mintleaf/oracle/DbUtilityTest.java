@@ -82,19 +82,6 @@ public class DbUtilityTest extends OracleTestCase {
         }
     }
 
-    @Test
-    public void testTriggerDrop() {
-
-        BaseSqlTrigger trigger = new BaseSqlTrigger(getSchemaOwnerContext()) {
-            @Override
-            public String getName() {
-                return "UFO";
-            }
-        };
-        trigger.drop();
-        assertTrue("exception must have thrown while dropping", true);
-
-    }
 
 
     @Test

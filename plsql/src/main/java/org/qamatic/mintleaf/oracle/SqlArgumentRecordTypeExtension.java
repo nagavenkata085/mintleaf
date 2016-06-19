@@ -25,7 +25,9 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
+
+import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
 
 import java.util.List;
 

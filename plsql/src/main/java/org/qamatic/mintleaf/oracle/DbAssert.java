@@ -29,7 +29,6 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.interfaces.SqlTrigger;
 import org.qamatic.mintleaf.interfaces.SqlTypeObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -191,18 +190,11 @@ public class DbAssert {
         assertTrue("Trigger Invalid or not found: " + triggerName, utils.isTriggerExists(triggerName));
     }
 
-    public static void assertTriggerExists(SqlTrigger trigger) {
-        assertTriggerExists(trigger.getDbContext(), trigger.getName());
-    }
-
     public static void assertTriggerNotExists(DbContext context, String triggerName) {
         DbUtility utils = new DbUtility(context);
         assertFalse("Trigger found: " + triggerName, utils.isTriggerExists(triggerName));
     }
 
-    public static void assertTriggerNotExists(SqlTrigger trigger) {
-        assertTriggerNotExists(trigger.getDbContext(), trigger.getName());
-    }
 
     public static void assertViewExists(DbContext context, String viewName) {
         DbUtility utils = new DbUtility(context);

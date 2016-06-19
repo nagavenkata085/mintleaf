@@ -27,8 +27,8 @@
 
 package org.qamatic.mintleaf.oracle.argextensions;
 
-import org.qamatic.mintleaf.interfaces.SqlArgumentRecordTypeExtension;
 import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
+import org.qamatic.mintleaf.oracle.SqlArgumentRecordTypeExtension;
 
 import java.util.ArrayList;
 import java.util.List;

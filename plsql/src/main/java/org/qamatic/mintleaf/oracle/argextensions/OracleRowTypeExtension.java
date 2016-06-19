@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.argextensions;
 
-import org.qamatic.mintleaf.interfaces.SqlArgumentRecordTypeExtension;
+import org.qamatic.mintleaf.oracle.SqlArgumentRecordTypeExtension;
 
 public class OracleRowTypeExtension extends OracleRecordTypeExtension implements SqlArgumentRecordTypeExtension {
 
