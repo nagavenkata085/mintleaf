@@ -143,27 +143,22 @@ public class DbAssert {
     }
 
     public static void assertTableExists(DbContext context, String tableName) {
-        DbUtility utils = new DbUtility(context);
         assertTrue("Table Invalid or not found: " + tableName, context.isTableExists(tableName));
     }
 
     public static void assertMViewExists(DbContext context, String mvName) {
-        DbUtility utils = new DbUtility(context);
         assertTrue("Materialized View Not Found: " + mvName, context.isSqlObjectExists(mvName, "MATERIALIZED VIEW", false));
     }
 
     public static void assertIndexExists(DbContext context, String indexName) {
-        DbUtility utils = new DbUtility(context);
         assertTrue("Index Not Found: " + indexName, context.isSqlObjectExists(indexName, "INDEX", false));
     }
 
     public static void assertColumnExists(DbContext context, String tableName, String columnName) {
-        DbUtility utils = new DbUtility(context);
         assertTrue("Column Invalid or not found: " + tableName + ":" + columnName, context.isColumnExists(tableName, columnName));
     }
 
     public static void assertTableNotExists(DbContext context, String tableName) {
-        DbUtility utils = new DbUtility(context);
         assertFalse("Table  found: " + tableName, context.isSqlObjectExists(tableName, "TABLE", false));
     }
 

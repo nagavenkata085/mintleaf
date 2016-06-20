@@ -34,6 +34,7 @@ import oracle.sql.TypeDescriptor;
 import org.qamatic.mintleaf.core.BaseSqlObject;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlStringReader;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
@@ -248,7 +249,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
         if (mvmetaData == null) {
             if (!isCustomMetaData() && (getCreateFromSchemaTableName() != null)) {
-                mvmetaData = new UtilityCommon(getDbContext()).getObjectMetaData(getCreateFromSchemaTableName(), true);
+                mvmetaData = getDbContext().getObjectMetaData(getCreateFromSchemaTableName());
 
             } else {
                 mvmetaData = getMetaDataFromTypeObjectFieldAnnotation(this.getClass());

@@ -156,8 +156,7 @@ public class DbUtilityTest extends OracleTestCase {
         try {
             table1.dropAll();
             table1.createAll();
-            UtilityCommon utilityCommon = new UtilityCommon(getSchemaOwnerContext());
-            SqlObjectMetaData metadata = utilityCommon.getObjectMetaData("TABLE1", true);
+            SqlObjectMetaData metadata = getSchemaOwnerContext().getObjectMetaData("TABLE1");
             assertEquals(0, metadata.getIndex("ID"));
             assertEquals(1, metadata.getIndex("NAME"));
 

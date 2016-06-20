@@ -28,6 +28,8 @@
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.core.BaseDbContext;
+import org.qamatic.mintleaf.interfaces.SqlColumn;
+import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -153,5 +155,72 @@ public class OracleDbContext extends BaseDbContext {
 
         int cnt = getCount("user_sequences", "sequence_name = ?", new Object[]{sequenceName.toUpperCase()});
         return cnt != 0;
+    }
+
+
+    @Override
+    protected String getSqlObjectMetaSql(String objectName) {
+        final String objectName1 = objectName;
+        final StringBuilder sql = new StringBuilder(
+                String.format(
+                        "Select Column_Name , Data_Type TYPE_NAME, Data_Length, Data_Precision , Data_Scale,Char_Length from all_tab_columns where table_name = upper('%s') ORDER BY column_id",
+                        objectName, objectName));
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        jdbcTemplate.query(String.format("Select decode(object_type,'TYPE',1,0) istype FROM user_objects Where object_name = upper('%s')", objectName),
+                new RowMapper() {
+
+                    @Override
+                    public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+                        if (rs.getInt("ISTYPE") == 1) {
+                            sql.setLength(0);
+                            sql.append(String
+                                    .format("select attr_name column_name, attr_type_name TYPE_NAME, length DATA_LENGTH, precision DATA_PRECISION, scale Data_Scale,length Char_Length from user_type_attrs where type_name =upper('%s')  order by attr_no",
+                                            objectName1));
+                        }
+
+                        return null;
+                    }
+                });
+
+        return sql.toString();
+    }
+
+    @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public SqlObjectMetaData getObjectMetaData(String objectName) throws SQLException {
+        final SqlObjectMetaData metaData = new SqlObjectMetaData();
+        if (objectName != null) {
+            objectName = objectName.toUpperCase();
+        }
+        final String objectName1 = objectName;
+        metaData.setObjectName(objectName);
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        String sql = getSqlObjectMetaSql(objectName);
+        jdbcTemplate.query(sql, new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+                SqlColumn colMetaData = new OracleSqlColumn();
+                colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
+                colMetaData.setTypeName(rs.getString("TYPE_NAME"));
+                // colMetaData.setDatatype(rs.getString("DATA_TYPE"));
+                // colMetaData.setNullable(rs.getInt("NULLABLE"));
+                if (rs.getString("TYPE_NAME").equals("CHAR")) {
+                    colMetaData.setColumnSize(rs.getInt("CHAR_LENGTH"));
+                } else if (rs.getString("TYPE_NAME").equals("NUMBER")) {
+                    colMetaData.setColumnSize(rs.getInt("DATA_PRECISION"));
+                    colMetaData.setDecimalDigits(rs.getInt("DATA_SCALE"));
+
+                } else {
+                    colMetaData.setColumnSize(rs.getInt("DATA_LENGTH"));
+                    colMetaData.setDecimalDigits(rs.getInt("DATA_PRECISION"));
+                }
+                metaData.add(colMetaData);
+                return null;
+            }
+        });
+        return metaData;
+
     }
 }

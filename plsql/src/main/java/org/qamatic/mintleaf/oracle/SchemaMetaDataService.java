@@ -64,7 +64,7 @@ public class SchemaMetaDataService implements DbMetaDataService {
     @Override
     public SqlObjectMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException {
 
-        SqlObjectMetaData metaData = new UtilityCommon(context).getObjectMetaData(tableNameName, true);
+        SqlObjectMetaData metaData = context.getObjectMetaData(tableNameName);
         addMetaData(context.getDbSettings().getUsername() + "." + tableNameName, metaData);
         return metaData;
     }

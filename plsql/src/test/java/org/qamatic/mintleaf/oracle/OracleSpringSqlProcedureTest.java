@@ -32,6 +32,7 @@ import oracle.sql.NUMBER;
 import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowTypeExtension;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;

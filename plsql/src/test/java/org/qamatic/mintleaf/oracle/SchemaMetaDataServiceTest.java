@@ -29,6 +29,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.DbMetaDataService;
 import org.qamatic.mintleaf.interfaces.SqlColumn;
 import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;

@@ -263,8 +263,7 @@ public class DbUtility extends OraclePackage   {
 
 
     public List<PLTableColumnDef> getTableColumnCodeObjects(String tableName) throws SQLException {
-        UtilityCommon utilityCommon = new UtilityCommon(getDbContext());
-        return getTableColumnCodeObjects(utilityCommon.getObjectMetaData(tableName, true));
+        return getTableColumnCodeObjects(getDbContext().getObjectMetaData(tableName));
     }
 
 

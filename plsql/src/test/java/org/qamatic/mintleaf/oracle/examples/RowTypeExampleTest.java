@@ -38,7 +38,7 @@ import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 import org.qamatic.mintleaf.interfaces.TypeObjectField;
 import org.qamatic.mintleaf.oracle.DbAssert;
 import org.qamatic.mintleaf.oracle.OraclePackage;
-import org.qamatic.mintleaf.oracle.OracleSqlColumn;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.oracle.OracleTypeObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
