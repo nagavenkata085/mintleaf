@@ -38,5 +38,16 @@
 
     <artifactId>mintleaf-core</artifactId>
 
-
+    <licenses>
+        <license>
+            <name>The MIT License (MIT)</name>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Senthil Maruthaiappan</name>
+            <email>senips@gmail.com</email>
+        </developer>
+    </developers>
 </project>

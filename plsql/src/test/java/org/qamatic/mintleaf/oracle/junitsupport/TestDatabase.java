@@ -31,7 +31,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.qamatic.mintleaf.core.DbConnectionProperties;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.DbSettings;
-import org.qamatic.mintleaf.oracle.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContext;
 
 
 public class TestDatabase {

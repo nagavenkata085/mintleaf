@@ -39,6 +39,7 @@
     <modules>
         <module>core</module>
         <module>plsql</module>
+        <module>dbs</module>
     </modules>
 
     <licenses>
