@@ -32,8 +32,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.oracle.DbAssert;
-import org.qamatic.mintleaf.oracle.DbUtility;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbUtility;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
@@ -44,13 +45,13 @@ import static org.junit.Assert.assertEquals;
 
 public class PLCreateTypeBodyTest extends OracleTestCase {
 
-    private static DbUtility mvutils;
+    private static OracleDbUtility mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new DbUtility(getSchemaOwnerContext());
+            mvutils = new OracleDbUtility(getSchemaOwnerContext());
         }
         mvutils.dropType("MyObject");
         mvutils.dropType("A_Test_Type");
@@ -93,6 +94,10 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
         assertEquals(builder.toString(), p.toString());
     }
 
+    private OracleDbContext getOracleDbContext(){
+        return (OracleDbContext) getSchemaOwnerContext();
+    }
+
     @Test
     public void testCreateTypeBodyWithMemberMethodInDb() throws SQLException, IOException {
 
@@ -109,7 +114,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
             }
         };
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeExists(getOracleDbContext(), "MyObject");
 
         PLCreateTypeBody p = new PLCreateTypeBody("MyObject") {
             {
@@ -125,7 +130,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
         };
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        DbAssert.assertTypeBodyExists(getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeBodyExists(getOracleDbContext(), "MyObject");
 
     }
 
@@ -150,7 +155,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
             }
         };
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "A_Test_Type");
+        OracleDbAssert.assertTypeExists(getOracleDbContext(), "A_Test_Type");
 
         PLCreateTypeBody p = new PLCreateTypeBody("A_Test_Type") {
             {
@@ -171,6 +176,6 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
         };
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "A_Test_Type");
+        OracleDbAssert.assertTypeExists(getOracleDbContext(), "A_Test_Type");
     }
 }

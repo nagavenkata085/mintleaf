@@ -31,6 +31,7 @@ package org.qamatic.mintleaf.oracle;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.*;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -42,10 +43,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@SqlObjectInfo(name = "DbUtility")
-public class DbUtility extends OraclePackage   {
+@SqlObjectInfo(name = "OracleDbUtility")
+public class OracleDbUtility extends OraclePackage   {
 
-    public DbUtility(DbContext context) {
+    public OracleDbUtility(DbContext context) {
         super(context);
     }
 
@@ -59,59 +60,6 @@ public class DbUtility extends OraclePackage   {
         //no need to create anything.
     }
 
-
-    public boolean isPackageExistsByName(String pkgName) {
-        return isPackageInterfaceExists(pkgName);
-    }
-
-
-    public boolean isPackageExists(String pkgName) {
-        return isPackageInterfaceExists(pkgName);
-    }
-
-
-    public boolean isTypeExists(String typeName) {
-        return isTypeExists(typeName, false);
-    }
-
-
-    public boolean isTypeBodyExists(String typeName) {
-        return isTypeBodyExists(typeName, false);
-    }
-
-
-    public boolean isTypeBodyExists(String typeName, boolean igoreValidity) {
-        return getDbContext().isSqlObjectExists(typeName, "TYPE BODY", igoreValidity);
-    }
-
-
-    public boolean isTypeExists(String typeName, boolean igoreValidity) {
-        return getDbContext().isSqlObjectExists(typeName, "TYPE", igoreValidity);
-    }
-
-
-    public boolean isTriggerExists(String triggerName) {
-        return isTriggerExists(triggerName, false);
-    }
-
-    public boolean isTriggerExists(String triggerName, boolean igoreValidity) {
-        return getDbContext().isSqlObjectExists(triggerName, "TRIGGER", igoreValidity);
-    }
-
-
-    public boolean isSynonymExists(String synonymName) {
-        return isSynonymExists(synonymName, false);
-    }
-
-
-    public boolean isSynonymExists(String synonymName, boolean igoreValidity) {
-        return getDbContext().isSqlObjectExists(synonymName, "SYNONYM", igoreValidity);
-    }
-
-
-    public boolean isPackageExists(OraclePackage pkg) {
-        return isPackageInterfaceExists(pkg.getName());
-    }
 
 
     public boolean isPackageExists(Class<? extends OraclePackage> pkgClass) {
@@ -155,6 +103,7 @@ public class DbUtility extends OraclePackage   {
     }
 
 
+
     public PLCreateType createType(String typeName, String parentClassName, List<PLTableColumnDef> columns, boolean bCreate) {
 
         PLCreateType t = new PLCreateType(typeName, parentClassName);
@@ -163,7 +112,7 @@ public class DbUtility extends OraclePackage   {
                 t.addColumnDef(plTableColumnDef);
             }
         }
-        if (!isTypeExists(typeName) && bCreate) {
+        if (!getOracleDbContext().isTypeExists(typeName, false) && bCreate) {
             JdbcTemplate template = new JdbcTemplate(getDbContext().getDataSource());
             template.execute(t.toString());
             alterType(typeName);
@@ -221,7 +170,7 @@ public class DbUtility extends OraclePackage   {
 
     public void dropPackage(String typeName) {
 
-        if (!isPackageExists(typeName)) {
+        if (!getOracleDbContext().isPackageExists(typeName, false)) {
             return;
         }
         JdbcTemplate template = new JdbcTemplate(getDbContext().getDataSource());

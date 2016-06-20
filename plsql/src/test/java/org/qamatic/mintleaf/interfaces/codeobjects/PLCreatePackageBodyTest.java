@@ -32,8 +32,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.oracle.DbAssert;
-import org.qamatic.mintleaf.oracle.DbUtility;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbUtility;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
@@ -44,13 +44,13 @@ import static org.junit.Assert.assertEquals;
 
 public class PLCreatePackageBodyTest extends OracleTestCase {
 
-    private static DbUtility mvutils;
+    private static OracleDbUtility mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new DbUtility(getSchemaOwnerContext());
+            mvutils = new OracleDbUtility(getSchemaOwnerContext());
         }
         mvutils.dropPackage("MyPackage");
         mvutils.dropPackage("A_Test_Package");
@@ -116,7 +116,7 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
             }
         };
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "MyPackage");
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "MyPackage");
 
         PLCreatePackageBody p = new PLCreatePackageBody("MyPackage") {
             {
@@ -128,7 +128,7 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
         };
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        DbAssert.assertPackageBodyExists(getSchemaOwnerContext(), "MyPackage");
+        OracleDbAssert.assertPackageBodyExists(getSchemaOwnerContext(), "MyPackage");
 
     }
 
@@ -148,7 +148,7 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
             }
         };
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "A_Test_Package");
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "A_Test_Package");
 
         PLCreatePackageBody p = new PLCreatePackageBody("A_Test_Package") {
             {
@@ -165,6 +165,6 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
         };
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        DbAssert.assertPackageBodyExists(getSchemaOwnerContext(), "A_Test_Package");
+        OracleDbAssert.assertPackageBodyExists(getSchemaOwnerContext(), "A_Test_Package");
     }
 }

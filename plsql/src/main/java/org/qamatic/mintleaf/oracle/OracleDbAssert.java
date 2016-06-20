@@ -30,24 +30,20 @@ package org.qamatic.mintleaf.oracle;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.interfaces.SqlTypeObject;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.Assert.*;
 
-public class DbAssert {
+public class OracleDbAssert {
 
-    public static void assertPackageBodyExists(SqlStoredProcedureModule pkg) throws SQLException, IOException {
-        assertPackageBodyExists(pkg.getDbContext(), pkg.getName());
-    }
 
     public static void assertPackageBodyExists(DbContext context, String pkgName) throws SQLException, IOException {
-        DbUtility utils = new DbUtility(context);
+        OracleDbUtility utils = new OracleDbUtility(context);
         utils.create();
         assertTrue("PL/Sql package body Invalid or not found: " + pkgName, utils.isPackageBodyExists(pkgName));
     }
@@ -57,13 +53,13 @@ public class DbAssert {
     }
 
     public static void assertPackageExists(DbContext context, String pkgName) throws SQLException, IOException {
-        DbUtility utils = new DbUtility(context);
+        OracleDbUtility utils = new OracleDbUtility(context);
         utils.create();
         assertTrue("PL/Sql package Invalid or not found: " + pkgName, utils.isPackageInterfaceExists(pkgName));
     }
 
     public static void assertSequenceExists(DbContext context, String sequenceName) throws SQLException, IOException {
-        DbUtility utils = new DbUtility(context);
+        OracleDbUtility utils = new OracleDbUtility(context);
         utils.create();
         assertTrue("Sequence Exists: " + sequenceName, context.isSequenceExists(sequenceName));
     }
@@ -73,73 +69,72 @@ public class DbAssert {
     }
 
     public static void assertPackageNotExists(DbContext context, String pkgName) throws SQLException, IOException {
-        DbUtility utils = new DbUtility(context);
+        OracleDbUtility utils = new OracleDbUtility(context);
         utils.create();
         assertFalse("PL/Sql package found: " + pkgName, utils.isPackageInterfaceExists(pkgName));
     }
 
     public static void assertPackageInterfaceExists(DbContext context, String pkgName) throws SQLException, IOException {
-        DbUtility utils = new DbUtility(context);
+        OracleDbUtility utils = new OracleDbUtility(context);
         utils.create();
         assertTrue("PL/Sql package found: " + pkgName, utils.isPackageInterfaceExists(pkgName));
     }
 
-    public static void assertTypeBodyExists(DbContext context, String typeName) {
-        DbUtility utils = new DbUtility(context);
-        assertTrue("Schema Type Invalid or not found: " + typeName, utils.isTypeBodyExists(typeName));
+
+    public static void assertTypeBodyExists(OracleDbContext context, String typeName) {
+        OracleDbUtility utils = new OracleDbUtility(context);
+        assertTrue("Schema Type Invalid or not found: " + typeName, context.isTypeBodyExists(typeName, false));
     }
 
     public static void assertTypeBodyExists(SqlTypeObject aTypeObject) {
-        assertTypeBodyExists(aTypeObject.getDbContext(), aTypeObject.getName());
+        assertTypeBodyExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
 
     }
 
-    public static void assertTypeBodyNotExists(DbContext context, String typeName) {
-        DbUtility utils = new DbUtility(context);
-        assertFalse("Schema Type Invalid or not found: " + typeName, utils.isTypeBodyExists(typeName));
+    public static void assertTypeBodyNotExists(OracleDbContext context, String typeName) {
+
+        assertFalse("Schema Type Invalid or not found: " + typeName, context.isTypeBodyExists(typeName, false));
     }
 
     public static void assertTypeBodyNotExists(SqlTypeObject aTypeObject) {
-        assertTypeBodyNotExists(aTypeObject.getDbContext(), aTypeObject.getName());
+        assertTypeBodyNotExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
 
     }
 
-    public static void assertTypeExists(DbContext context, String typeName) {
-        DbUtility utils = new DbUtility(context);
-        assertTrue("Schema Type Invalid or not found: " + typeName, utils.isTypeExists(typeName));
+    public static void assertTypeExists(OracleDbContext context, String typeName) {
+        assertTrue("Schema Type Invalid or not found: " + typeName, context.isTypeExists(typeName, false));
     }
 
     public static void assertTypeExists(SqlTypeObject aTypeObject) {
-        assertTypeExists(aTypeObject.getDbContext(), aTypeObject.getName());
+        assertTypeExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
 
     }
 
-    public static void assertTypeNotExists(DbContext context, String typeName) {
-        DbUtility utils = new DbUtility(context);
-        assertFalse("Schema Type found: " + typeName, utils.isTypeExists(typeName));
+    public static void assertTypeNotExists(OracleDbContext context, String typeName) {
+
+        assertFalse("Schema Type found: " + typeName, context.isTypeExists(typeName, false));
     }
 
     public static void assertTypeNotExists(SqlTypeObject aTypeObject) {
-        assertTypeNotExists(aTypeObject.getDbContext(), aTypeObject.getName());
+        assertTypeNotExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
     }
 
-    public static void assertSynonymExists(DbContext context, String SynonymName) {
-        DbUtility utils = new DbUtility(context);
-        assertTrue("Schema Synonym Invalid or not found: " + SynonymName, utils.isSynonymExists(SynonymName));
+    public static void assertSynonymExists(OracleDbContext context, String SynonymName) {
+        assertTrue("Schema Synonym Invalid or not found: " + SynonymName, context.isSynonymExists(SynonymName, false));
     }
 
     public static void assertSynonymExists(SqlTypeObject aSynonymObject) {
-        assertSynonymExists(aSynonymObject.getDbContext(), aSynonymObject.getName());
+        assertSynonymExists((OracleDbContext) aSynonymObject.getDbContext(), aSynonymObject.getName());
 
     }
 
-    public static void assertSynonymNotExists(DbContext context, String SynonymName) {
-        DbUtility utils = new DbUtility(context);
-        assertFalse("Schema Synonym found: " + SynonymName, utils.isSynonymExists(SynonymName));
+    public static void assertSynonymNotExists(OracleDbContext context, String SynonymName) {
+
+        assertFalse("Schema Synonym found: " + SynonymName, context.isSynonymExists(SynonymName, false));
     }
 
     public static void assertSynonymNotExists(SqlTypeObject aSynonymObject) {
-        assertSynonymNotExists(aSynonymObject.getDbContext(), aSynonymObject.getName());
+        assertSynonymNotExists((OracleDbContext) aSynonymObject.getDbContext(), aSynonymObject.getName());
     }
 
     public static void assertTableExists(DbContext context, String tableName) {
@@ -175,39 +170,37 @@ public class DbAssert {
     }
 
 
-    public static void assertTriggerExists(DbContext context, String triggerName) {
-        DbUtility utils = new DbUtility(context);
-        assertTrue("Trigger Invalid or not found: " + triggerName, utils.isTriggerExists(triggerName));
+    public static void assertTriggerExists(OracleDbContext context, String triggerName) {
+        assertTrue("Trigger Invalid or not found: " + triggerName, context.isTriggerExists(triggerName, false));
     }
 
-    public static void assertTriggerNotExists(DbContext context, String triggerName) {
-        DbUtility utils = new DbUtility(context);
-        assertFalse("Trigger found: " + triggerName, utils.isTriggerExists(triggerName));
+    public static void assertTriggerNotExists(OracleDbContext context, String triggerName) {
+        assertFalse("Trigger found: " + triggerName, context.isTriggerExists(triggerName, false));
     }
 
 
     public static void assertViewExists(DbContext context, String viewName) {
-        DbUtility utils = new DbUtility(context);
+
         assertTrue("View Invalid or not found: " + viewName, context.isSqlObjectExists(viewName, "VIEW", false));
     }
 
     public static void assertViewNotExists(DbContext context, String viewName) {
-        DbUtility utils = new DbUtility(context);
+
         assertFalse("View found: " + viewName, context.isSqlObjectExists(viewName, "VIEW", false));
     }
 
     public static void assertIndexNotExists(DbContext context, String indexName) {
-        DbUtility utils = new DbUtility(context);
+
         assertFalse("Index found: " + indexName, context.isSqlObjectExists(indexName, "INDEX", false));
     }
 
     public static void assertPrivilegeExists(DbContext context, String granteeName, String privilegeName, String objectName) {
-        DbUtility utils = new DbUtility(context);
+
         assertTrue("Privilege not granted on " + privilegeName, context.isPrivilegeExists(granteeName, privilegeName, objectName));
     }
 
     public static void assertPrivilegeExists(DbContext context, String granteeName, String[] privileges, String objectName) {
-        DbUtility utils = new DbUtility(context);
+
         StringBuilder notFound = new StringBuilder();
 
         for (String privilege : privileges) {

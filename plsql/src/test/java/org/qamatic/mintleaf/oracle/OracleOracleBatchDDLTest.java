@@ -95,8 +95,8 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
         OracleBatchDDL dynObject = new TestDDLExecute(getSchemaOwnerContext());
         dynObject.create();
 
-        DbAssert.assertTableExists(getSchemaOwnerContext(), "table1");
-        DbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
+        OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "table1");
+        OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
     }
 
     @SqlObjectInfo(name = "createschema", source = "/Testddl.sql")

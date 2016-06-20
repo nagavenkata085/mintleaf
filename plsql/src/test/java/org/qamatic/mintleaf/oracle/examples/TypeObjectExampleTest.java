@@ -35,6 +35,7 @@ import org.qamatic.mintleaf.core.SqlObjectDependsOn;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.*;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.*;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
@@ -54,7 +55,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
                     new String[]{"drop person table"});
             mvtestPackage.dropAll();
 
-            new DbUtility(mvtestPackage.getDbContext()).dropType("TPERSON");
+            new OracleDbUtility(mvtestPackage.getDbContext()).dropType("TPERSON");
         }
     }
 
@@ -72,12 +73,16 @@ public class TypeObjectExampleTest extends OracleTestCase {
 
     }
 
+    private OracleDbContext getOracleDbContext(){
+        return (OracleDbContext) getSchemaOwnerContext();
+    }
+
     @Test
     public void testTestObjectsCreated() throws SQLException, IOException {
         getTestPackage();
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "TPerson");
-        DbAssert.assertTypeBodyExists(getSchemaOwnerContext(), "TPerson");
-        DbAssert.assertPackageExists(new TypeObjectExample_Package(getSchemaOwnerContext()));
+        OracleDbAssert.assertTypeExists(getOracleDbContext(), "TPerson");
+        OracleDbAssert.assertTypeBodyExists(getOracleDbContext(), "TPerson");
+        OracleDbAssert.assertPackageExists(new TypeObjectExample_Package(getSchemaOwnerContext()));
     }
 
     @Test

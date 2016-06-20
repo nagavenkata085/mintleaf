@@ -30,8 +30,8 @@ package org.qamatic.mintleaf.interfaces.codeobjects;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.oracle.DbAssert;
-import org.qamatic.mintleaf.oracle.DbUtility;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbUtility;
 import org.qamatic.mintleaf.oracle.TestDbProvisioning;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreatePackage;
 import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
@@ -44,13 +44,13 @@ import java.sql.SQLException;
 
 public class PLGrantPrivilegeTest extends OracleTestCase {
 
-    private static DbUtility mvutils;
+    private static OracleDbUtility mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new DbUtility(getSchemaOwnerContext());
+            mvutils = new OracleDbUtility(getSchemaOwnerContext());
             TestDbProvisioning tpriv = new TestDbProvisioning(TestDatabase.getSysDbaContext());
             tpriv.recreateSchemaUser("TESTUSER", "Oracle");
         }
@@ -71,6 +71,6 @@ public class PLGrantPrivilegeTest extends OracleTestCase {
         PLGrantPrivilege priv = new PLGrantPrivilege("TESTUSER", "Execute", "MyPackage");
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), priv.toString() + "\n/", "/");
-        DbAssert.assertPrivilegeExists(getSchemaOwnerContext(), "TESTUSER", "EXECUTE", "MYPACKAGE");
+        OracleDbAssert.assertPrivilegeExists(getSchemaOwnerContext(), "TESTUSER", "EXECUTE", "MYPACKAGE");
     }
 }

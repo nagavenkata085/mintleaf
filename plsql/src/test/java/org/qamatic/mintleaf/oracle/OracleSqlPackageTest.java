@@ -67,7 +67,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void TestBasicPackageCreate() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
         pkg.create();
-        DbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists(pkg);
         assertTrue(pkg.isExists());
     }
 
@@ -82,27 +82,27 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void TestDrop() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
         pkg.create();
-        DbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists(pkg);
 
         pkg.drop();
-        DbAssert.assertPackageNotExists(pkg);
+        OracleDbAssert.assertPackageNotExists(pkg);
     }
 
     @Test
     public void TestDependencyPackageCreate1() throws SQLException, IOException {
         DependencyPackageCreate1 pkg = new DependencyPackageCreate1(getSchemaOwnerContext());
         pkg.createDependencies();
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
         pkg.create();
-        DbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists(pkg);
     }
 
     @Test
     public void TestDependencyPackageCreate2() throws SQLException, IOException {
         DependencyPackageCreate1 pkg = new DependencyPackageCreate1(getSchemaOwnerContext());
         pkg.create();
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
-        DbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
+        OracleDbAssert.assertPackageExists(pkg);
     }
 
     @Test
@@ -110,9 +110,9 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         DependencyPackageCreate2 pkg = new DependencyPackageCreate2(getSchemaOwnerContext());
         pkg.createDependencies();
         pkg.create();
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
-        DbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
+        OracleDbAssert.assertPackageExists(pkg);
     }
 
     @Test
@@ -120,19 +120,19 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         DependencyPackageCreate2 pkg = new DependencyPackageCreate2(getSchemaOwnerContext());
         pkg.createDependencies();
         pkg.create();
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
-        DbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
-        DbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
+        OracleDbAssert.assertPackageExists(pkg);
         pkg.dropDependencies();
-        DbAssert.assertPackageNotExists(getSchemaOwnerContext(), "TESTLOG");
-        DbAssert.assertPackageNotExists(getSchemaOwnerContext(), "TESTCONST");
+        OracleDbAssert.assertPackageNotExists(getSchemaOwnerContext(), "TESTLOG");
+        OracleDbAssert.assertPackageNotExists(getSchemaOwnerContext(), "TESTCONST");
     }
 
     @Test
     public void testgetConstant() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
         pkg.createAll();
-        DbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists(pkg);
 
         SqlStoredProcedure constValue = (SqlStoredProcedure) pkg.getConstant("TEST_CONSTANT_VALUE", Types.VARCHAR);
         assertNotNull(constValue);

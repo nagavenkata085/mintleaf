@@ -31,7 +31,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.qamatic.mintleaf.core.DbConnectionProperties;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.DbSettings;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContextImpl;
 
 
 public class TestDatabase {
@@ -48,7 +48,7 @@ public class TestDatabase {
             settings.setPassword("TestUser3Password");
 
             BasicDataSource ds = new BasicDataSource();
-            mvDbContext = new OracleDbContext(ds);
+            mvDbContext = new OracleDbContextImpl(ds);
             mvDbContext.setDbSettings(settings);
             ds.setUrl(settings.getJdbcUrl());
             ds.setUsername(settings.getUsername());
@@ -74,7 +74,7 @@ public class TestDatabase {
             ds.setPassword(settings.getPassword());
             ds.setAccessToUnderlyingConnectionAllowed(true);
             //ds.setConnectionProperties("internal_logon=sysdba");
-            mvSysDbContext = new OracleDbContext(ds);
+            mvSysDbContext = new OracleDbContextImpl(ds);
             mvSysDbContext.setDbSettings(settings);
         }
         return mvSysDbContext;

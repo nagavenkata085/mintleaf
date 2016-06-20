@@ -36,6 +36,7 @@ import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.*;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 import org.springframework.jdbc.core.SqlTypeValue;
@@ -88,7 +89,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     protected void onAfterCreate() {
-        DbUtility utils = new DbUtility(getDbContext());
+        OracleDbUtility utils = new OracleDbUtility(getDbContext());
         utils.alterType(getName());
     }
 
@@ -152,7 +153,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     protected PLCreateType getCreateTypeInstance() throws SQLException {
         if (mvPLCreateType == null) {
-            DbUtility utils = new DbUtility(getDbContext());
+            OracleDbUtility utils = new OracleDbUtility(getDbContext());
             mvPLCreateType = utils.createType(getName(), getTypeObjectExtendsFrom(), null, false);
             invalidateColumnList();
         }
@@ -195,7 +196,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     public void invalidate() {
-        DbUtility utils = new DbUtility(getDbContext());
+        OracleDbUtility utils = new OracleDbUtility(getDbContext());
         Class<? extends SqlTypeObject>[] dependentTypes = SqlObjectHelper.getDependencyItems(this, SqlTypeObject.class);
         for (Class<? extends SqlTypeObject> typeObjClass : dependentTypes) {
             utils.alterType(typeObjClass);
@@ -205,7 +206,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     public void drop() {
-        new DbUtility(getDbContext()).dropType(getName());
+        new OracleDbUtility(getDbContext()).dropType(getName());
     }
 
     private Field[] getTypeObjectFields(Class<?> type) {
@@ -365,10 +366,15 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
         return proc;
     }
 
+    protected OracleDbContext getOracleDbContext(){
+        return (OracleDbContext) getDbContext();
+    }
+
+
     @Override
     public boolean isExists() {
-        DbUtility utils = new DbUtility(getDbContext());
-        return (utils.isTypeExists(getName(), true));
+
+        return (getOracleDbContext().isTypeExists(getName(), true));
 
     }
 }

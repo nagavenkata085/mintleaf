@@ -34,7 +34,7 @@ import org.qamatic.mintleaf.core.SqlObjectDefaults;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.DbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OracleBatchDDL;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
@@ -85,7 +85,7 @@ public class SqlObjectHelperCase2Test extends OracleTestCase {
             table1.create();
             table1.applyDefaults();
 
-            DbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
+            OracleDbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
         } finally {
             table1.drop();
         }

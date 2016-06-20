@@ -30,6 +30,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.core.BaseSqlObject;
 import org.qamatic.mintleaf.interfaces.*;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -115,7 +116,7 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlStoredPr
 
     @Override
     public void drop() {
-        DbUtility utils = new DbUtility(getDbContext());
+        OracleDbUtility utils = new OracleDbUtility(getDbContext());
         if (!utils.isPackageInterfaceExists(this.getName(), true)) {
             return;
         }
@@ -128,9 +129,14 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlStoredPr
         return new OracleSpringSqlProcedure(this);
     }
 
+
+    protected OracleDbContext getOracleDbContext(){
+        return (OracleDbContext) getDbContext();
+    }
+
     @Override
     public boolean isExists() {
-        DbUtility utils = new DbUtility(getDbContext());
-        return utils.isPackageExists(getName());
+
+        return getOracleDbContext().isPackageExists(getName(), false);
     }
 }

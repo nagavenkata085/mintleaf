@@ -31,8 +31,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.oracle.DbAssert;
-import org.qamatic.mintleaf.oracle.DbUtility;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbUtility;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTypeMemberMethod;
@@ -46,13 +47,13 @@ import static org.junit.Assert.assertEquals;
 
 public class PLCreateTypeTest extends OracleTestCase {
 
-    private static DbUtility mvutils;
+    private static OracleDbUtility mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new DbUtility(getSchemaOwnerContext());
+            mvutils = new OracleDbUtility(getSchemaOwnerContext());
         }
     }
 
@@ -91,7 +92,7 @@ public class PLCreateTypeTest extends OracleTestCase {
                 add(new PLTableColumnDef("y", "number"));
             }
         });
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "MyObject");
 
     }
 
@@ -106,8 +107,8 @@ public class PLCreateTypeTest extends OracleTestCase {
                 add(new PLTableColumnDef("y", "number"));
             }
         });
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "ParentObject");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "ChildObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ParentObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ChildObject");
 
     }
 
@@ -116,7 +117,7 @@ public class PLCreateTypeTest extends OracleTestCase {
         mvutils.dropType("MyObject");
         mvutils.createType("MyObject");
 
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "MyObject");
         mvutils.dropType("MyObject");
 
     }
@@ -126,9 +127,9 @@ public class PLCreateTypeTest extends OracleTestCase {
         mvutils.dropType("ChildObject");
         mvutils.dropType("ParentObject");
         mvutils.createType("ParentObject");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "ParentObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ParentObject");
         mvutils.createType("ChildObject", "ParentObject");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "ChildObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ChildObject");
         mvutils.dropType("ChildObject");
         mvutils.dropType("ParentObject");
 
@@ -152,7 +153,7 @@ public class PLCreateTypeTest extends OracleTestCase {
                 p.toString());
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "MyObject");
     }
 
     @SuppressWarnings("serial")
@@ -166,8 +167,8 @@ public class PLCreateTypeTest extends OracleTestCase {
                 add(new PLTableColumnDef("y", "number"));
             }
         });
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "ParentObject");
-        DbAssert.assertTypeExists(getSchemaOwnerContext(), "ChildObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ParentObject");
+        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ChildObject");
 
     }
 

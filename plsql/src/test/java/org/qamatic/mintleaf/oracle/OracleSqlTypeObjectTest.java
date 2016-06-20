@@ -207,8 +207,8 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
             }
         };
         typeObj1.create();
-        DbAssert.assertTypeExists(typeObj1);
-        DbAssert.assertTypeBodyExists(typeObj1);
+        OracleDbAssert.assertTypeExists(typeObj1);
+        OracleDbAssert.assertTypeBodyExists(typeObj1);
     }
 
     @Test

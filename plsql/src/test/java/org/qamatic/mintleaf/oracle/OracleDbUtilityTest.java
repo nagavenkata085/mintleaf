@@ -34,6 +34,7 @@ import org.qamatic.mintleaf.core.*;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlObject;
 import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.junitsupport.TestDatabase;
 import org.qamatic.mintleaf.oracle.mocks.CreateTable1;
@@ -45,14 +46,14 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class DbUtilityTest extends OracleTestCase {
+public class OracleDbUtilityTest extends OracleTestCase {
 
 
     private MockTestPackage2 mvtestPackage;
 
     @Before
     public void init() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         utils.create();
         mvtestPackage = new MockTestPackage2(getSchemaOwnerContext());
         mvtestPackage.create();
@@ -65,13 +66,13 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testtruncateTable() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         try {
             table1.dropAll();
             table1.createAll();
 
-            DbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
+            OracleDbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
             getSchemaOwnerContext().truncateTable("TABLE1");
             assertEquals(0, getSchemaOwnerContext().getCount("TABLE1"));
 
@@ -82,25 +83,26 @@ public class DbUtilityTest extends OracleTestCase {
         }
     }
 
+    protected OracleDbContext getOracleDbContext(){
+        return (OracleDbContext) getSchemaOwnerContext();
+    }
 
 
     @Test
     public void testIsPackageExists() {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
-        assertTrue("MockTestPackage2 package not found: ", utils.isPackageExists("MockTestPackage2"));
-        assertTrue("MockTestPackage2 package not found: ", utils.isPackageExistsByName("MockTestPackage2"));
+        assertTrue("MockTestPackage2 package not found: ", getOracleDbContext().isPackageExists("MockTestPackage2", false));
     }
 
     @SuppressWarnings("boxing")
     @Test
     public void testIsColumnExists() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         try {
             table1.dropAll();
             table1.createAll();
 
-            DbAssert.assertCountEquals(1, getSchemaOwnerContext(), "table1", "id=?", 2);
+            OracleDbAssert.assertCountEquals(1, getSchemaOwnerContext(), "table1", "id=?", 2);
             assertTrue("Column Not Found: ", getSchemaOwnerContext().isColumnExists("TABLE1", "ID"));
 
         } finally {
@@ -112,13 +114,13 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testCreateType() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         try {
             table1.dropAll();
             table1.createAll();
             utils.createTypeFromTable("TE_TABLE1", null, "TABLE1");
-            DbAssert.assertTypeExists(getSchemaOwnerContext(), "TE_TABLE1");
+            OracleDbAssert.assertTypeExists(getOracleDbContext(), "TE_TABLE1");
 
         } finally {
 
@@ -129,7 +131,7 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testCreateTypeFromSynonym() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getSchemaOwnerContext().getDataSource());
@@ -138,7 +140,7 @@ public class DbUtilityTest extends OracleTestCase {
             table1.createAll();
             template.execute("CREATE SYNONYM SYN_TABLE1 FOR TABLE1");
             utils.createTypeFromTable("TE_TABLE1", null, "SYN_TABLE1");
-            DbAssert.assertTypeExists(getSchemaOwnerContext(), "TE_TABLE1");
+            OracleDbAssert.assertTypeExists(getOracleDbContext(), "TE_TABLE1");
 
         } finally {
 
@@ -149,7 +151,7 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testgetobjectcolumnsdef() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getSchemaOwnerContext().getDataSource());
@@ -178,7 +180,7 @@ public class DbUtilityTest extends OracleTestCase {
             table1.createAll();
             template.execute("DROP INDEX TEST_IDX");
             template.execute("CREATE INDEX TEST_IDX ON TABLE1(ID)");
-            DbAssert.assertIndexExists(getSchemaOwnerContext(), "TEST_IDX");
+            OracleDbAssert.assertIndexExists(getSchemaOwnerContext(), "TEST_IDX");
 
         } catch (Exception e) {
 
@@ -201,7 +203,7 @@ public class DbUtilityTest extends OracleTestCase {
             template.execute("DROP INDEX TEST_IDX");
             template.execute("CREATE INDEX TEST_IDX ON TABLE1(ID)");
             template.execute("DROP INDEX TEST_IDX");
-            DbAssert.assertIndexNotExists(getSchemaOwnerContext(), "TEST_IDX");
+            OracleDbAssert.assertIndexNotExists(getSchemaOwnerContext(), "TEST_IDX");
 
         } catch (Exception e) {
 
@@ -223,7 +225,7 @@ public class DbUtilityTest extends OracleTestCase {
             table1.createAll();
             template.execute("DROP MATERIALIZED VIEW MV_TABLE1");
             template.execute("CREATE OR REPLACE MATERIALZED VIEW MV_TABLE1 AS SELECT * FROM TABLE1");
-            DbAssert.assertIndexExists(getSchemaOwnerContext(), "MV_TABLE1");
+            OracleDbAssert.assertIndexExists(getSchemaOwnerContext(), "MV_TABLE1");
 
         } catch (Exception e) {
 
@@ -251,25 +253,25 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testIsPackageInterfaceExists() {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         assertTrue("MockTestPackage2 package not found: ", utils.isPackageInterfaceExists("MockTestPackage2"));
     }
 
     @Test
     public void testIsDatabaseUserExists() {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         assertTrue("DBWORKSUser user not found: ", getSchemaOwnerContext().isUserExists(getSchemaOwnerContext().getDbSettings().getUsername()));
     }
 
     @Test
     public void testIsPackageBodyExists() {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         assertTrue("MockTestPackage2 package body not found: ", utils.isPackageBodyExists("MockTestPackage2"));
     }
 
     @Test
     public void testIsUserObjectExists() {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         assertTrue("MockTestPackage2 package not found: ", getSchemaOwnerContext().isSqlObjectExists("MockTestPackage2", "PACKAGE", false));
     }
 
@@ -281,7 +283,7 @@ public class DbUtilityTest extends OracleTestCase {
             table1.dropAll();
             table1.createAll();
 
-            DbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
+            OracleDbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
 
         } finally {
 
@@ -300,7 +302,7 @@ public class DbUtilityTest extends OracleTestCase {
             table1.dropAll();
             table1.createAll();
 
-            DbAssert.assertCountEquals(1, getSchemaOwnerContext(), "table1", "id=?", 2);
+            OracleDbAssert.assertCountEquals(1, getSchemaOwnerContext(), "table1", "id=?", 2);
 
         } finally {
 
@@ -312,7 +314,7 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testGetNextSequenceNumber() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getSchemaOwnerContext().getDataSource());
         try {
@@ -322,13 +324,13 @@ public class DbUtilityTest extends OracleTestCase {
         }
 
         template.execute("CREATE SEQUENCE TESTSEQUENCE INCREMENT BY 1 START WITH 998");
-        DbAssert.assertSequenceExists(getSchemaOwnerContext(), "TESTSEQUENCE");
+        OracleDbAssert.assertSequenceExists(getSchemaOwnerContext(), "TESTSEQUENCE");
         assertEquals(998, getSchemaOwnerContext().getNextSequenceNumber("TESTSEQUENCE"));
     }
 
     @Test
     public void testIsDependencyPackageExists() throws SQLException, IOException {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
 
         DependencyExistsTestPackage pkg = new DependencyExistsTestPackage(getSchemaOwnerContext());
         pkg.dropAll();
@@ -345,7 +347,7 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testGetUserObjectList() {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
+        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
         List<String> list = getSchemaOwnerContext().getSqlObjects("PACKAGE");
         assertTrue("getSqlObjects does not return any one of the pacakge at least", list.size()!=0);
     }
@@ -355,7 +357,7 @@ public class DbUtilityTest extends OracleTestCase {
         new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
-            DbUtility utils = new DbUtility(getSchemaOwnerContext());
+            OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
             List<String> keys = getSchemaOwnerContext().getPrimaryKeys(null, "person");
             assertEquals("ID", keys.get(0));
 

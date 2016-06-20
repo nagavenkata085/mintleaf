@@ -30,6 +30,7 @@ package org.qamatic.mintleaf.dbsupportimpls.oracle;
 import org.qamatic.mintleaf.core.BaseDbContext;
 import org.qamatic.mintleaf.interfaces.SqlColumn;
 import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -41,8 +42,8 @@ import java.util.List;
 /**
  * Created by Senthil Maruthaiappan on 4/6/15.
  */
-public class OracleDbContext extends BaseDbContext {
-    public OracleDbContext(DataSource datasource) {
+public class OracleDbContextImpl extends BaseDbContext implements OracleDbContext {
+    public OracleDbContextImpl(DataSource datasource) {
         super(datasource);
     }
 
@@ -223,4 +224,35 @@ public class OracleDbContext extends BaseDbContext {
         return metaData;
 
     }
+
+    @Override
+    public boolean isPackageExists(String pkgName, boolean igoreValidity) {
+        return isSqlObjectExists(pkgName, "PACKAGE", igoreValidity);
+    }
+
+    @Override
+    public boolean isPackageBodyExists(String pkgName, boolean igoreValidity) {
+        return isSqlObjectExists(pkgName, "PACKAGE BODY", igoreValidity);
+    }
+
+    @Override
+    public boolean isTypeExists(String typeName, boolean igoreValidity) {
+        return isSqlObjectExists(typeName, "TYPE", igoreValidity);
+    }
+
+    @Override
+    public boolean isTypeBodyExists(String typeName, boolean igoreValidity) {
+        return isSqlObjectExists(typeName, "TYPE", igoreValidity);
+    }
+
+    @Override
+    public boolean isTriggerExists(String triggerName, boolean igoreValidity) {
+        return isSqlObjectExists(triggerName, "TRIGGER", igoreValidity);
+    }
+
+    @Override
+    public boolean isSynonymExists(String synonymName, boolean igoreValidity) {
+        return isSqlObjectExists(synonymName, "SYNONYM", igoreValidity);
+    }
+
 }
