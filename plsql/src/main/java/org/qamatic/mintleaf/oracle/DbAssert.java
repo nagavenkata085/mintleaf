@@ -174,11 +174,6 @@ public class DbAssert {
 
     }
 
-    public static void assertParamValueEquals(String expectedValue, DbContext context, String namespace, String paramName) {
-        DbUtility utils = new DbUtility(context);
-        String actual = utils.getContextParamValue(namespace, paramName);
-        assertEquals(expectedValue, actual);
-    }
 
     public static void assertTriggerExists(DbContext context, String triggerName) {
         DbUtility utils = new DbUtility(context);
@@ -199,19 +194,6 @@ public class DbAssert {
     public static void assertViewNotExists(DbContext context, String viewName) {
         DbUtility utils = new DbUtility(context);
         assertFalse("View found: " + viewName, context.isSqlObjectExists(viewName, "VIEW", false));
-    }
-
-    public static void assertDateDifference(Date beforeDate, Date afterDate, int difference) {
-        Calendar seedCalander = Calendar.getInstance();
-        seedCalander.setTime(beforeDate);
-        Calendar resultCalander = Calendar.getInstance();
-        resultCalander.setTime(afterDate);
-        int noOfDays = 0;
-        while (seedCalander.before(resultCalander)) {
-            seedCalander.add(Calendar.DAY_OF_MONTH, 1);
-            ++noOfDays;
-        }
-        assertTrue(difference == noOfDays);
     }
 
     public static void assertIndexNotExists(DbContext context, String indexName) {

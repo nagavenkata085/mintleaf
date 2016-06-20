@@ -237,16 +237,8 @@ public class DbUtilityTest extends OracleTestCase {
     @Test
     public void testIsDbFeatureValidFalse() {
 
-
         assertFalse(TestDatabase.getSysDbaContext().isdbFeatureExists("NONEXISTENT"));
 
-    }
-
-    @Test
-    public void testgetContextParamValue() {
-        DbUtility utils = new DbUtility(getSchemaOwnerContext());
-        utils.getContextParamValue("USERENV", "SESSION_USER");
-        assertEquals(getSchemaOwnerContext().getDbSettings().getUsername().toUpperCase(), utils.getContextParamValue("USERENV", "SESSION_USER"));
     }
 
     @Test

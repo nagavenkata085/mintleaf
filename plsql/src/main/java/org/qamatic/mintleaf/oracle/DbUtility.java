@@ -138,15 +138,6 @@ public class DbUtility extends OraclePackage   {
     }
 
 
-
-
-    public String getContextParamValue(String nameSpace, String paramName) {
-        JdbcTemplate template = new JdbcTemplate();
-        template.setDataSource(getDbContext().getDataSource());
-        String sql = String.format("Select sys_context('%s','%s') from dual", nameSpace, paramName);
-        return template.queryForObject(sql, String.class);
-    }
-
     public void createType(String typeName) {
         createType(typeName, null, null);
     }
