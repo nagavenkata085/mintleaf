@@ -72,7 +72,7 @@ public class DbUtilityTest extends OracleTestCase {
             table1.createAll();
 
             DbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
-            utils.truncateTable("TABLE1");
+            getSchemaOwnerContext().truncateTable("TABLE1");
             assertEquals(0, getSchemaOwnerContext().getCount("TABLE1"));
 
         } finally {
@@ -101,7 +101,7 @@ public class DbUtilityTest extends OracleTestCase {
             table1.createAll();
 
             DbAssert.assertCountEquals(1, getSchemaOwnerContext(), "table1", "id=?", 2);
-            assertTrue("Column Not Found: ", utils.isColumnExists("TABLE1", "ID"));
+            assertTrue("Column Not Found: ", getSchemaOwnerContext().isColumnExists("TABLE1", "ID"));
 
         } finally {
 
@@ -237,8 +237,9 @@ public class DbUtilityTest extends OracleTestCase {
 
     @Test
     public void testIsDbFeatureValidFalse() {
-        DbUtility utils = new DbUtility(TestDatabase.getSysDbaContext());
-        assertFalse(utils.isdbFeatureValid("NONEXISTENT"));
+
+
+        assertFalse(TestDatabase.getSysDbaContext().isdbFeatureExists("NONEXISTENT"));
 
     }
 
@@ -252,9 +253,8 @@ public class DbUtilityTest extends OracleTestCase {
     @Test
     public void testIsDbFeatureValidTrue() {
 
-        DbUtility utils = new DbUtility(TestDatabase.getSysDbaContext());
 
-        assertTrue(utils.isdbFeatureValid("CATALOG"));
+        assertTrue(TestDatabase.getSysDbaContext().isdbFeatureExists("CATALOG"));
 
     }
 
@@ -267,7 +267,7 @@ public class DbUtilityTest extends OracleTestCase {
     @Test
     public void testIsDatabaseUserExists() {
         DbUtility utils = new DbUtility(getSchemaOwnerContext());
-        assertTrue("DBWORKSUser user not found: ", utils.isDatabaseUserExists(getSchemaOwnerContext().getDbSettings().getUsername()));
+        assertTrue("DBWORKSUser user not found: ", getSchemaOwnerContext().isUserExists(getSchemaOwnerContext().getDbSettings().getUsername()));
     }
 
     @Test
@@ -279,7 +279,7 @@ public class DbUtilityTest extends OracleTestCase {
     @Test
     public void testIsUserObjectExists() {
         DbUtility utils = new DbUtility(getSchemaOwnerContext());
-        assertTrue("MockTestPackage2 package not found: ", utils.isUserObjectExists("MockTestPackage2", "PACKAGE"));
+        assertTrue("MockTestPackage2 package not found: ", getSchemaOwnerContext().isSqlObjectExists("MockTestPackage2", "PACKAGE", false));
     }
 
     @Test
@@ -332,7 +332,7 @@ public class DbUtilityTest extends OracleTestCase {
 
         template.execute("CREATE SEQUENCE TESTSEQUENCE INCREMENT BY 1 START WITH 998");
         DbAssert.assertSequenceExists(getSchemaOwnerContext(), "TESTSEQUENCE");
-        assertEquals(998, utils.getNextSequenceNumber("TESTSEQUENCE"));
+        assertEquals(998, getSchemaOwnerContext().getNextSequenceNumber("TESTSEQUENCE"));
     }
 
     @Test
@@ -355,7 +355,7 @@ public class DbUtilityTest extends OracleTestCase {
     @Test
     public void testGetUserObjectList() {
         DbUtility utils = new DbUtility(getSchemaOwnerContext());
-        List<String> list = utils.getSqlObjects("PACKAGE");
+        List<String> list = getSchemaOwnerContext().getSqlObjects("PACKAGE");
         assertTrue("getSqlObjects does not return any one of the pacakge at least", list.size()!=0);
     }
 
@@ -365,7 +365,7 @@ public class DbUtilityTest extends OracleTestCase {
                 "create person table"});
         try {
             DbUtility utils = new DbUtility(getSchemaOwnerContext());
-            List<String> keys = utils.getPrimaryKeys(null, "person");
+            List<String> keys = getSchemaOwnerContext().getPrimaryKeys(null, "person");
             assertEquals("ID", keys.get(0));
 
         } finally {

@@ -30,6 +30,7 @@ package org.qamatic.mintleaf.interfaces;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface DbContext {
     DataSource getDataSource();
@@ -45,4 +46,25 @@ public interface DbContext {
     boolean isSqlObjectExists(String objectName, String objectType, boolean ignoreValidity);
 
     int getCount(String tableName);
+
+    boolean isTableExists(String tableName);
+
+    boolean isdbFeatureExists(String featureName);
+
+    int getNextSequenceNumber(String sequenceName);
+
+    void truncateTable(String tableName);
+
+    boolean isUserExists(String userName);
+
+    List<String> getSqlObjects(String objectType);
+
+    List<String> getPrimaryKeys(String ownerName, String tableName);
+
+
+    boolean isPrivilegeExists(String granteeName, String privilegeName, String objectName);
+
+    boolean isColumnExists(String tableName, String columnName);
+
+    boolean isSequenceExists(String sequenceName);
 }

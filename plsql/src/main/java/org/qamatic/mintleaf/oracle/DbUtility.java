@@ -43,7 +43,7 @@ import java.util.List;
 
 
 @SqlObjectInfo(name = "DbUtility")
-public class DbUtility extends OraclePackage implements DbUtilityIntf {
+public class DbUtility extends OraclePackage   {
 
     public DbUtility(DbContext context) {
         super(context);
@@ -62,11 +62,6 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
 
     public boolean isPackageExistsByName(String pkgName) {
         return isPackageInterfaceExists(pkgName);
-    }
-
-    @Override
-    public boolean isTableExists(String pkgName) {
-        return isTableInterfaceExists(pkgName);
     }
 
 
@@ -94,12 +89,11 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return getDbContext().isSqlObjectExists(typeName, "TYPE", igoreValidity);
     }
 
-    @Override
+
     public boolean isTriggerExists(String triggerName) {
         return isTriggerExists(triggerName, false);
     }
 
-    @Override
     public boolean isTriggerExists(String triggerName, boolean igoreValidity) {
         return getDbContext().isSqlObjectExists(triggerName, "TRIGGER", igoreValidity);
     }
@@ -130,7 +124,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
 
 
     public boolean isPackageInterfaceExists(String pkgName) {
-        return isUserObjectExists(pkgName, "PACKAGE");
+        return getDbContext().isSqlObjectExists(pkgName, "PACKAGE", false);
     }
 
 
@@ -140,71 +134,18 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
 
 
     public boolean isPackageBodyExists(String pkgName) {
-        return isUserObjectExists(pkgName, "PACKAGE BODY");
+        return getDbContext().isSqlObjectExists(pkgName, "PACKAGE BODY", false);
     }
 
 
-    public boolean isTableInterfaceExists(String pkgName) {
-        return isUserObjectExists(pkgName, "TABLE");
-    }
 
 
-    public boolean isSequenceExists(String sequenceName) {
-
-        int cnt = getDbContext().getCount("user_sequences", "sequence_name = ?", new Object[]{sequenceName.toUpperCase()});
-        return cnt != 0;
-    }
-
-    @Override
-    public boolean isUserObjectExists(String objectName, String objectType) {
-        return getDbContext().isSqlObjectExists(objectName, objectType, false);
-    }
-
-    @Override
-    public boolean isColumnExists(String tableName, String columnName) {
-        int cnt = getDbContext().getCount("user_tab_columns", "table_name = ? AND column_name = ?", new Object[]{tableName.toUpperCase(), columnName.toUpperCase()});
-        return cnt != 0;
-    }
-
-    @Override
-    public boolean isdbFeatureValid(String featureName) {
-        JdbcTemplate template = new JdbcTemplate();
-        template.setDataSource(getDbContext().getDataSource());
-        int cnt = getDbContext().getCount("dba_server_registry", "comp_id=? and status=?", new Object[]{featureName.toUpperCase(), "VALID"});
-        return cnt != 0;
-    }
-
-    @Override
-    public int getNextSequenceNumber(String sequenceName) {
-        JdbcTemplate template = new JdbcTemplate();
-        template.setDataSource(getDbContext().getDataSource());
-
-        return template.queryForInt(String.format("select %s.NextVal from dual", sequenceName));
-    }
-
-
-    @Override
-    public void truncateTable(String tableName) {
-        JdbcTemplate template = new JdbcTemplate();
-        template.setDataSource(getDbContext().getDataSource());
-        String sql = String.format("truncate  table %s", tableName);
-        template.execute(sql);
-
-    }
-
-    @Override
     public String getContextParamValue(String nameSpace, String paramName) {
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getDbContext().getDataSource());
         String sql = String.format("Select sys_context('%s','%s') from dual", nameSpace, paramName);
         return template.queryForObject(sql, String.class);
     }
-
-    @Override
-    public boolean isDatabaseUserExists(String userName) {
-        return getDbContext().getCount("all_users", "username = upper(?)", new Object[]{userName}) != 0;
-    }
-
 
     public void createType(String typeName) {
         createType(typeName, null, null);
@@ -309,43 +250,6 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
     }
 
 
-    public List<String> getUserTableList() {
-        return getSqlObjects("TABLE");
-    }
-
-    @Override
-    public List<String> getSqlObjects(String objectType) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDbContext().getDataSource());
-        return jdbcTemplate.query(String.format("select object_name from user_objects where object_type='%s'", objectType), new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-                return rs.getString("object_name");
-            }
-        });
-    }
-
-    @Override
-    public List<String> getPrimaryKeys(String ownerName, String tableName) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDbContext().getDataSource());
-
-        String owner = "";
-        if (ownerName != null){
-            owner = String.format(" and ucc.owner=Upper('%s')", ownerName);
-        }
-        String sql = String
-                .format("select ucc.column_name as keyname from all_constraints uc, all_cons_columns ucc where uc.table_name = upper('%s') and uc.constraint_type = 'P' and (uc.constraint_name=ucc.constraint_name) and  uc.owner=ucc.owner %s",
-                        tableName, owner);
-        return jdbcTemplate
-                .query(sql, new RowMapper<String>() {
-                    @Override
-                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-                        return rs.getString("keyname");
-                    }
-                });
-    }
-
 
 
     public List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData) {
@@ -363,7 +267,7 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
         return getTableColumnCodeObjects(utilityCommon.getObjectMetaData(tableName, true));
     }
 
-    @Override
+
     public void grantPrivilege(String schemaName, String privilegeName, String objectName) {
 
         JdbcTemplate template = new JdbcTemplate(getDbContext().getDataSource());
@@ -371,10 +275,5 @@ public class DbUtility extends OraclePackage implements DbUtilityIntf {
 
     }
 
-    @Override
-    public boolean isPrivilegeExists(String granteeName, String privilegeName, String objectName) {
-        int cnt = getDbContext().getCount("user_tab_privs", "grantee = ? AND table_name = ? AND privilege=?", new Object[]{granteeName.toUpperCase(), objectName.toUpperCase(),
-                privilegeName.toUpperCase()});
-        return cnt != 0;
-    }
+
 }

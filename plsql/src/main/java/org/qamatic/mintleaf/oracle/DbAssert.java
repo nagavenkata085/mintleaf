@@ -65,7 +65,7 @@ public class DbAssert {
     public static void assertSequenceExists(DbContext context, String sequenceName) throws SQLException, IOException {
         DbUtility utils = new DbUtility(context);
         utils.create();
-        assertTrue("Sequence Exists: " + sequenceName, utils.isSequenceExists(sequenceName));
+        assertTrue("Sequence Exists: " + sequenceName, context.isSequenceExists(sequenceName));
     }
 
     public static void assertPackageNotExists(SqlStoredProcedureModule pkg) throws SQLException, IOException {
@@ -144,27 +144,27 @@ public class DbAssert {
 
     public static void assertTableExists(DbContext context, String tableName) {
         DbUtility utils = new DbUtility(context);
-        assertTrue("Table Invalid or not found: " + tableName, utils.isTableExists(tableName));
+        assertTrue("Table Invalid or not found: " + tableName, context.isTableExists(tableName));
     }
 
     public static void assertMViewExists(DbContext context, String mvName) {
         DbUtility utils = new DbUtility(context);
-        assertTrue("Materialized View Not Found: " + mvName, utils.isUserObjectExists(mvName, "MATERIALIZED VIEW"));
+        assertTrue("Materialized View Not Found: " + mvName, context.isSqlObjectExists(mvName, "MATERIALIZED VIEW", false));
     }
 
     public static void assertIndexExists(DbContext context, String indexName) {
         DbUtility utils = new DbUtility(context);
-        assertTrue("Index Not Found: " + indexName, utils.isUserObjectExists(indexName, "INDEX"));
+        assertTrue("Index Not Found: " + indexName, context.isSqlObjectExists(indexName, "INDEX", false));
     }
 
     public static void assertColumnExists(DbContext context, String tableName, String columnName) {
         DbUtility utils = new DbUtility(context);
-        assertTrue("Column Invalid or not found: " + tableName + ":" + columnName, utils.isColumnExists(tableName, columnName));
+        assertTrue("Column Invalid or not found: " + tableName + ":" + columnName, context.isColumnExists(tableName, columnName));
     }
 
     public static void assertTableNotExists(DbContext context, String tableName) {
         DbUtility utils = new DbUtility(context);
-        assertFalse("Table  found: " + tableName, utils.isUserObjectExists(tableName, "TABLE"));
+        assertFalse("Table  found: " + tableName, context.isSqlObjectExists(tableName, "TABLE", false));
     }
 
     public static void assertCountEquals(int expectedValue, DbContext context, String tableName, String whereClause, Object... whereClauseValues) {
@@ -198,12 +198,12 @@ public class DbAssert {
 
     public static void assertViewExists(DbContext context, String viewName) {
         DbUtility utils = new DbUtility(context);
-        assertTrue("View Invalid or not found: " + viewName, utils.isUserObjectExists(viewName, "VIEW"));
+        assertTrue("View Invalid or not found: " + viewName, context.isSqlObjectExists(viewName, "VIEW", false));
     }
 
     public static void assertViewNotExists(DbContext context, String viewName) {
         DbUtility utils = new DbUtility(context);
-        assertFalse("View found: " + viewName, utils.isUserObjectExists(viewName, "VIEW"));
+        assertFalse("View found: " + viewName, context.isSqlObjectExists(viewName, "VIEW", false));
     }
 
     public static void assertDateDifference(Date beforeDate, Date afterDate, int difference) {
@@ -221,12 +221,12 @@ public class DbAssert {
 
     public static void assertIndexNotExists(DbContext context, String indexName) {
         DbUtility utils = new DbUtility(context);
-        assertFalse("Index found: " + indexName, utils.isUserObjectExists(indexName, "INDEX"));
+        assertFalse("Index found: " + indexName, context.isSqlObjectExists(indexName, "INDEX", false));
     }
 
     public static void assertPrivilegeExists(DbContext context, String granteeName, String privilegeName, String objectName) {
         DbUtility utils = new DbUtility(context);
-        assertTrue("Privilege not granted on " + privilegeName, utils.isPrivilegeExists(granteeName, privilegeName, objectName));
+        assertTrue("Privilege not granted on " + privilegeName, context.isPrivilegeExists(granteeName, privilegeName, objectName));
     }
 
     public static void assertPrivilegeExists(DbContext context, String granteeName, String[] privileges, String objectName) {
@@ -234,7 +234,7 @@ public class DbAssert {
         StringBuilder notFound = new StringBuilder();
 
         for (String privilege : privileges) {
-            if (!utils.isPrivilegeExists(granteeName, privilege, objectName)) {
+            if (!context.isPrivilegeExists(granteeName, privilege, objectName)) {
                 notFound.append(privilege);
             }
         }
