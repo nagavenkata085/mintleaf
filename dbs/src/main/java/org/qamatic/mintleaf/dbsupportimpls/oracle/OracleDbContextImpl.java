@@ -28,7 +28,10 @@
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.core.BaseDbContext;
+import org.qamatic.mintleaf.core.SqlObjectHelper;
+import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.SqlColumn;
+import org.qamatic.mintleaf.interfaces.SqlObject;
 import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -253,6 +256,14 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     @Override
     public boolean isSynonymExists(String synonymName, boolean igoreValidity) {
         return isSqlObjectExists(synonymName, "SYNONYM", igoreValidity);
+    }
+
+    public boolean isPackageExists(Class<? extends SqlObject> pkgClass) {
+        SqlObjectInfo objAnnot = SqlObjectHelper.getDbObjectInfo(pkgClass);
+        if (objAnnot == null) {
+            return true;
+        }
+        return isPackageExists(objAnnot.name(), false);
     }
 
 }

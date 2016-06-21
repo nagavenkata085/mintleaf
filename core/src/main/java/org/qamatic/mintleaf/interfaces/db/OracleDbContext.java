@@ -1,6 +1,7 @@
 package org.qamatic.mintleaf.interfaces.db;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.interfaces.SqlObject;
 
 /**
  * Created by senips on 6/19/16.
@@ -22,7 +23,7 @@ public interface OracleDbContext extends DbContext {
 
     boolean isSynonymExists(String synonymName, boolean igoreValidity);
 
-
+    boolean isPackageExists(Class<? extends SqlObject> pkgClass);
 
 
 }

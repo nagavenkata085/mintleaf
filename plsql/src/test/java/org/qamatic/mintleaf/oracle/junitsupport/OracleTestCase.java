@@ -29,12 +29,13 @@ package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.runner.RunWith;
 import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 
 @RunWith(DbWorksTestRunner.class)
 public abstract class OracleTestCase {
 
-    public DbContext getSchemaOwnerContext() {
-        return TestDatabase.getSchemaOwnerContext();
+    public OracleDbContext getSchemaOwnerContext() {
+        return (OracleDbContext) TestDatabase.getSchemaOwnerContext();
     }
 
 

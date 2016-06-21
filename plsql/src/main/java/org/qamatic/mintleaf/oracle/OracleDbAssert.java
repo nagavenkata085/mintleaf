@@ -42,42 +42,36 @@ import static org.junit.Assert.*;
 public class OracleDbAssert {
 
 
-    public static void assertPackageBodyExists(DbContext context, String pkgName) throws SQLException, IOException {
-        OracleDbUtility utils = new OracleDbUtility(context);
-        utils.create();
-        assertTrue("PL/Sql package body Invalid or not found: " + pkgName, utils.isPackageBodyExists(pkgName));
+    public static void assertPackageBodyExists(OracleDbContext context, String pkgName) throws SQLException, IOException {
+        assertTrue("PL/Sql package body Invalid or not found: " + pkgName, context.isPackageBodyExists(pkgName, false));
     }
 
     public static void assertPackageExists(SqlStoredProcedureModule pkg) throws SQLException, IOException {
-        assertPackageExists(pkg.getDbContext(), pkg.getName());
+        assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
 
-    public static void assertPackageExists(DbContext context, String pkgName) throws SQLException, IOException {
-        OracleDbUtility utils = new OracleDbUtility(context);
-        utils.create();
-        assertTrue("PL/Sql package Invalid or not found: " + pkgName, utils.isPackageInterfaceExists(pkgName));
+    public static void assertPackageExists(OracleDbContext context, String pkgName) throws SQLException, IOException {
+
+        assertTrue("PL/Sql package Invalid or not found: " + pkgName, context.isPackageExists(pkgName, false));
     }
 
-    public static void assertSequenceExists(DbContext context, String sequenceName) throws SQLException, IOException {
-        OracleDbUtility utils = new OracleDbUtility(context);
-        utils.create();
+    public static void assertSequenceExists(OracleDbContext context, String sequenceName) throws SQLException, IOException {
+
         assertTrue("Sequence Exists: " + sequenceName, context.isSequenceExists(sequenceName));
     }
 
     public static void assertPackageNotExists(SqlStoredProcedureModule pkg) throws SQLException, IOException {
-        assertPackageNotExists(pkg.getDbContext(), pkg.getName());
+        assertPackageNotExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
 
-    public static void assertPackageNotExists(DbContext context, String pkgName) throws SQLException, IOException {
-        OracleDbUtility utils = new OracleDbUtility(context);
-        utils.create();
-        assertFalse("PL/Sql package found: " + pkgName, utils.isPackageInterfaceExists(pkgName));
+    public static void assertPackageNotExists(OracleDbContext context, String pkgName) throws SQLException, IOException {
+
+        assertFalse("PL/Sql package found: " + pkgName, context.isPackageExists(pkgName, false));
     }
 
-    public static void assertPackageInterfaceExists(DbContext context, String pkgName) throws SQLException, IOException {
-        OracleDbUtility utils = new OracleDbUtility(context);
-        utils.create();
-        assertTrue("PL/Sql package found: " + pkgName, utils.isPackageInterfaceExists(pkgName));
+    public static void assertPackageInterfaceExists(OracleDbContext context, String pkgName) throws SQLException, IOException {
+
+        assertTrue("PL/Sql package found: " + pkgName, context.isPackageExists(pkgName, false));
     }
 
 

@@ -116,8 +116,8 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlStoredPr
 
     @Override
     public void drop() {
-        OracleDbUtility utils = new OracleDbUtility(getDbContext());
-        if (!utils.isPackageInterfaceExists(this.getName(), true)) {
+
+        if (!getOracleDbContext().isPackageExists(this.getName(), true)) {
             return;
         }
         JdbcTemplate template = new JdbcTemplate();
@@ -130,7 +130,7 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlStoredPr
     }
 
 
-    protected OracleDbContext getOracleDbContext(){
+    private OracleDbContext getOracleDbContext(){
         return (OracleDbContext) getDbContext();
     }
 

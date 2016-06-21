@@ -32,6 +32,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OracleDbUtility;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
@@ -115,8 +116,10 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
 
             }
         };
+
+
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
-        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "MyPackage");
+        OracleDbAssert.assertPackageExists((OracleDbContext) getSchemaOwnerContext(), "MyPackage");
 
         PLCreatePackageBody p = new PLCreatePackageBody("MyPackage") {
             {
@@ -128,7 +131,7 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
         };
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        OracleDbAssert.assertPackageBodyExists(getSchemaOwnerContext(), "MyPackage");
+        OracleDbAssert.assertPackageBodyExists((OracleDbContext) getSchemaOwnerContext(), "MyPackage");
 
     }
 
@@ -148,7 +151,7 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
             }
         };
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
-        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "A_Test_Package");
+        OracleDbAssert.assertPackageExists((OracleDbContext) getSchemaOwnerContext(), "A_Test_Package");
 
         PLCreatePackageBody p = new PLCreatePackageBody("A_Test_Package") {
             {
@@ -165,6 +168,6 @@ public class PLCreatePackageBodyTest extends OracleTestCase {
         };
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        OracleDbAssert.assertPackageBodyExists(getSchemaOwnerContext(), "A_Test_Package");
+        OracleDbAssert.assertPackageBodyExists((OracleDbContext) getSchemaOwnerContext(), "A_Test_Package");
     }
 }

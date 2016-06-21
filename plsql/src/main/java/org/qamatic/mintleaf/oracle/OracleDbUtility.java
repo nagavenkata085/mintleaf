@@ -62,28 +62,7 @@ public class OracleDbUtility extends OraclePackage   {
 
 
 
-    public boolean isPackageExists(Class<? extends OraclePackage> pkgClass) {
-        SqlObjectInfo objAnnot = SqlObjectHelper.getDbObjectInfo(pkgClass);
-        if (objAnnot == null) {
-            return true;
-        }
-        return isPackageInterfaceExists(objAnnot.name());
-    }
 
-
-    public boolean isPackageInterfaceExists(String pkgName) {
-        return getDbContext().isSqlObjectExists(pkgName, "PACKAGE", false);
-    }
-
-
-    public boolean isPackageInterfaceExists(String pkgName, boolean ignoreValidity) {
-        return getDbContext().isSqlObjectExists(pkgName, "PACKAGE", ignoreValidity);
-    }
-
-
-    public boolean isPackageBodyExists(String pkgName) {
-        return getDbContext().isSqlObjectExists(pkgName, "PACKAGE BODY", false);
-    }
 
 
     public void createType(String typeName) {
@@ -121,6 +100,11 @@ public class OracleDbUtility extends OraclePackage   {
 
         return t;
     }
+
+    private OracleDbContext getOracleDbContext(){
+        return (OracleDbContext) getDbContext();
+    }
+
 
 
     public void createType(String typeName, String parentClassName) {
@@ -178,11 +162,12 @@ public class OracleDbUtility extends OraclePackage   {
     }
 
 
+
     public boolean isDependencyPackageExists(SqlStoredProcedureModule pkg) {
 
         Class<OraclePackage>[] items = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
         for (Class<OraclePackage> sqlClass : items) {
-            if (!isPackageExists(sqlClass)) {
+            if (! ((OracleDbContext) pkg.getDbContext()).isPackageExists(sqlClass)) {
                 return false;
             }
         }

@@ -31,6 +31,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OracleDbUtility;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
@@ -93,9 +94,14 @@ public class PLCreatePackageTest extends OracleTestCase {
             }
         };
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        OracleDbAssert.assertPackageInterfaceExists(getSchemaOwnerContext(), "MyPackage");
+        OracleDbAssert.assertPackageInterfaceExists(getOracleSchemaOwnerDbContext(), "MyPackage");
 
     }
+
+    private OracleDbContext getOracleSchemaOwnerDbContext(){
+        return (OracleDbContext) getSchemaOwnerContext();
+    }
+
 
     @Test
     public void testCreatePackageWithMemberMethodMemberParameter() {
@@ -139,6 +145,6 @@ public class PLCreatePackageTest extends OracleTestCase {
         };
 
         new ExecuteQuery().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        OracleDbAssert.assertPackageInterfaceExists(getSchemaOwnerContext(), "MyPackage");
+        OracleDbAssert.assertPackageInterfaceExists(getOracleSchemaOwnerDbContext(), "MyPackage");
     }
 }

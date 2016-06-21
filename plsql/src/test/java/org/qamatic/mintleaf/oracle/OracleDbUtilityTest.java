@@ -253,8 +253,7 @@ public class OracleDbUtilityTest extends OracleTestCase {
 
     @Test
     public void testIsPackageInterfaceExists() {
-        OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
-        assertTrue("MockTestPackage2 package not found: ", utils.isPackageInterfaceExists("MockTestPackage2"));
+        assertTrue("MockTestPackage2 package not found: ", getOracleDbContext().isPackageExists("MockTestPackage2", false));
     }
 
     @Test
@@ -266,7 +265,7 @@ public class OracleDbUtilityTest extends OracleTestCase {
     @Test
     public void testIsPackageBodyExists() {
         OracleDbUtility utils = new OracleDbUtility(getSchemaOwnerContext());
-        assertTrue("MockTestPackage2 package body not found: ", utils.isPackageBodyExists("MockTestPackage2"));
+        assertTrue("MockTestPackage2 package body not found: ", getOracleDbContext().isPackageBodyExists("MockTestPackage2",false));
     }
 
     @Test
@@ -324,7 +323,7 @@ public class OracleDbUtilityTest extends OracleTestCase {
         }
 
         template.execute("CREATE SEQUENCE TESTSEQUENCE INCREMENT BY 1 START WITH 998");
-        OracleDbAssert.assertSequenceExists(getSchemaOwnerContext(), "TESTSEQUENCE");
+        OracleDbAssert.assertSequenceExists((OracleDbContext) getSchemaOwnerContext(), "TESTSEQUENCE");
         assertEquals(998, getSchemaOwnerContext().getNextSequenceNumber("TESTSEQUENCE"));
     }
 

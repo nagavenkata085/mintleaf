@@ -35,6 +35,7 @@ import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
 import java.io.IOException;
@@ -92,7 +93,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void TestDependencyPackageCreate1() throws SQLException, IOException {
         DependencyPackageCreate1 pkg = new DependencyPackageCreate1(getSchemaOwnerContext());
         pkg.createDependencies();
-        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
+        OracleDbAssert.assertPackageExists((OracleDbContext) getSchemaOwnerContext(), "TESTLOG");
         pkg.create();
         OracleDbAssert.assertPackageExists(pkg);
     }
