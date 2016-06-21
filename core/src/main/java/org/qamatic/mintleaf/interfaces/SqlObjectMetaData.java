@@ -40,7 +40,7 @@ public class SqlObjectMetaData {
 
     public SqlObjectMetaData(SqlColumn... columns) {
         for (SqlColumn column : columns) {
-             
+
             mvcolumnsMetaData.add(column);
         }
     }

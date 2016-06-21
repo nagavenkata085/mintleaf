@@ -89,7 +89,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     protected void onAfterCreate() {
-        OracleDbUtility utils = new OracleDbUtility(getDbContext());
+        OracleDbHelper utils = new OracleDbHelper(getDbContext());
         utils.alterType(getName());
     }
 
@@ -153,7 +153,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     protected PLCreateType getCreateTypeInstance() throws SQLException {
         if (mvPLCreateType == null) {
-            OracleDbUtility utils = new OracleDbUtility(getDbContext());
+            OracleDbHelper utils = new OracleDbHelper(getDbContext());
             mvPLCreateType = utils.createType(getName(), getTypeObjectExtendsFrom(), null, false);
             invalidateColumnList();
         }
@@ -196,7 +196,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     public void invalidate() {
-        OracleDbUtility utils = new OracleDbUtility(getDbContext());
+        OracleDbHelper utils = new OracleDbHelper(getDbContext());
         Class<? extends SqlTypeObject>[] dependentTypes = SqlObjectHelper.getDependencyItems(this, SqlTypeObject.class);
         for (Class<? extends SqlTypeObject> typeObjClass : dependentTypes) {
             utils.alterType(typeObjClass);
@@ -206,7 +206,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     public void drop() {
-        new OracleDbUtility(getDbContext()).dropType(getName());
+        new OracleDbHelper(getDbContext()).dropType(getName());
     }
 
     private Field[] getTypeObjectFields(Class<?> type) {
@@ -366,7 +366,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
         return proc;
     }
 
-    protected OracleDbContext getOracleDbContext(){
+    protected OracleDbContext getOracleDbContext() {
         return (OracleDbContext) getDbContext();
     }
 

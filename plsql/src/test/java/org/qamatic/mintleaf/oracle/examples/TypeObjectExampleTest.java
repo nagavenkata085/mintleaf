@@ -36,7 +36,10 @@ import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
-import org.qamatic.mintleaf.oracle.*;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbHelper;
+import org.qamatic.mintleaf.oracle.OraclePackage;
+import org.qamatic.mintleaf.oracle.OracleTypeObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
 import java.io.IOException;
@@ -55,7 +58,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
                     new String[]{"drop person table"});
             mvtestPackage.dropAll();
 
-            new OracleDbUtility(mvtestPackage.getDbContext()).dropType("TPERSON");
+            new OracleDbHelper(mvtestPackage.getDbContext()).dropType("TPERSON");
         }
     }
 
@@ -73,7 +76,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
 
     }
 
-    private OracleDbContext getOracleDbContext(){
+    private OracleDbContext getOracleDbContext() {
         return (OracleDbContext) getSchemaOwnerContext();
     }
 

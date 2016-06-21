@@ -25,5 +25,8 @@ public interface OracleDbContext extends DbContext {
 
     boolean isPackageExists(Class<? extends SqlObject> pkgClass);
 
+    void dropObject(String objectName, String objectType, String clause);
+
+    void dropObject(String objectName, String objectType);
 
 }

@@ -76,7 +76,7 @@ public class OracleDbAssert {
 
 
     public static void assertTypeBodyExists(OracleDbContext context, String typeName) {
-        OracleDbUtility utils = new OracleDbUtility(context);
+        OracleDbHelper utils = new OracleDbHelper(context);
         assertTrue("Schema Type Invalid or not found: " + typeName, context.isTypeBodyExists(typeName, false));
     }
 

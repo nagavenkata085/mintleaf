@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
-import org.qamatic.mintleaf.oracle.OracleDbUtility;
+import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTypeMemberMethod;
@@ -47,13 +47,13 @@ import static org.junit.Assert.assertEquals;
 
 public class PLCreateTypeTest extends OracleTestCase {
 
-    private static OracleDbUtility mvutils;
+    private static OracleDbHelper mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new OracleDbUtility(getSchemaOwnerContext());
+            mvutils = new OracleDbHelper(getSchemaOwnerContext());
         }
     }
 

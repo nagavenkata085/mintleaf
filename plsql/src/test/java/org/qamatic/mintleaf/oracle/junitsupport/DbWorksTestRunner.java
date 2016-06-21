@@ -33,7 +33,7 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 import org.qamatic.mintleaf.interfaces.DbModule;
-import org.qamatic.mintleaf.oracle.OracleDbUtility;
+import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.TestInstaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ public class DbWorksTestRunner extends BlockJUnit4ClassRunner {
     protected static int mvtestInstallerState = 0;
     protected static boolean mvdatabaseReady = false;
     protected static boolean mvcallOnce = true;
-    private static OracleDbUtility mvutils;
+    private static OracleDbHelper mvutils;
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     private int mvcurrentTestCount;
 
@@ -69,7 +69,7 @@ public class DbWorksTestRunner extends BlockJUnit4ClassRunner {
 
                 DbModule installer = new TestInstaller(TestDatabase.getSysDbaContext(), TestDatabase.getSchemaOwnerContext());
                 mvtestInstallerState = installer.install();
-                mvutils = new OracleDbUtility(TestDatabase.getSchemaOwnerContext());
+                mvutils = new OracleDbHelper(TestDatabase.getSchemaOwnerContext());
                 mvutils.createAll();
             } catch (Exception e1) {
                 logger.error("error bootStrapping: ", e1);

@@ -27,7 +27,6 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.qamatic.mintleaf.interfaces.DbSettings;
 

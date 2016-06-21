@@ -33,8 +33,8 @@ import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.ArgumentTypeMap;
 import org.qamatic.mintleaf.oracle.CodeObject;
-import org.qamatic.mintleaf.oracle.OracleDbUtility;
 import org.qamatic.mintleaf.oracle.MemberField;
+import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentTypeExtension;
 import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanTypeExtension;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRecordTypeExtension;
@@ -297,7 +297,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
     protected OracleRowTypeExtension getRowTypeExtension(String rowTypeTableName, String supportedType) {
         PLCreateType p = null;
         try {
-            p = new OracleDbUtility(mvpackage.getDbContext()).createTypeFromTable(supportedType, null, rowTypeTableName);
+            p = new OracleDbHelper(mvpackage.getDbContext()).createTypeFromTable(supportedType, null, rowTypeTableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }

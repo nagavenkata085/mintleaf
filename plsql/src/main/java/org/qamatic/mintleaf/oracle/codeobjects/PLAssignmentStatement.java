@@ -29,12 +29,12 @@ package org.qamatic.mintleaf.oracle.codeobjects;
 
 import org.qamatic.mintleaf.oracle.StatementObject;
 
-public class PLAssignmentStatement  extends StatementObject {
+public class PLAssignmentStatement extends StatementObject {
 
-    private StatementObject mvstmt;
-    private boolean mvinplaceAssign;
     private final String mvleftSide;
     private final String mvrightSide;
+    private StatementObject mvstmt;
+    private boolean mvinplaceAssign;
 
     public PLAssignmentStatement(String leftSide, String rightSide) {
         mvleftSide = leftSide;

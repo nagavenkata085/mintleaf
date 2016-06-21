@@ -32,21 +32,21 @@ import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
-import org.qamatic.mintleaf.oracle.codeobjects.*;
+import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
+import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
+import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@SqlObjectInfo(name = "OracleDbUtility")
-public class OracleDbUtility extends OraclePackage   {
+@SqlObjectInfo(name = "OracleDbHelper")
+public class OracleDbHelper extends OraclePackage {
 
-    public OracleDbUtility(DbContext context) {
+    public OracleDbHelper(DbContext context) {
         super(context);
     }
 
@@ -59,10 +59,6 @@ public class OracleDbUtility extends OraclePackage   {
     public void create() throws SQLException, IOException {
         //no need to create anything.
     }
-
-
-
-
 
 
     public void createType(String typeName) {
@@ -80,7 +76,6 @@ public class OracleDbUtility extends OraclePackage   {
         return createType(typeName, parentClassName, columns, true);
 
     }
-
 
 
     public PLCreateType createType(String typeName, String parentClassName, List<PLTableColumnDef> columns, boolean bCreate) {
@@ -101,10 +96,9 @@ public class OracleDbUtility extends OraclePackage   {
         return t;
     }
 
-    private OracleDbContext getOracleDbContext(){
+    private OracleDbContext getOracleDbContext() {
         return (OracleDbContext) getDbContext();
     }
-
 
 
     public void createType(String typeName, String parentClassName) {
@@ -143,38 +137,25 @@ public class OracleDbUtility extends OraclePackage   {
     }
 
     public void dropType(String typeName) {
-
-        if (!getDbContext().isSqlObjectExists(typeName, "TYPE", true)) {
-            return;
-        }
-        JdbcTemplate template = new JdbcTemplate(getDbContext().getDataSource());
-        template.execute(new PLDropType(typeName).toString());
+        getOracleDbContext().dropObject(typeName, "TYPE");
     }
 
 
-    public void dropPackage(String typeName) {
-
-        if (!getOracleDbContext().isPackageExists(typeName, false)) {
-            return;
-        }
-        JdbcTemplate template = new JdbcTemplate(getDbContext().getDataSource());
-        template.execute(new PLDropPackage(typeName).toString());
+    public void dropPackage(String pkgName) {
+        getOracleDbContext().dropObject(pkgName, "package");
     }
-
 
 
     public boolean isDependencyPackageExists(SqlStoredProcedureModule pkg) {
 
         Class<OraclePackage>[] items = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
         for (Class<OraclePackage> sqlClass : items) {
-            if (! ((OracleDbContext) pkg.getDbContext()).isPackageExists(sqlClass)) {
+            if (!((OracleDbContext) pkg.getDbContext()).isPackageExists(sqlClass)) {
                 return false;
             }
         }
         return true;
     }
-
-
 
 
     public List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData) {

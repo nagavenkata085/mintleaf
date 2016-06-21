@@ -27,8 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
-public  class MemberField extends ColumnDef implements CodeObject {
-
+public class MemberField extends ColumnDef implements CodeObject {
 
 
     public MemberField(String leftSide, String rightSide) {

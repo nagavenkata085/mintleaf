@@ -31,7 +31,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
-import org.qamatic.mintleaf.oracle.OracleDbUtility;
+import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.TestDbProvisioning;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreatePackage;
 import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
@@ -44,13 +44,13 @@ import java.sql.SQLException;
 
 public class PLGrantPrivilegeTest extends OracleTestCase {
 
-    private static OracleDbUtility mvutils;
+    private static OracleDbHelper mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new OracleDbUtility(getSchemaOwnerContext());
+            mvutils = new OracleDbHelper(getSchemaOwnerContext());
             TestDbProvisioning tpriv = new TestDbProvisioning(TestDatabase.getSysDbaContext());
             tpriv.recreateSchemaUser("TESTUSER", "Oracle");
         }

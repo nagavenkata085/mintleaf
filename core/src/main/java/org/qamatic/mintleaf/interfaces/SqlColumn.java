@@ -27,9 +27,6 @@
 
 package org.qamatic.mintleaf.interfaces;
 
-import java.sql.Date;
-import java.sql.Types;
-
 public abstract class SqlColumn {
     protected String mvColumnName;
     protected String mvTypeName;
@@ -39,7 +36,6 @@ public abstract class SqlColumn {
     protected int mvDecimalDigits;
     protected boolean mvCalculated;
     protected boolean mvIgnoreForTypeObjectCreation;
-
 
 
     public String getColumnName() {
@@ -70,12 +66,12 @@ public abstract class SqlColumn {
         return mvNullable;
     }
 
-    public void setNullable(boolean nullable) {
-        mvNullable = nullable;
-    }
-
     public void setNullable(int nullable) {
         mvNullable = nullable == 1;
+    }
+
+    public void setNullable(boolean nullable) {
+        mvNullable = nullable;
     }
 
     public int getColumnSize() {

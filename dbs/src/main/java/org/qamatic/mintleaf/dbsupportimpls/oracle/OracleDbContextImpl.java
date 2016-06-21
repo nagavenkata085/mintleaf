@@ -27,6 +27,7 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
+
 import org.qamatic.mintleaf.core.BaseDbContext;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
@@ -76,7 +77,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     }
 
     public boolean isColumnExists(String tableName, String columnName) {
-        int cnt =  getCount("user_tab_columns", "table_name = ? AND column_name = ?", new Object[]{tableName.toUpperCase(), columnName.toUpperCase()});
+        int cnt = getCount("user_tab_columns", "table_name = ? AND column_name = ?", new Object[]{tableName.toUpperCase(), columnName.toUpperCase()});
         return cnt != 0;
     }
 
@@ -131,7 +132,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         String owner = "";
-        if (ownerName != null){
+        if (ownerName != null) {
             owner = String.format(" and ucc.owner=Upper('%s')", ownerName);
         }
         String sql = String
@@ -263,7 +264,22 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         if (objAnnot == null) {
             return true;
         }
+
         return isPackageExists(objAnnot.name(), false);
+    }
+
+    public void dropObject(String objectName, String objectType) {
+        dropObject(objectName, objectType, null);
+    }
+
+    public void dropObject(String objectName, String objectType, String clause) {
+        objectType = objectType.toUpperCase();
+        objectName = objectName.toUpperCase();
+        if (!isSqlObjectExists(objectName, objectType, true)) {
+            return;
+        }
+        JdbcTemplate template = new JdbcTemplate(getDataSource());
+        template.execute(String.format("DROP %s %s %s", objectType, objectName, clause == null ? "" : "force"));
     }
 
 }

@@ -28,7 +28,6 @@
 package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.runner.RunWith;
-import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 
 @RunWith(DbWorksTestRunner.class)

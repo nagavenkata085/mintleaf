@@ -130,7 +130,7 @@ public abstract class OraclePackage extends BaseSqlObject implements SqlStoredPr
     }
 
 
-    private OracleDbContext getOracleDbContext(){
+    private OracleDbContext getOracleDbContext() {
         return (OracleDbContext) getDbContext();
     }
 
