@@ -34,7 +34,7 @@ import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 public abstract class OracleTestCase {
 
     public OracleDbContext getSchemaOwnerContext() {
-        return (OracleDbContext) TestDatabase.getSchemaOwnerContext();
+        return (OracleDbContext) OracleTestDatabase.getSchemaOwnerContext();
     }
 
 

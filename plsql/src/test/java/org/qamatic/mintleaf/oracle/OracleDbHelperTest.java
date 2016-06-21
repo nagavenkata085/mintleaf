@@ -37,7 +37,7 @@ import org.qamatic.mintleaf.interfaces.SqlObject;
 import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
-import org.qamatic.mintleaf.oracle.junitsupport.TestDatabase;
+import org.qamatic.mintleaf.oracle.junitsupport.OracleTestDatabase;
 import org.qamatic.mintleaf.oracle.mocks.CreateTable1;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -240,7 +240,7 @@ public class OracleDbHelperTest extends OracleTestCase {
     @Test
     public void testIsDbFeatureValidFalse() {
 
-        assertFalse(TestDatabase.getSysDbaContext().isdbFeatureExists("NONEXISTENT"));
+        assertFalse(OracleTestDatabase.getSysDbaContext().isdbFeatureExists("NONEXISTENT"));
 
     }
 
@@ -248,7 +248,7 @@ public class OracleDbHelperTest extends OracleTestCase {
     public void testIsDbFeatureValidTrue() {
 
 
-        assertTrue(TestDatabase.getSysDbaContext().isdbFeatureExists("CATALOG"));
+        assertTrue(OracleTestDatabase.getSysDbaContext().isdbFeatureExists("CATALOG"));
 
     }
 

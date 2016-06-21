@@ -67,9 +67,9 @@ public class DbWorksTestRunner extends BlockJUnit4ClassRunner {
                 mvcallOnce = false;
                 logger.info("Setting up schema");
 
-                DbModule installer = new TestInstaller(TestDatabase.getSysDbaContext(), TestDatabase.getSchemaOwnerContext());
+                DbModule installer = new TestInstaller(OracleTestDatabase.getSysDbaContext(), OracleTestDatabase.getSchemaOwnerContext());
                 mvtestInstallerState = installer.install();
-                mvutils = new OracleDbHelper(TestDatabase.getSchemaOwnerContext());
+                mvutils = new OracleDbHelper(OracleTestDatabase.getSchemaOwnerContext());
                 mvutils.createAll();
             } catch (Exception e1) {
                 logger.error("error bootStrapping: ", e1);

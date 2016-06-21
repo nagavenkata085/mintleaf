@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle.junitsupport;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.qamatic.mintleaf.core.DbConnectionProperties;
@@ -34,7 +34,7 @@ import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.DbSettings;
 
 
-public class TestDatabase {
+public class OracleTestDatabase {
 
     private static DbContext mvDbContext;
     private static DbContext mvSysDbContext;
