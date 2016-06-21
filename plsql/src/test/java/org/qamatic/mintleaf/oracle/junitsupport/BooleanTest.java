@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
-import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 
 import java.io.IOException;

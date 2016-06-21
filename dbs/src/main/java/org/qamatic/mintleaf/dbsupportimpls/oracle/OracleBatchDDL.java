@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.core.SqlDDL;
 import org.qamatic.mintleaf.interfaces.DbContext;

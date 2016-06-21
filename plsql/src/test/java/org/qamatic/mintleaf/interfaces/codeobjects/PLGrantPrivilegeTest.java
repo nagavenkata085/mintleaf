@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.interfaces.codeobjects;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.TestDbProvisioning;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreatePackage;

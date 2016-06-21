@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
@@ -76,7 +76,6 @@ public class OracleDbAssert {
 
 
     public static void assertTypeBodyExists(OracleDbContext context, String typeName) {
-        OracleDbHelper utils = new OracleDbHelper(context);
         assertTrue("Schema Type Invalid or not found: " + typeName, context.isTypeBodyExists(typeName, false));
     }
 

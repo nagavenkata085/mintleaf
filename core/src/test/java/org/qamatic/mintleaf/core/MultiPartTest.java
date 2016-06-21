@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle.junitsupport;
+package org.qamatic.mintleaf.core;
 
 import org.junit.Assert;
 import org.junit.Test;

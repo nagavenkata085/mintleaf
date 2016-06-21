@@ -36,7 +36,7 @@ import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
-import org.qamatic.mintleaf.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.OracleTypeObject;

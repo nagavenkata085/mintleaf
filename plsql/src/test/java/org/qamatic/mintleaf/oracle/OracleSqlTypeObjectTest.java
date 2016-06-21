@@ -33,6 +33,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.core.SqlCodeExecutor;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
