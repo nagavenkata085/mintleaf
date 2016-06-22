@@ -25,41 +25,30 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.interfaces;
 
-import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
+public interface SqlArgumentType extends SqlAnonymousCode {
 
-public class ArgumentTypeMap implements SqlArgumentTypeMap {
+    void setIdentifier(String identifier);
 
-    private String mvcol1;
-    private String mvcol2;
+    String getSupportedType();
 
-    public ArgumentTypeMap() {
-    }
+    void setSupportedType(String supportedType);
 
-    public ArgumentTypeMap(String col1, String col2) {
-        mvcol1 = col1;
-        mvcol2 = col2;
-    }
+    String getUnsupportedType();
 
-    @Override
-    public String getCol1() {
-        return mvcol1;
-    }
+    void setUnsupportedType(String unsupportedType);
 
-    @Override
-    public void setCol1(String col1) {
-        mvcol1 = col1;
-    }
+    String getSupportedVariable();
 
-    @Override
-    public String getCol2() {
-        return mvcol2;
-    }
+    String getUnsupportedVariable();
 
-    @Override
-    public void setCol2(String col2) {
-        mvcol2 = col2;
-    }
+    boolean isOutParameter();
+
+    void setOutParameter(boolean bValue);
+
+    boolean isResultsParameter();
+
+    void setResultsParameter(boolean bValue);
 
 }

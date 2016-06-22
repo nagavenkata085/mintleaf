@@ -29,9 +29,9 @@ package org.qamatic.mintleaf.oracle.argextensions;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.BaseProcedureCall;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentTypeExtension;
+import org.qamatic.mintleaf.interfaces.SqlArgumentType;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
@@ -39,11 +39,11 @@ import java.sql.Types;
 
 import static org.junit.Assert.assertEquals;
 
-public class OracleBooleanTypeExtensionTest {
+public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanIdentifierDeclarationWithInParam() {
-        SqlArgumentTypeExtension ext = new OracleBooleanTypeExtension();
+        SqlArgumentType ext = new OracleBooleanType();
         ext.setIdentifier("bVal");
         ext.setOutParameter(true);
         assertEquals("bVal", ext.getIdentifier());
@@ -52,7 +52,7 @@ public class OracleBooleanTypeExtensionTest {
 
     @Test
     public void testBooleanIdentifierDeclarationWithOutParam() {
-        SqlArgumentTypeExtension ext = new OracleBooleanTypeExtension();
+        SqlArgumentType ext = new OracleBooleanType();
         ext.setIdentifier("bVal");
         ext.setOutParameter(false);
         assertEquals("bVal", ext.getIdentifier());
@@ -61,7 +61,7 @@ public class OracleBooleanTypeExtensionTest {
 
     @Test
     public void testBooleanTypeConversion() {
-        SqlArgumentTypeExtension ext = new OracleBooleanTypeExtension();
+        SqlArgumentType ext = new OracleBooleanType();
         ext.setIdentifier("bVal");
         StringBuilder builder = new StringBuilder();
 
@@ -78,7 +78,7 @@ public class OracleBooleanTypeExtensionTest {
         MockProcedure p = new MockProcedure(null);
         p.setSql("smcall");
         p.createBooleanParameter("inparam");
-        Assert.assertEquals("smcall(inparam_unsup);", BaseProcedureCall.getMethodCall(p));
+        Assert.assertEquals("smcall(inparam_unsup);", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class OracleBooleanTypeExtensionTest {
         p.createBooleanOutParameter("result");
         p.createBooleanOutParameter("outparam");
         p.createBooleanParameter("inparam");
-        assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup);", BaseProcedureCall.getMethodCall(p));
+        assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup);", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class OracleBooleanTypeExtensionTest {
         assertEquals("", arg5.getTypeExtension().getCodeBeforeCall());
         assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getTypeExtension().getCodeBeforeCall());
 
-        assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup, ?, ?, outparamA_unsup);", BaseProcedureCall.getMethodCall(p));
+        assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup, ?, ?, outparamA_unsup);", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test

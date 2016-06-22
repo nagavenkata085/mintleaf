@@ -30,10 +30,10 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.BaseProcedureCall;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentTypeExtension;
+import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
@@ -63,7 +63,7 @@ public class OracleSpringSqlArgumentCollectionTest {
         p = new MockProcedure(null);
         p.setSql("smcall");
         Assert.assertEquals("", p.getDeclaredArguments().getIdentifier());
-        assertEquals("smcall();", BaseProcedureCall.getMethodCall(p));
+        assertEquals("smcall();", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test
@@ -72,29 +72,29 @@ public class OracleSpringSqlArgumentCollectionTest {
         p.setSql("smcall");
         p.setFunction(true);
         Assert.assertEquals("", p.getDeclaredArguments().getIdentifier());
-        assertEquals("? := smcall();", BaseProcedureCall.getMethodCall(p));
+        assertEquals("? := smcall();", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test
     public void testExtensionSoureIdentifierWith() {
-        a1.setTypeExtension(new MockTypeExtension1());
+        a1.setTypeExtension(new MockType1());
         Assert.assertEquals("p1\n?\n", p.getDeclaredArguments().getIdentifier());
-        assertEquals("smcall(p1, ?);", BaseProcedureCall.getMethodCall(p));
-        a2.setTypeExtension(new MockTypeExtension2());
+        assertEquals("smcall(p1, ?);", OracleProcedureCall.getMethodCall(p));
+        a2.setTypeExtension(new MockType2());
         Assert.assertEquals("p1\np2\n", p.getDeclaredArguments().getIdentifier());
-        assertEquals("smcall(p1, p2);", BaseProcedureCall.getMethodCall(p));
+        assertEquals("smcall(p1, p2);", OracleProcedureCall.getMethodCall(p));
 
     }
 
     @Test
     public void testExtensionSoureIdentifierWithFunc() {
         p.setFunction(true);
-        a1.setTypeExtension(new MockTypeExtension1());
+        a1.setTypeExtension(new MockType1());
         Assert.assertEquals("p1\n?\n", p.getDeclaredArguments().getIdentifier());
-        assertEquals("p1 := smcall(?);", BaseProcedureCall.getMethodCall(p));
-        a2.setTypeExtension(new MockTypeExtension2());
+        assertEquals("p1 := smcall(?);", OracleProcedureCall.getMethodCall(p));
+        a2.setTypeExtension(new MockType2());
         Assert.assertEquals("p1\np2\n", p.getDeclaredArguments().getIdentifier());
-        assertEquals("p1 := smcall(p2);", BaseProcedureCall.getMethodCall(p));
+        assertEquals("p1 := smcall(p2);", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test
@@ -103,8 +103,8 @@ public class OracleSpringSqlArgumentCollectionTest {
         String actual = p.getDeclaredArguments().getVariableDeclaration();
         assertEquals("", actual);
 
-        a1.setTypeExtension(new MockTypeExtension1());
-        a2.setTypeExtension(new MockTypeExtension2());
+        a1.setTypeExtension(new MockType1());
+        a2.setTypeExtension(new MockType2());
 
         Assert.assertEquals("p1 VARCHAR2;\np2 VARCHAR2;\n", p.getDeclaredArguments().getVariableDeclaration());
     }
@@ -114,8 +114,8 @@ public class OracleSpringSqlArgumentCollectionTest {
 
         Assert.assertEquals("", p.getDeclaredArguments().getTypeConversionCode());
 
-        a1.setTypeExtension(new MockTypeExtension1());
-        a2.setTypeExtension(new MockTypeExtension2());
+        a1.setTypeExtension(new MockType1());
+        a2.setTypeExtension(new MockType2());
 
         Assert.assertEquals("function x() return varchar2 begin return 'hi '; end;" + "\nfunction y() return varchar2 begin return 'how are you'; end;\n", p
                 .getDeclaredArguments().getTypeConversionCode());
@@ -126,8 +126,8 @@ public class OracleSpringSqlArgumentCollectionTest {
 
         Assert.assertEquals("", p.getDeclaredArguments().getCodeBeforeCall());
 
-        a1.setTypeExtension(new MockTypeExtension1());
-        a2.setTypeExtension(new MockTypeExtension2());
+        a1.setTypeExtension(new MockType1());
+        a2.setTypeExtension(new MockType2());
 
         Assert.assertEquals("p1 := x(?)\np2 := y(?)\n", p.getDeclaredArguments().getCodeBeforeCall());
     }
@@ -137,8 +137,8 @@ public class OracleSpringSqlArgumentCollectionTest {
 
         Assert.assertEquals("", p.getDeclaredArguments().getCodeAfterCall());
 
-        a1.setTypeExtension(new MockTypeExtension1());
-        a2.setTypeExtension(new MockTypeExtension2());
+        a1.setTypeExtension(new MockType1());
+        a2.setTypeExtension(new MockType2());
 
         Assert.assertEquals("? : xreverse(p1);\n? : yreverse(p2);\n", p.getDeclaredArguments().getCodeAfterCall());
     }
@@ -210,7 +210,7 @@ public class OracleSpringSqlArgumentCollectionTest {
 
     }
 
-    public class MockTypeExtension1 extends OracleArgumentTypeExtension {
+    public class MockType1 extends OracleArgumentType {
 
         @Override
         public String getIdentifier() {
@@ -244,7 +244,7 @@ public class OracleSpringSqlArgumentCollectionTest {
 
     }
 
-    public class MockTypeExtension2 extends OracleArgumentTypeExtension {
+    public class MockType2 extends OracleArgumentType {
 
         @Override
         public String getIdentifier() {

@@ -29,10 +29,10 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.BaseProcedureCall;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentTypeExtension;
-import org.qamatic.mintleaf.oracle.spring.OracleProcedureCall;
+import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
@@ -109,9 +109,9 @@ public class BaseProcedureCallTest {
         p.setFunction(true);
         p.setSql("getEmployee");
         SqlArgument a1 = p.createOutParameter("test1", Types.VARCHAR);
-        a1.setTypeExtension(new MockTypeExtension1());
+        a1.setTypeExtension(new MockType1());
         SqlArgument a2 = p.createParameter("test2", Types.VARCHAR);
-        a2.setTypeExtension(new MockTypeExtension2());
+        a2.setTypeExtension(new MockType2());
         BaseProcedureCall call = new OracleProcedureCall(p);
         StringBuilder builder = new StringBuilder();
 
@@ -148,7 +148,7 @@ public class BaseProcedureCallTest {
 
     }
 
-    public class MockTypeExtension1 extends OracleArgumentTypeExtension {
+    public class MockType1 extends OracleArgumentType {
 
         @Override
         public String getIdentifier() {
@@ -182,7 +182,7 @@ public class BaseProcedureCallTest {
 
     }
 
-    public class MockTypeExtension2 extends OracleArgumentTypeExtension {
+    public class MockType2 extends OracleArgumentType {
 
         @Override
         public String getIdentifier() {

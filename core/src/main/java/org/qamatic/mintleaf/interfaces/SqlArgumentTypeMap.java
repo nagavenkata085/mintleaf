@@ -27,12 +27,35 @@
 
 package org.qamatic.mintleaf.interfaces;
 
-public interface SqlArgumentTypeMap {
-    String getCol1();
+public class SqlArgumentTypeMap {
+    private String mcolumn;
+    private String mMapToColumn;
 
-    void setCol1(String col1);
+    public SqlArgumentTypeMap() {
+    }
 
-    String getCol2();
+    public SqlArgumentTypeMap(String column, String mapToColumn) {
+        mcolumn = column;
+        mMapToColumn = mapToColumn;
+    }
 
-    void setCol2(String col2);
+
+    public String getColumn() {
+        return mcolumn;
+    }
+
+
+    public void setColumn(String column) {
+        mcolumn = column;
+    }
+
+
+    public String getMapToColumn() {
+        return mMapToColumn;
+    }
+
+
+    public void setMapToColumn(String column) {
+        mMapToColumn = column;
+    }
 }

@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
-import org.qamatic.mintleaf.interfaces.SqlArgumentTypeExtension;
+import org.qamatic.mintleaf.interfaces.SqlArgumentType;
 import org.springframework.jdbc.core.SqlParameter;
 
 import java.lang.reflect.Method;
@@ -122,7 +122,7 @@ public class OracleSpringSqlArgumentCollection implements SqlArgumentCollection 
         List<SqlArgument> outlist1 = new ArrayList<SqlArgument>();
 
         for (SqlArgument parameter : this) {
-            SqlArgumentTypeExtension ext = parameter.getTypeExtension();
+            SqlArgumentType ext = parameter.getTypeExtension();
             if (!ext.isOutParameter()) {
                 if (!ext.getIdentifier().equals("?")) {
                     inlist1.add(parameter);

@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.argextensions;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentTypeExtension;
+import org.qamatic.mintleaf.interfaces.SqlArgumentType;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
@@ -41,7 +41,7 @@ public class OracleArgumentTypeExtensionTest {
 
     @Test
     public void testExtensionDefaultsValues() {
-        SqlArgumentTypeExtension ext = new OracleArgumentTypeExtension();
+        SqlArgumentType ext = new OracleArgumentType();
         assertEquals("?", ext.getIdentifier());
         assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());
@@ -54,7 +54,7 @@ public class OracleArgumentTypeExtensionTest {
         MockProcedure p = new MockProcedure(null);
         p.setSql("getEmployee");
         SqlArgument arg = p.createParameter("test1", Types.VARCHAR);
-        SqlArgumentTypeExtension ext = arg.getTypeExtension();
+        SqlArgumentType ext = arg.getTypeExtension();
         assertEquals("?", ext.getIdentifier());
         assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());
@@ -67,7 +67,7 @@ public class OracleArgumentTypeExtensionTest {
         MockProcedure p = new MockProcedure(null);
         p.setSql("getEmployee");
         SqlArgument arg = p.createOutParameter("test1", Types.VARCHAR);
-        SqlArgumentTypeExtension ext = arg.getTypeExtension();
+        SqlArgumentType ext = arg.getTypeExtension();
         assertEquals("?", ext.getIdentifier());
         assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());

@@ -33,7 +33,7 @@ import org.qamatic.mintleaf.oracle.SqlArgumentRecordTypeExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OracleRecordTypeExtension extends OracleArgumentTypeExtension implements SqlArgumentRecordTypeExtension {
+public class OracleRecordType extends OracleArgumentType implements SqlArgumentRecordTypeExtension {
 
     private final List<SqlArgumentTypeMap> mvtypeMaps = new ArrayList<SqlArgumentTypeMap>();
 
@@ -43,11 +43,11 @@ public class OracleRecordTypeExtension extends OracleArgumentTypeExtension imple
     }
 
     public String getMappedTypeToRecAssignment(SqlArgumentTypeMap map, String recPrefix, String typePrefix) {
-        return getRecField(map, recPrefix) + " := " + typePrefix + "." + map.getCol2() + ";";
+        return getRecField(map, recPrefix) + " := " + typePrefix + "." + map.getMapToColumn() + ";";
     }
 
     public String getRecField(SqlArgumentTypeMap map, String recPrefix) {
-        return recPrefix + "." + map.getCol1();
+        return recPrefix + "." + map.getColumn();
     }
 
     public String getMappedTypeToRecAssignments(String recPrefix, String typePrefix) {

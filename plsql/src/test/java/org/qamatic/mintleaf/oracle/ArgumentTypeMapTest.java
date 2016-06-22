@@ -28,6 +28,7 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
+import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,14 +36,14 @@ public class ArgumentTypeMapTest {
 
     @Test
     public void testArgumentTypeMap() {
-        ArgumentTypeMap map = new ArgumentTypeMap("x", "y");
-        assertEquals("x", map.getCol1());
-        assertEquals("y", map.getCol2());
-        map = new ArgumentTypeMap();
-        map.setCol1("x");
-        map.setCol2("y");
-        assertEquals("x", map.getCol1());
-        assertEquals("y", map.getCol2());
+        SqlArgumentTypeMap map = new SqlArgumentTypeMap("x", "y");
+        assertEquals("x", map.getColumn());
+        assertEquals("y", map.getMapToColumn());
+        map = new SqlArgumentTypeMap();
+        map.setColumn("x");
+        map.setMapToColumn("y");
+        assertEquals("x", map.getColumn());
+        assertEquals("y", map.getMapToColumn());
     }
 
 }

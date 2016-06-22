@@ -30,15 +30,15 @@ package org.qamatic.mintleaf.oracle.spring;
 import oracle.sql.ARRAY;
 import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.oracle.ArgumentTypeMap;
 import org.qamatic.mintleaf.oracle.CodeObject;
 import org.qamatic.mintleaf.oracle.MemberField;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
-import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentTypeExtension;
-import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanTypeExtension;
-import org.qamatic.mintleaf.oracle.argextensions.OracleRecordTypeExtension;
-import org.qamatic.mintleaf.oracle.argextensions.OracleRowTypeExtension;
+import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
+import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;
+import org.qamatic.mintleaf.oracle.argextensions.OracleRecordType;
+import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
@@ -116,7 +116,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
             return true;
         }
         for (SqlArgument sqlArgument : this.getDeclaredArguments()) {
-            SqlArgumentTypeExtension ext = sqlArgument.getTypeExtension();
+            SqlArgumentType ext = sqlArgument.getTypeExtension();
             if (!ext.getIdentifier().equals("?")) {
                 return false;
             }
@@ -209,7 +209,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
     public SqlArgument createBooleanParameter(String parameterName) {
         SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.INTEGER);
         setParameter(arg);
-        SqlArgumentTypeExtension ext = new OracleBooleanTypeExtension();
+        SqlArgumentType ext = new OracleBooleanType();
         arg.setTypeExtension(ext);
         ext.setIdentifier(parameterName);
         return arg;
@@ -219,7 +219,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
     public SqlArgument createRecordParameter(String parameterName, String supportedType, String unsupportedType) {
         SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.STRUCT);
         setParameter(arg);
-        SqlArgumentTypeExtension ext = new OracleRecordTypeExtension();
+        SqlArgumentType ext = new OracleRecordType();
         arg.setTypeExtension(ext);
         ext.setIdentifier(parameterName);
         ext.setSupportedType(supportedType);
@@ -246,7 +246,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
     public SqlArgument createBooleanOutParameter(String parameterName) {
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.INTEGER);
         setParameter(arg);
-        SqlArgumentTypeExtension ext = new OracleBooleanTypeExtension();
+        SqlArgumentType ext = new OracleBooleanType();
         arg.setTypeExtension(ext);
         ext.setIdentifier(parameterName);
         ext.setOutParameter(true);
@@ -258,7 +258,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
     public SqlArgument createRecordOutParameter(String parameterName, String supportedType, String unsupportedType) {
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.STRUCT, supportedType);
         setParameter(arg);
-        SqlArgumentTypeExtension ext = new OracleRecordTypeExtension();
+        SqlArgumentType ext = new OracleRecordType();
         arg.setTypeExtension(ext);
         ext.setIdentifier(parameterName);
         ext.setOutParameter(true);
@@ -274,7 +274,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.STRUCT, supportedType);
         setParameter(arg);
 
-        OracleRowTypeExtension ext = getRowTypeExtension(tableName, supportedType);
+        OracleRowType ext = getRowType(tableName, supportedType);
 
         arg.setTypeExtension(ext);
         ext.setIdentifier(parameterName);
@@ -294,17 +294,17 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
         return arg;
     }
 
-    protected OracleRowTypeExtension getRowTypeExtension(String rowTypeTableName, String supportedType) {
+    protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {
         PLCreateType p = null;
         try {
             p = new OracleDbHelper(mvpackage.getDbContext()).createTypeFromTable(supportedType, null, rowTypeTableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        OracleRowTypeExtension ext = new OracleRowTypeExtension();
+        OracleRowType ext = new OracleRowType();
         for (CodeObject member : p.getColumnDefs()) {
             MemberField field = (MemberField) member;
-            ext.addTypeMap(new ArgumentTypeMap(field.getLeftSide(), field.getLeftSide()));
+            ext.addTypeMap(new SqlArgumentTypeMap(field.getLeftSide(), field.getLeftSide()));
         }
         return ext;
     }
@@ -421,7 +421,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
 
         SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
-        SqlArgumentTypeExtension ext = new OracleArgumentTypeExtension();
+        SqlArgumentType ext = new OracleArgumentType();
         ext.setSupportedType(arg.getTypeName());
         arg.setTypeExtension(ext);
         return arg;
@@ -433,7 +433,7 @@ public class OracleSpringSqlProcedure extends StoredProcedure implements SqlStor
 
         SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createOutParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
-        SqlArgumentTypeExtension ext = new OracleArgumentTypeExtension();
+        SqlArgumentType ext = new OracleArgumentType();
         ext.setSupportedType(arg.getTypeName());
         ext.setOutParameter(true);
         ext.setResultsParameter(this.getDeclaredArguments().size() == 1);

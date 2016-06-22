@@ -39,7 +39,6 @@ import org.qamatic.mintleaf.oracle.codeobjects.PLMemberMethod;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestDatabase;
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 

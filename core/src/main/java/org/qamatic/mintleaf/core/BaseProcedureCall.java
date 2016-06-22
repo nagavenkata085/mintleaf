@@ -28,8 +28,6 @@
 package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.interfaces.ProcedureCall;
-import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 
 public class BaseProcedureCall implements ProcedureCall {
@@ -41,31 +39,6 @@ public class BaseProcedureCall implements ProcedureCall {
         mvProcedure = procedure;
     }
 
-    public static String getMethodCall(SqlStoredProcedure procedure) {
-        String callString;
-        SqlArgumentCollection parameters = procedure.getDeclaredArguments();
-        int parameterCount = 0;
-        if (procedure.isFunction()) {
-            callString = " := " + procedure.getSql() + "(";
-            callString = parameters.size() == 0 ? "?" + callString : parameters.get(0).getTypeExtension().getUnsupportedVariable() + callString;
-            parameterCount = -1;
-        } else {
-            callString = procedure.getSql() + "(";
-        }
-        for (SqlArgument parameter : parameters) {
-            if (!(parameter.isResultsParameter())) {
-                if (parameterCount > 0) {
-                    callString += ", ";
-                }
-                if (parameterCount >= 0) {
-                    callString += parameter.getTypeExtension().getUnsupportedVariable();
-                }
-                parameterCount++;
-            }
-        }
-        callString += ");";
-        return callString;
-    }
 
     protected void appendLine(String txt) {
         mvProcCode.append(txt).append("\n");

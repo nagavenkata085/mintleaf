@@ -29,56 +29,56 @@ package org.qamatic.mintleaf.oracle.argextensions;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.BaseProcedureCall;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
+import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.ArgumentTypeMap;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
 
 import static org.junit.Assert.assertEquals;
 
-public class OracleRecordTypeExtensionTest {
+public class OracleRecordTypeTest {
 
     @Test
     public void testRecordAssignmentMap() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
-        ArgumentTypeMap map = new ArgumentTypeMap("id", "id");
+        OracleRecordType ext = new OracleRecordType();
+        SqlArgumentTypeMap map = new SqlArgumentTypeMap("id", "id");
         assertEquals("r.id := t.id;", ext.getMappedTypeToRecAssignment(map, "r", "t"));
     }
 
     @Test
     public void testgetRecField() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
-        ArgumentTypeMap map = new ArgumentTypeMap("id", "id");
+        OracleRecordType ext = new OracleRecordType();
+        SqlArgumentTypeMap map = new SqlArgumentTypeMap("id", "id");
         assertEquals("r.id", ext.getRecField(map, "r"));
     }
 
     @Test
     public void testgetMappedTypeToRecAssignments() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
-        ext.addTypeMap(new ArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new ArgumentTypeMap("name", "name"));
+        OracleRecordType ext = new OracleRecordType();
+        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
+        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
         assertEquals("r.id := t.id;\nr.name := t.name;\n", ext.getMappedTypeToRecAssignments("r", "t"));
     }
 
     @Test
     public void testgetRecFields() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
-        ext.addTypeMap(new ArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new ArgumentTypeMap("name", "name"));
+        OracleRecordType ext = new OracleRecordType();
+        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
+        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
         assertEquals("r.id, r.name", ext.getRecFields("r"));
     }
 
     @Test
     public void testRecordTypeConversion() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
+        OracleRecordType ext = new OracleRecordType();
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new ArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new ArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
+        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
 
         StringBuilder builder = new StringBuilder();
 
@@ -108,12 +108,12 @@ public class OracleRecordTypeExtensionTest {
 
     @Test
     public void testRecordIdentifierDeclaration() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
+        OracleRecordType ext = new OracleRecordType();
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new ArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new ArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
+        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
 
         assertEquals("x_unsup ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD;\n", ext.getVariableDeclaration());
         ext.setOutParameter(true);
@@ -122,24 +122,24 @@ public class OracleRecordTypeExtensionTest {
 
     @Test
     public void testRecordBeforeCall() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
+        OracleRecordType ext = new OracleRecordType();
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new ArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new ArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
+        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
 
         assertEquals("x_unsup := type_to_pl_x(?);", ext.getCodeBeforeCall());
     }
 
     @Test
     public void testRecordAfterCall() {
-        OracleRecordTypeExtension ext = new OracleRecordTypeExtension();
+        OracleRecordType ext = new OracleRecordType();
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new ArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new ArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
+        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
         assertEquals("", ext.getCodeAfterCall());
         ext.setOutParameter(true);
 
@@ -154,7 +154,7 @@ public class OracleRecordTypeExtensionTest {
         MockProcedure p = new MockProcedure(null);
         p.setSql("smcall");
         p.createRecordOutParameter("inparam", "stype", "ustype");
-        Assert.assertEquals("smcall(inparam_unsup);", BaseProcedureCall.getMethodCall(p));
+        Assert.assertEquals("smcall(inparam_unsup);", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test
@@ -165,7 +165,7 @@ public class OracleRecordTypeExtensionTest {
         p.createRecordOutParameter("o1", "stype", "ustype");
         p.createRecordParameter("o2", "stype", "ustype");
         p.createParameter("inparam", Types.VARCHAR);
-        assertEquals("o1_unsup := smcall(o2_unsup, ?);", BaseProcedureCall.getMethodCall(p));
+        assertEquals("o1_unsup := smcall(o2_unsup, ?);", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test
@@ -188,7 +188,7 @@ public class OracleRecordTypeExtensionTest {
         assertEquals("", arg5.getTypeExtension().getCodeBeforeCall());
         assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getTypeExtension().getCodeBeforeCall());
 
-        assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup, ?, ?, outparamA_unsup);", BaseProcedureCall.getMethodCall(p));
+        assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup, ?, ?, outparamA_unsup);", OracleProcedureCall.getMethodCall(p));
     }
 
     @Test

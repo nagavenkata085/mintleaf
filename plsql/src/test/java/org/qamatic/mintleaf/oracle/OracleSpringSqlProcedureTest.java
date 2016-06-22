@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.oracle.argextensions.OracleRowTypeExtension;
+import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
@@ -143,8 +143,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
             }
 
             @Override
-            protected OracleRowTypeExtension getRowTypeExtension(String rowTypeTableName, String supportedType) {
-                OracleRowTypeExtension ext = new OracleRowTypeExtension();
+            protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {
+                OracleRowType ext = new OracleRowType();
                 return ext;
             }
         };
