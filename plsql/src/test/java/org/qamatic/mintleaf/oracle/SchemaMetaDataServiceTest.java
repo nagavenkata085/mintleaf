@@ -29,10 +29,10 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.DbMetaDataService;
-import org.qamatic.mintleaf.interfaces.SqlColumn;
-import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
+import org.qamatic.mintleaf.interfaces.Column;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
 import java.io.IOException;
@@ -44,17 +44,17 @@ import static org.junit.Assert.assertNull;
 public class SchemaMetaDataServiceTest extends OracleTestCase {
 
 
-    private static SqlObjectMetaData getSampleMetaData() {
-        SqlObjectMetaData metadata = new SqlObjectMetaData();
-        metadata.add(new OracleSqlColumn("emp_id", "number"));
-        metadata.add(new OracleSqlColumn("emp_name", "varchar(2000)"));
+    private static TableMetaData getSampleMetaData() {
+        TableMetaData metadata = new TableMetaData();
+        metadata.add(new OracleColumn("emp_id", "number"));
+        metadata.add(new OracleColumn("emp_name", "varchar(2000)"));
         return metadata;
     }
 
     @Test
     public void testDbObjectColumnMetaData() {
 
-        SqlColumn data = new OracleSqlColumn("emp_id", "number");
+        Column data = new OracleColumn("emp_id", "number");
         assertEquals("emp_id", data.getColumnName());
         assertEquals("number", data.getTypeName());
         data.setColumnName("emp_name");
@@ -65,13 +65,13 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
 
     @Test
     public void testDbStructuredObjectMetaDataCount() {
-        SqlObjectMetaData metadata = getSampleMetaData();
+        TableMetaData metadata = getSampleMetaData();
         assertEquals(2, metadata.getColumns().size());
     }
 
     @Test
     public void testDbStructuredObjectMetaDataColByIndex() {
-        SqlObjectMetaData metadata = getSampleMetaData();
+        TableMetaData metadata = getSampleMetaData();
         assertEquals(1, metadata.getIndex("emp_name"));
         assertEquals(0, metadata.getIndex("emp_id"));
         assertEquals(-1, metadata.getIndex("no_where_land"));
@@ -80,7 +80,7 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
     @Test
     public void testDbtMetaDataService() {
         DbMetaDataService svc = new SchemaMetaDataService();
-        SqlObjectMetaData empMetaData = getSampleMetaData();
+        TableMetaData empMetaData = getSampleMetaData();
         svc.addMetaData("scott.empolyee", empMetaData);
 
         assertEquals(empMetaData, svc.getMetaData("scott.empolyee"));
@@ -95,7 +95,7 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
         DbMetaDataService svc = new SchemaMetaDataService();
 
         try {
-            SqlObjectMetaData empMetaData = svc.addMetaDataFromTable(getSchemaOwnerContext(), "EMPLOYEE");
+            TableMetaData empMetaData = svc.addMetaDataFromTable(getSchemaOwnerContext(), "EMPLOYEE");
             assertEquals(1, empMetaData.getIndex("name"));
             assertEquals(0, empMetaData.getIndex("emp_id"));
             empMetaData = svc.getMetaData(getSchemaOwnerContext().getDbSettings().getUsername() + ".EMPLOYEE");

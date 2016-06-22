@@ -30,31 +30,31 @@ package org.qamatic.mintleaf.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqlObjectMetaData {
-    private final List<SqlColumn> mvcolumnsMetaData = new ArrayList<SqlColumn>();
+public class TableMetaData {
+    private final List<Column> mvcolumnsMetaData = new ArrayList<Column>();
     private String mvobjectName;
 
-    public SqlObjectMetaData() {
+    public TableMetaData() {
 
     }
 
-    public SqlObjectMetaData(SqlColumn... columns) {
-        for (SqlColumn column : columns) {
+    public TableMetaData(Column... columns) {
+        for (Column column : columns) {
 
             mvcolumnsMetaData.add(column);
         }
     }
 
 
-    public void add(int idx, SqlColumn column) {
+    public void add(int idx, Column column) {
         mvcolumnsMetaData.add(idx, column);
     }
 
-    public void add(SqlColumn column) {
+    public void add(Column column) {
         mvcolumnsMetaData.add(column);
     }
 
-    public List<SqlColumn> getColumns() {
+    public List<Column> getColumns() {
         return mvcolumnsMetaData;
     }
 
@@ -69,7 +69,7 @@ public class SqlObjectMetaData {
         return -1;
     }
 
-    public SqlColumn findColumn(String columnName) {
+    public Column findColumn(String columnName) {
         int idx = getIndex(columnName);
         if (idx != -1) {
             return mvcolumnsMetaData.get(idx);
@@ -92,7 +92,7 @@ public class SqlObjectMetaData {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (SqlColumn mdata : mvcolumnsMetaData) {
+        for (Column mdata : mvcolumnsMetaData) {
             if (sb.length() != 0) {
                 sb.append(", ");
             }

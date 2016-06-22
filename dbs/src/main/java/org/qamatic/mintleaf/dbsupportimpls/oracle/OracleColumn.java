@@ -27,22 +27,22 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.interfaces.SqlColumn;
+import org.qamatic.mintleaf.interfaces.Column;
 
 import java.sql.Date;
 import java.sql.Types;
 
-public class OracleSqlColumn extends SqlColumn {
+public class OracleColumn extends Column {
 
-    public OracleSqlColumn() {
+    public OracleColumn() {
 
     }
 
-    public OracleSqlColumn(String column) {
+    public OracleColumn(String column) {
         mvColumnName = column;
     }
 
-    public OracleSqlColumn(String column, String typeName) {
+    public OracleColumn(String column, String typeName) {
         mvColumnName = column;
         mvTypeName = typeName;
 

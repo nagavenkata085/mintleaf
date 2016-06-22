@@ -30,9 +30,9 @@ package org.qamatic.mintleaf.oracle;
 import oracle.sql.NUMBER;
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.interfaces.SqlTypeObjectValue;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OracleTypeObjectValue;
@@ -48,10 +48,10 @@ public class OracleTypeObjectValueTest extends OracleTestCase {
     private static List<Object> mvtestObjects = new ArrayList<Object>();
 
 
-    private static SqlObjectMetaData getSampleMetaData() {
-        SqlObjectMetaData metadata = new SqlObjectMetaData();
-        metadata.add(new OracleSqlColumn("emp_id", "number"));
-        metadata.add(new OracleSqlColumn("emp_name", "varchar(2000)"));
+    private static TableMetaData getSampleMetaData() {
+        TableMetaData metadata = new TableMetaData();
+        metadata.add(new OracleColumn("emp_id", "number"));
+        metadata.add(new OracleColumn("emp_name", "varchar(2000)"));
         return metadata;
     }
 
@@ -63,8 +63,8 @@ public class OracleTypeObjectValueTest extends OracleTestCase {
     @Test
     public void testGetColumnUsingMetaData() throws SQLException {
         SqlTypeObjectValue obj = new MockOracleTypeObjectValue(getSchemaOwnerContext(), "Employee");
-        obj.getMetaData().add(new OracleSqlColumn("emp_id", "number"));
-        obj.getMetaData().add(new OracleSqlColumn("emp_name", "varchar(2000)"));
+        obj.getMetaData().add(new OracleColumn("emp_id", "number"));
+        obj.getMetaData().add(new OracleColumn("emp_name", "varchar(2000)"));
         mvtestObjects.clear();
         mvtestObjects.add("1");
         mvtestObjects.add("scott");
@@ -87,7 +87,7 @@ public class OracleTypeObjectValueTest extends OracleTestCase {
     @Test
     public void testgetIntValue() throws SQLException {
         SqlTypeObjectValue obj = new MockOracleTypeObjectValue(getSchemaOwnerContext(), "Employee");
-        obj.getMetaData().add(new OracleSqlColumn("emp_id", "number"));
+        obj.getMetaData().add(new OracleColumn("emp_id", "number"));
         mvtestObjects.clear();
         mvtestObjects.add(100);
         assertEquals(100, obj.getIntValue("emp_id"));

@@ -27,28 +27,35 @@
 
 package org.qamatic.mintleaf.interfaces;
 
-public interface SqlArgumentType extends SqlAnonymousCode {
+public class ColumnMap {
+    private String mcolumn;
+    private String mMapToColumn;
 
-    void setIdentifier(String identifier);
+    public ColumnMap() {
+    }
 
-    String getSupportedType();
+    public ColumnMap(String column, String mapToColumn) {
+        mcolumn = column;
+        mMapToColumn = mapToColumn;
+    }
 
-    void setSupportedType(String supportedType);
 
-    String getUnsupportedType();
+    public String getColumn() {
+        return mcolumn;
+    }
 
-    void setUnsupportedType(String unsupportedType);
 
-    String getSupportedVariable();
+    public void setColumn(String column) {
+        mcolumn = column;
+    }
 
-    String getUnsupportedVariable();
 
-    boolean isOutParameter();
+    public String getMapToColumn() {
+        return mMapToColumn;
+    }
 
-    void setOutParameter(boolean bValue);
 
-    boolean isResultsParameter();
-
-    void setResultsParameter(boolean bValue);
-
+    public void setMapToColumn(String column) {
+        mMapToColumn = column;
+    }
 }

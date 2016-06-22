@@ -31,10 +31,10 @@ import java.sql.SQLException;
 
 public interface DbMetaDataService {
 
-    SqlObjectMetaData getMetaData(String schemaDotObjectName);
+    TableMetaData getMetaData(String schemaDotObjectName);
 
-    SqlObjectMetaData addMetaData(String schemaDotObjectName, SqlObjectMetaData metaData);
+    TableMetaData addMetaData(String schemaDotObjectName, TableMetaData metaData);
 
-    SqlObjectMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException;
+    TableMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException;
 
 }

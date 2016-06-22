@@ -30,9 +30,9 @@ package org.qamatic.mintleaf.interfaces;
 public interface SqlArgument {
     boolean isResultsParameter();
 
-    SqlArgumentType getTypeExtension();
+    CustomArgumentType getTypeExtension();
 
-    void setTypeExtension(SqlArgumentType extension);
+    void setTypeExtension(CustomArgumentType extension);
 
     String getParameterName();
 

@@ -31,7 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
+import org.qamatic.mintleaf.interfaces.ColumnMap;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
@@ -44,30 +44,30 @@ public class OracleRecordTypeTest {
     @Test
     public void testRecordAssignmentMap() {
         OracleRecordType ext = new OracleRecordType();
-        SqlArgumentTypeMap map = new SqlArgumentTypeMap("id", "id");
+        ColumnMap map = new ColumnMap("id", "id");
         assertEquals("r.id := t.id;", ext.getMappedTypeToRecAssignment(map, "r", "t"));
     }
 
     @Test
     public void testgetRecField() {
         OracleRecordType ext = new OracleRecordType();
-        SqlArgumentTypeMap map = new SqlArgumentTypeMap("id", "id");
+        ColumnMap map = new ColumnMap("id", "id");
         assertEquals("r.id", ext.getRecField(map, "r"));
     }
 
     @Test
     public void testgetMappedTypeToRecAssignments() {
         OracleRecordType ext = new OracleRecordType();
-        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new ColumnMap("id", "id"));
+        ext.addTypeMap(new ColumnMap("name", "name"));
         assertEquals("r.id := t.id;\nr.name := t.name;\n", ext.getMappedTypeToRecAssignments("r", "t"));
     }
 
     @Test
     public void testgetRecFields() {
         OracleRecordType ext = new OracleRecordType();
-        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new ColumnMap("id", "id"));
+        ext.addTypeMap(new ColumnMap("name", "name"));
         assertEquals("r.id, r.name", ext.getRecFields("r"));
     }
 
@@ -77,8 +77,8 @@ public class OracleRecordTypeTest {
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new ColumnMap("id", "id"));
+        ext.addTypeMap(new ColumnMap("name", "name"));
 
         StringBuilder builder = new StringBuilder();
 
@@ -112,8 +112,8 @@ public class OracleRecordTypeTest {
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new ColumnMap("id", "id"));
+        ext.addTypeMap(new ColumnMap("name", "name"));
 
         assertEquals("x_unsup ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD;\n", ext.getVariableDeclaration());
         ext.setOutParameter(true);
@@ -126,8 +126,8 @@ public class OracleRecordTypeTest {
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new ColumnMap("id", "id"));
+        ext.addTypeMap(new ColumnMap("name", "name"));
 
         assertEquals("x_unsup := type_to_pl_x(?);", ext.getCodeBeforeCall());
     }
@@ -138,8 +138,8 @@ public class OracleRecordTypeTest {
         ext.setIdentifier("x");
         ext.setSupportedType("EMPLOYEE_TYPE");
         ext.setUnsupportedType("ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
-        ext.addTypeMap(new SqlArgumentTypeMap("id", "id"));
-        ext.addTypeMap(new SqlArgumentTypeMap("name", "name"));
+        ext.addTypeMap(new ColumnMap("id", "id"));
+        ext.addTypeMap(new ColumnMap("name", "name"));
         assertEquals("", ext.getCodeAfterCall());
         ext.setOutParameter(true);
 

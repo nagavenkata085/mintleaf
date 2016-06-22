@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.oracle.argextensions;
 
-import org.qamatic.mintleaf.interfaces.SqlArgumentType;
+import org.qamatic.mintleaf.interfaces.CustomArgumentType;
 
-public class OracleArgumentType implements SqlArgumentType {
+public class OracleArgumentType implements CustomArgumentType {
 
     protected String mvidentifier = "?";
     private String mvsupportedType = "";

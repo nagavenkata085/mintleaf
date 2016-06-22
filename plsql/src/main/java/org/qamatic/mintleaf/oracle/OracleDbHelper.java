@@ -158,10 +158,10 @@ public class OracleDbHelper extends OraclePackage {
     }
 
 
-    public List<PLTableColumnDef> getTableColumnCodeObjects(SqlObjectMetaData metaData) {
+    public List<PLTableColumnDef> getTableColumnCodeObjects(TableMetaData metaData) {
 
         List<PLTableColumnDef> list = new ArrayList<PLTableColumnDef>();
-        for (SqlColumn colMetaData : metaData.getColumns()) {
+        for (Column colMetaData : metaData.getColumns()) {
             list.add(new PLTableColumnDef(colMetaData.getColumnName(), colMetaData.getTypeName()));
         }
         return list;

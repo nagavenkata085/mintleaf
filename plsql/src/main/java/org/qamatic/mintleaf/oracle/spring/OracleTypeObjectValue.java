@@ -41,7 +41,7 @@ public class OracleTypeObjectValue implements SqlTypeObjectValue {
     protected DbContext mvDbContext;
     private List<Object> mvobjects;
     private DbMetaDataService mvmetaDataService;
-    private SqlObjectMetaData mvmetaData;
+    private TableMetaData mvmetaData;
 
     public OracleTypeObjectValue(DbContext context, String typeName) {
         mvtypeName = typeName;
@@ -77,7 +77,7 @@ public class OracleTypeObjectValue implements SqlTypeObjectValue {
         if (vobj instanceof NUMBER) {
             NUMBER num = ((NUMBER) vobj);
 
-            SqlColumn colMetaData = getMetaData().findColumn(
+            Column colMetaData = getMetaData().findColumn(
                     columnName);
             if (colMetaData.getDecimalDigits() == 0) {
                 vobj = num.intValue();
@@ -111,10 +111,10 @@ public class OracleTypeObjectValue implements SqlTypeObjectValue {
     }
 
     @Override
-    public SqlObjectMetaData getMetaData() throws SQLException {
+    public TableMetaData getMetaData() throws SQLException {
         if (getMetaDataService() == null) {
             if (mvmetaData == null) {
-                mvmetaData = new SqlObjectMetaData();
+                mvmetaData = new TableMetaData();
             }
         } else {
             mvmetaData = getMetaDataService().getMetaData(getTypeNameWithSchemaName());
@@ -126,7 +126,7 @@ public class OracleTypeObjectValue implements SqlTypeObjectValue {
     }
 
     @Override
-    public void setMetaData(SqlObjectMetaData metaData) {
+    public void setMetaData(TableMetaData metaData) {
         mvmetaData = metaData;
     }
 

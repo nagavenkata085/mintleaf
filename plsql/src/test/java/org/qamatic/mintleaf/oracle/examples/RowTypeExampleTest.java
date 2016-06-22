@@ -33,9 +33,9 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 import org.qamatic.mintleaf.interfaces.TypeObjectField;
 import org.qamatic.mintleaf.oracle.OraclePackage;
@@ -129,8 +129,8 @@ public class RowTypeExampleTest extends OracleTestCase {
         }
 
         @Override
-        public SqlObjectMetaData getMetaData() throws SQLException {
-            return new SqlObjectMetaData(new OracleSqlColumn("emp_id"), new OracleSqlColumn("name"));
+        public TableMetaData getMetaData() throws SQLException {
+            return new TableMetaData(new OracleColumn("emp_id"), new OracleColumn("name"));
 
         }
 

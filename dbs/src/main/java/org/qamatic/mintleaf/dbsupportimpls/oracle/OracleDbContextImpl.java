@@ -31,9 +31,9 @@ package org.qamatic.mintleaf.dbsupportimpls.oracle;
 import org.qamatic.mintleaf.core.BaseDbContext;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
-import org.qamatic.mintleaf.interfaces.SqlColumn;
+import org.qamatic.mintleaf.interfaces.Column;
 import org.qamatic.mintleaf.interfaces.SqlObject;
-import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -192,8 +192,8 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public SqlObjectMetaData getObjectMetaData(String objectName) throws SQLException {
-        final SqlObjectMetaData metaData = new SqlObjectMetaData();
+    public TableMetaData getObjectMetaData(String objectName) throws SQLException {
+        final TableMetaData metaData = new TableMetaData();
         if (objectName != null) {
             objectName = objectName.toUpperCase();
         }
@@ -206,7 +206,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-                SqlColumn colMetaData = new OracleSqlColumn();
+                Column colMetaData = new OracleColumn();
                 colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
                 colMetaData.setTypeName(rs.getString("TYPE_NAME"));
                 // colMetaData.setDatatype(rs.getString("DATA_TYPE"));

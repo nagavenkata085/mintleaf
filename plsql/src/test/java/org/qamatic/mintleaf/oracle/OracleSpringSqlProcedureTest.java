@@ -32,7 +32,7 @@ import oracle.sql.NUMBER;
 import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
@@ -153,7 +153,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         SqlTypeObjectValue value = p.getTypeObjectValue("result");
         assertNotNull(value);
         assertEquals("TE_EMPLOYEE", value.getTypeName());
-        value.getMetaData().add(new OracleSqlColumn("emp_id", "number"));
+        value.getMetaData().add(new OracleColumn("emp_id", "number"));
         assertEquals(31, value.getIntValue("emp_id"));
     }
 
@@ -240,7 +240,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
             }
         };
         p.createTypeObjectOutParameter("result", TStudentType.class);
-        p.getTypeObjectValue("result").getMetaData().add(new OracleSqlColumn("student_id", "number"));
+        p.getTypeObjectValue("result").getMetaData().add(new OracleColumn("student_id", "number"));
 
         TStudentType student = (TStudentType) p.getTypeObject("result");
 
@@ -267,7 +267,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         }
 
         @Override
-        public SqlObjectMetaData getMetaData() throws SQLException {
+        public TableMetaData getMetaData() throws SQLException {
             return null;
         }
 
@@ -281,7 +281,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         }
 
         @Override
-        public SqlObjectMetaData getMetaData() throws SQLException {
+        public TableMetaData getMetaData() throws SQLException {
             return null;
         }
 

@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.argextensions;
 
-import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
+import org.qamatic.mintleaf.interfaces.ColumnMap;
 import org.qamatic.mintleaf.oracle.SqlArgumentRecordTypeExtension;
 
 import java.util.ArrayList;
@@ -35,24 +35,24 @@ import java.util.List;
 
 public class OracleRecordType extends OracleArgumentType implements SqlArgumentRecordTypeExtension {
 
-    private final List<SqlArgumentTypeMap> mvtypeMaps = new ArrayList<SqlArgumentTypeMap>();
+    private final List<ColumnMap> mvtypeMaps = new ArrayList<ColumnMap>();
 
     @Override
-    public void addTypeMap(SqlArgumentTypeMap map) {
+    public void addTypeMap(ColumnMap map) {
         mvtypeMaps.add(map);
     }
 
-    public String getMappedTypeToRecAssignment(SqlArgumentTypeMap map, String recPrefix, String typePrefix) {
+    public String getMappedTypeToRecAssignment(ColumnMap map, String recPrefix, String typePrefix) {
         return getRecField(map, recPrefix) + " := " + typePrefix + "." + map.getMapToColumn() + ";";
     }
 
-    public String getRecField(SqlArgumentTypeMap map, String recPrefix) {
+    public String getRecField(ColumnMap map, String recPrefix) {
         return recPrefix + "." + map.getColumn();
     }
 
     public String getMappedTypeToRecAssignments(String recPrefix, String typePrefix) {
         StringBuilder sb = new StringBuilder();
-        for (SqlArgumentTypeMap map : mvtypeMaps) {
+        for (ColumnMap map : mvtypeMaps) {
             sb.append(getMappedTypeToRecAssignment(map, recPrefix, typePrefix));
             sb.append("\n");
         }
@@ -61,7 +61,7 @@ public class OracleRecordType extends OracleArgumentType implements SqlArgumentR
 
     public String getRecFields(String recPrefix) {
         StringBuilder sb = new StringBuilder();
-        for (SqlArgumentTypeMap map : mvtypeMaps) {
+        for (ColumnMap map : mvtypeMaps) {
             if (sb.length() != 0) {
                 sb.append(", ");
             }
@@ -71,7 +71,7 @@ public class OracleRecordType extends OracleArgumentType implements SqlArgumentR
     }
 
     @Override
-    public List<SqlArgumentTypeMap> getTypeMaps() {
+    public List<ColumnMap> getTypeMaps() {
         return mvtypeMaps;
     }
 

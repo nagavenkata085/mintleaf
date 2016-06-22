@@ -41,9 +41,9 @@ public interface SqlTypeObjectValue {
 
     String getTypeName();
 
-    SqlObjectMetaData getMetaData() throws SQLException;
+    TableMetaData getMetaData() throws SQLException;
 
-    void setMetaData(SqlObjectMetaData metaData);
+    void setMetaData(TableMetaData metaData);
 
     DbMetaDataService getMetaDataService();
 

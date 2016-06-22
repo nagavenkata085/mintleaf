@@ -27,12 +27,12 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.interfaces.SqlArgumentTypeMap;
+import org.qamatic.mintleaf.interfaces.ColumnMap;
 
 import java.util.List;
 
 public interface SqlArgumentRecordTypeExtension {
-    void addTypeMap(SqlArgumentTypeMap map);
+    void addTypeMap(ColumnMap map);
 
-    List<SqlArgumentTypeMap> getTypeMaps();
+    List<ColumnMap> getTypeMaps();
 }

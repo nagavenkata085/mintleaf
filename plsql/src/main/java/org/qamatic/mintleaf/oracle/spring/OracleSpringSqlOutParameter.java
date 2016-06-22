@@ -28,13 +28,13 @@
 package org.qamatic.mintleaf.oracle.spring;
 
 import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentType;
+import org.qamatic.mintleaf.interfaces.CustomArgumentType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
 import org.springframework.jdbc.core.SqlOutParameter;
 
 public class OracleSpringSqlOutParameter extends SqlOutParameter implements SqlArgument {
 
-    private SqlArgumentType mvtypeExtension = new OracleArgumentType();
+    private CustomArgumentType mvtypeExtension = new OracleArgumentType();
 
     public OracleSpringSqlOutParameter(String name, int sqlType) {
         super(name, sqlType);
@@ -50,12 +50,12 @@ public class OracleSpringSqlOutParameter extends SqlOutParameter implements SqlA
     }
 
     @Override
-    public SqlArgumentType getTypeExtension() {
+    public CustomArgumentType getTypeExtension() {
         return mvtypeExtension;
     }
 
     @Override
-    public void setTypeExtension(SqlArgumentType extension) {
+    public void setTypeExtension(CustomArgumentType extension) {
         mvtypeExtension = extension;
 
     }

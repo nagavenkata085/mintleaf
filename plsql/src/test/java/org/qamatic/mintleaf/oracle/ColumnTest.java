@@ -29,22 +29,22 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
-import org.qamatic.mintleaf.interfaces.SqlColumn;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
+import org.qamatic.mintleaf.interfaces.Column;
 
 import java.sql.Types;
 
 import static org.junit.Assert.assertEquals;
 
-public class SqlColumnTest {
+public class ColumnTest {
     @Test
     public void testSqlDataTypeCheckNULL() {
-        Assert.assertEquals(Types.NULL, new OracleSqlColumn().getDatatype());
+        Assert.assertEquals(Types.NULL, new OracleColumn().getDatatype());
     }
 
     @Test
     public void testSqlDataTypeAutoDetect() {
-        SqlColumn d = new OracleSqlColumn();
+        Column d = new OracleColumn();
 
         d.setTypeName("varchar2");
         d.setColumnSize(10);

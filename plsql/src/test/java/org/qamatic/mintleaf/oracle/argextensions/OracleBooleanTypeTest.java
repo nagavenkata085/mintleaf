@@ -31,7 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentType;
+import org.qamatic.mintleaf.interfaces.CustomArgumentType;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
@@ -43,7 +43,7 @@ public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanIdentifierDeclarationWithInParam() {
-        SqlArgumentType ext = new OracleBooleanType();
+        CustomArgumentType ext = new OracleBooleanType();
         ext.setIdentifier("bVal");
         ext.setOutParameter(true);
         assertEquals("bVal", ext.getIdentifier());
@@ -52,7 +52,7 @@ public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanIdentifierDeclarationWithOutParam() {
-        SqlArgumentType ext = new OracleBooleanType();
+        CustomArgumentType ext = new OracleBooleanType();
         ext.setIdentifier("bVal");
         ext.setOutParameter(false);
         assertEquals("bVal", ext.getIdentifier());
@@ -61,7 +61,7 @@ public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanTypeConversion() {
-        SqlArgumentType ext = new OracleBooleanType();
+        CustomArgumentType ext = new OracleBooleanType();
         ext.setIdentifier("bVal");
         StringBuilder builder = new StringBuilder();
 

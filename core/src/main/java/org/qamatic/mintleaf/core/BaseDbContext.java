@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.DbSettings;
-import org.qamatic.mintleaf.interfaces.SqlObjectMetaData;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -67,7 +67,7 @@ public abstract class BaseDbContext implements DbContext {
 
     protected abstract String getSqlObjectMetaSql(String objectName);
 
-    public abstract SqlObjectMetaData getObjectMetaData(String objectName) throws SQLException;
+    public abstract TableMetaData getObjectMetaData(String objectName) throws SQLException;
 
 
 }

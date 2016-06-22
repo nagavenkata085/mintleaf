@@ -34,7 +34,7 @@ import oracle.sql.TypeDescriptor;
 import org.qamatic.mintleaf.core.BaseSqlObject;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlStringReader;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSqlColumn;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
@@ -54,7 +54,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
     protected SqlTypeObjectValue mvtypeobjectValue;
     protected PLCreateType mvPLCreateType;
     protected PLCreateTypeBody mvPLCreateTypeBody;
-    protected SqlObjectMetaData mvmetaData;
+    protected TableMetaData mvmetaData;
     protected boolean mvcustomMetaData;
 
     public OracleTypeObject(DbContext context) {
@@ -168,7 +168,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
         }
         getCreateTypeInstance().getColumnDefs().clear();
 
-        for (SqlColumn colMetaData : getMetaData().getColumns()) {
+        for (Column colMetaData : getMetaData().getColumns()) {
             if (colMetaData.isIgnoreForTypeObjectCreation()) {
                 continue;
             }
@@ -229,11 +229,11 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
         return result.toArray(new Field[result.size()]);
     }
 
-    private SqlObjectMetaData getMetaDataFromTypeObjectFieldAnnotation(Class<?> type) {
-        SqlObjectMetaData result = new SqlObjectMetaData();
+    private TableMetaData getMetaDataFromTypeObjectFieldAnnotation(Class<?> type) {
+        TableMetaData result = new TableMetaData();
         for (Field field : getTypeObjectFields(type)) {
             TypeObjectField antot = field.getAnnotation(TypeObjectField.class);
-            SqlColumn colMetaData = new OracleSqlColumn(antot.name(), antot.dataType());
+            Column colMetaData = new OracleColumn(antot.name(), antot.dataType());
             colMetaData.setCalculated(antot.isCalculated());
             colMetaData.setIgnoreForTypeObjectCreation(antot.isIgnoreForTypeObjectCreation());
             colMetaData.setColumnSize(antot.columnSize());
@@ -246,7 +246,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
     }
 
     @Override
-    public SqlObjectMetaData getMetaData() throws SQLException {
+    public TableMetaData getMetaData() throws SQLException {
 
         if (mvmetaData == null) {
             if (!isCustomMetaData() && (getCreateFromSchemaTableName() != null)) {
@@ -261,7 +261,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
     }
 
     @Override
-    public void setMetaData(SqlObjectMetaData metaData) {
+    public void setMetaData(TableMetaData metaData) {
         mvmetaData = metaData;
     }
 
@@ -272,7 +272,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     public void setTypeObjectValue(SqlTypeObjectValue value) throws SQLException {
-        SqlObjectMetaData metaData = getMetaData();
+        TableMetaData metaData = getMetaData();
         if (metaData != null) {
             value.setMetaData(metaData);
         }
