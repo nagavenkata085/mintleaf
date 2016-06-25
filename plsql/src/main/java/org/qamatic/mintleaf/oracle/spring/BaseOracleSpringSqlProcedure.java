@@ -54,8 +54,8 @@ import java.util.Map;
 
 public class BaseOracleSpringSqlProcedure extends StoredProcedure implements SqlStoredProcedure {
 
-    private final HashMap<String, Object> mvinParamters = new HashMap<String, Object>();
-    private final SqlStoredProcedureModule mvpackage;
+    protected final HashMap<String, Object> mvinParamters = new HashMap<String, Object>();
+    protected final SqlStoredProcedureModule mvpackage;
     private String mvsql;
     private Map<String, Object> mvoutParamters = null;
     private boolean mvrecompiled;
@@ -254,60 +254,6 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
         return arg;
     }
 
-    @Override
-    public SqlArgument createRecordOutParameter(String parameterName, String supportedType, String unsupportedType) {
-        SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.STRUCT, supportedType);
-        setParameter(arg);
-        CustomArgumentType ext = new OracleRecordType();
-        arg.setTypeExtension(ext);
-        ext.setIdentifier(parameterName);
-        ext.setOutParameter(true);
-        ext.setSupportedType(supportedType);
-        ext.setUnsupportedType(unsupportedType);
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
-        return arg;
-    }
-
-    @Override
-    public SqlArgument createRowTypeOutParameter(String parameterName, String tableName) {
-        String supportedType = "TE_" + tableName;
-        SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.STRUCT, supportedType);
-        setParameter(arg);
-
-        OracleRowType ext = getRowType(tableName, supportedType);
-
-        arg.setTypeExtension(ext);
-        ext.setIdentifier(parameterName);
-        ext.setOutParameter(true);
-        ext.setSupportedType(supportedType);
-        ext.setUnsupportedType(tableName + "%ROWTYPE");
-
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
-        return arg;
-    }
-
-    @Override
-    public SqlArgument createRowTypeOutParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
-        SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
-        SqlArgument arg = createRowTypeOutParameter(parameterName, sobj.getName().toUpperCase());
-        sobj.setName(arg.getTypeExtension().getSupportedType());
-        return arg;
-    }
-
-    protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {
-        PLCreateType p = null;
-        try {
-            p = new OracleDbHelper(mvpackage.getDbContext()).createTypeFromTable(supportedType, null, rowTypeTableName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        OracleRowType ext = new OracleRowType();
-        for (CodeObject member : p.getColumnDefs()) {
-            MemberField field = (MemberField) member;
-            ext.addTypeMap(new ColumnMap(field.getLeftSide(), field.getLeftSide()));
-        }
-        return ext;
-    }
 
     @Override
     public SqlArgument createOutParameter(String parameterName, int type, String objectType) {
@@ -338,27 +284,6 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
         return getStruct(parameterName).getOracleAttributes();
     }
 
-    @Override
-    public SqlTypeObjectValue getTypeObjectValue(String parameterName) throws SQLException {
-
-        SqlTypeObject typeObj = null;
-
-        if (getTypeObjectRegistry().containsKey(parameterName)) {
-            typeObj = getTypeObjectInstance(parameterName, null);
-        }
-
-        if ((typeObj != null) && !typeObj.isTypeObjectValueNull()) {
-            return typeObj.getTypeObjectValue();
-        }
-
-        SqlTypeObjectValue typeObjValue = createTypeObjectValueInstance(parameterName);
-
-        if (typeObj != null) {
-            typeObj.setTypeObjectValue(typeObjValue);
-        }
-        return typeObjValue;
-
-    }
 
     protected SqlTypeObjectValue createTypeObjectValueInstance(String parameterName) {
         final String pName = parameterName;
@@ -385,29 +310,6 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
         return typeObjValue;
     }
 
-    @Override
-    public SqlTypeObject getTypeObject(String parameterName) throws SQLException {
-        SqlTypeObject typeObj = getTypeObjectInstance(parameterName, null);
-        typeObj.setTypeObjectValue(getTypeObjectValue(parameterName));
-        typeObj.autoBind();
-        return typeObj;
-    }
-
-    private SqlTypeObject getTypeObjectInstance(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
-        try {
-            SqlTypeObject typeObj = null;
-            if (getTypeObjectRegistry().containsKey(parameterName)) {
-                typeObj = getTypeObjectRegistry().get(parameterName);
-            } else {
-                typeObj = (SqlTypeObject) SqlObjectHelper.createSqlObjectInstance(mvpackage.getDbContext(), typeObjectClass);
-                getTypeObjectRegistry().put(parameterName, typeObj);
-            }
-            return typeObj;
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     protected Map<String, SqlTypeObject> getTypeObjectRegistry() {
         if (mvtypeObjectRegistry == null) {
@@ -416,30 +318,6 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
         return mvtypeObjectRegistry;
     }
 
-    @Override
-    public SqlArgument createTypeObjectParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
 
-        SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
-        SqlArgument arg = createInParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
-        CustomArgumentType ext = new OracleArgumentType();
-        ext.setSupportedType(arg.getTypeName());
-        arg.setTypeExtension(ext);
-        return arg;
 
-    }
-
-    @Override
-    public SqlArgument createTypeObjectOutParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
-
-        SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
-        SqlArgument arg = createOutParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
-        CustomArgumentType ext = new OracleArgumentType();
-        ext.setSupportedType(arg.getTypeName());
-        ext.setOutParameter(true);
-        ext.setResultsParameter(this.getDeclaredArguments().size() == 1);
-        arg.setTypeExtension(ext);
-
-        return arg;
-
-    }
 }

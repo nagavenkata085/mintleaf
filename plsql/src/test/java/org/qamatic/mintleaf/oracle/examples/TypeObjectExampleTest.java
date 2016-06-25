@@ -41,6 +41,7 @@ import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.OracleTypeObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
+import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -148,14 +149,14 @@ public class TypeObjectExampleTest extends OracleTestCase {
         }
 
         public TPerson getPerson() throws SQLException {
-            SqlStoredProcedure proc = getFunction("getperson", TPerson.class);
+            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getFunction("getperson", TPerson.class);
             proc.execute();
             return (TPerson) proc.getTypeObject("result");
 
         }
 
         public void setPerson(TPerson person) {
-            SqlStoredProcedure proc = getProcedure("setperson");
+            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getProcedure("setperson");
             proc.createTypeObjectParameter("person", TPerson.class);
             proc.setValue("person", person);
             proc.execute();
@@ -163,7 +164,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
         }
 
         public SqlTypeObjectValue getPersonUsingObjectValue() throws SQLException {
-            SqlStoredProcedure proc = getFunction("getperson", TPerson.class);
+            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getFunction("getperson", TPerson.class);
             proc.execute();
             return proc.getTypeObject("result").getTypeObjectValue();
 

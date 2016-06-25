@@ -53,8 +53,5 @@ public interface SqlValue {
 
     Object getStruct(String paramterName);
 
-    SqlTypeObjectValue getTypeObjectValue(String parameterName) throws SQLException;
-
-    SqlTypeObject getTypeObject(String parameterName) throws SQLException;
 
 }

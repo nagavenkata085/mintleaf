@@ -41,6 +41,7 @@ import org.qamatic.mintleaf.interfaces.TypeObjectField;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.OracleTypeObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
+import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -87,11 +88,11 @@ public class RowTypeExampleTest extends OracleTestCase {
         }
 
         public Employee getEmployee(int id) throws SQLException {
-            SqlStoredProcedure proc = getProcedure("GETEMPLOYEE");
+            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getProcedure("GETEMPLOYEE");
             proc.createInParameter("pid", Types.INTEGER);
 
             proc.createRowTypeOutParameter("result", Employee.class);
-            proc = proc.recompile();
+            proc = (OracleSpringSqlProcedure) proc.recompile();
             proc.setValue("pid", Integer.valueOf(id));
             proc.execute();
             return (Employee) proc.getTypeObject("result");
