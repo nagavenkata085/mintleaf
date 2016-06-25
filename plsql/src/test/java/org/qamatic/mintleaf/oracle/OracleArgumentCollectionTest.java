@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
@@ -41,7 +41,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class OracleSpringSqlArgumentCollectionTest {
+public class OracleArgumentCollectionTest {
 
     MockProcedure p;
     SqlArgument a1;

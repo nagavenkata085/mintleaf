@@ -28,11 +28,13 @@
 package org.qamatic.mintleaf.oracle.spring;
 
 import org.qamatic.mintleaf.core.SqlObjectHelper;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlParameter;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.CodeObject;
 import org.qamatic.mintleaf.oracle.MemberField;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
-import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRecordType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;

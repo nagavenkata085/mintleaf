@@ -30,15 +30,16 @@ package org.qamatic.mintleaf.oracle.spring;
 import oracle.sql.ARRAY;
 import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentCollection;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlParameter;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -223,7 +224,7 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
 
     @Override
     public SqlArgumentCollection getDeclaredArguments() {
-        return new OracleSpringSqlArgumentCollection(getDeclaredParameters());
+        return new OracleArgumentCollection(getDeclaredParameters());
     }
 
     @SuppressWarnings("boxing")

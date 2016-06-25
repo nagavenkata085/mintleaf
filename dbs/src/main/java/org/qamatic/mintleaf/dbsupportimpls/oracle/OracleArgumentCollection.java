@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle.spring;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
@@ -37,12 +37,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class OracleSpringSqlArgumentCollection implements SqlArgumentCollection {
+public class OracleArgumentCollection implements SqlArgumentCollection {
 
     private final List<SqlParameter> mvparamList;
     private int mvcurrent;
 
-    public OracleSpringSqlArgumentCollection(List<SqlParameter> list) {
+    public OracleArgumentCollection(List<SqlParameter> list) {
         mvparamList = list;
         mvcurrent = -1;
     }

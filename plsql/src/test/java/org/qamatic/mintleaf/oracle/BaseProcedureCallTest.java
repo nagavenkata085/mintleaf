@@ -32,7 +32,7 @@ import org.qamatic.mintleaf.core.BaseProcedureCall;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
 
 import java.sql.Types;
