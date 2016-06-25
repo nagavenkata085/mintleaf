@@ -55,7 +55,7 @@ public class OracleSpringSqlArgumentCollectionTest {
         p.setSql("smcall");
 
         a1 = p.createOutParameter("test1", Types.VARCHAR);
-        a2 = p.createParameter("test2", Types.VARCHAR);
+        a2 = p.createInParameter("test2", Types.VARCHAR);
     }
 
     @Test
@@ -150,7 +150,7 @@ public class OracleSpringSqlArgumentCollectionTest {
         p.setSql("smcall");
         p.setFunction(true);
         a1 = p.createBooleanOutParameter("test1");
-        a2 = p.createParameter("test2", Types.VARCHAR);
+        a2 = p.createInParameter("test2", Types.VARCHAR);
         a3 = p.createBooleanOutParameter("test4");
         a4 = p.createOutParameter("test5", Types.VARCHAR);
 
@@ -174,7 +174,7 @@ public class OracleSpringSqlArgumentCollectionTest {
         p.setSql("smcall");
         p.setFunction(false);// ***
         a1 = p.createBooleanOutParameter("test1");
-        a2 = p.createParameter("test2", Types.VARCHAR);
+        a2 = p.createInParameter("test2", Types.VARCHAR);
         a3 = p.createBooleanOutParameter("test4");
         a4 = p.createOutParameter("test5", Types.VARCHAR);
 
@@ -198,7 +198,7 @@ public class OracleSpringSqlArgumentCollectionTest {
         p.setSql("smcall");
         p.setFunction(false);// ***
         a1 = p.createBooleanOutParameter("test1");
-        a2 = p.createParameter("test2", Types.VARCHAR);
+        a2 = p.createInParameter("test2", Types.VARCHAR);
         a3 = p.createBooleanOutParameter("test4");
         a4 = p.createOutParameter("test5", Types.VARCHAR);
 

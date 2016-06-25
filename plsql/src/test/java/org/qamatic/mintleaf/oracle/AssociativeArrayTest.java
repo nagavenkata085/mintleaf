@@ -100,9 +100,9 @@ public class AssociativeArrayTest extends OracleTestCase {
 
             OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getProcedure("tokenize");
 
-            proc.createParameter("pstr", Types.VARCHAR);
+            proc.createInParameter("pstr", Types.VARCHAR);
             proc.createOutParameter("presult", Types.ARRAY, "STRINGLIST");
-            proc.createParameter("ptoken", Types.VARCHAR);
+            proc.createInParameter("ptoken", Types.VARCHAR);
 
             proc.compile();
             proc.setValue("pstr", inputValue);

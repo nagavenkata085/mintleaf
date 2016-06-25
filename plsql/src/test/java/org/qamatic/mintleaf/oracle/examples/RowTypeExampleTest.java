@@ -88,7 +88,7 @@ public class RowTypeExampleTest extends OracleTestCase {
 
         public Employee getEmployee(int id) throws SQLException {
             SqlStoredProcedure proc = getProcedure("GETEMPLOYEE");
-            proc.createParameter("pid", Types.INTEGER);
+            proc.createInParameter("pid", Types.INTEGER);
 
             proc.createRowTypeOutParameter("result", Employee.class);
             proc = proc.recompile();

@@ -53,7 +53,7 @@ public class OracleArgumentTypeExtensionTest {
     public void testExtensionDefaultsWithProcedureInParam() {
         MockProcedure p = new MockProcedure(null);
         p.setSql("getEmployee");
-        SqlArgument arg = p.createParameter("test1", Types.VARCHAR);
+        SqlArgument arg = p.createInParameter("test1", Types.VARCHAR);
         CustomArgumentType ext = arg.getTypeExtension();
         assertEquals("?", ext.getIdentifier());
         assertEquals("", ext.getVariableDeclaration());

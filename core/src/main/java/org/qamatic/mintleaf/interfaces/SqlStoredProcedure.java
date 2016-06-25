@@ -92,13 +92,13 @@ public interface SqlStoredProcedure extends SqlValue {
 
     SqlArgumentCollection getDeclaredArguments();
 
-    SqlArgument createParameter(String parameterName, int type);
+    SqlArgument createInParameter(String parameterName, int type);
 
     SqlArgument createBooleanParameter(String parameterName);
 
     SqlArgument createRecordParameter(String parameterName, String supportedType, String unsupportedType);
 
-    SqlArgument createParameter(String parameterName, int type, String objectType);
+    SqlArgument createInParameter(String parameterName, int type, String objectType);
 
     SqlArgument createOutParameter(String parameterName, int type);
 

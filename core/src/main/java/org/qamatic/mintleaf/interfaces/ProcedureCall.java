@@ -28,5 +28,5 @@
 package org.qamatic.mintleaf.interfaces;
 
 public interface ProcedureCall {
-    StringBuilder getCallString();
+    StringBuilder getSQL();
 }

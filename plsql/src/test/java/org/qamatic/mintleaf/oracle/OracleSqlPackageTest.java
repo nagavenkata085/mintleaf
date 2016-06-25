@@ -179,8 +179,8 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public int FindMax(int value1, int value2) {
             SqlStoredProcedure proc = getFunction("FINDMAX", Types.INTEGER);
-            proc.createParameter("value1", Types.INTEGER);
-            proc.createParameter("value2", Types.INTEGER);
+            proc.createInParameter("value1", Types.INTEGER);
+            proc.createInParameter("value2", Types.INTEGER);
             proc.compile();
             proc.setValue("value1", value1);
             proc.setValue("value2", value2);

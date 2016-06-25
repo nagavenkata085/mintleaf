@@ -100,7 +100,7 @@ public class OracleBooleanTypeTest {
         SqlArgument arg1 = p.createBooleanOutParameter("result");
         SqlArgument arg2 = p.createBooleanOutParameter("outparam");
         SqlArgument arg3 = p.createBooleanParameter("inparam");
-        SqlArgument arg4 = p.createParameter("inparamInt", Types.INTEGER);
+        SqlArgument arg4 = p.createInParameter("inparamInt", Types.INTEGER);
         SqlArgument arg5 = p.createOutParameter("outparamStr", Types.VARCHAR);
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
@@ -123,7 +123,7 @@ public class OracleBooleanTypeTest {
         SqlArgument arg1 = p.createBooleanOutParameter("result");
         SqlArgument arg2 = p.createBooleanOutParameter("outparam");
         SqlArgument arg3 = p.createBooleanParameter("inparam");
-        SqlArgument arg4 = p.createParameter("inparamInt", Types.INTEGER);
+        SqlArgument arg4 = p.createInParameter("inparamInt", Types.INTEGER);
         SqlArgument arg5 = p.createOutParameter("outparamStr", Types.VARCHAR);
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");

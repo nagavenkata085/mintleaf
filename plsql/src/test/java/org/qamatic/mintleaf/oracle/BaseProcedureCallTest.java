@@ -48,7 +48,7 @@ public class BaseProcedureCallTest {
         p.setSql("getEmployee");
         BaseProcedureCall call = new OracleProcedureCall(p);
 
-        assertEquals("declare\nbegin\ngetEmployee();\nend;\n", call.getCallString().toString());
+        assertEquals("declare\nbegin\ngetEmployee();\nend;\n", call.getSQL().toString());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class BaseProcedureCallTest {
         p.createOutParameter("test1", Types.VARCHAR);
         BaseProcedureCall call = new OracleProcedureCall(p);
 
-        assertEquals("declare\nbegin\n? := getEmployee();\nend;\n", call.getCallString().toString());
+        assertEquals("declare\nbegin\n? := getEmployee();\nend;\n", call.getSQL().toString());
     }
 
     @Test
@@ -71,10 +71,10 @@ public class BaseProcedureCallTest {
         p.setFunction(true);
         p.setSql("getEmployee");
         p.createOutParameter("test1", Types.VARCHAR);
-        p.createParameter("test2", Types.VARCHAR);
+        p.createInParameter("test2", Types.VARCHAR);
         BaseProcedureCall call = new OracleProcedureCall(p);
 
-        assertEquals("declare\nbegin\n? := getEmployee(?);\nend;\n", call.getCallString().toString());
+        assertEquals("declare\nbegin\n? := getEmployee(?);\nend;\n", call.getSQL().toString());
     }
 
     @Test
@@ -83,10 +83,10 @@ public class BaseProcedureCallTest {
         MockProcedure p = new MockProcedure(null);
         p.setSql("getEmployee");
         p.createOutParameter("test1", Types.VARCHAR);
-        p.createParameter("test2", Types.VARCHAR);
+        p.createInParameter("test2", Types.VARCHAR);
         BaseProcedureCall call = new OracleProcedureCall(p);
 
-        assertEquals("declare\nbegin\ngetEmployee(?, ?);\nend;\n", call.getCallString().toString());
+        assertEquals("declare\nbegin\ngetEmployee(?, ?);\nend;\n", call.getSQL().toString());
     }
 
     @Test
@@ -96,10 +96,10 @@ public class BaseProcedureCallTest {
         p.setSql("getEmployee");
         p.setSqlReadyForUse(true);
         p.createOutParameter("test1", Types.VARCHAR);
-        p.createParameter("test2", Types.VARCHAR);
+        p.createInParameter("test2", Types.VARCHAR);
         BaseProcedureCall call = new OracleProcedureCall(p);
 
-        assertEquals("declare\nbegin\ngetEmployee\nend;\n", call.getCallString().toString());
+        assertEquals("declare\nbegin\ngetEmployee\nend;\n", call.getSQL().toString());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class BaseProcedureCallTest {
         p.setSql("getEmployee");
         SqlArgument a1 = p.createOutParameter("test1", Types.VARCHAR);
         a1.setTypeExtension(new MockType1());
-        SqlArgument a2 = p.createParameter("test2", Types.VARCHAR);
+        SqlArgument a2 = p.createInParameter("test2", Types.VARCHAR);
         a2.setTypeExtension(new MockType2());
         BaseProcedureCall call = new OracleProcedureCall(p);
         StringBuilder builder = new StringBuilder();
@@ -132,7 +132,7 @@ public class BaseProcedureCallTest {
         builder.append("\n");
         builder.append("end;\n");
 
-        assertEquals(builder.toString(), call.getCallString().toString());
+        assertEquals(builder.toString(), call.getSQL().toString());
     }
 
     private class MockProcedure extends OracleSpringSqlProcedure {

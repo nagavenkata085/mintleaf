@@ -41,7 +41,7 @@ public class OracleProcedureCall extends BaseProcedureCall {
     }
 
     @Override
-    public StringBuilder getCallString() {
+    public StringBuilder getSQL() {
         if (mvProcedure.isSqlReadyForUse()) {
             appendLine("declare\nbegin\n" + mvProcedure.getSql() + "\nend;");
         } else {
@@ -57,6 +57,6 @@ public class OracleProcedureCall extends BaseProcedureCall {
             addCode(mvProcedure.getDeclaredArguments().getCodeAfterCall());
             appendLine("end;");
         }
-        return super.getCallString();
+        return super.getSQL();
     }
 }

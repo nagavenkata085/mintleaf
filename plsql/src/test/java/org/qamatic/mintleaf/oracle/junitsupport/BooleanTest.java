@@ -123,7 +123,7 @@ public class BooleanTest extends OracleTestCase {
         public boolean getBoolean() {
 
             SqlStoredProcedure proc = getProcedure(getAnonymousCode2());
-            proc.createParameter("value1", Types.INTEGER);
+            proc.createInParameter("value1", Types.INTEGER);
             proc.createOutParameter("result", Types.INTEGER);
             proc.compile();
             proc.setValue("value1", 500);
@@ -158,7 +158,7 @@ public class BooleanTest extends OracleTestCase {
 
             SqlStoredProcedure proc = getFunction("isGreaterThan100");
             proc.createBooleanOutParameter("result");
-            proc.createParameter("value1", Types.INTEGER);
+            proc.createInParameter("value1", Types.INTEGER);
             proc = proc.recompile();
             proc.setValue("value1", value1);
             proc.execute();
@@ -172,7 +172,7 @@ public class BooleanTest extends OracleTestCase {
 
             SqlStoredProcedure proc = getFunction("isGreaterThan100");
             proc.createBooleanOutParameter("result");
-            proc.createParameter("value1", Types.INTEGER);
+            proc.createInParameter("value1", Types.INTEGER);
 
             proc.setValue("value1", value1);
             proc.execute();
@@ -186,7 +186,7 @@ public class BooleanTest extends OracleTestCase {
 
             SqlStoredProcedure proc = getProcedure("isGreaterThan100Proc");
             proc.createBooleanOutParameter("result");
-            proc.createParameter("value1", Types.INTEGER);
+            proc.createInParameter("value1", Types.INTEGER);
             proc.createBooleanParameter("value2");
             proc = proc.recompile();
 

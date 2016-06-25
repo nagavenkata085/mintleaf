@@ -42,7 +42,7 @@ public class TestDbProvisioning extends OraclePackage {
 
     public void dropSchemaUser(String userName) {
         SqlStoredProcedure proc = getProcedure("dropApplicationUser");
-        proc.createParameter("pusername", Types.VARCHAR);
+        proc.createInParameter("pusername", Types.VARCHAR);
         proc.compile();
         proc.setValue("pusername", userName);
         proc.execute();
@@ -50,8 +50,8 @@ public class TestDbProvisioning extends OraclePackage {
 
     public void createSchemaUser(String userName, String appUserPassword) {
         SqlStoredProcedure proc = getProcedure("createApplicationUser");
-        proc.createParameter("pusername", Types.VARCHAR);
-        proc.createParameter("puserPassword", Types.VARCHAR);
+        proc.createInParameter("pusername", Types.VARCHAR);
+        proc.createInParameter("puserPassword", Types.VARCHAR);
         proc.compile();
         proc.setValue("pusername", userName);
         proc.setValue("puserPassword", appUserPassword);

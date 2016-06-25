@@ -51,7 +51,7 @@ public class BaseProcedureCall implements ProcedureCall {
     }
 
     @Override
-    public StringBuilder getCallString() {
+    public StringBuilder getSQL() {
 
 
         return mvProcCode;

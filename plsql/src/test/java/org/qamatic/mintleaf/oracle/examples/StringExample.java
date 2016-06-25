@@ -44,7 +44,7 @@ public class StringExample extends OraclePackage {
     public String replaceSpaceWithDollarSign(String inputValue) {
         SqlStoredProcedure proc = getFunction("replace_Space_With_DollarSign", Types.VARCHAR);
 
-        proc.createParameter("pstr", Types.VARCHAR);
+        proc.createInParameter("pstr", Types.VARCHAR);
         proc.compile();
         proc.setValue("pstr", inputValue);
         proc.execute();

@@ -125,9 +125,9 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
         MockProcedureNoDb p = new MockProcedureNoDb(pkg, "FindMax");
 
-        p.createParameter("p1", Types.INTEGER);
-        p.createParameter("p2", Types.INTEGER);
-        p.createParameter("p3", Types.INTEGER);
+        p.createInParameter("p1", Types.INTEGER);
+        p.createInParameter("p2", Types.INTEGER);
+        p.createInParameter("p3", Types.INTEGER);
 
         Assert.assertEquals(3, p.getDeclaredArguments().size());
     }

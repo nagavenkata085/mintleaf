@@ -164,7 +164,7 @@ public class OracleRowTypeTest {
         p.setFunction(true);
         p.createRowTypeOutParameter("o1", "SomeTable");
         p.createRecordParameter("o2", "stype", "ustype");
-        p.createParameter("inparam", Types.VARCHAR);
+        p.createInParameter("inparam", Types.VARCHAR);
         assertEquals("o1_unsup := smcall(o2_unsup, ?);", OracleProcedureCall.getMethodCall(p));
     }
 
@@ -176,7 +176,7 @@ public class OracleRowTypeTest {
         SqlArgument arg1 = p.createRowTypeOutParameter("result", "SomeTable");
         SqlArgument arg2 = p.createRowTypeOutParameter("outparam", "SomeTable");
         SqlArgument arg3 = p.createRecordParameter("inparam", "stype", "ustype");
-        SqlArgument arg4 = p.createParameter("inparamInt", Types.INTEGER);
+        SqlArgument arg4 = p.createInParameter("inparamInt", Types.INTEGER);
         SqlArgument arg5 = p.createOutParameter("outparamStr", Types.VARCHAR);
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
@@ -199,7 +199,7 @@ public class OracleRowTypeTest {
         SqlArgument arg1 = p.createRowTypeOutParameter("result", "SomeTable");
         SqlArgument arg2 = p.createRowTypeOutParameter("outparam", "SomeTable");
         SqlArgument arg3 = p.createRecordParameter("inparam", "stype", "ustype");
-        SqlArgument arg4 = p.createParameter("inparamInt", Types.INTEGER);
+        SqlArgument arg4 = p.createInParameter("inparamInt", Types.INTEGER);
         SqlArgument arg5 = p.createOutParameter("outparamStr", Types.VARCHAR);
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
