@@ -77,7 +77,7 @@ public class OracleBooleanTypeTest {
     public void testBooleanTypeMethodCall() {
         MockProcedure p = new MockProcedure(null);
         p.setSql("smcall");
-        p.createBooleanParameter("inparam");
+        p.createInBooleanParameter("inparam");
         Assert.assertEquals("smcall(inparam_unsup);", OracleProcedureCall.getMethodCall(p));
     }
 
@@ -88,7 +88,7 @@ public class OracleBooleanTypeTest {
         p.setFunction(true);
         p.createBooleanOutParameter("result");
         p.createBooleanOutParameter("outparam");
-        p.createBooleanParameter("inparam");
+        p.createInBooleanParameter("inparam");
         assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup);", OracleProcedureCall.getMethodCall(p));
     }
 
@@ -99,7 +99,7 @@ public class OracleBooleanTypeTest {
         p.setFunction(true);
         SqlArgument arg1 = p.createBooleanOutParameter("result");
         SqlArgument arg2 = p.createBooleanOutParameter("outparam");
-        SqlArgument arg3 = p.createBooleanParameter("inparam");
+        SqlArgument arg3 = p.createInBooleanParameter("inparam");
         SqlArgument arg4 = p.createInParameter("inparamInt", Types.INTEGER);
         SqlArgument arg5 = p.createOutParameter("outparamStr", Types.VARCHAR);
 
@@ -122,7 +122,7 @@ public class OracleBooleanTypeTest {
         p.setFunction(true);
         SqlArgument arg1 = p.createBooleanOutParameter("result");
         SqlArgument arg2 = p.createBooleanOutParameter("outparam");
-        SqlArgument arg3 = p.createBooleanParameter("inparam");
+        SqlArgument arg3 = p.createInBooleanParameter("inparam");
         SqlArgument arg4 = p.createInParameter("inparamInt", Types.INTEGER);
         SqlArgument arg5 = p.createOutParameter("outparamStr", Types.VARCHAR);
 

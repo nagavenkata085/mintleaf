@@ -196,17 +196,6 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
         return arg;
     }
 
-    @Override
-    public SqlArgument createBooleanParameter(String parameterName) {
-        SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.INTEGER);
-        setParameter(arg);
-        CustomArgumentType ext = new OracleBooleanType();
-        arg.setTypeExtension(ext);
-        ext.setIdentifier(parameterName);
-        return arg;
-    }
-
-
 
     @Override
     public SqlArgument createInParameter(String parameterName, int type, String objectType) {
@@ -219,18 +208,6 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
     public SqlArgument createOutParameter(String parameterName, int type) {
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, type);
         setParameter(arg);
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
-        return arg;
-    }
-
-    @Override
-    public SqlArgument createBooleanOutParameter(String parameterName) {
-        SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.INTEGER);
-        setParameter(arg);
-        CustomArgumentType ext = new OracleBooleanType();
-        arg.setTypeExtension(ext);
-        ext.setIdentifier(parameterName);
-        ext.setOutParameter(true);
         arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
         return arg;
     }

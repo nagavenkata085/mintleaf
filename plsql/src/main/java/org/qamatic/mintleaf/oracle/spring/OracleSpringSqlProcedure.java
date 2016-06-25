@@ -33,6 +33,7 @@ import org.qamatic.mintleaf.oracle.CodeObject;
 import org.qamatic.mintleaf.oracle.MemberField;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
+import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRecordType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
@@ -210,4 +211,26 @@ public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
         ext.setUnsupportedType(unsupportedType);
         return arg;
     }
+
+    public SqlArgument createInBooleanParameter(String parameterName) {
+        SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.INTEGER);
+        setParameter(arg);
+        CustomArgumentType ext = new OracleBooleanType();
+        arg.setTypeExtension(ext);
+        ext.setIdentifier(parameterName);
+        return arg;
+    }
+
+    public SqlArgument createBooleanOutParameter(String parameterName) {
+        SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.INTEGER);
+        setParameter(arg);
+        CustomArgumentType ext = new OracleBooleanType();
+        arg.setTypeExtension(ext);
+        ext.setIdentifier(parameterName);
+        ext.setOutParameter(true);
+        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
+        return arg;
+    }
+
+
 }
