@@ -39,6 +39,8 @@ import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
 
@@ -156,6 +158,32 @@ public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
     }
 
 
+    protected SqlTypeObjectValue createTypeObjectValueInstance(String parameterName) {
+        final String pName = parameterName;
+
+        SqlTypeObjectValue typeObjValue = new OracleTypeObjectValue(mvpackage.getDbContext(), getDeclaredArguments().get(pName).getTypeExtension()
+                .getSupportedType()) {
+            @Override
+            protected List<Object> getObjects() {
+                List<Object> list = new ArrayList<Object>();
+
+                Object[] datums = null;
+                try {
+                    datums = getOracleAttributes(pName);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                for (Object object : datums) {
+                    list.add(object);
+                }
+
+                return list;
+            }
+        };
+        return typeObjValue;
+    }
+
+
 
     protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {
         PLCreateType p = null;
@@ -170,5 +198,16 @@ public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
             ext.addTypeMap(new ColumnMap(field.getLeftSide(), field.getLeftSide()));
         }
         return ext;
+    }
+
+    public SqlArgument createRecordParameter(String parameterName, String supportedType, String unsupportedType) {
+        SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.STRUCT);
+        setParameter(arg);
+        CustomArgumentType ext = new OracleRecordType();
+        arg.setTypeExtension(ext);
+        ext.setIdentifier(parameterName);
+        ext.setSupportedType(supportedType);
+        ext.setUnsupportedType(unsupportedType);
+        return arg;
     }
 }

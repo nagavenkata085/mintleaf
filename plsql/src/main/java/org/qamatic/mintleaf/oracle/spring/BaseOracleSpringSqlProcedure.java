@@ -29,17 +29,9 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.ARRAY;
 import oracle.sql.STRUCT;
-import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.oracle.CodeObject;
-import org.qamatic.mintleaf.oracle.MemberField;
-import org.qamatic.mintleaf.oracle.OracleDbHelper;
-import org.qamatic.mintleaf.oracle.argextensions.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;
-import org.qamatic.mintleaf.oracle.argextensions.OracleRecordType;
-import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
-import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -47,7 +39,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -215,17 +206,7 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
         return arg;
     }
 
-    @Override
-    public SqlArgument createRecordParameter(String parameterName, String supportedType, String unsupportedType) {
-        SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.STRUCT);
-        setParameter(arg);
-        CustomArgumentType ext = new OracleRecordType();
-        arg.setTypeExtension(ext);
-        ext.setIdentifier(parameterName);
-        ext.setSupportedType(supportedType);
-        ext.setUnsupportedType(unsupportedType);
-        return arg;
-    }
+
 
     @Override
     public SqlArgument createInParameter(String parameterName, int type, String objectType) {
@@ -284,31 +265,6 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
         return getStruct(parameterName).getOracleAttributes();
     }
 
-
-    protected SqlTypeObjectValue createTypeObjectValueInstance(String parameterName) {
-        final String pName = parameterName;
-
-        SqlTypeObjectValue typeObjValue = new OracleTypeObjectValue(mvpackage.getDbContext(), getDeclaredArguments().get(pName).getTypeExtension()
-                .getSupportedType()) {
-            @Override
-            protected List<Object> getObjects() {
-                List<Object> list = new ArrayList<Object>();
-
-                Object[] datums = null;
-                try {
-                    datums = getOracleAttributes(pName);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                for (Object object : datums) {
-                    list.add(object);
-                }
-
-                return list;
-            }
-        };
-        return typeObjValue;
-    }
 
 
     protected Map<String, SqlTypeObject> getTypeObjectRegistry() {
