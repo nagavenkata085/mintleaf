@@ -27,9 +27,8 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.CustomArgumentType;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
+import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.springframework.jdbc.core.SqlOutParameter;
 
 public class OracleSpringSqlOutParameter extends SqlOutParameter implements SqlArgument {

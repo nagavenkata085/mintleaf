@@ -33,9 +33,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.interfaces.ColumnMap;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.ColumnMap;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
@@ -140,7 +140,7 @@ public class OraclePLRecordTypeTest extends OracleTestCase {
 
         public Object getEmployeeAsObject() {
             SqlStoredProcedure proc = getFunction("GETEMPLOYEE");
-            SqlArgument arg = ((OraclePLProcedure)proc).createRecordOutParameter("result", "EMPLOYEE_TYPE", "ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
+            SqlArgument arg = ((OraclePLProcedure) proc).createRecordOutParameter("result", "EMPLOYEE_TYPE", "ORACLEPLRECORDTYPETEST.PLEMPLOYEE_RECORD");
             SqlArgumentRecordTypeExtension ext = (SqlArgumentRecordTypeExtension) arg.getTypeExtension();
             ext.addTypeMap(new ColumnMap("id", "id"));
             ext.addTypeMap(new ColumnMap("name", "name"));

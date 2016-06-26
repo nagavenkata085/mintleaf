@@ -30,10 +30,10 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.sql.Types;

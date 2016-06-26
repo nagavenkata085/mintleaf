@@ -230,10 +230,8 @@ public class OracleProcedure extends StoredProcedure implements SqlStoredProcedu
 
     @Override
     public Object getStruct(String paramterName) {
-        return  mvoutParamters.get(paramterName);
+        return mvoutParamters.get(paramterName);
     }
-
-
 
 
     protected Map<String, SqlTypeObject> getTypeObjectRegistry() {
@@ -242,7 +240,6 @@ public class OracleProcedure extends StoredProcedure implements SqlStoredProcedu
         }
         return mvtypeObjectRegistry;
     }
-
 
 
 }

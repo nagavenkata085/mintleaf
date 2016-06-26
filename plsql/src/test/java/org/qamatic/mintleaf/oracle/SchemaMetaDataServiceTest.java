@@ -30,8 +30,8 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
-import org.qamatic.mintleaf.interfaces.DbMetaDataService;
 import org.qamatic.mintleaf.interfaces.Column;
+import org.qamatic.mintleaf.interfaces.DbMetaDataService;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 

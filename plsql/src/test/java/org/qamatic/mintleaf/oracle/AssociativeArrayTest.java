@@ -110,7 +110,7 @@ public class AssociativeArrayTest extends OracleTestCase {
             proc.setValue("ptoken", tokenCharacter);
             proc.execute();
 
-            return (String[]) ((ARRAY)proc.getArray("presult")).getArray();
+            return (String[]) ((ARRAY) proc.getArray("presult")).getArray();
         }
     }
 }

@@ -28,7 +28,6 @@
 package org.qamatic.mintleaf.interfaces;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public interface SqlValue {
