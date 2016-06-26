@@ -1,6 +1,6 @@
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.core.BaseProcedureCall;
+import org.qamatic.mintleaf.core.ProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
@@ -8,7 +8,7 @@ import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 /**
  * Created by senips on 6/18/16.
  */
-public class OracleProcedureCall extends BaseProcedureCall {
+public class OracleProcedureCall extends ProcedureCall {
     public OracleProcedureCall(SqlStoredProcedure procedure) {
         super(procedure);
     }

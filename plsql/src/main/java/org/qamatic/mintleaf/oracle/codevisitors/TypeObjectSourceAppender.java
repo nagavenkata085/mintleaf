@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.codevisitors;
 
-import org.qamatic.mintleaf.interfaces.SqlSourceVisitor;
+import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
 
 public class TypeObjectSourceAppender implements SqlSourceVisitor {
 

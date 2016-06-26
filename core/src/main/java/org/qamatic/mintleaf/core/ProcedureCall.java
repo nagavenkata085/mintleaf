@@ -25,8 +25,32 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.core;
 
-public interface ProcedureCall {
-    StringBuilder getSQL();
+
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
+
+public abstract class ProcedureCall {
+
+    protected final StringBuilder mvProcCode = new StringBuilder();
+    protected final SqlStoredProcedure mvProcedure;
+
+    public ProcedureCall(SqlStoredProcedure procedure) {
+        mvProcedure = procedure;
+    }
+
+
+    protected void appendLine(String txt) {
+        mvProcCode.append(txt).append("\n");
+    }
+
+    protected void addCode(String code) {
+        if (code.length() != 0) {
+            appendLine(code);
+        }
+    }
+
+    public StringBuilder getSQL() {
+        return mvProcCode;
+    }
 }

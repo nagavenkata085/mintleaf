@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.interfaces.SqlSourceVisitor;
+import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
 import org.qamatic.mintleaf.oracle.VisitorSqlCodeExecutor;
 
 import java.io.IOException;

@@ -28,7 +28,6 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlSourceVisitor;
 import org.qamatic.mintleaf.oracle.codevisitors.PackageBodySourceAppender;
 import org.qamatic.mintleaf.oracle.codevisitors.PackageSourceAppender;
 

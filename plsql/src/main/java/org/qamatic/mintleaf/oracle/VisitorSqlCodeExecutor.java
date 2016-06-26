@@ -30,7 +30,6 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.core.SqlCodeExecutor;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlSourceVisitor;
 import org.qamatic.mintleaf.oracle.codevisitors.SqlSourceReplacer;
 
 public abstract class VisitorSqlCodeExecutor extends SqlCodeExecutor {

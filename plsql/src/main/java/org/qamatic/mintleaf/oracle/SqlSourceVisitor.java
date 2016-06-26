@@ -25,35 +25,8 @@
  *
  */
 
-package org.qamatic.mintleaf.core;
+package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.interfaces.ProcedureCall;
-import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
-
-public class BaseProcedureCall implements ProcedureCall {
-
-    protected final StringBuilder mvProcCode = new StringBuilder();
-    protected final SqlStoredProcedure mvProcedure;
-
-    public BaseProcedureCall(SqlStoredProcedure procedure) {
-        mvProcedure = procedure;
-    }
-
-
-    protected void appendLine(String txt) {
-        mvProcCode.append(txt).append("\n");
-    }
-
-    protected void addCode(String code) {
-        if (code.length() != 0) {
-            appendLine(code);
-        }
-    }
-
-    @Override
-    public StringBuilder getSQL() {
-
-
-        return mvProcCode;
-    }
+public interface SqlSourceVisitor {
+    void visit(StringBuilder sql, Object actionContent);
 }

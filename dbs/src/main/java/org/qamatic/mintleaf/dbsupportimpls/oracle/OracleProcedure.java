@@ -27,6 +27,7 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
+import org.qamatic.mintleaf.core.ProcedureCall;
 import org.qamatic.mintleaf.interfaces.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
