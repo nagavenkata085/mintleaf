@@ -29,14 +29,14 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.BaseOracleSpringSqlProcedure;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedure;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlParameter;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.CodeObject;
 import org.qamatic.mintleaf.oracle.MemberField;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRecordType;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
@@ -47,10 +47,10 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
+public class OraclePLProcedure extends OracleProcedure {
 
 
-    public OracleSpringSqlProcedure(SqlStoredProcedureModule pkg) {
+    public OraclePLProcedure(SqlStoredProcedureModule pkg) {
         super(pkg);
     }
 
@@ -78,6 +78,7 @@ public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
         sobj.setName(arg.getTypeExtension().getSupportedType());
         return arg;
     }
+
     public SqlArgument createTypeObjectParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
 
         SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
@@ -109,7 +110,6 @@ public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
         typeObj.autoBind();
         return typeObj;
     }
-
 
 
     private SqlTypeObject getTypeObjectInstance(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {

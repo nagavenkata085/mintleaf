@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -99,7 +99,7 @@ public class AssociativeArrayTest extends OracleTestCase {
 
         public String[] Tokenize(String inputValue, String tokenCharacter) throws SQLException {
 
-            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getProcedure("tokenize");
+            OraclePLProcedure proc = (OraclePLProcedure) getProcedure("tokenize");
 
             proc.createInParameter("pstr", Types.VARCHAR);
             proc.createOutParameter("presult", Types.ARRAY, "STRINGLIST");

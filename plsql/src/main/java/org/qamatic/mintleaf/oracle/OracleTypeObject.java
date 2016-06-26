@@ -38,7 +38,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 import org.springframework.jdbc.core.SqlTypeValue;
 
 import java.io.IOException;
@@ -357,7 +357,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     public SqlStoredProcedure getMemberProcedure(String memberProcName) {
-        OracleSpringSqlProcedure proc = new OracleSpringSqlProcedure(new OraclePackage(this.getDbContext()) {
+        OraclePLProcedure proc = new OraclePLProcedure(new OraclePackage(this.getDbContext()) {
         });
         proc.setSql(String.format("declare bo %s; begin bo:=?; bo.%s; end;", getName(), memberProcName));
         proc.createTypeObjectParameter("bo", this.getClass());

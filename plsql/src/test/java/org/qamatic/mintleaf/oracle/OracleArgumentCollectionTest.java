@@ -34,7 +34,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.sql.Types;
 import java.util.List;
@@ -43,7 +43,7 @@ import static org.junit.Assert.assertEquals;
 
 public class OracleArgumentCollectionTest {
 
-    MockProcedure p;
+    MockPLProcedure p;
     SqlArgument a1;
     SqlArgument a2;
     SqlArgument a3;
@@ -51,7 +51,7 @@ public class OracleArgumentCollectionTest {
 
     @Before
     public void init() {
-        p = new MockProcedure(null);
+        p = new MockPLProcedure(null);
         p.setSql("smcall");
 
         a1 = p.createOutParameter("test1", Types.VARCHAR);
@@ -60,7 +60,7 @@ public class OracleArgumentCollectionTest {
 
     @Test
     public void testExtensionSoureIdentifierWithNoArg() {
-        p = new MockProcedure(null);
+        p = new MockPLProcedure(null);
         p.setSql("smcall");
         Assert.assertEquals("", p.getDeclaredArguments().getIdentifier());
         assertEquals("smcall();", OracleProcedureCall.getMethodCall(p));
@@ -68,7 +68,7 @@ public class OracleArgumentCollectionTest {
 
     @Test
     public void testExtensionSoureIdentifierWithNoArgButFunction() {
-        p = new MockProcedure(null);
+        p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         Assert.assertEquals("", p.getDeclaredArguments().getIdentifier());
@@ -146,7 +146,7 @@ public class OracleArgumentCollectionTest {
     @Test
     public void testExtensionRebuildArgsForFunctionCall() {
 
-        p = new MockProcedure(null);
+        p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         a1 = p.createBooleanOutParameter("test1");
@@ -170,7 +170,7 @@ public class OracleArgumentCollectionTest {
     @Test
     public void testExtensionRebuildArgsForProcedureCall() {
 
-        p = new MockProcedure(null);
+        p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(false);// ***
         a1 = p.createBooleanOutParameter("test1");
@@ -194,7 +194,7 @@ public class OracleArgumentCollectionTest {
     @Test
     public void testGetArgument() {
 
-        p = new MockProcedure(null);
+        p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(false);// ***
         a1 = p.createBooleanOutParameter("test1");
@@ -278,9 +278,9 @@ public class OracleArgumentCollectionTest {
 
     }
 
-    private class MockProcedure extends OracleSpringSqlProcedure {
+    private class MockPLProcedure extends OraclePLProcedure {
 
-        public MockProcedure(SqlStoredProcedureModule pkg) {
+        public MockPLProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 

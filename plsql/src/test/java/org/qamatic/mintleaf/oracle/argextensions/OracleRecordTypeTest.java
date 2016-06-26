@@ -33,7 +33,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.ColumnMap;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.sql.Types;
 
@@ -151,7 +151,7 @@ public class OracleRecordTypeTest {
 
     @Test
     public void testRecordTypeMethodCall() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.createRecordOutParameter("inparam", "stype", "ustype");
         Assert.assertEquals("smcall(inparam_unsup);", OracleProcedureCall.getMethodCall(p));
@@ -159,7 +159,7 @@ public class OracleRecordTypeTest {
 
     @Test
     public void testRecordTypeMethodCallAsFunc() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         p.createRecordOutParameter("o1", "stype", "ustype");
@@ -170,7 +170,7 @@ public class OracleRecordTypeTest {
 
     @Test
     public void testRecordAssignmentCodeBeforeCall() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         SqlArgument arg1 = p.createRecordOutParameter("result", "stype", "ustype");
@@ -193,7 +193,7 @@ public class OracleRecordTypeTest {
 
     @Test
     public void testRecordAssignmentCodeAfterCall() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         SqlArgument arg1 = p.createRecordOutParameter("result", "stype", "ustype");
@@ -213,9 +213,9 @@ public class OracleRecordTypeTest {
 
     }
 
-    private class MockProcedure extends OracleSpringSqlProcedure {
+    private class MockPLProcedure extends OraclePLProcedure {
 
-        public MockProcedure(SqlStoredProcedureModule pkg) {
+        public MockPLProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 

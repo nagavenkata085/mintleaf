@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BaseOracleSpringSqlProcedure extends StoredProcedure implements SqlStoredProcedure {
+public class OracleProcedure extends StoredProcedure implements SqlStoredProcedure {
 
     protected final HashMap<String, Object> mvinParamters = new HashMap<String, Object>();
     protected final SqlStoredProcedureModule mvpackage;
@@ -46,7 +46,7 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
     private boolean mvrecompiled;
     private Map<String, SqlTypeObject> mvtypeObjectRegistry;
 
-    public BaseOracleSpringSqlProcedure(SqlStoredProcedureModule pkg) {
+    public OracleProcedure(SqlStoredProcedureModule pkg) {
         mvpackage = pkg;
         initDataSource();
     }
@@ -124,7 +124,7 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
             proc.setParameter(sqlArgument);
         }
 
-        ((BaseOracleSpringSqlProcedure) proc).mvtypeObjectRegistry = this.getTypeObjectRegistry();
+        ((OracleProcedure) proc).mvtypeObjectRegistry = this.getTypeObjectRegistry();
         proc.setRecompiled(true);
         return proc;
     }

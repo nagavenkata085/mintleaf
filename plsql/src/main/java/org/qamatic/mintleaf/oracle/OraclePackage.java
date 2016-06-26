@@ -31,7 +31,7 @@ package org.qamatic.mintleaf.oracle;
 import org.qamatic.mintleaf.core.BaseSqlObject;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureModule {
@@ -46,7 +46,7 @@ public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureMo
 
     @Override
     public SqlStoredProcedure getFunction(String functionName) {
-        OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) createSqlProcedure();
+        OraclePLProcedure proc = (OraclePLProcedure) createSqlProcedure();
         proc.setFunction(true);
         proc.setSqlReadyForUse(false);
         proc.setSql(getPkgProcedureName(functionName));
@@ -68,7 +68,7 @@ public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureMo
     @Override
     public SqlStoredProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass) {
         try {
-            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure)getFunction(functionName);
+            OraclePLProcedure proc = (OraclePLProcedure)getFunction(functionName);
             proc.setSqlReadyForUse(false);
             proc.setSql(getPkgProcedureName(functionName));
             proc.createTypeObjectOutParameter("result", typeObjectClass);
@@ -91,7 +91,7 @@ public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureMo
 
     @Override
     public SqlStoredProcedure getProcedure(String procName) {
-        OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) createSqlProcedure();
+        OraclePLProcedure proc = (OraclePLProcedure) createSqlProcedure();
         proc.setSql(getPkgProcedureName(procName));
         return proc;
     }
@@ -126,7 +126,7 @@ public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureMo
     }
 
     protected SqlStoredProcedure createSqlProcedure() {
-        return new OracleSpringSqlProcedure(this);
+        return new OraclePLProcedure(this);
     }
 
 

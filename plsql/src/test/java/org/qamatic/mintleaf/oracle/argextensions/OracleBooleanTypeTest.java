@@ -33,7 +33,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.CustomArgumentType;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.sql.Types;
 
@@ -75,7 +75,7 @@ public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanTypeMethodCall() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.createInBooleanParameter("inparam");
         Assert.assertEquals("smcall(inparam_unsup);", OracleProcedureCall.getMethodCall(p));
@@ -83,7 +83,7 @@ public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanTypeMethodCallAsFunc() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         p.createBooleanOutParameter("result");
@@ -94,7 +94,7 @@ public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanAssignmentCodeBeforeCall() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         SqlArgument arg1 = p.createBooleanOutParameter("result");
@@ -117,7 +117,7 @@ public class OracleBooleanTypeTest {
 
     @Test
     public void testBooleanAssignmentCodeAfterCall() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("smcall");
         p.setFunction(true);
         SqlArgument arg1 = p.createBooleanOutParameter("result");
@@ -137,9 +137,9 @@ public class OracleBooleanTypeTest {
 
     }
 
-    private class MockProcedure extends OracleSpringSqlProcedure {
+    private class MockPLProcedure extends OraclePLProcedure {
 
-        public MockProcedure(SqlStoredProcedureModule pkg) {
+        public MockPLProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 

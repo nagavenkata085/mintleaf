@@ -35,7 +35,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.OraclePackage;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.io.IOException;
 import java.sql.CallableStatement;
@@ -157,10 +157,10 @@ public class BooleanTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public boolean isGreaterThan100SpringCall(int value1) {
 
-            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getFunction("isGreaterThan100");
+            OraclePLProcedure proc = (OraclePLProcedure) getFunction("isGreaterThan100");
             proc.createBooleanOutParameter("result");
             proc.createInParameter("value1", Types.INTEGER);
-            proc = (OracleSpringSqlProcedure) proc.recompile();
+            proc = (OraclePLProcedure) proc.recompile();
             proc.setValue("value1", value1);
             proc.execute();
             int i = proc.getIntValue("result");
@@ -171,7 +171,7 @@ public class BooleanTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public boolean isGreaterThan100SpringCallNoRecompileException(int value1) {
 
-            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getFunction("isGreaterThan100");
+            OraclePLProcedure proc = (OraclePLProcedure) getFunction("isGreaterThan100");
             proc.createBooleanOutParameter("result");
             proc.createInParameter("value1", Types.INTEGER);
 
@@ -185,11 +185,11 @@ public class BooleanTest extends OracleTestCase {
         @SuppressWarnings("boxing")
         public boolean isGreaterThan100TestingProcedureLogic(int value1) {
 
-            OracleSpringSqlProcedure proc = (OracleSpringSqlProcedure) getProcedure("isGreaterThan100Proc");
+            OraclePLProcedure proc = (OraclePLProcedure) getProcedure("isGreaterThan100Proc");
             proc.createBooleanOutParameter("result");
             proc.createInParameter("value1", Types.INTEGER);
             proc.createInBooleanParameter("value2");
-            proc = (OracleSpringSqlProcedure) proc.recompile();
+            proc = (OraclePLProcedure) proc.recompile();
 
             proc.setValue("value1", value1);
             proc.setValue("value2", 1);

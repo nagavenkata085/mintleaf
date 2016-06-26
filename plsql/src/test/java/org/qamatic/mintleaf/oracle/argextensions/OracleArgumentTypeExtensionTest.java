@@ -32,7 +32,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.CustomArgumentType;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.sql.Types;
 
@@ -52,7 +52,7 @@ public class OracleArgumentTypeExtensionTest {
 
     @Test
     public void testExtensionDefaultsWithProcedureInParam() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("getEmployee");
         SqlArgument arg = p.createInParameter("test1", Types.VARCHAR);
         CustomArgumentType ext = arg.getTypeExtension();
@@ -65,7 +65,7 @@ public class OracleArgumentTypeExtensionTest {
 
     @Test
     public void testExtensionDefaultsWithProcedureOutParam() {
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("getEmployee");
         SqlArgument arg = p.createOutParameter("test1", Types.VARCHAR);
         CustomArgumentType ext = arg.getTypeExtension();
@@ -76,9 +76,9 @@ public class OracleArgumentTypeExtensionTest {
         assertEquals("", ext.getCodeBeforeCall());
     }
 
-    private class MockProcedure extends OracleSpringSqlProcedure {
+    private class MockPLProcedure extends OraclePLProcedure {
 
-        public MockProcedure(SqlStoredProcedureModule pkg) {
+        public MockPLProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 

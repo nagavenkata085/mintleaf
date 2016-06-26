@@ -33,7 +33,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
-import org.qamatic.mintleaf.oracle.spring.OracleSpringSqlProcedure;
+import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
 import java.sql.Types;
 
@@ -44,7 +44,7 @@ public class BaseProcedureCallTest {
     @Test
     public void testProcedureCallString1() {
 
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("getEmployee");
         BaseProcedureCall call = new OracleProcedureCall(p);
 
@@ -54,7 +54,7 @@ public class BaseProcedureCallTest {
     @Test
     public void testProcedureCallString2() {
 
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
 
         p.setFunction(true);
         p.setSql("getEmployee");
@@ -67,7 +67,7 @@ public class BaseProcedureCallTest {
     @Test
     public void testProcedureCallString3() {
 
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setFunction(true);
         p.setSql("getEmployee");
         p.createOutParameter("test1", Types.VARCHAR);
@@ -80,7 +80,7 @@ public class BaseProcedureCallTest {
     @Test
     public void testProcedureCallString4() {
 
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("getEmployee");
         p.createOutParameter("test1", Types.VARCHAR);
         p.createInParameter("test2", Types.VARCHAR);
@@ -92,7 +92,7 @@ public class BaseProcedureCallTest {
     @Test
     public void testProcedureCallStringReadyForUse() {
 
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("getEmployee");
         p.setSqlReadyForUse(true);
         p.createOutParameter("test1", Types.VARCHAR);
@@ -105,7 +105,7 @@ public class BaseProcedureCallTest {
     @Test
     public void testProcedureCallStringWithTypeExtension() {
 
-        MockProcedure p = new MockProcedure(null);
+        MockPLProcedure p = new MockPLProcedure(null);
         p.setFunction(true);
         p.setSql("getEmployee");
         SqlArgument a1 = p.createOutParameter("test1", Types.VARCHAR);
@@ -135,9 +135,9 @@ public class BaseProcedureCallTest {
         assertEquals(builder.toString(), call.getSQL().toString());
     }
 
-    private class MockProcedure extends OracleSpringSqlProcedure {
+    private class MockPLProcedure extends OraclePLProcedure {
 
-        public MockProcedure(SqlStoredProcedureModule pkg) {
+        public MockPLProcedure(SqlStoredProcedureModule pkg) {
             super(pkg);
         }
 
