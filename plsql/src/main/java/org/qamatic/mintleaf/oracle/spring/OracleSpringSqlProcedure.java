@@ -27,7 +27,9 @@
 
 package org.qamatic.mintleaf.oracle.spring;
 
+import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.BaseOracleSpringSqlProcedure;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlParameter;
 import org.qamatic.mintleaf.interfaces.*;
@@ -186,6 +188,9 @@ public class OracleSpringSqlProcedure extends BaseOracleSpringSqlProcedure {
         return typeObjValue;
     }
 
+    protected Object[] getOracleAttributes(String parameterName) throws SQLException {
+        return ((STRUCT) getStruct(parameterName)).getOracleAttributes();
+    }
 
 
     protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {

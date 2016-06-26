@@ -106,7 +106,32 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <show>protected</show>
+                    <attach>true</attach>
+                    <!--<excludePackageNames>*.internal.*:com.*</excludePackageNames>-->
+                    <tags>
+                        <tag>
+                            <name>example.</name>
+                            <placement>aoptcmf</placement>
+                            <head>Example :</head>
+                        </tag>
+                    </tags>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

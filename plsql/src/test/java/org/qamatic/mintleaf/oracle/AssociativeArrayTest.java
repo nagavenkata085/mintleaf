@@ -27,6 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
+import oracle.sql.ARRAY;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -109,7 +110,7 @@ public class AssociativeArrayTest extends OracleTestCase {
             proc.setValue("ptoken", tokenCharacter);
             proc.execute();
 
-            return (String[]) proc.getArray("presult").getArray();
+            return (String[]) ((ARRAY)proc.getArray("presult")).getArray();
         }
     }
 }

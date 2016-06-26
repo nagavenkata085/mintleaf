@@ -25,20 +25,13 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle.spring;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import oracle.sql.ARRAY;
-import oracle.sql.STRUCT;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentCollection;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlParameter;
 import org.qamatic.mintleaf.interfaces.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -171,8 +164,8 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
     }
 
     @Override
-    public ARRAY getArray(String paramterName) {
-        return (ARRAY) mvoutParamters.get(paramterName);
+    public Object getArray(String paramterName) {
+        return mvoutParamters.get(paramterName);
     }
 
     @Override
@@ -235,13 +228,10 @@ public class BaseOracleSpringSqlProcedure extends StoredProcedure implements Sql
     }
 
     @Override
-    public STRUCT getStruct(String paramterName) {
-        return (STRUCT) mvoutParamters.get(paramterName);
+    public Object getStruct(String paramterName) {
+        return  mvoutParamters.get(paramterName);
     }
 
-    protected Object[] getOracleAttributes(String parameterName) throws SQLException {
-        return getStruct(parameterName).getOracleAttributes();
-    }
 
 
 
