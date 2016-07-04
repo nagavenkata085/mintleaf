@@ -259,14 +259,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         return isSqlObjectExists(synonymName, "SYNONYM", igoreValidity);
     }
 
-    public boolean isPackageExists(Class<? extends SqlObject> pkgClass) {
-        SqlObjectInfo objAnnot = SqlObjectHelper.getDbObjectInfo(pkgClass);
-        if (objAnnot == null) {
-            return true;
-        }
 
-        return isPackageExists(objAnnot.name(), false);
-    }
 
     public void dropObject(String objectName, String objectType) {
         dropObject(objectName, objectType, null);

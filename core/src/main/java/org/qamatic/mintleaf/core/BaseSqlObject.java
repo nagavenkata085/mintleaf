@@ -272,13 +272,6 @@ public class BaseSqlObject implements SqlObject {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public void applyDefaults() throws SQLException, IOException {
-        SqlObjectDefaults defaults = SqlObjectHelper.getPLApplyDefaultsAnnotation(this);
-        if (defaults != null) {
-            createDependencies(defaults.Using());
-        }
-    }
 
     @Override
     public void invalidate() {

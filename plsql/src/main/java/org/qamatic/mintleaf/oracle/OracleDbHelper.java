@@ -150,13 +150,21 @@ public class OracleDbHelper extends OraclePackage {
 
         Class<OraclePackage>[] items = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
         for (Class<OraclePackage> sqlClass : items) {
-            if (!((OracleDbContext) pkg.getDbContext()).isPackageExists(sqlClass)) {
+            if (!isPackageExists(sqlClass)) {
                 return false;
             }
         }
         return true;
     }
 
+    public boolean isPackageExists(Class<? extends SqlObject> pkgClass) {
+        SqlObjectInfo objAnnot = SqlObjectHelper.getDbObjectInfo(pkgClass);
+        if (objAnnot == null) {
+            return true;
+        }
+
+        return getOracleDbContext().isPackageExists(objAnnot.name(), false);
+    }
 
     public List<PLTableColumnDef> getTableColumnCodeObjects(TableMetaData metaData) {
 

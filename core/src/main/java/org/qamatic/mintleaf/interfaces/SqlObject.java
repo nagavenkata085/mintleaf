@@ -59,7 +59,6 @@ public interface SqlObject {
 
     String getSql();
 
-    void applyDefaults() throws SQLException, IOException;
 
     void invalidate();
 

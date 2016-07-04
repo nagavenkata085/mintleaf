@@ -29,7 +29,6 @@ package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.interfaces.SqlTypeObject;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -79,56 +78,38 @@ public class OracleDbAssert {
         assertTrue("Schema Type Invalid or not found: " + typeName, context.isTypeBodyExists(typeName, false));
     }
 
-    public static void assertTypeBodyExists(SqlTypeObject aTypeObject) {
-        assertTypeBodyExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
 
-    }
 
     public static void assertTypeBodyNotExists(OracleDbContext context, String typeName) {
 
         assertFalse("Schema Type Invalid or not found: " + typeName, context.isTypeBodyExists(typeName, false));
     }
 
-    public static void assertTypeBodyNotExists(SqlTypeObject aTypeObject) {
-        assertTypeBodyNotExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
 
-    }
 
     public static void assertTypeExists(OracleDbContext context, String typeName) {
         assertTrue("Schema Type Invalid or not found: " + typeName, context.isTypeExists(typeName, false));
     }
 
-    public static void assertTypeExists(SqlTypeObject aTypeObject) {
-        assertTypeExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
 
-    }
 
     public static void assertTypeNotExists(OracleDbContext context, String typeName) {
 
         assertFalse("Schema Type found: " + typeName, context.isTypeExists(typeName, false));
     }
 
-    public static void assertTypeNotExists(SqlTypeObject aTypeObject) {
-        assertTypeNotExists((OracleDbContext) aTypeObject.getDbContext(), aTypeObject.getName());
-    }
-
     public static void assertSynonymExists(OracleDbContext context, String SynonymName) {
         assertTrue("Schema Synonym Invalid or not found: " + SynonymName, context.isSynonymExists(SynonymName, false));
     }
 
-    public static void assertSynonymExists(SqlTypeObject aSynonymObject) {
-        assertSynonymExists((OracleDbContext) aSynonymObject.getDbContext(), aSynonymObject.getName());
 
-    }
 
     public static void assertSynonymNotExists(OracleDbContext context, String SynonymName) {
 
         assertFalse("Schema Synonym found: " + SynonymName, context.isSynonymExists(SynonymName, false));
     }
 
-    public static void assertSynonymNotExists(SqlTypeObject aSynonymObject) {
-        assertSynonymNotExists((OracleDbContext) aSynonymObject.getDbContext(), aSynonymObject.getName());
-    }
+
 
     public static void assertTableExists(DbContext context, String tableName) {
         assertTrue("Table Invalid or not found: " + tableName, context.isTableExists(tableName));

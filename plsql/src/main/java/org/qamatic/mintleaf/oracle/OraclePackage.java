@@ -65,7 +65,7 @@ public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureMo
         return proc;
     }
 
-    @Override
+
     public SqlStoredProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass) {
         try {
             OraclePLProcedure proc = (OraclePLProcedure) getFunction(functionName);

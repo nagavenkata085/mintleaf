@@ -81,21 +81,6 @@ public class SqlObjectHelper {
         return null;
     }
 
-    public static SqlObjectDefaults getPLApplyDefaultsAnnotation(SqlObject sqlObject) {
-        return getPLApplyDefaultsAnnotation(sqlObject.getClass());
-    }
-
-    public static SqlObjectDefaults getPLApplyDefaultsAnnotation(Class<? extends SqlObject> sqlObjectClass) {
-        Annotation[] annotations = sqlObjectClass.getAnnotations();
-
-        for (Annotation annotation : annotations) {
-            if (annotation instanceof SqlObjectDefaults) {
-                return (SqlObjectDefaults) annotation;
-            }
-        }
-        return null;
-    }
-
     @SuppressWarnings("unchecked")
     private static <T extends SqlObject> void walkDependency(SqlObjectTreeWalker item, List<String> lookUp) throws IllegalStateException {
 

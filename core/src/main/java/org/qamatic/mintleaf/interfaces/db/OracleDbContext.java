@@ -23,7 +23,7 @@ public interface OracleDbContext extends DbContext {
 
     boolean isSynonymExists(String synonymName, boolean igoreValidity);
 
-    boolean isPackageExists(Class<? extends SqlObject> pkgClass);
+
 
     void dropObject(String objectName, String objectType, String clause);
 

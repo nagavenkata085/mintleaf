@@ -36,8 +36,6 @@ public interface SqlStoredProcedureModule extends SqlObject {
 
     SqlStoredProcedure getFunction(String functionName, int type, String typeObjectName);
 
-    SqlStoredProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass);
-
     SqlValue getConstant(String constantName, int dataType);
 
 }
