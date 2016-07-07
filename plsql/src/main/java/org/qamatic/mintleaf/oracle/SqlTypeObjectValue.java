@@ -25,23 +25,31 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
+
+import org.qamatic.mintleaf.interfaces.DbMetaDataService;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 
 import java.sql.SQLException;
 
-public interface SqlTypeObject extends SqlObject {
+public interface SqlTypeObjectValue {
 
-    SqlTypeObjectValue getTypeObjectValue() throws SQLException;
+    int getIntValue(String columnName) throws SQLException;
 
-    void setTypeObjectValue(SqlTypeObjectValue value) throws SQLException;
+    String getStringValue(String columnName) throws SQLException;
 
-    boolean isTypeObjectValueNull();
+    Object getValue(String columnName) throws SQLException;
 
-    void autoBind() throws SQLException;
+    int getFieldIndex(String columnName) throws SQLException;
 
-    SqlStoredProcedure getMemberProcedure(String memberProcName);
+    String getTypeName();
 
     TableMetaData getMetaData() throws SQLException;
 
     void setMetaData(TableMetaData metaData);
+
+    DbMetaDataService getMetaDataService();
+
+    void setMetaDataService(DbMetaDataService metaDataService);
+
 }

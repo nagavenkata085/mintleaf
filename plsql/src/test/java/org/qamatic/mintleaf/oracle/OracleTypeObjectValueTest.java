@@ -32,7 +32,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlTypeObjectValue;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OracleTypeObjectValue;
