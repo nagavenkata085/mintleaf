@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -144,7 +144,7 @@ public class OraclePLRecordTypeTest extends OracleTestCase {
             SqlArgumentRecordTypeExtension ext = (SqlArgumentRecordTypeExtension) arg.getTypeExtension();
             ext.addTypeMap(new ColumnMap("id", "id"));
             ext.addTypeMap(new ColumnMap("name", "name"));
-            proc = proc.recompile();
+            proc = ((OraclePLProcedure) proc).recompile();
             proc.execute();
             return proc.getValue("result");
         }

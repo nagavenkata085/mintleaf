@@ -66,12 +66,12 @@ public class Column {
         return mvNullable;
     }
 
-    public void setNullable(int nullable) {
-        mvNullable = nullable == 1;
-    }
-
     public void setNullable(boolean nullable) {
         mvNullable = nullable;
+    }
+
+    public void setNullable(int nullable) {
+        mvNullable = nullable == 1;
     }
 
     public int getColumnSize() {

@@ -107,31 +107,31 @@
                 </configuration>
             </plugin>
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-javadoc-plugin</artifactId>-->
-                <!--<version>2.10.1</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>attach-javadoc</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>aggregate</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+            <!--<version>2.10.1</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>attach-javadoc</id>-->
+            <!--<phase>package</phase>-->
+            <!--<goals>-->
+            <!--<goal>aggregate</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
 
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<show>protected</show>-->
-                    <!--<attach>true</attach>-->
-                    <!--&lt;!&ndash;<excludePackageNames>*.internal.*:com.*</excludePackageNames>&ndash;&gt;-->
-                    <!--<tags>-->
-                        <!--<tag>-->
-                            <!--<name>example.</name>-->
-                            <!--<placement>aoptcmf</placement>-->
-                            <!--<head>Example :</head>-->
-                        <!--</tag>-->
-                    <!--</tags>-->
-                <!--</configuration>-->
+            <!--</executions>-->
+            <!--<configuration>-->
+            <!--<show>protected</show>-->
+            <!--<attach>true</attach>-->
+            <!--&lt;!&ndash;<excludePackageNames>*.internal.*:com.*</excludePackageNames>&ndash;&gt;-->
+            <!--<tags>-->
+            <!--<tag>-->
+            <!--<name>example.</name>-->
+            <!--<placement>aoptcmf</placement>-->
+            <!--<head>Example :</head>-->
+            <!--</tag>-->
+            <!--</tags>-->
+            <!--</configuration>-->
             <!--</plugin>-->
         </plugins>
     </build>

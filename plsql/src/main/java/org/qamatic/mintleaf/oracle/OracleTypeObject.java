@@ -357,8 +357,7 @@ public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeO
 
     @Override
     public SqlStoredProcedure getMemberProcedure(String memberProcName) {
-        OraclePLProcedure proc = new OraclePLProcedure(new OraclePackage(this.getDbContext()) {
-        });
+        OraclePLProcedure proc = new OraclePLProcedure( this.getDbContext() );
         proc.setSql(String.format("declare bo %s; begin bo:=?; bo.%s; end;", getName(), memberProcName));
         proc.createTypeObjectParameter("bo", this.getClass());
         proc.compile();

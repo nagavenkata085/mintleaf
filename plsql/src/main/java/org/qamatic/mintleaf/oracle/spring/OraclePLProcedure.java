@@ -45,13 +45,16 @@ import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OraclePLProcedure extends OracleProcedure {
 
+    private Map<String, SqlTypeObject> mvtypeObjectRegistry;
 
-    public OraclePLProcedure(SqlStoredProcedureModule pkg) {
-        super(pkg);
+    public OraclePLProcedure(DbContext context) {
+        super(context);
     }
 
     public SqlArgument createRowTypeOutParameter(String parameterName, String tableName) {
@@ -71,6 +74,20 @@ public class OraclePLProcedure extends OracleProcedure {
         return arg;
     }
 
+
+    public SqlStoredProcedure recompile() {
+        SqlStoredProcedure proc = new OraclePLProcedure(dbContext);
+        proc.setSql(getCallString());
+        proc.setSqlReadyForUse(true);
+        List<SqlArgument> args = this.getDeclaredArguments().rebuildArguments();
+        for (SqlArgument sqlArgument : args) {
+            proc.setParameter(sqlArgument);
+        }
+
+        this.mvtypeObjectRegistry = this.getTypeObjectRegistry();
+        proc.setRecompiled(true);
+        return proc;
+    }
 
     public SqlArgument createRowTypeOutParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
         SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
@@ -112,13 +129,21 @@ public class OraclePLProcedure extends OracleProcedure {
     }
 
 
+    protected Map<String, SqlTypeObject> getTypeObjectRegistry() {
+        if (mvtypeObjectRegistry == null) {
+            mvtypeObjectRegistry = new HashMap<String, SqlTypeObject>();
+        }
+        return mvtypeObjectRegistry;
+    }
+
+
     private SqlTypeObject getTypeObjectInstance(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
         try {
             SqlTypeObject typeObj = null;
             if (getTypeObjectRegistry().containsKey(parameterName)) {
                 typeObj = getTypeObjectRegistry().get(parameterName);
             } else {
-                typeObj = (SqlTypeObject) SqlObjectHelper.createSqlObjectInstance(mvpackage.getDbContext(), typeObjectClass);
+                typeObj = (SqlTypeObject) SqlObjectHelper.createSqlObjectInstance(dbContext, typeObjectClass);
                 getTypeObjectRegistry().put(parameterName, typeObj);
             }
             return typeObj;
@@ -166,7 +191,7 @@ public class OraclePLProcedure extends OracleProcedure {
     protected SqlTypeObjectValue createTypeObjectValueInstance(String parameterName) {
         final String pName = parameterName;
 
-        SqlTypeObjectValue typeObjValue = new OracleTypeObjectValue(mvpackage.getDbContext(), getDeclaredArguments().get(pName).getTypeExtension()
+        SqlTypeObjectValue typeObjValue = new OracleTypeObjectValue(dbContext, getDeclaredArguments().get(pName).getTypeExtension()
                 .getSupportedType()) {
             @Override
             protected List<Object> getObjects() {
@@ -196,7 +221,7 @@ public class OraclePLProcedure extends OracleProcedure {
     protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {
         PLCreateType p = null;
         try {
-            p = new OracleDbHelper(mvpackage.getDbContext()).createTypeFromTable(supportedType, null, rowTypeTableName);
+            p = new OracleDbHelper(dbContext).createTypeFromTable(supportedType, null, rowTypeTableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }

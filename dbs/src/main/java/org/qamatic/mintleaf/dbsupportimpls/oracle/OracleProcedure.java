@@ -35,25 +35,24 @@ import org.springframework.jdbc.object.StoredProcedure;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class OracleProcedure extends StoredProcedure implements SqlStoredProcedure {
 
     protected final HashMap<String, Object> mvinParamters = new HashMap<String, Object>();
-    protected final SqlStoredProcedureModule mvpackage;
+    protected final DbContext dbContext;
     private String mvsql;
     private Map<String, Object> mvoutParamters = null;
     private boolean mvrecompiled;
-    private Map<String, SqlTypeObject> mvtypeObjectRegistry;
 
-    public OracleProcedure(SqlStoredProcedureModule pkg) {
-        mvpackage = pkg;
+
+    public OracleProcedure(DbContext context) {
+        dbContext = context;
         initDataSource();
     }
 
     protected void initDataSource() {
-        setDataSource(mvpackage.getDbContext().getDataSource());
+        setDataSource(dbContext.getDataSource());
     }
 
     protected Map<String, Object> executeInternal() {
@@ -116,19 +115,9 @@ public class OracleProcedure extends StoredProcedure implements SqlStoredProcedu
         mvrecompiled = bValue;
     }
 
-    @Override
-    public SqlStoredProcedure recompile() {
-        SqlStoredProcedure proc = mvpackage.getProcedure(getCallString());
-        proc.setSqlReadyForUse(true);
-        List<SqlArgument> args = this.getDeclaredArguments().rebuildArguments();
-        for (SqlArgument sqlArgument : args) {
-            proc.setParameter(sqlArgument);
-        }
 
-        ((OracleProcedure) proc).mvtypeObjectRegistry = this.getTypeObjectRegistry();
-        proc.setRecompiled(true);
-        return proc;
-    }
+
+
 
     @Override
     public void execute() {
@@ -231,14 +220,6 @@ public class OracleProcedure extends StoredProcedure implements SqlStoredProcedu
     @Override
     public Object getStruct(String paramterName) {
         return mvoutParamters.get(paramterName);
-    }
-
-
-    protected Map<String, SqlTypeObject> getTypeObjectRegistry() {
-        if (mvtypeObjectRegistry == null) {
-            mvtypeObjectRegistry = new HashMap<String, SqlTypeObject>();
-        }
-        return mvtypeObjectRegistry;
     }
 
 

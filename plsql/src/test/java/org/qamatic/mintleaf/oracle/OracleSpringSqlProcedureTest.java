@@ -60,7 +60,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
     @Test
     public void procedureNaming1() {
         MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        OraclePLProcedure p = new OraclePLProcedure(pkg);
+        OraclePLProcedure p = new OraclePLProcedure(getSchemaOwnerContext());
         p.setSql("FindMax");
         assertEquals("declare\nbegin\nFindMax();\nend;\n", p.getCallString());
     }
@@ -102,8 +102,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void procedureGetString() {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax");
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax");
         p.OutParamters.clear();
         p.OutParamters.put("result", "wbs1");
         p.execute();
@@ -112,8 +112,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void procedureGetValue() {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax");
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax");
         p.OutParamters.clear();
         p.OutParamters.put("result", "wbs1");
         p.execute();
@@ -122,8 +122,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void testgetDeclaredParam() {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax");
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax");
 
         p.createInParameter("p1", Types.INTEGER);
         p.createInParameter("p2", Types.INTEGER);
@@ -134,8 +134,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void testgetTypeObjectValue() throws SQLException {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax") {
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax") {
             @Override
             protected Object[] getOracleAttributes(String parameterName) throws SQLException {
 
@@ -159,8 +159,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void testCreateTypeObjectParamMixed() {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax");
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax");
         SqlArgument arg1 = p.createTypeObjectParameter("student1", TStudentType.class);
         SqlArgument arg2 = p.createTypeObjectOutParameter("result", TStudentType.class);
         Assert.assertEquals(2, p.getDeclaredArguments().size());
@@ -177,8 +177,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void testCreateTypeObjectOutParam() {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax");
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax");
         p.setFunction(true);
         SqlArgument arg1 = p.createTypeObjectOutParameter("result", TStudentType.class);
         Assert.assertEquals(1, p.getDeclaredArguments().size());
@@ -207,8 +207,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void testTypeObjectRegistry() {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax");
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax");
         p.createTypeObjectOutParameter("student1", TStudentType.class);
         assertEquals(1, p.getTypeObjectRegistry().size());
 
@@ -216,8 +216,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void testTypeObjectResultAccess() throws SQLException {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax");
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax");
         p.createTypeObjectOutParameter("result", TStudentType.class);
         p.createTypeObjectParameter("teacherA", TTeacherType.class);
         assertTrue(TStudentType.class.isInstance(p.getTypeObject("result")));
@@ -229,8 +229,8 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
     @Test
     public void testTypeObjectResultFieldAccess() throws SQLException {
-        MockPackage1 pkg = new MockPackage1(getSchemaOwnerContext());
-        MockPLProcedureNoDb p = new MockPLProcedureNoDb(pkg, "FindMax") {
+
+        MockPLProcedureNoDb p = new MockPLProcedureNoDb(getSchemaOwnerContext(), "FindMax") {
             @SuppressWarnings("boxing")
             @Override
             protected Object[] getOracleAttributes(String parameterName) throws SQLException {
@@ -297,10 +297,11 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
     private class MockPLProcedureNoDb extends OraclePLProcedure {
         public final HashMap<String, Object> OutParamters = new HashMap<String, Object>();
 
-        public MockPLProcedureNoDb(SqlStoredProcedureModule pkg, String procedureName) {
-            super(pkg);
+        public MockPLProcedureNoDb(DbContext context, String procedureName) {
+            super(context);
 
         }
+
 
         @Override
         public Map<String, SqlTypeObject> getTypeObjectRegistry() {

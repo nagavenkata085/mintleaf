@@ -1,7 +1,6 @@
 package org.qamatic.mintleaf.interfaces.db;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlObject;
 
 /**
  * Created by senips on 6/19/16.
@@ -22,7 +21,6 @@ public interface OracleDbContext extends DbContext {
     boolean isTriggerExists(String triggerName, boolean igoreValidity);
 
     boolean isSynonymExists(String synonymName, boolean igoreValidity);
-
 
 
     void dropObject(String objectName, String objectType, String clause);

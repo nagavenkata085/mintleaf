@@ -79,18 +79,15 @@ public class OracleDbAssert {
     }
 
 
-
     public static void assertTypeBodyNotExists(OracleDbContext context, String typeName) {
 
         assertFalse("Schema Type Invalid or not found: " + typeName, context.isTypeBodyExists(typeName, false));
     }
 
 
-
     public static void assertTypeExists(OracleDbContext context, String typeName) {
         assertTrue("Schema Type Invalid or not found: " + typeName, context.isTypeExists(typeName, false));
     }
-
 
 
     public static void assertTypeNotExists(OracleDbContext context, String typeName) {
@@ -103,12 +100,10 @@ public class OracleDbAssert {
     }
 
 
-
     public static void assertSynonymNotExists(OracleDbContext context, String SynonymName) {
 
         assertFalse("Schema Synonym found: " + SynonymName, context.isSynonymExists(SynonymName, false));
     }
-
 
 
     public static void assertTableExists(DbContext context, String tableName) {

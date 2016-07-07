@@ -126,7 +126,7 @@ public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureMo
     }
 
     protected SqlStoredProcedure createSqlProcedure() {
-        return new OraclePLProcedure(this);
+        return new OraclePLProcedure(getDbContext());
     }
 
 

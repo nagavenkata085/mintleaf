@@ -31,6 +31,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.ProcedureCall;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
+import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
@@ -137,9 +138,10 @@ public class ProcedureCallTest {
 
     private class MockPLProcedure extends OraclePLProcedure {
 
-        public MockPLProcedure(SqlStoredProcedureModule pkg) {
-            super(pkg);
+        public MockPLProcedure(DbContext context) {
+            super(context);
         }
+
 
         @Override
         protected void initDataSource() {

@@ -38,7 +38,6 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlTypeObjectValue;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
-import org.qamatic.mintleaf.interfaces.TypeObjectField;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateTypeBody;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;

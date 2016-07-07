@@ -48,7 +48,7 @@ import java.sql.Timestamp;
 public interface SqlStoredProcedure extends SqlValue {
     void execute();
 
-    SqlStoredProcedure recompile();
+
 
     boolean isRecompiled();
 
