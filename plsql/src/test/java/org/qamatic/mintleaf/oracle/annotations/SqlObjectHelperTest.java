@@ -35,7 +35,7 @@ import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlObject;
-import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
+import org.qamatic.mintleaf.oracle.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 

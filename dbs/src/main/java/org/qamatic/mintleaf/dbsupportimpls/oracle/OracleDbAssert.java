@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
+
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -45,9 +45,6 @@ public class OracleDbAssert {
         assertTrue("PL/Sql package body Invalid or not found: " + pkgName, context.isPackageBodyExists(pkgName, false));
     }
 
-    public static void assertPackageExists(SqlStoredProcedureModule pkg) throws SQLException, IOException {
-        assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
-    }
 
     public static void assertPackageExists(OracleDbContext context, String pkgName) throws SQLException, IOException {
 
@@ -59,10 +56,7 @@ public class OracleDbAssert {
         assertTrue("Sequence Exists: " + sequenceName, context.isSequenceExists(sequenceName));
     }
 
-    public static void assertPackageNotExists(SqlStoredProcedureModule pkg) throws SQLException, IOException {
-        assertPackageNotExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
-    }
-
+  
     public static void assertPackageNotExists(OracleDbContext context, String pkgName) throws SQLException, IOException {
 
         assertFalse("PL/Sql package found: " + pkgName, context.isPackageExists(pkgName, false));

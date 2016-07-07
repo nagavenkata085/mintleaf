@@ -34,6 +34,7 @@ import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 
@@ -63,7 +64,7 @@ public class BooleanTest extends OracleTestCase {
 
     @Test
     public void testIsPackageExists() throws SQLException, IOException {
-        OracleDbAssert.assertPackageExists(mvbooleanPackage);
+        OracleDbAssert.assertPackageExists((OracleDbContext) mvbooleanPackage.getDbContext(), mvbooleanPackage.getName());
     }
 
     @Test

@@ -104,7 +104,7 @@ public class OraclePLRecordTypeTest extends OracleTestCase {
 
     @Test
     public void testObjectExistance() throws SQLException, IOException {
-        OracleDbAssert.assertPackageExists(mvpkg);
+        OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), mvpkg.getName());
         OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), new EmployeeTypeObject(getSchemaOwnerContext()).getName());
     }
 

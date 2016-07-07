@@ -25,7 +25,11 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle;
+
+import org.qamatic.mintleaf.interfaces.SqlObject;
+import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
+import org.qamatic.mintleaf.interfaces.SqlValue;
 
 public interface SqlStoredProcedureModule extends SqlObject {
     SqlStoredProcedure getProcedure(String procName);

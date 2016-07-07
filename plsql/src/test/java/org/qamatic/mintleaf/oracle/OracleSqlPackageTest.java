@@ -35,7 +35,6 @@ import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
-import org.qamatic.mintleaf.interfaces.SqlStoredProcedureModule;
 import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
@@ -69,7 +68,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void TestBasicPackageCreate() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
         pkg.create();
-        OracleDbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
         assertTrue(pkg.isExists());
     }
 
@@ -84,10 +83,12 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void TestDrop() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
         pkg.create();
-        OracleDbAssert.assertPackageExists(pkg);
+
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
 
         pkg.drop();
-        OracleDbAssert.assertPackageNotExists(pkg);
+
+        OracleDbAssert.assertPackageNotExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
 
     @Test
@@ -96,7 +97,8 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         pkg.createDependencies();
         OracleDbAssert.assertPackageExists((OracleDbContext) getSchemaOwnerContext(), "TESTLOG");
         pkg.create();
-        OracleDbAssert.assertPackageExists(pkg);
+
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
 
     @Test
@@ -104,7 +106,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         DependencyPackageCreate1 pkg = new DependencyPackageCreate1(getSchemaOwnerContext());
         pkg.create();
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
-        OracleDbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
 
     @Test
@@ -114,7 +116,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         pkg.create();
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
-        OracleDbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
 
     @Test
@@ -124,7 +126,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         pkg.create();
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
-        OracleDbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
         pkg.dropDependencies();
         OracleDbAssert.assertPackageNotExists(getSchemaOwnerContext(), "TESTLOG");
         OracleDbAssert.assertPackageNotExists(getSchemaOwnerContext(), "TESTCONST");
@@ -134,7 +136,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void testgetConstant() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
         pkg.createAll();
-        OracleDbAssert.assertPackageExists(pkg);
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
 
         SqlStoredProcedure constValue = (SqlStoredProcedure) pkg.getConstant("TEST_CONSTANT_VALUE", Types.VARCHAR);
         assertNotNull(constValue);

@@ -36,6 +36,7 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.OracleTypeObject;
 import org.qamatic.mintleaf.oracle.TypeObjectField;
@@ -70,7 +71,7 @@ public class RowTypeExampleTest extends OracleTestCase {
 
     @Test
     public void testObjectExistance() throws SQLException, IOException {
-        OracleDbAssert.assertPackageExists(mvpkg);
+        OracleDbAssert.assertPackageExists((OracleDbContext) mvpkg.getDbContext(), mvpkg.getName());
     }
 
 //    @Test

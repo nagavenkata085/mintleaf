@@ -90,7 +90,8 @@ public class TypeObjectExampleTest extends OracleTestCase {
         getTestPackage();
         OracleDbAssert.assertTypeExists(getOracleDbContext(), "TPerson");
         OracleDbAssert.assertTypeBodyExists(getOracleDbContext(), "TPerson");
-        OracleDbAssert.assertPackageExists(new TypeObjectExample_Package(getSchemaOwnerContext()));
+        TypeObjectExample_Package pkg = new TypeObjectExample_Package(getSchemaOwnerContext());
+        OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
 
     @Test
