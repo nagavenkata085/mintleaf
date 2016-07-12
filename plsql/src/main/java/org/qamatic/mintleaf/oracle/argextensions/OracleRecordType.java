@@ -27,14 +27,14 @@
 
 package org.qamatic.mintleaf.oracle.argextensions;
 
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
-import org.qamatic.mintleaf.interfaces.ColumnMap;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
+import org.qamatic.mintleaf.oracle.ColumnMap;
 import org.qamatic.mintleaf.oracle.SqlArgumentRecordTypeExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OracleRecordType extends OracleArgumentType implements SqlArgumentRecordTypeExtension {
+public class OracleRecordType extends OracleArg implements SqlArgumentRecordTypeExtension {
 
     private final List<ColumnMap> mvtypeMaps = new ArrayList<ColumnMap>();
 

@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle.argextensions;
 import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
-import org.qamatic.mintleaf.interfaces.ColumnMap;
+import org.qamatic.mintleaf.oracle.ColumnMap;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
@@ -181,12 +181,12 @@ public class OracleRowTypeTest {
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
 
-        assertEquals("", arg1.getTypeExtension().getCodeBeforeCall());
-        assertEquals("outparam_unsup := type_to_pl_outparam(outparam_sup);", arg2.getTypeExtension().getCodeBeforeCall());
-        assertEquals("inparam_unsup := type_to_pl_inparam(?);", arg3.getTypeExtension().getCodeBeforeCall());
-        assertEquals("", arg4.getTypeExtension().getCodeBeforeCall());
-        assertEquals("", arg5.getTypeExtension().getCodeBeforeCall());
-        assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getTypeExtension().getCodeBeforeCall());
+        assertEquals("", arg1.getCustomArg().getCodeBeforeCall());
+        assertEquals("outparam_unsup := type_to_pl_outparam(outparam_sup);", arg2.getCustomArg().getCodeBeforeCall());
+        assertEquals("inparam_unsup := type_to_pl_inparam(?);", arg3.getCustomArg().getCodeBeforeCall());
+        assertEquals("", arg4.getCustomArg().getCodeBeforeCall());
+        assertEquals("", arg5.getCustomArg().getCodeBeforeCall());
+        assertEquals("outparamA_unsup := int2bool(outparamA_sup);", arg6.getCustomArg().getCodeBeforeCall());
 
         assertEquals("result_unsup := smcall(outparam_unsup, inparam_unsup, ?, ?, outparamA_unsup);", OracleProcedureCall.getMethodCall(p));
     }
@@ -204,12 +204,12 @@ public class OracleRowTypeTest {
 
         SqlArgument arg6 = p.createBooleanOutParameter("outparamA");
 
-        assertEquals("? := pl_to_type_result(result_unsup);", arg1.getTypeExtension().getCodeAfterCall());
-        assertEquals("? := pl_to_type_outparam(outparam_unsup);", arg2.getTypeExtension().getCodeAfterCall());
-        assertEquals("", arg3.getTypeExtension().getCodeAfterCall());
-        assertEquals("", arg4.getTypeExtension().getCodeAfterCall());
-        assertEquals("", arg5.getTypeExtension().getCodeAfterCall());
-        assertEquals("? := bool2int(outparamA_unsup);", arg6.getTypeExtension().getCodeAfterCall());
+        assertEquals("? := pl_to_type_result(result_unsup);", arg1.getCustomArg().getCodeAfterCall());
+        assertEquals("? := pl_to_type_outparam(outparam_unsup);", arg2.getCustomArg().getCodeAfterCall());
+        assertEquals("", arg3.getCustomArg().getCodeAfterCall());
+        assertEquals("", arg4.getCustomArg().getCodeAfterCall());
+        assertEquals("", arg5.getCustomArg().getCodeAfterCall());
+        assertEquals("? := bool2int(outparamA_unsup);", arg6.getCustomArg().getCodeAfterCall());
 
     }
 

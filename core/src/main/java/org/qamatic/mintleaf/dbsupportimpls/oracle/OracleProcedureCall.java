@@ -20,7 +20,7 @@ public class OracleProcedureCall extends ProcedureCall {
         int parameterCount = 0;
         if (procedure.isFunction()) {
             callString = " := " + procedure.getSql() + "(";
-            callString = parameters.size() == 0 ? "?" + callString : parameters.get(0).getTypeExtension().getUnsupportedVariable() + callString;
+            callString = parameters.size() == 0 ? "?" + callString : parameters.get(0).getCustomArg().getUnsupportedVariable() + callString;
             parameterCount = -1;
         } else {
             callString = procedure.getSql() + "(";
@@ -31,7 +31,7 @@ public class OracleProcedureCall extends ProcedureCall {
                     callString += ", ";
                 }
                 if (parameterCount >= 0) {
-                    callString += parameter.getTypeExtension().getUnsupportedVariable();
+                    callString += parameter.getCustomArg().getUnsupportedVariable();
                 }
                 parameterCount++;
             }

@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.core.SqlObjectHelper;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedure;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlParameter;
@@ -62,13 +62,13 @@ public class OraclePLProcedure extends OracleProcedure {
 
         OracleRowType ext = getRowType(tableName, supportedType);
 
-        arg.setTypeExtension(ext);
+        arg.setCustomArg(ext);
         ext.setIdentifier(parameterName);
         ext.setOutParameter(true);
         ext.setSupportedType(supportedType);
         ext.setUnsupportedType(tableName + "%ROWTYPE");
 
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
+        arg.getCustomArg().setResultsParameter(this.getDeclaredArguments().size() == 1);
         return arg;
     }
 
@@ -90,7 +90,7 @@ public class OraclePLProcedure extends OracleProcedure {
     public SqlArgument createRowTypeOutParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
         SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createRowTypeOutParameter(parameterName, sobj.getName().toUpperCase());
-        sobj.setName(arg.getTypeExtension().getSupportedType());
+        sobj.setName(arg.getCustomArg().getSupportedType());
         return arg;
     }
 
@@ -98,9 +98,9 @@ public class OraclePLProcedure extends OracleProcedure {
 
         SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createInParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
-        CustomArgumentType ext = new OracleArgumentType();
+        CustomArg ext = new OracleArg();
         ext.setSupportedType(arg.getTypeName());
-        arg.setTypeExtension(ext);
+        arg.setCustomArg(ext);
         return arg;
 
     }
@@ -109,11 +109,11 @@ public class OraclePLProcedure extends OracleProcedure {
 
         SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createOutParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
-        CustomArgumentType ext = new OracleArgumentType();
+        CustomArg ext = new OracleArg();
         ext.setSupportedType(arg.getTypeName());
         ext.setOutParameter(true);
         ext.setResultsParameter(this.getDeclaredArguments().size() == 1);
-        arg.setTypeExtension(ext);
+        arg.setCustomArg(ext);
 
         return arg;
 
@@ -175,13 +175,13 @@ public class OraclePLProcedure extends OracleProcedure {
     public SqlArgument createRecordOutParameter(String parameterName, String supportedType, String unsupportedType) {
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.STRUCT, supportedType);
         setParameter(arg);
-        CustomArgumentType ext = new OracleRecordType();
-        arg.setTypeExtension(ext);
+        CustomArg ext = new OracleRecordType();
+        arg.setCustomArg(ext);
         ext.setIdentifier(parameterName);
         ext.setOutParameter(true);
         ext.setSupportedType(supportedType);
         ext.setUnsupportedType(unsupportedType);
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
+        arg.getCustomArg().setResultsParameter(this.getDeclaredArguments().size() == 1);
         return arg;
     }
 
@@ -189,7 +189,7 @@ public class OraclePLProcedure extends OracleProcedure {
     protected SqlTypeObjectValue createTypeObjectValueInstance(String parameterName) {
         final String pName = parameterName;
 
-        SqlTypeObjectValue typeObjValue = new OracleTypeObjectValue(dbContext, getDeclaredArguments().get(pName).getTypeExtension()
+        SqlTypeObjectValue typeObjValue = new OracleTypeObjectValue(dbContext, getDeclaredArguments().get(pName).getCustomArg()
                 .getSupportedType()) {
             @Override
             protected List<Object> getObjects() {
@@ -234,8 +234,8 @@ public class OraclePLProcedure extends OracleProcedure {
     public SqlArgument createRecordParameter(String parameterName, String supportedType, String unsupportedType) {
         SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.STRUCT);
         setParameter(arg);
-        CustomArgumentType ext = new OracleRecordType();
-        arg.setTypeExtension(ext);
+        CustomArg ext = new OracleRecordType();
+        arg.setCustomArg(ext);
         ext.setIdentifier(parameterName);
         ext.setSupportedType(supportedType);
         ext.setUnsupportedType(unsupportedType);
@@ -245,8 +245,8 @@ public class OraclePLProcedure extends OracleProcedure {
     public SqlArgument createInBooleanParameter(String parameterName) {
         SqlArgument arg = new OracleSpringSqlParameter(parameterName, Types.INTEGER);
         setParameter(arg);
-        CustomArgumentType ext = new OracleBooleanType();
-        arg.setTypeExtension(ext);
+        CustomArg ext = new OracleBooleanType();
+        arg.setCustomArg(ext);
         ext.setIdentifier(parameterName);
         return arg;
     }
@@ -254,11 +254,11 @@ public class OraclePLProcedure extends OracleProcedure {
     public SqlArgument createBooleanOutParameter(String parameterName) {
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, Types.INTEGER);
         setParameter(arg);
-        CustomArgumentType ext = new OracleBooleanType();
-        arg.setTypeExtension(ext);
+        CustomArg ext = new OracleBooleanType();
+        arg.setCustomArg(ext);
         ext.setIdentifier(parameterName);
         ext.setOutParameter(true);
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
+        arg.getCustomArg().setResultsParameter(this.getDeclaredArguments().size() == 1);
         return arg;
     }
 

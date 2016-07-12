@@ -1,4 +1,4 @@
-package org.qamatic.mintleaf.interfaces.db;
+package org.qamatic.mintleaf.interfaces;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 

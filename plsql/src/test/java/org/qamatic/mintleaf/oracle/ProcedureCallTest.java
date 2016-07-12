@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ProcedureCall;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
@@ -109,9 +109,9 @@ public class ProcedureCallTest {
         p.setFunction(true);
         p.setSql("getEmployee");
         SqlArgument a1 = p.createOutParameter("test1", Types.VARCHAR);
-        a1.setTypeExtension(new MockType1());
+        a1.setCustomArg(new MockType1());
         SqlArgument a2 = p.createInParameter("test2", Types.VARCHAR);
-        a2.setTypeExtension(new MockType2());
+        a2.setCustomArg(new MockType2());
         ProcedureCall call = new OracleProcedureCall(p);
         StringBuilder builder = new StringBuilder();
 
@@ -149,7 +149,7 @@ public class ProcedureCallTest {
 
     }
 
-    public class MockType1 extends OracleArgumentType {
+    public class MockType1 extends OracleArg {
 
         @Override
         public String getIdentifier() {
@@ -183,7 +183,7 @@ public class ProcedureCallTest {
 
     }
 
-    public class MockType2 extends OracleArgumentType {
+    public class MockType2 extends OracleArg {
 
         @Override
         public String getIdentifier() {

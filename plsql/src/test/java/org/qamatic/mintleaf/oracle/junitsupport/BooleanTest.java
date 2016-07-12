@@ -34,7 +34,7 @@ import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
-import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
+import org.qamatic.mintleaf.interfaces.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 

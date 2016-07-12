@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
@@ -77,10 +77,10 @@ public class OracleArgumentCollectionTest {
 
     @Test
     public void testExtensionSoureIdentifierWith() {
-        a1.setTypeExtension(new MockType1());
+        a1.setCustomArg(new MockType1());
         Assert.assertEquals("p1\n?\n", p.getDeclaredArguments().getIdentifier());
         assertEquals("smcall(p1, ?);", OracleProcedureCall.getMethodCall(p));
-        a2.setTypeExtension(new MockType2());
+        a2.setCustomArg(new MockType2());
         Assert.assertEquals("p1\np2\n", p.getDeclaredArguments().getIdentifier());
         assertEquals("smcall(p1, p2);", OracleProcedureCall.getMethodCall(p));
 
@@ -89,10 +89,10 @@ public class OracleArgumentCollectionTest {
     @Test
     public void testExtensionSoureIdentifierWithFunc() {
         p.setFunction(true);
-        a1.setTypeExtension(new MockType1());
+        a1.setCustomArg(new MockType1());
         Assert.assertEquals("p1\n?\n", p.getDeclaredArguments().getIdentifier());
         assertEquals("p1 := smcall(?);", OracleProcedureCall.getMethodCall(p));
-        a2.setTypeExtension(new MockType2());
+        a2.setCustomArg(new MockType2());
         Assert.assertEquals("p1\np2\n", p.getDeclaredArguments().getIdentifier());
         assertEquals("p1 := smcall(p2);", OracleProcedureCall.getMethodCall(p));
     }
@@ -103,8 +103,8 @@ public class OracleArgumentCollectionTest {
         String actual = p.getDeclaredArguments().getVariableDeclaration();
         assertEquals("", actual);
 
-        a1.setTypeExtension(new MockType1());
-        a2.setTypeExtension(new MockType2());
+        a1.setCustomArg(new MockType1());
+        a2.setCustomArg(new MockType2());
 
         Assert.assertEquals("p1 VARCHAR2;\np2 VARCHAR2;\n", p.getDeclaredArguments().getVariableDeclaration());
     }
@@ -114,8 +114,8 @@ public class OracleArgumentCollectionTest {
 
         Assert.assertEquals("", p.getDeclaredArguments().getTypeConversionCode());
 
-        a1.setTypeExtension(new MockType1());
-        a2.setTypeExtension(new MockType2());
+        a1.setCustomArg(new MockType1());
+        a2.setCustomArg(new MockType2());
 
         Assert.assertEquals("function x() return varchar2 begin return 'hi '; end;" + "\nfunction y() return varchar2 begin return 'how are you'; end;\n", p
                 .getDeclaredArguments().getTypeConversionCode());
@@ -126,8 +126,8 @@ public class OracleArgumentCollectionTest {
 
         Assert.assertEquals("", p.getDeclaredArguments().getCodeBeforeCall());
 
-        a1.setTypeExtension(new MockType1());
-        a2.setTypeExtension(new MockType2());
+        a1.setCustomArg(new MockType1());
+        a2.setCustomArg(new MockType2());
 
         Assert.assertEquals("p1 := x(?)\np2 := y(?)\n", p.getDeclaredArguments().getCodeBeforeCall());
     }
@@ -137,8 +137,8 @@ public class OracleArgumentCollectionTest {
 
         Assert.assertEquals("", p.getDeclaredArguments().getCodeAfterCall());
 
-        a1.setTypeExtension(new MockType1());
-        a2.setTypeExtension(new MockType2());
+        a1.setCustomArg(new MockType1());
+        a2.setCustomArg(new MockType2());
 
         Assert.assertEquals("? : xreverse(p1);\n? : yreverse(p2);\n", p.getDeclaredArguments().getCodeAfterCall());
     }
@@ -210,7 +210,7 @@ public class OracleArgumentCollectionTest {
 
     }
 
-    public class MockType1 extends OracleArgumentType {
+    public class MockType1 extends OracleArg {
 
         @Override
         public String getIdentifier() {
@@ -244,7 +244,7 @@ public class OracleArgumentCollectionTest {
 
     }
 
-    public class MockType2 extends OracleArgumentType {
+    public class MockType2 extends OracleArg {
 
         @Override
         public String getIdentifier() {

@@ -27,8 +27,6 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.interfaces.ColumnMap;
-
 import java.util.List;
 
 public interface SqlArgumentRecordTypeExtension {

@@ -167,11 +167,11 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
         assertEquals("TSTUDENTTYPE", arg1.getTypeName());
         assertEquals("TSTUDENTTYPE", arg2.getTypeName());
-        assertEquals("TSTUDENTTYPE", arg1.getTypeExtension().getSupportedType());
-        assertEquals("TSTUDENTTYPE", arg2.getTypeExtension().getSupportedType());
+        assertEquals("TSTUDENTTYPE", arg1.getCustomArg().getSupportedType());
+        assertEquals("TSTUDENTTYPE", arg2.getCustomArg().getSupportedType());
 
-        assertTrue(arg2.getTypeExtension().isOutParameter());
-        assertFalse(arg2.getTypeExtension().isResultsParameter());
+        assertTrue(arg2.getCustomArg().isOutParameter());
+        assertFalse(arg2.getCustomArg().isResultsParameter());
 
     }
 
@@ -184,9 +184,9 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         Assert.assertEquals(1, p.getDeclaredArguments().size());
 
         assertEquals("TSTUDENTTYPE", arg1.getTypeName());
-        assertEquals("TSTUDENTTYPE", arg1.getTypeExtension().getSupportedType());
-        assertTrue(arg1.getTypeExtension().isOutParameter());
-        assertTrue(arg1.getTypeExtension().isResultsParameter());
+        assertEquals("TSTUDENTTYPE", arg1.getCustomArg().getSupportedType());
+        assertTrue(arg1.getCustomArg().isOutParameter());
+        assertTrue(arg1.getCustomArg().isResultsParameter());
 
     }
 
@@ -199,9 +199,9 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         SqlArgument arg1 = p.getDeclaredArguments().get(0);
         assertEquals("result", arg1.getParameterName());
         assertEquals("TSTUDENTTYPE", arg1.getTypeName());
-        assertEquals("TSTUDENTTYPE", arg1.getTypeExtension().getSupportedType());
-        assertTrue(arg1.getTypeExtension().isOutParameter());
-        assertTrue(arg1.getTypeExtension().isResultsParameter());
+        assertEquals("TSTUDENTTYPE", arg1.getCustomArg().getSupportedType());
+        assertTrue(arg1.getCustomArg().isOutParameter());
+        assertTrue(arg1.getCustomArg().isResultsParameter());
 
     }
 

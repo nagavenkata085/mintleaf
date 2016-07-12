@@ -101,7 +101,7 @@ public class OracleProcedure extends StoredProcedure implements SqlStoredProcedu
             return true;
         }
         for (SqlArgument sqlArgument : this.getDeclaredArguments()) {
-            CustomArgumentType ext = sqlArgument.getTypeExtension();
+            CustomArg ext = sqlArgument.getCustomArg();
             if (!ext.getIdentifier().equals("?")) {
                 return false;
             }
@@ -192,7 +192,7 @@ public class OracleProcedure extends StoredProcedure implements SqlStoredProcedu
     public SqlArgument createOutParameter(String parameterName, int type) {
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, type);
         setParameter(arg);
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
+        arg.getCustomArg().setResultsParameter(this.getDeclaredArguments().size() == 1);
         return arg;
     }
 
@@ -201,7 +201,7 @@ public class OracleProcedure extends StoredProcedure implements SqlStoredProcedu
     public SqlArgument createOutParameter(String parameterName, int type, String objectType) {
         SqlArgument arg = new OracleSpringSqlOutParameter(parameterName, type, objectType);
         setParameter(arg);
-        arg.getTypeExtension().setResultsParameter(this.getDeclaredArguments().size() == 1);
+        arg.getCustomArg().setResultsParameter(this.getDeclaredArguments().size() == 1);
         return arg;
     }
 

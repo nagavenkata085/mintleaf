@@ -27,35 +27,28 @@
 
 package org.qamatic.mintleaf.interfaces;
 
-public class ColumnMap {
-    private String mcolumn;
-    private String mMapToColumn;
+public interface CustomArg extends SqlAnonymousCode {
 
-    public ColumnMap() {
-    }
+    void setIdentifier(String identifier);
 
-    public ColumnMap(String column, String mapToColumn) {
-        mcolumn = column;
-        mMapToColumn = mapToColumn;
-    }
+    String getSupportedType();
 
+    void setSupportedType(String supportedType);
 
-    public String getColumn() {
-        return mcolumn;
-    }
+    String getUnsupportedType();
 
+    void setUnsupportedType(String unsupportedType);
 
-    public void setColumn(String column) {
-        mcolumn = column;
-    }
+    String getSupportedVariable();
 
+    String getUnsupportedVariable();
 
-    public String getMapToColumn() {
-        return mMapToColumn;
-    }
+    boolean isOutParameter();
 
+    void setOutParameter(boolean bValue);
 
-    public void setMapToColumn(String column) {
-        mMapToColumn = column;
-    }
+    boolean isResultsParameter();
+
+    void setResultsParameter(boolean bValue);
+
 }

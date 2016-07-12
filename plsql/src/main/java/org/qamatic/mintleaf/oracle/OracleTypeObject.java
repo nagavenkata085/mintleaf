@@ -36,7 +36,7 @@ import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.interfaces.db.OracleDbContext;
+import org.qamatic.mintleaf.interfaces.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 import org.springframework.jdbc.core.SqlTypeValue;

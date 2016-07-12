@@ -28,8 +28,8 @@
 package org.qamatic.mintleaf.oracle.argextensions;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
-import org.qamatic.mintleaf.interfaces.CustomArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
+import org.qamatic.mintleaf.interfaces.CustomArg;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
@@ -42,7 +42,7 @@ public class OracleArgumentTypeExtensionTest {
 
     @Test
     public void testExtensionDefaultsValues() {
-        CustomArgumentType ext = new OracleArgumentType();
+        CustomArg ext = new OracleArg();
         assertEquals("?", ext.getIdentifier());
         assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());
@@ -55,7 +55,7 @@ public class OracleArgumentTypeExtensionTest {
         MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("getEmployee");
         SqlArgument arg = p.createInParameter("test1", Types.VARCHAR);
-        CustomArgumentType ext = arg.getTypeExtension();
+        CustomArg ext = arg.getCustomArg();
         assertEquals("?", ext.getIdentifier());
         assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());
@@ -68,7 +68,7 @@ public class OracleArgumentTypeExtensionTest {
         MockPLProcedure p = new MockPLProcedure(null);
         p.setSql("getEmployee");
         SqlArgument arg = p.createOutParameter("test1", Types.VARCHAR);
-        CustomArgumentType ext = arg.getTypeExtension();
+        CustomArg ext = arg.getCustomArg();
         assertEquals("?", ext.getIdentifier());
         assertEquals("", ext.getVariableDeclaration());
         assertEquals("", ext.getTypeConversionCode());

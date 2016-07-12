@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.interfaces.CustomArgumentType;
+import org.qamatic.mintleaf.interfaces.CustomArg;
 
-public class OracleArgumentType implements CustomArgumentType {
+public class OracleArg implements CustomArg {
 
     protected String mvidentifier = "?";
     private String mvsupportedType = "";

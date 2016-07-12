@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.oracle.argextensions;
 
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArgumentType;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
 
-public class OracleBooleanType extends OracleArgumentType {
+public class OracleBooleanType extends OracleArg {
 
     @Override
     public String getTypeConversionCode() {

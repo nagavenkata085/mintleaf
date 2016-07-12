@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.interfaces.CustomArgumentType;
+import org.qamatic.mintleaf.interfaces.CustomArg;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
 import org.springframework.jdbc.core.SqlParameter;
@@ -51,8 +51,8 @@ public class OracleArgumentCollection implements SqlArgumentCollection {
         StringBuilder sb = new StringBuilder();
         for (SqlArgument parameter : parameters) {
             try {
-                Method method = parameter.getTypeExtension().getClass().getMethod(typeExtensionSourceMethodName);
-                String st = (String) method.invoke(parameter.getTypeExtension());
+                Method method = parameter.getCustomArg().getClass().getMethod(typeExtensionSourceMethodName);
+                String st = (String) method.invoke(parameter.getCustomArg());
                 if ((st != null) && (st.trim().length() != 0)) {
                     if (!sb.toString().contains(st)) {
                         sb.append(st).append("\n");
@@ -122,7 +122,7 @@ public class OracleArgumentCollection implements SqlArgumentCollection {
         List<SqlArgument> outlist1 = new ArrayList<SqlArgument>();
 
         for (SqlArgument parameter : this) {
-            CustomArgumentType ext = parameter.getTypeExtension();
+            CustomArg ext = parameter.getCustomArg();
             if (!ext.isOutParameter()) {
                 if (!ext.getIdentifier().equals("?")) {
                     inlist1.add(parameter);
