@@ -29,7 +29,7 @@ package org.qamatic.mintleaf;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.BaseSqlObject;
-import org.qamatic.mintleaf.core.SqlObjectTreeWalker;
+import org.qamatic.mintleaf.oracle.SqlObjectTreeWalker;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlObject;
 

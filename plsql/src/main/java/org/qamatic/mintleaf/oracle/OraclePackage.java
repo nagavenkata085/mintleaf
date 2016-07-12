@@ -34,7 +34,7 @@ import org.qamatic.mintleaf.interfaces.OracleDbContext;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class OraclePackage extends BaseSqlObject implements SqlStoredProcedureModule {
+public class OraclePackage extends OracleBaseSqlObject implements SqlStoredProcedureModule {
 
     public OraclePackage(DbContext context) {
         super(context);

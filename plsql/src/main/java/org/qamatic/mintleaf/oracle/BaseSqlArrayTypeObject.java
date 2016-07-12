@@ -31,7 +31,6 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import oracle.sql.DatumWithConnection;
 import oracle.sql.TypeDescriptor;
-import org.qamatic.mintleaf.core.SqlObjectDependsOn;
 import org.qamatic.mintleaf.interfaces.DbContext;
 
 import java.sql.Connection;

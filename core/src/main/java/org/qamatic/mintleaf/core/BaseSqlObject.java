@@ -37,17 +37,20 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 public class BaseSqlObject implements SqlObject {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-    private DbContext mvContext;
-    private String mvName;
-    private String mvSource;
-    private SqlReaderListener mvfirstChildListner;
-    private SqlReaderListener mvlastChildListner;
-    private SqlReaderListener mvlistener;
+    protected DbContext mvContext;
+    protected String mvName;
+    protected String mvSource;
+    protected SqlReaderListener mvfirstChildListner;
+    protected SqlReaderListener mvlastChildListner;
+    protected SqlReaderListener mvlistener;
 
     public BaseSqlObject(DbContext context) {
         mvContext = context;
@@ -69,7 +72,7 @@ public class BaseSqlObject implements SqlObject {
         if (mvName != null) {
             return mvName;
         }
-        SqlObjectInfo p = SqlObjectHelper.getDbObjectInfo(this);
+        SqlObjectInfo p = getDbObjectInfo(this);
         if (p == null) {
             return null;
         }
@@ -86,7 +89,7 @@ public class BaseSqlObject implements SqlObject {
         if (mvSource != null) {
             return mvSource;
         }
-        SqlObjectInfo p = SqlObjectHelper.getDbObjectInfo(this);
+        SqlObjectInfo p = getDbObjectInfo(this);
         if (p == null) {
             return null;
         }
@@ -100,7 +103,7 @@ public class BaseSqlObject implements SqlObject {
 
     @Override
     public String getDropSource() {
-        SqlObjectInfo p = SqlObjectHelper.getDbObjectInfo(this);
+        SqlObjectInfo p = getDbObjectInfo(this);
         if (p == null) {
             return null;
         }
@@ -112,7 +115,7 @@ public class BaseSqlObject implements SqlObject {
     }
 
     protected String getCreateSourceDelimiter() {
-        SqlObjectInfo p = SqlObjectHelper.getDbObjectInfo(this);
+        SqlObjectInfo p = getDbObjectInfo(this);
         if (p == null) {
             return null;
         }
@@ -120,7 +123,7 @@ public class BaseSqlObject implements SqlObject {
     }
 
     protected String getDropSourceDelimiter() {
-        SqlObjectInfo p = SqlObjectHelper.getDbObjectInfo(this);
+        SqlObjectInfo p = getDbObjectInfo(this);
         if (p == null) {
             return null;
         }
@@ -139,48 +142,15 @@ public class BaseSqlObject implements SqlObject {
 
     }
 
-    private void createDependencies(Class<? extends SqlObject>[] dependencies) {
-        for (Class<? extends SqlObject> dependencie : dependencies) {
-            try {
-                SqlObject sqlObject = SqlObjectHelper.createSqlObjectInstance(mvContext, dependencie);
-                onDependencyObjectCreated(sqlObject);
-                if (sqlObject != null) {
-
-                    if (canCreate(sqlObject)) {
-                        sqlObject.create();
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private void dropDependencies(Class<? extends SqlObject>[] dependencies) {
-        for (int i = dependencies.length - 1; i >= 0; i--) {
-            try {
-                SqlObject sqlObject = SqlObjectHelper.createSqlObjectInstance(mvContext, dependencies[i]);
-                if (sqlObject != null) {
-
-                    if (canDrop(sqlObject)) {
-                        sqlObject.drop();
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void createDependencies() throws SQLException, IOException {
-        createDependencies(SqlObjectHelper.getDependencyItems(this));
+
     }
 
     @Override
     public void dropDependencies() throws SQLException, IOException {
-        dropDependencies(SqlObjectHelper.getDependencyItems(this));
+
     }
 
     protected void onBeforeCreate() {
@@ -291,5 +261,44 @@ public class BaseSqlObject implements SqlObject {
         }
         mvlastChildListner = childListener;
 
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static SqlObjectInfo getDbObjectInfo(Class<? extends SqlObject> sqlObjectClass) {
+        SqlObjectInfo sqlObjectInfo = null;
+        Annotation[] annotations = sqlObjectClass.getAnnotations();
+
+        for (Annotation annotation : annotations) {
+            if (annotation instanceof SqlObjectInfo) {
+                sqlObjectInfo = (SqlObjectInfo) annotation;
+            }
+        }
+        if (sqlObjectInfo == null) {
+            if (SqlObject.class.isAssignableFrom(sqlObjectClass.getSuperclass())) {
+                Class<? extends SqlObject> sc = (Class<? extends SqlObject>) sqlObjectClass.getSuperclass();
+                sqlObjectInfo = getDbObjectInfo(sc);
+            }
+        }
+        return sqlObjectInfo;
+    }
+
+    public static SqlObjectInfo getDbObjectInfo(SqlObject sqlObj) {
+        return getDbObjectInfo(sqlObj.getClass());
+    }
+
+    public static SqlObject createSqlObjectInstance(DbContext context, Class<? extends SqlObject> pkgClass) throws InstantiationException, IllegalAccessException,
+            InvocationTargetException {
+        SqlObject sqlObject = null;
+        @SuppressWarnings("rawtypes")
+        Constructor ctor = pkgClass.getConstructors()[0];
+        // ugly fix but revisit if test fails,
+        if (ctor.getParameterTypes().length == 1) {
+            sqlObject = (SqlObject) ctor.newInstance(context);
+        }
+        if (ctor.getParameterTypes().length == 2) {
+            sqlObject = (SqlObject) ctor.newInstance(null, context);
+        }
+        return sqlObject;
     }
 }

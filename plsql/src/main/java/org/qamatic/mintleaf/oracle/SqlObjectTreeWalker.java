@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.core;
+package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.interfaces.SqlObject;
 import org.slf4j.Logger;

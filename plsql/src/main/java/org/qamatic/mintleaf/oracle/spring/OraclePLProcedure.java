@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.STRUCT;
-import org.qamatic.mintleaf.core.SqlObjectHelper;
+import org.qamatic.mintleaf.oracle.SqlObjectHelper;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedure;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;

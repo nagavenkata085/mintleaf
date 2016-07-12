@@ -32,7 +32,6 @@ import oracle.sql.STRUCT;
 import oracle.sql.StructDescriptor;
 import oracle.sql.TypeDescriptor;
 import org.qamatic.mintleaf.core.BaseSqlObject;
-import org.qamatic.mintleaf.core.SqlObjectHelper;
 import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
@@ -49,7 +48,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class OracleTypeObject extends BaseSqlObject implements SqlTypeObject, SqlTypeValue {
+public abstract class OracleTypeObject extends OracleBaseSqlObject implements SqlTypeObject, SqlTypeValue {
 
     protected SqlTypeObjectValue mvtypeobjectValue;
     protected PLCreateType mvPLCreateType;

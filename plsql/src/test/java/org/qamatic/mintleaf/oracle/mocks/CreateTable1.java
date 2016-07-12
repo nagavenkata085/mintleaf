@@ -28,12 +28,12 @@
 package org.qamatic.mintleaf.oracle.mocks;
 
 
+import org.qamatic.mintleaf.core.SqlDDL;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleBatchDDL;
 import org.qamatic.mintleaf.interfaces.DbContext;
 
 @SqlObjectInfo(name = "setup schema", dropSourceDelimiter = "/", source = "/Testddl.sql", dropSource = "/Testddl_drop.sql")
-public class CreateTable1 extends OracleBatchDDL {
+public class CreateTable1 extends SqlDDL {
 
     public CreateTable1(DbContext context) {
         super(context);
