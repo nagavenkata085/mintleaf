@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle.mocks;
 
 
-import org.qamatic.mintleaf.core.SqlDDL;
+import org.qamatic.mintleaf.oracle.SqlDDL;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 
