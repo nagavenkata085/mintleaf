@@ -25,45 +25,47 @@
  *
  */
 
-package org.qamatic.mintleaf.core;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.interfaces.DbSettings;
+import org.qamatic.mintleaf.core.SqlCodeExecutor;
+import org.qamatic.mintleaf.interfaces.DbContext;
 
 import static org.junit.Assert.*;
 
-
-public class ConnectionParameterTest {
-
+public class SqlCodeExecutorTest {
 
     @Test
-    public void testDefaultDevMode() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertFalse(settings.isDebugEnabled());
+    public void testCheckTemplateValuesNotNull() {
+        SqlCodeExecutor executor = new SqlCodeExecutor(null);
+        assertNotNull(executor.getTemplateValues());
+        assertNull(executor.getChildReaderListener());
+        executor.setChildReaderListener(new SqlCodeExecutor(null));
+        assertNotNull(executor.getChildReaderListener());
     }
 
-    @Test
-    public void testDataFileLocation() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertEquals("?/a_data_file0", settings.getDataLocation());
-    }
 
     @Test
-    public void testJdbcUrl() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertNotNull(settings.getJdbcUrl());
+    public void testfindAndReplace() {
+
+        SqlCodeExecutorMock executor = new SqlCodeExecutorMock(null);
+        StringBuilder inputText = new StringBuilder();
+        inputText.append("here is my text $x");
+        executor.getTemplateValues().put("$x", "blue");
+        executor.preProcess(inputText);
+        assertEquals("here is my text blue", inputText.toString());
     }
 
-    @Test
-    public void testUsername() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertEquals("sys", settings.getUsername().toLowerCase());
-    }
+    private class SqlCodeExecutorMock extends SqlCodeExecutor {
 
-    @Test
-    public void testPassword() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertEquals("1234", settings.getPassword());
+        public SqlCodeExecutorMock(DbContext context) {
+            super(context);
+        }
+
+        @Override
+        public void preProcess(StringBuilder sqlText) {
+            super.preProcess(sqlText);
+        }
     }
 
 }

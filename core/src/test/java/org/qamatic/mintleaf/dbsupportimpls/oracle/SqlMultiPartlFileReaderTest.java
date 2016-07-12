@@ -25,9 +25,10 @@
  *
  */
 
-package org.qamatic.mintleaf.core;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.junit.Test;
+import org.qamatic.mintleaf.core.SqlMultiPartFileReader;
 import org.qamatic.mintleaf.interfaces.MultiPartReader;
 import org.qamatic.mintleaf.interfaces.SqlPart;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
