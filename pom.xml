@@ -38,6 +38,7 @@
 
     <modules>
         <module>core</module>
+        <module>dbs</module>
         <module>plsql</module>
     </modules>
 

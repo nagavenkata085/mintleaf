@@ -34,9 +34,10 @@ import org.qamatic.mintleaf.interfaces.TableMetaData;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 
-public abstract class BaseDbContext implements DbContext {
+public class BaseDbContext implements DbContext {
 
     private final DataSource mvDataSource;
     private DbSettings mvDbSettings;
@@ -65,9 +66,78 @@ public abstract class BaseDbContext implements DbContext {
         mvDbSettings = dbSettings;
     }
 
-    protected abstract String getSqlObjectMetaSql(String objectName);
+    @Override
+    public int getCount(String tableName, String whereClause, Object[] whereClauseValues) {
+        throw new UnsupportedOperationException();
+    }
 
-    public abstract TableMetaData getObjectMetaData(String objectName) throws SQLException;
+    @Override
+    public boolean isSqlObjectExists(String objectName, String objectType, boolean ignoreValidity) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getCount(String tableName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isTableExists(String tableName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isdbFeatureExists(String featureName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int getNextSequenceNumber(String sequenceName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void truncateTable(String tableName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isUserExists(String userName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> getSqlObjects(String objectType) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<String> getPrimaryKeys(String ownerName, String tableName) {
+        throw new UnsupportedOperationException();
+    }
+
+    protected String getSqlObjectMetaSql(String objectName){
+        throw new UnsupportedOperationException();
+    }
+
+    public  TableMetaData getObjectMetaData(String objectName) throws SQLException{
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isPrivilegeExists(String granteeName, String privilegeName, String objectName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isColumnExists(String tableName, String columnName) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isSequenceExists(String sequenceName) {
+        throw new UnsupportedOperationException();
+    }
 
 
 }
