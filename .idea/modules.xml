@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/mintleaf.iml" filepath="$PROJECT_DIR$/mintleaf.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/mintleaf-core.iml" filepath="$PROJECT_DIR$/core/mintleaf-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dbs/mintleaf-dbs.iml" filepath="$PROJECT_DIR$/dbs/mintleaf-dbs.iml" />
       <module fileurl="file://$PROJECT_DIR$/plsql/mintleaf-plsql.iml" filepath="$PROJECT_DIR$/plsql/mintleaf-plsql.iml" />
     </modules>
   </component>

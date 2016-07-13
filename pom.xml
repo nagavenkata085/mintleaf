@@ -38,7 +38,7 @@
 
     <modules>
         <module>core</module>
-        <module>dbs</module>
+        <module>dbexamples</module>
         <module>plsql</module>
     </modules>
 
