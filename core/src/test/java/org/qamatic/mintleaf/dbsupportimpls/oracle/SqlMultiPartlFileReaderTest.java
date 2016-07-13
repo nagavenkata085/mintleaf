@@ -48,7 +48,7 @@ public class SqlMultiPartlFileReaderTest {
 
     @Test
     public void testSqlSectionalReaderCount() throws IOException, SQLException {
-        InputStream iStream = this.getClass().getResourceAsStream("/SqlPartReaderTest.sql");
+        InputStream iStream = this.getClass().getResourceAsStream("/multipart2.sql");
         MultiPartReader reader = new SqlMultiPartFileReader(iStream);
         reader.read();
         assertEquals(3, reader.getSqlParts().size());
@@ -56,7 +56,7 @@ public class SqlMultiPartlFileReaderTest {
 
     @Test
     public void testSqlSectionalReaderSections() throws IOException, SQLException {
-        MultiPartReader reader = new SqlMultiPartFileReader("/SqlPartReaderTest.sql");
+        MultiPartReader reader = new SqlMultiPartFileReader("/multipart2.sql");
         reader.read();
 
         assertTrue(reader.getSqlParts().containsKey("part1"));
@@ -132,7 +132,7 @@ public class SqlMultiPartlFileReaderTest {
     public void testSqlSectionalReaderListnerTest() throws IOException, SQLException {
 
         SqlReaderListener listner = new SectionalFileReadListner();
-        InputStream iStream = this.getClass().getResourceAsStream("/SectionalFileReaderTest.sql");
+        InputStream iStream = this.getClass().getResourceAsStream("/multipart.sql");
         SqlMultiPartFileReader reader = new SqlMultiPartFileReader(iStream);
         reader.setReaderListener(listner);
         actual_part1 = null;
