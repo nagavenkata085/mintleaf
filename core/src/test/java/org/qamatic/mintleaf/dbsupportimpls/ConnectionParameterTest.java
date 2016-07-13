@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.dbsupportimpls.oracle;
+package org.qamatic.mintleaf.dbsupportimpls;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.DbConnectionProperties;

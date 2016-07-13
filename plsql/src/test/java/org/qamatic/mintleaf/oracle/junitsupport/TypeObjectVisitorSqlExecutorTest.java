@@ -25,47 +25,50 @@
  *
  */
 
-package org.qamatic.mintleaf.dbsupportimpls.oracle;
+package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlCodeExecutor;
 import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
+import org.qamatic.mintleaf.oracle.TypeObjectVisitorSqlExecutor;
+import org.qamatic.mintleaf.oracle.codevisitors.TypeObjectBodySourceAppender;
+import org.qamatic.mintleaf.oracle.codevisitors.TypeObjectSourceAppender;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class SqlExecutorTest {
-
-    @Test
-    public void testCheckTemplateValuesNotNull() {
-        SqlCodeExecutor executor = new SqlCodeExecutor(null);
-        assertNotNull(executor.getTemplateValues());
-        assertNull(executor.getChildReaderListener());
-        executor.setChildReaderListener(new SqlCodeExecutor(null));
-        assertNotNull(executor.getChildReaderListener());
-    }
-
+public class TypeObjectVisitorSqlExecutorTest {
 
     @Test
-    public void testfindAndReplace() {
+    public void testVisitors() {
+        TypeObjectVisitorSqlExecutorEx exector = new TypeObjectVisitorSqlExecutorEx(null) {
 
-        SqlCodeExecutorMock executor = new SqlCodeExecutorMock(null);
-        StringBuilder inputText = new StringBuilder();
-        inputText.append("here is my text $x");
-        executor.getTemplateValues().put("$x", "blue");
-        executor.preProcess(inputText);
-        assertEquals("here is my text blue", inputText.toString());
+        };
+
+        assertEquals(1, exector.getInterfaceVisitors().length);
+        assertTrue(exector.getInterfaceVisitors()[0] instanceof TypeObjectSourceAppender);
+        assertEquals(1, exector.getBodyVisitors().length);
+        assertTrue(exector.getBodyVisitors()[0] instanceof TypeObjectBodySourceAppender);
+
     }
 
-    private class SqlCodeExecutorMock extends SqlCodeExecutor {
+    private class TypeObjectVisitorSqlExecutorEx extends TypeObjectVisitorSqlExecutor {
 
-        public SqlCodeExecutorMock(DbContext context) {
+        public TypeObjectVisitorSqlExecutorEx(DbContext context) {
             super(context);
+
         }
 
         @Override
-        public void preProcess(StringBuilder sqlText) {
-            super.preProcess(sqlText);
+        public SqlSourceVisitor[] getInterfaceVisitors() {
+
+            return super.getInterfaceVisitors();
+        }
+
+        @Override
+        public SqlSourceVisitor[] getBodyVisitors() {
+
+            return super.getBodyVisitors();
         }
     }
-
 }

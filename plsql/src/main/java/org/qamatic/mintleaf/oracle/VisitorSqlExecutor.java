@@ -28,16 +28,16 @@
 package org.qamatic.mintleaf.oracle;
 
 
-import org.qamatic.mintleaf.core.SqlCodeExecutor;
+import org.qamatic.mintleaf.core.SqlExecutor;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.codevisitors.SqlSourceReplacer;
 
-public abstract class VisitorSqlCodeExecutor extends SqlCodeExecutor {
+public abstract class VisitorSqlExecutor extends SqlExecutor {
 
     private String mvinterfaceSource;
     private String mvbodySource;
 
-    public VisitorSqlCodeExecutor(DbContext context) {
+    public VisitorSqlExecutor(DbContext context) {
         super(context);
     }
 

@@ -37,16 +37,16 @@ import java.sql.SQLException;
 public class SqlPartListeners {
 
     public static SqlReaderListener getPLPackageSectionalListner(DbContext context, String sectionalSqlFile, String[] replaceItems) {
-        VisitorSqlCodeExecutor listener = new PackageVisitorSqlCodeExecutor(context);
+        VisitorSqlExecutor listener = new PackageVisitorSqlExecutor(context);
         return getListner(context, listener, sectionalSqlFile, replaceItems);
     }
 
     public static SqlReaderListener getPLTypeObjectSectionalListner(DbContext context, String sectionalSqlFile, String[] replaceItems) {
-        VisitorSqlCodeExecutor listener = new TypeObjectVisitorSqlCodeExecutor(context);
+        VisitorSqlExecutor listener = new TypeObjectVisitorSqlExecutor(context);
         return getListner(context, listener, sectionalSqlFile, replaceItems);
     }
 
-    public static SqlReaderListener getListner(DbContext context, VisitorSqlCodeExecutor listener, String sectionalSqlFile, String[] replaceItems) {
+    public static SqlReaderListener getListner(DbContext context, VisitorSqlExecutor listener, String sectionalSqlFile, String[] replaceItems) {
 
         SqlMultiPartFileReader sectionalReader = new SqlMultiPartFileReader(sectionalSqlFile);
 
@@ -59,7 +59,7 @@ public class SqlPartListeners {
         }
         String intfSectionName = "package";
         String bodySectionName = "packagebody";
-        if (listener instanceof TypeObjectVisitorSqlCodeExecutor) {
+        if (listener instanceof TypeObjectVisitorSqlExecutor) {
             intfSectionName = "type";
             bodySectionName = "typebody";
         }

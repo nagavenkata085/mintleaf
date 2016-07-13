@@ -1,9 +1,17 @@
 package org.qamatic.mintleaf.dbsupportimpls.h2;
 
 import org.qamatic.mintleaf.core.BaseDbContext;
+import org.qamatic.mintleaf.interfaces.Column;
 import org.qamatic.mintleaf.interfaces.H2DbContext;
+import org.qamatic.mintleaf.interfaces.RowListener;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 /**
  * Created by senips on 7/12/16.
@@ -14,9 +22,8 @@ public class H2DbContextImpl extends BaseDbContext implements H2DbContext{
     }
     
     
-    public void iterateTableByQuery(String tableName, String columns, String whereClause, RowListner listener) throws SQLException {
+    public void iterateTableByQuery(String tableName, String columns, String whereClause, RowListener listener) throws SQLException {
         TableMetaData metaData = getObjectMetaData(tableName);
-
 
 
     }

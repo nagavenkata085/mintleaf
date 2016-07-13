@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.BaseSqlObject;
-import org.qamatic.mintleaf.core.SqlCodeExecutor;
+import org.qamatic.mintleaf.core.SqlExecutor;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlObject;
@@ -79,9 +79,9 @@ public final class BaseSqlObjectTest extends OracleTestCase {
         SqlReaderListener listener = sqlObj.getSqlReadListener();
         assertNotNull(listener);
         assertNull(listener.getChildReaderListener());
-        SqlReaderListener child1 = new SqlCodeExecutor(null);
+        SqlReaderListener child1 = new SqlExecutor(null);
         sqlObj.AddReaderListener(child1);
-        SqlReaderListener child2 = new SqlCodeExecutor(null);
+        SqlReaderListener child2 = new SqlExecutor(null);
         sqlObj.AddReaderListener(child2);
         assertEquals(child1, sqlObj.getChildListener());
         assertEquals(child2, sqlObj.getChildListener().getChildReaderListener());

@@ -29,14 +29,14 @@ package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
-import org.qamatic.mintleaf.oracle.VisitorSqlCodeExecutor;
+import org.qamatic.mintleaf.oracle.VisitorSqlExecutor;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertTrue;
 
-public class VisitorSqlCodeExecutorTest {
+public class VisitorSqlExecutorTest {
 
     private static boolean mvvisitor1_hit;
     private static boolean mvvisitor2_hit;
@@ -45,7 +45,7 @@ public class VisitorSqlCodeExecutorTest {
     public void testOnReadChild() throws SQLException, IOException {
         mvvisitor1_hit = false;
         mvvisitor2_hit = false;
-        VisitorSqlCodeExecutor executor = new VisitorSqlCodeExecutor(null) {
+        VisitorSqlExecutor executor = new VisitorSqlExecutor(null) {
 
             @Override
             protected SqlSourceVisitor[] getInterfaceVisitors() {

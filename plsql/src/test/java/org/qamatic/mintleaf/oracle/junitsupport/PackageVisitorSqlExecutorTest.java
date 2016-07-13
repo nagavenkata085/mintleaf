@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.PackageVisitorSqlCodeExecutor;
+import org.qamatic.mintleaf.oracle.PackageVisitorSqlExecutor;
 import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
 import org.qamatic.mintleaf.oracle.codevisitors.PackageBodySourceAppender;
 import org.qamatic.mintleaf.oracle.codevisitors.PackageSourceAppender;
@@ -37,11 +37,11 @@ import org.qamatic.mintleaf.oracle.codevisitors.PackageSourceAppender;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PackageVisitorSqlCodeExecutorTest {
+public class PackageVisitorSqlExecutorTest {
 
     @Test
     public void testVisitors() {
-        PackageVisitorSqlCodeExecutorEx exector = new PackageVisitorSqlCodeExecutorEx(null) {
+        PackageVisitorSqlExecutorEx exector = new PackageVisitorSqlExecutorEx(null) {
 
         };
 
@@ -52,9 +52,9 @@ public class PackageVisitorSqlCodeExecutorTest {
 
     }
 
-    private class PackageVisitorSqlCodeExecutorEx extends PackageVisitorSqlCodeExecutor {
+    private class PackageVisitorSqlExecutorEx extends PackageVisitorSqlExecutor {
 
-        public PackageVisitorSqlCodeExecutorEx(DbContext context) {
+        public PackageVisitorSqlExecutorEx(DbContext context) {
             super(context);
 
         }

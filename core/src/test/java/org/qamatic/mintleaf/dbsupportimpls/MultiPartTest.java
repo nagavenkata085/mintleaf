@@ -25,26 +25,35 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.dbsupportimpls;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.codevisitors.PackageBodySourceAppender;
-import org.qamatic.mintleaf.oracle.codevisitors.PackageSourceAppender;
+import org.junit.Assert;
+import org.junit.Test;
+import org.qamatic.mintleaf.interfaces.SqlPart;
 
-public class PackageVisitorSqlCodeExecutor extends VisitorSqlCodeExecutor {
+import static org.junit.Assert.assertEquals;
 
-    public PackageVisitorSqlCodeExecutor(DbContext context) {
-        super(context);
+public class MultiPartTest {
+
+    @Test
+    public void testSqlPartJson1() {
+        String serialize = new SqlPart().toString();
+        Assert.assertTrue(serialize, serialize.contains("<sqlPart name=\"\" delimiter=\"\"/>"));
     }
 
-    @Override
-    protected SqlSourceVisitor[] getInterfaceVisitors() {
-        return new SqlSourceVisitor[]{new PackageSourceAppender()};
+    @Test
+    public void testSqlPartJson2() {
+        String serialize = new SqlPart("test", ";", "").toString();
+        Assert.assertTrue(serialize, serialize.contains("<sqlPart name=\"test\" delimiter=\";\"/>"));
     }
 
-    @Override
-    protected SqlSourceVisitor[] getBodyVisitors() {
-        return new SqlSourceVisitor[]{new PackageBodySourceAppender()};
+    @Test
+    public void testMultiPartTagFromXml() {
+        String xml = "<sqlpart name=\"part1\" delimiter=\"/\" />";
+        SqlPart detail = SqlPart.xmlToSqlPart(xml);
+        assertEquals("part1", detail.getName());
+        assertEquals("/", detail.getDelimiter());
     }
+
 
 }

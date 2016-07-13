@@ -38,14 +38,14 @@ import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class SqlCodeExecutor implements SqlReaderListener {
+public class SqlExecutor implements SqlReaderListener {
 
     protected final DbContext mvContext;
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     private final Map<String, String> mvtemplateValues = new Hashtable<String, String>();
     private SqlReaderListener mvchildListner;
 
-    public SqlCodeExecutor(DbContext context) {
+    public SqlExecutor(DbContext context) {
         mvContext = context;
     }
 

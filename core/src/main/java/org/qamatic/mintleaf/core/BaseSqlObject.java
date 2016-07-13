@@ -195,7 +195,7 @@ public class BaseSqlObject implements SqlObject {
 
     public SqlReaderListener getSqlReadListener() {
         if (mvlistener == null) {
-            mvlistener = new SqlCodeExecutor(mvContext);
+            mvlistener = new SqlExecutor(mvContext);
             mvlistener.setChildReaderListener(getChildListener());
         }
 
