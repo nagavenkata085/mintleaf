@@ -55,23 +55,9 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         return cnt != 0;
     }
 
-    @Override
-    public int getCount(String tableName, String whereClause, Object[] whereClauseValues) {
-        JdbcTemplate template = new JdbcTemplate(getDataSource());
 
-        String sql = "";
-        if (whereClause != null) {
-            sql = String.format("select count(*) from %s where %s", tableName, whereClause);
-        } else {
-            sql = String.format("select count(*) from %s", tableName);
-        }
-        return template.queryForInt(sql, whereClauseValues);
-    }
 
-    @Override
-    public int getCount(String tableName) {
-        return getCount(tableName, null, null);
-    }
+
 
     public boolean isColumnExists(String tableName, String columnName) {
         int cnt = getCount("user_tab_columns", "table_name = ? AND column_name = ?", new Object[]{tableName.toUpperCase(), columnName.toUpperCase()});

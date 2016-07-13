@@ -30,6 +30,7 @@ package org.qamatic.mintleaf.core;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.DbSettings;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -68,9 +69,16 @@ public class BaseDbContext implements DbContext {
 
     @Override
     public int getCount(String tableName, String whereClause, Object[] whereClauseValues) {
-        throw new UnsupportedOperationException();
-    }
+        JdbcTemplate template = new JdbcTemplate(getDataSource());
 
+        String sql = "";
+        if (whereClause != null) {
+            sql = String.format("select count(*) from %s where %s", tableName, whereClause);
+        } else {
+            sql = String.format("select count(*) from %s", tableName);
+        }
+        return template.queryForInt(sql, whereClauseValues);
+    }
     @Override
     public boolean isSqlObjectExists(String objectName, String objectType, boolean ignoreValidity) {
         throw new UnsupportedOperationException();
@@ -78,7 +86,7 @@ public class BaseDbContext implements DbContext {
 
     @Override
     public int getCount(String tableName) {
-        throw new UnsupportedOperationException();
+        return getCount(tableName, null, null);
     }
 
     @Override
