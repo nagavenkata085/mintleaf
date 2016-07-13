@@ -33,7 +33,7 @@ import org.qamatic.mintleaf.interfaces.DbContext;
 
 import static org.junit.Assert.*;
 
-public class SqlCodeExecutorTest {
+public class SqlExecutorTest {
 
     @Test
     public void testCheckTemplateValuesNotNull() {
