@@ -49,6 +49,13 @@
         <processorPath useClasspath="true" />
         <module name="mintleaf-dbs" />
       </profile>
+      <profile default="false" name="Annotation profile for mintleaf-dbexamples" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="mintleaf-dbexamples" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="dbs" target="1.7" />
