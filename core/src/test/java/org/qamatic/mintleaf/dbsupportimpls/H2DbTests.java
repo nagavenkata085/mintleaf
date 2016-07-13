@@ -27,7 +27,7 @@ public class H2DbTests {
     public static void cleanDb() {
 
         DbSettings settings = new DbConnectionProperties();
-        settings.setJdbcUrl("jdbc:h2:file:./h2test;mv_store=false");
+        settings.setJdbcUrl("jdbc:h2:file:./target/h2test;mv_store=false");
 
         BasicDataSource ds = new BasicDataSource();
         ds.setUrl(settings.getJdbcUrl());
