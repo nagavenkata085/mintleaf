@@ -24,9 +24,20 @@ public class H2DbContextImpl extends BaseDbContext implements H2DbContext{
     
     public void iterateTableByQuery(String tableName, String columns, String whereClause, RowListener listener) throws SQLException {
         TableMetaData metaData = getObjectMetaData(tableName);
+    }
 
+    public void iterativeQuery(String sql, final RowListener listener){
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(this.getDataSource());
+        jdbcTemplate.query(sql, new RowMapper() {
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                listener.getMetaData(1);
+
+                return null;
+            }
+        });
 
     }
+
 
     @Override
     public TableMetaData getObjectMetaData(String objectName) throws SQLException {
@@ -64,4 +75,5 @@ public class H2DbContextImpl extends BaseDbContext implements H2DbContext{
         });
         return metaData;
     }
+
 }
