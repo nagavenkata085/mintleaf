@@ -32,7 +32,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
-import org.qamatic.mintleaf.interfaces.DbModule;
+import org.qamatic.mintleaf.oracle.core.DbModule;
 import org.qamatic.mintleaf.oracle.OracleDbHelper;
 import org.qamatic.mintleaf.oracle.TestInstaller;
 import org.slf4j.Logger;

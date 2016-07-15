@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.junit.runners.model.InitializationError;
-import org.qamatic.mintleaf.interfaces.DbModule;
+import org.qamatic.mintleaf.oracle.core.DbModule;
 import org.qamatic.mintleaf.oracle.junitsupport.DbWorksTestRunner;
 
 public class TestableTestRunnerDb extends DbWorksTestRunner {

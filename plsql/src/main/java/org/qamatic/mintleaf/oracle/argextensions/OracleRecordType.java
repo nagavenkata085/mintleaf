@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.argextensions;
 
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
+import org.qamatic.mintleaf.oracle.core.OracleArg;
 import org.qamatic.mintleaf.oracle.ColumnMap;
 import org.qamatic.mintleaf.oracle.SqlArgumentRecordTypeExtension;
 

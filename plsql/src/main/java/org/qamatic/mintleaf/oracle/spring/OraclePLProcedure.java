@@ -29,10 +29,10 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.oracle.SqlObjectHelper;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedure;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlOutParameter;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleSpringSqlParameter;
+import org.qamatic.mintleaf.oracle.core.OracleArg;
+import org.qamatic.mintleaf.oracle.core.OracleProcedure;
+import org.qamatic.mintleaf.oracle.core.OracleSpringSqlOutParameter;
+import org.qamatic.mintleaf.oracle.core.OracleSpringSqlParameter;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.*;
 import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;
@@ -71,6 +71,7 @@ public class OraclePLProcedure extends OracleProcedure {
         arg.getCustomArg().setResultsParameter(this.getDeclaredArguments().size() == 1);
         return arg;
     }
+
 
 
     public SqlStoredProcedure recompile() {

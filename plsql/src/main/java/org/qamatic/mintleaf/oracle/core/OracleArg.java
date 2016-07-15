@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.dbsupportimpls.oracle;
+package org.qamatic.mintleaf.oracle.core;
 
 import org.qamatic.mintleaf.interfaces.CustomArg;
 

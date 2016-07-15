@@ -1,4 +1,4 @@
-package org.qamatic.mintleaf.dbsupportimpls.oracle;
+package org.qamatic.mintleaf.oracle.core;
 
 import org.qamatic.mintleaf.core.ProcedureCall;
 import org.qamatic.mintleaf.interfaces.SqlArgument;

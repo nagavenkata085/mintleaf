@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.argextensions;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
+import org.qamatic.mintleaf.oracle.core.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.CustomArg;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;

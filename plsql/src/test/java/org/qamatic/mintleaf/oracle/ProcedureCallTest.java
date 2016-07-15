@@ -29,8 +29,8 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ProcedureCall;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleArg;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleProcedureCall;
+import org.qamatic.mintleaf.oracle.core.OracleArg;
+import org.qamatic.mintleaf.oracle.core.OracleProcedureCall;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlArgument;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;

@@ -25,43 +25,19 @@
  *
  */
 
-package org.qamatic.mintleaf.dbsupportimpls.oracle;
+package org.qamatic.mintleaf.oracle.core;
 
-import org.qamatic.mintleaf.interfaces.CustomArg;
-import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.springframework.jdbc.core.SqlParameter;
+import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 
-public class OracleSpringSqlParameter extends SqlParameter implements SqlArgument {
+import java.sql.SQLException;
 
-    private CustomArg mvtypeExtension = new OracleArg();
+public interface DbMetaDataService {
 
-    public OracleSpringSqlParameter(String name, int sqlType) {
-        super(name, sqlType);
-    }
+    TableMetaData getMetaData(String schemaDotObjectName);
 
-    public OracleSpringSqlParameter(String name, int sqlType, String typeObject) {
-        super(name, sqlType, typeObject);
-    }
+    TableMetaData addMetaData(String schemaDotObjectName, TableMetaData metaData);
 
-    @Override
-    public boolean isResultsParameter() {
-        return false;
-    }
-
-    @Override
-    public CustomArg getCustomArg() {
-        return mvtypeExtension;
-    }
-
-    @Override
-    public void setCustomArg(CustomArg extension) {
-        mvtypeExtension = extension;
-
-    }
-
-    @Override
-    public String getParameterName() {
-        return this.getName();
-    }
+    TableMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException;
 
 }
