@@ -5,10 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.DbConnectionProperties;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.dbsupportimpls.h2.H2DbContextImpl;
-import org.qamatic.mintleaf.interfaces.DbSettings;
 import org.qamatic.mintleaf.interfaces.H2DbContext;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
 
@@ -26,15 +24,13 @@ public class H2DbTests {
     @BeforeClass
     public static void cleanDb() {
 
-        DbSettings settings = new DbConnectionProperties();
-        settings.setJdbcUrl("jdbc:h2:file:./target/h2test;mv_store=false");
 
         BasicDataSource ds = new BasicDataSource();
-        ds.setUrl(settings.getJdbcUrl());
+        ds.setUrl("jdbc:h2:file:./target/h2test;mv_store=false");
         ds.setDriverClassName("org.h2.Driver");
 
         h2DbContext = new H2DbContextImpl(ds);
-        h2DbContext.setDbSettings(settings);
+
 
 
     }

@@ -28,7 +28,7 @@
 package junitsupport;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.qamatic.mintleaf.core.DbConnectionProperties;
+
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContextImpl;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.DbSettings;
@@ -41,18 +41,14 @@ public class OracleTestDatabase {
 
     public static DbContext getSchemaOwnerContext() {
         if (mvDbContext == null) {
-            DbSettings settings = new DbConnectionProperties();
 
-            settings.setJdbcUrl(System.getenv("TEST_DB_URL"));
-            settings.setUsername("TestUser3");
-            settings.setPassword("TestUser3Password");
 
             BasicDataSource ds = new BasicDataSource();
             mvDbContext = new OracleDbContextImpl(ds);
-            mvDbContext.setDbSettings(settings);
-            ds.setUrl(settings.getJdbcUrl());
-            ds.setUsername(settings.getUsername());
-            ds.setPassword(settings.getPassword());
+
+            ds.setUrl(System.getenv("TEST_DB_URL"));
+            ds.setUsername("TestUser3");
+            ds.setPassword("TestUser3Password");
             ds.setAccessToUnderlyingConnectionAllowed(true);
 
 
@@ -62,20 +58,17 @@ public class OracleTestDatabase {
 
     public static DbContext getSysDbaContext() {
         if (mvSysDbContext == null) {
-            DbSettings settings = new DbConnectionProperties();
 
-            settings.setJdbcUrl(System.getenv("TEST_DB_URL"));
-            settings.setUsername(System.getenv("TEST_DB_MASTER_USERNAME"));
-            settings.setPassword(System.getenv("TEST_DB_MASTER_PASSWORD"));
 
             BasicDataSource ds = new BasicDataSource();
-            ds.setUrl(settings.getJdbcUrl());
-            ds.setUsername(settings.getUsername());
-            ds.setPassword(settings.getPassword());
+
+            ds.setUrl(System.getenv("TEST_DB_URL"));
+            ds.setUsername(System.getenv("TEST_DB_MASTER_USERNAME"));
+            ds.setPassword(System.getenv("TEST_DB_MASTER_PASSWORD"));
+
             ds.setAccessToUnderlyingConnectionAllowed(true);
             //ds.setConnectionProperties("internal_logon=sysdba");
             mvSysDbContext = new OracleDbContextImpl(ds);
-            mvSysDbContext.setDbSettings(settings);
         }
         return mvSysDbContext;
     }

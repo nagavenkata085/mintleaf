@@ -25,10 +25,10 @@
  *
  */
 
-package org.qamatic.mintleaf.dbsupportimpls;
+package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.DbConnectionProperties;
+import org.qamatic.mintleaf.oracle.core.DbConnectionProperties;
 import org.qamatic.mintleaf.interfaces.DbSettings;
 
 import static org.junit.Assert.*;
