@@ -25,30 +25,17 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle.core;
 
-public interface CustomArg extends SqlAnonymousCode {
+import java.util.Iterator;
+import java.util.List;
 
-    void setIdentifier(String identifier);
+public interface SqlArgumentCollection extends Iterable<SqlArgument>, Iterator<SqlArgument>, SqlAnonymousCode {
+    SqlArgument get(int idx);
 
-    String getSupportedType();
+    List<SqlArgument> rebuildArguments();
 
-    void setSupportedType(String supportedType);
+    int size();
 
-    String getUnsupportedType();
-
-    void setUnsupportedType(String unsupportedType);
-
-    String getSupportedVariable();
-
-    String getUnsupportedVariable();
-
-    boolean isOutParameter();
-
-    void setOutParameter(boolean bValue);
-
-    boolean isResultsParameter();
-
-    void setResultsParameter(boolean bValue);
-
+    SqlArgument get(String parameterName);
 }

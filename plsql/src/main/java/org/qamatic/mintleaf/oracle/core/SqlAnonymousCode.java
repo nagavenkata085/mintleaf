@@ -25,8 +25,18 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle.core;
 
-public interface SqlCode {
+public interface SqlAnonymousCode extends SqlCode {
+
+    String getIdentifier();
+
+    String getVariableDeclaration();
+
+    String getTypeConversionCode();
+
+    String getCodeBeforeCall();
+
+    String getCodeAfterCall();
 
 }

@@ -35,7 +35,7 @@ public class Column {
     protected int mvColumnSize;
     protected int mvDecimalDigits;
     protected boolean mvCalculated;
-    protected boolean mvIgnoreForTypeObjectCreation;
+    protected boolean mvIgnoreColumn;
 
 
     public String getColumnName() {
@@ -106,12 +106,12 @@ public class Column {
         mvCalculated = calculated;
     }
 
-    public boolean isIgnoreForTypeObjectCreation() {
-        return mvIgnoreForTypeObjectCreation;
+    public boolean isIgnoreColumn() {
+        return mvIgnoreColumn;
     }
 
     public void setIgnoreForTypeObjectCreation(boolean ignoreForTypeObjectCreation) {
-        mvIgnoreForTypeObjectCreation = ignoreForTypeObjectCreation;
+        mvIgnoreColumn = ignoreForTypeObjectCreation;
     }
 
 }

@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;/*
+package org.qamatic.mintleaf.oracle.core;/*
  * Copyright {2015} {Senthil Maruthaiappan}
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");

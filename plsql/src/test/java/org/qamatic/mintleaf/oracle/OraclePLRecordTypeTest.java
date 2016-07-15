@@ -34,8 +34,8 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
+import org.qamatic.mintleaf.oracle.core.SqlArgument;
+import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 

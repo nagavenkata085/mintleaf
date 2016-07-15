@@ -25,18 +25,16 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle.core;
 
-public interface SqlAnonymousCode extends SqlCode {
+public interface SqlArgument {
+    boolean isResultsParameter();
 
-    String getIdentifier();
+    CustomArg getCustomArg();
 
-    String getVariableDeclaration();
+    void setCustomArg(CustomArg extension);
 
-    String getTypeConversionCode();
+    String getParameterName();
 
-    String getCodeBeforeCall();
-
-    String getCodeAfterCall();
-
+    String getTypeName();
 }

@@ -29,10 +29,7 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.STRUCT;
 import org.qamatic.mintleaf.oracle.SqlObjectHelper;
-import org.qamatic.mintleaf.oracle.core.OracleArg;
-import org.qamatic.mintleaf.oracle.core.OracleProcedure;
-import org.qamatic.mintleaf.oracle.core.OracleSpringSqlOutParameter;
-import org.qamatic.mintleaf.oracle.core.OracleSpringSqlParameter;
+import org.qamatic.mintleaf.oracle.core.*;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.*;
 import org.qamatic.mintleaf.oracle.argextensions.OracleBooleanType;

@@ -25,32 +25,8 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle.core;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-public interface SqlValue {
-
-    void setValue(String parameterName, Object value);
-
-    void setBooleanValue(String parameterName, Boolean value);
-
-    int getIntValue(String paramterName);
-
-    String getStringValue(String paramterName);
-
-    Object getValue(String paramterName);
-
-    Object getArray(String paramterName);
-
-    Date getDateValue(String parameterName);
-
-    Timestamp getTimestampValue(String parameterName);
-
-    boolean getBooleanValue(String parameterName);
-
-    Object getStruct(String paramterName);
-
+public interface SqlCode {
 
 }

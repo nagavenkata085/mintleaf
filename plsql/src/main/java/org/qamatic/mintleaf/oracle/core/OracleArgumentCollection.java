@@ -27,9 +27,6 @@
 
 package org.qamatic.mintleaf.oracle.core;
 
-import org.qamatic.mintleaf.interfaces.CustomArg;
-import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
 import org.springframework.jdbc.core.SqlParameter;
 
 import java.lang.reflect.Method;

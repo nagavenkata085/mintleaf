@@ -25,17 +25,30 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle.core;
 
-import java.util.Iterator;
-import java.util.List;
 
-public interface SqlArgumentCollection extends Iterable<SqlArgument>, Iterator<SqlArgument>, SqlAnonymousCode {
-    SqlArgument get(int idx);
+public abstract class ProcedureCall {
 
-    List<SqlArgument> rebuildArguments();
+    protected final StringBuilder mvProcCode = new StringBuilder();
+    protected final SqlStoredProcedure mvProcedure;
 
-    int size();
+    public ProcedureCall(SqlStoredProcedure procedure) {
+        mvProcedure = procedure;
+    }
 
-    SqlArgument get(String parameterName);
+
+    protected void appendLine(String txt) {
+        mvProcCode.append(txt).append("\n");
+    }
+
+    protected void addCode(String code) {
+        if (code.length() != 0) {
+            appendLine(code);
+        }
+    }
+
+    public StringBuilder getSQL() {
+        return mvProcCode;
+    }
 }

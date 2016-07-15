@@ -25,32 +25,32 @@
  *
  */
 
-package org.qamatic.mintleaf.core;
+package org.qamatic.mintleaf.oracle.core;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
+public interface SqlValue {
+
+    void setValue(String parameterName, Object value);
+
+    void setBooleanValue(String parameterName, Boolean value);
+
+    int getIntValue(String paramterName);
+
+    String getStringValue(String paramterName);
+
+    Object getValue(String paramterName);
+
+    Object getArray(String paramterName);
+
+    Date getDateValue(String parameterName);
+
+    Timestamp getTimestampValue(String parameterName);
+
+    boolean getBooleanValue(String parameterName);
+
+    Object getStruct(String paramterName);
 
 
-import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
-
-public abstract class ProcedureCall {
-
-    protected final StringBuilder mvProcCode = new StringBuilder();
-    protected final SqlStoredProcedure mvProcedure;
-
-    public ProcedureCall(SqlStoredProcedure procedure) {
-        mvProcedure = procedure;
-    }
-
-
-    protected void appendLine(String txt) {
-        mvProcCode.append(txt).append("\n");
-    }
-
-    protected void addCode(String code) {
-        if (code.length() != 0) {
-            appendLine(code);
-        }
-    }
-
-    public StringBuilder getSQL() {
-        return mvProcCode;
-    }
 }

@@ -31,12 +31,12 @@ import oracle.sql.DatumWithConnection;
 import oracle.sql.STRUCT;
 import oracle.sql.StructDescriptor;
 import oracle.sql.TypeDescriptor;
-import org.qamatic.mintleaf.core.BaseSqlObject;
 import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
+import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 import org.springframework.jdbc.core.SqlTypeValue;
 
@@ -168,7 +168,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlObject implements Sq
         getCreateTypeInstance().getColumnDefs().clear();
 
         for (Column colMetaData : getMetaData().getColumns()) {
-            if (colMetaData.isIgnoreForTypeObjectCreation()) {
+            if (colMetaData.isIgnoreColumn()) {
                 continue;
             }
             getCreateTypeInstance().getColumnDefs().add(new PLTableColumnDef(colMetaData.getColumnName(), colMetaData.getTypeName()));

@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
-import org.qamatic.mintleaf.interfaces.SqlValue;
+import org.qamatic.mintleaf.oracle.core.SqlValue;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
 import java.io.IOException;

@@ -1,10 +1,5 @@
 package org.qamatic.mintleaf.oracle.core;
 
-import org.qamatic.mintleaf.core.ProcedureCall;
-import org.qamatic.mintleaf.interfaces.SqlArgument;
-import org.qamatic.mintleaf.interfaces.SqlArgumentCollection;
-import org.qamatic.mintleaf.interfaces.SqlStoredProcedure;
-
 /**
  * Created by senips on 6/18/16.
  */

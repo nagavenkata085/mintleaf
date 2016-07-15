@@ -28,9 +28,10 @@
 package org.qamatic.mintleaf.oracle;
 
 
-import org.qamatic.mintleaf.core.BaseSqlObject;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.OracleDbContext;
+import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
+import org.qamatic.mintleaf.oracle.core.SqlValue;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 import org.springframework.jdbc.core.JdbcTemplate;
 

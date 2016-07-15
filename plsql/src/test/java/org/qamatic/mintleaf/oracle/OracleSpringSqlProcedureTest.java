@@ -35,6 +35,8 @@ import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
+import org.qamatic.mintleaf.oracle.core.SqlArgument;
+import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 

@@ -27,8 +27,6 @@
 
 package org.qamatic.mintleaf.oracle.core;
 
-import org.qamatic.mintleaf.interfaces.CustomArg;
-
 public class OracleArg implements CustomArg {
 
     protected String mvidentifier = "?";
