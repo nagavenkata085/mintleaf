@@ -32,7 +32,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;

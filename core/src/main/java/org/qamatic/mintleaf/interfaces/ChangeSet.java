@@ -55,50 +55,50 @@ import java.io.StringWriter;
 
 @XmlRootElement
 @XmlType(propOrder = {"name", "delimiter"})
-public class SqlPart {
+public class ChangeSet {
 
-    private static final Logger logger = LoggerFactory.getLogger(SqlPart.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChangeSet.class);
     private String name = "";
     private String delimiter = "";
-    private String sqlPartSource = "";
+    private String ChangeSetSource = "";
 
-    public SqlPart() {
+    public ChangeSet() {
 
     }
 
 
-    public SqlPart(String partName, String delimiter, String source) {
+    public ChangeSet(String partName, String delimiter, String source) {
         this.name = partName;
         this.delimiter = delimiter;
-        sqlPartSource = source;
+        ChangeSetSource = source;
     }
 
-    public static SqlPart xmlToSqlPart(String xmlStr) {
+    public static ChangeSet xmlToChangeSet(String xmlStr) {
         String cleanXml = xmlStr.replace("--", "");
         try {
-            JAXBContext jc = JAXBContext.newInstance(SqlPart.class);
+            JAXBContext jc = JAXBContext.newInstance(ChangeSet.class);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
             StreamSource streamSource = new StreamSource(new StringReader(cleanXml));
-            JAXBElement<SqlPart> je = unmarshaller.unmarshal(streamSource,
-                    SqlPart.class);
+            JAXBElement<ChangeSet> je = unmarshaller.unmarshal(streamSource,
+                    ChangeSet.class);
 
-            return (SqlPart) je.getValue();
+            return (ChangeSet) je.getValue();
 
 
         } catch (JAXBException e) {
             System.out.println(cleanXml);
-            logger.error("sqlpart xml parsing error: ", e);
+            logger.error("ChangeSet xml parsing error: ", e);
         }
         return null;
     }
 
-    public String getSqlPartSource() {
-        return sqlPartSource;
+    public String getChangeSetSource() {
+        return ChangeSetSource;
     }
 
     @XmlTransient
-    public void setSqlPartSource(String sqlPartSource) {
-        this.sqlPartSource = sqlPartSource;
+    public void setChangeSetSource(String ChangeSetSource) {
+        this.ChangeSetSource = ChangeSetSource;
     }
 
     public String getName() {
@@ -122,7 +122,7 @@ public class SqlPart {
     @Override
     public String toString() {
         try {
-            JAXBContext jc = JAXBContext.newInstance(SqlPart.class);
+            JAXBContext jc = JAXBContext.newInstance(ChangeSet.class);
             Marshaller marshaller = jc.createMarshaller();
             StringWriter sw = new StringWriter();
             marshaller.marshal(this, sw);

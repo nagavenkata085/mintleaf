@@ -86,19 +86,19 @@ public class ExecuteQueryTest extends OracleTestCase {
 
     @Test
     public void testLoadFromSectionalFile() throws SQLException, IOException {
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/SqlPartReaderTest2.sql", new String[]{"create some tables"});
+        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"create some tables"});
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/SqlPartReaderTest2.sql", new String[]{"delete tables", "create some tables"});
+        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables"});
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/SqlPartReaderTest2.sql", new String[]{"delete tables"});
+        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables"});
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/SqlPartReaderTest2.sql", new String[]{"delete tables", "create some tables",
+        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables",
                 "delete tables"});
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");

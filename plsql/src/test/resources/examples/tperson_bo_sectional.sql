@@ -1,11 +1,11 @@
 
--- <sqlpart name="type" delimiter="/" />
+-- <ChangeSet name="type" delimiter="/" />
 
 ,MEMBER function getFirstName return varchar2
  
 
 
--- <sqlpart name="typebody" delimiter="/" />
+-- <ChangeSet name="typebody" delimiter="/" />
 
 
 MEMBER function getFirstName return varchar2 is

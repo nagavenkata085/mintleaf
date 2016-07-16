@@ -1,5 +1,5 @@
 
--- <sqlpart name="create employee table" delimiter="/" />
+-- <ChangeSet name="create employee table" delimiter="/" />
 
 CREATE TABLE EMPLOYEE 
     ( 
@@ -17,7 +17,7 @@ end;
 /
 
 
--- <sqlpart name="drop employee table" delimiter="/" />
+-- <ChangeSet name="drop employee table" delimiter="/" />
 
 
 begin

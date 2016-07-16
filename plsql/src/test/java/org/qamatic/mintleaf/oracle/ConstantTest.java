@@ -86,7 +86,7 @@ public class ConstantTest extends OracleTestCase {
 
         @Override
         public SqlReaderListener getSqlReadListener() {
-            return SqlPartListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "/TestConst_Sections.sql", new String[]{"appname", "syncsut"});
+            return ChangeSetListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "/TestConst_Sections.sql", new String[]{"appname", "syncsut"});
         }
     }
 }

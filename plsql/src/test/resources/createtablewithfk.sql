@@ -1,5 +1,5 @@
 
--- <sqlpart name="create tables" delimiter=":" />
+-- <ChangeSet name="create tables" delimiter=":" />
 CREATE TABLE PTABLE1 
     ( 
      ID NUMBER (18)  NOT NULL ,      

@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.dbsupportimpls.h2.H2DbContextImpl;
-import org.qamatic.mintleaf.dbsupportimpls.h2.intf.H2DbContext;
+import org.qamatic.mintleaf.dbsupportimpls.h2.H2DbContext;
 import org.qamatic.mintleaf.interfaces.DbMetaData;
 
 import java.io.IOException;

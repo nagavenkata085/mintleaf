@@ -1,9 +1,9 @@
 
--- <sqlpart name="package"  />
+-- <ChangeSet name="package"  />
 
   function getTEST_ID return varchar2;
 
--- <sqlpart name="packagebody"  />
+-- <ChangeSet name="packagebody"  />
 
 
   function getTEST_ID return varchar2 as

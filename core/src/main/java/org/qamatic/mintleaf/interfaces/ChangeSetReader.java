@@ -29,8 +29,8 @@ package org.qamatic.mintleaf.interfaces;
 
 import java.util.HashMap;
 
-public interface MultiPartReader extends SqlReader {
-    SqlPart getSqlPart(String sectionName);
+public interface ChangeSetReader extends SqlReader {
+    ChangeSet getChangeSet(String sectionName);
 
-    HashMap<String, SqlPart> getSqlParts();
+    HashMap<String, ChangeSet> getChangeSets();
 }

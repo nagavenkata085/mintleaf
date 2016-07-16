@@ -1,5 +1,5 @@
 
--- <sqlpart name="create person table" delimiter="/" />
+-- <ChangeSet name="create person table" delimiter="/" />
 
 CREATE TABLE PERSON 
     ( 
@@ -18,7 +18,7 @@ end;
 /
 
 
--- <sqlpart name="drop person table" delimiter="/" />
+-- <ChangeSet name="drop person table" delimiter="/" />
 
 begin
 execute immediate 'drop table PERSON purge';

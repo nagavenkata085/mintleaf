@@ -1,4 +1,4 @@
--- <sqlpart name="part1" delimiter="/" />
+-- <ChangeSet name="part1" delimiter="/" />
 -- empty package
 create or replace package EmptyPackage
 as
@@ -7,7 +7,7 @@ end EmptyPackage;
 
 /
 
--- <sqlpart name="part2" delimiter="/" />
+-- <ChangeSet name="part2" delimiter="/" />
 
 create or replace
 package body EmptyPackage
@@ -17,7 +17,7 @@ end EmptyPackage;
 
 /
 
--- <sqlpart name="part3" delimiter="/" />
+-- <ChangeSet name="part3" delimiter="/" />
 
 
 

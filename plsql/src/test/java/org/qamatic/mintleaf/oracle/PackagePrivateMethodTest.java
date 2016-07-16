@@ -71,7 +71,7 @@ public class PackagePrivateMethodTest extends OracleTestCase {
 
         @Override
         public SqlReaderListener getSqlReadListener() {
-            return SqlPartListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "/TestConst_Sections.sql", null);
+            return ChangeSetListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "/TestConst_Sections.sql", null);
         }
 
         public String getTestId() {

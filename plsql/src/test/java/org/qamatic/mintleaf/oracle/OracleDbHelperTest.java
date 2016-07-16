@@ -36,7 +36,7 @@ import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.interfaces.DbMetaData;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestDatabase;

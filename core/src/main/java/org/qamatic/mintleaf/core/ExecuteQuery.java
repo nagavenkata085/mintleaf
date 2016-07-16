@@ -141,12 +141,12 @@ public class ExecuteQuery {
             if ((mvsectionsToLoad == null) || (mvsectionsToLoad.length == 0)) {
                 return;
             }
-            MultiPartReader reader = new SqlMultiPartFileReader(mvfileName);
+            ChangeSetReader reader = new SqlChangeSetFileReader(mvfileName);
             reader.read();
             for (String sectionName : mvsectionsToLoad) {
-                if (reader.getSqlParts().containsKey(sectionName)) {
-                    SqlPart section = reader.getSqlPart(sectionName);
-                    SqlScript loadSql = new LoadSqlScriptScript(mvContext, section.getSqlPartSource(), section.getDelimiter());
+                if (reader.getChangeSets().containsKey(sectionName)) {
+                    ChangeSet section = reader.getChangeSet(sectionName);
+                    SqlScript loadSql = new LoadSqlScriptScript(mvContext, section.getChangeSetSource(), section.getDelimiter());
                     loadSql.create();
                 }
             }

@@ -28,9 +28,9 @@
 package org.qamatic.mintleaf.dbsupportimpls;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlMultiPartFileReader;
-import org.qamatic.mintleaf.interfaces.MultiPartReader;
-import org.qamatic.mintleaf.interfaces.SqlPart;
+import org.qamatic.mintleaf.core.SqlChangeSetFileReader;
+import org.qamatic.mintleaf.interfaces.ChangeSetReader;
+import org.qamatic.mintleaf.interfaces.ChangeSet;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
 
 import java.io.IOException;
@@ -49,42 +49,42 @@ public class SqlMultiPartlFileReaderTest {
     @Test
     public void testSqlSectionalReaderCount() throws IOException, SQLException {
         InputStream iStream = this.getClass().getResourceAsStream("/multipart2.sql");
-        MultiPartReader reader = new SqlMultiPartFileReader(iStream);
+        ChangeSetReader reader = new SqlChangeSetFileReader(iStream);
         reader.read();
-        assertEquals(3, reader.getSqlParts().size());
+        assertEquals(3, reader.getChangeSets().size());
     }
 
     @Test
     public void testSqlSectionalReaderSections() throws IOException, SQLException {
-        MultiPartReader reader = new SqlMultiPartFileReader("/multipart2.sql");
+        ChangeSetReader reader = new SqlChangeSetFileReader("/multipart2.sql");
         reader.read();
 
-        assertTrue(reader.getSqlParts().containsKey("part1"));
-        assertTrue(reader.getSqlParts().containsKey("part2"));
-        assertTrue(reader.getSqlParts().containsKey("part3"));
-        SqlPart part1 = reader.getSqlParts().get("part1");
-        assertEquals(getPart1Data(), part1.getSqlPartSource());
+        assertTrue(reader.getChangeSets().containsKey("part1"));
+        assertTrue(reader.getChangeSets().containsKey("part2"));
+        assertTrue(reader.getChangeSets().containsKey("part3"));
+        ChangeSet part1 = reader.getChangeSets().get("part1");
+        assertEquals(getPart1Data(), part1.getChangeSetSource());
 
-        SqlPart part2 = reader.getSqlParts().get("part2");
-        assertEquals(getPart2Data(), part2.getSqlPartSource());
+        ChangeSet part2 = reader.getChangeSets().get("part2");
+        assertEquals(getPart2Data(), part2.getChangeSetSource());
 
-        SqlPart part3 = reader.getSqlParts().get("part3");
-        assertEquals(getPart3Data(), part3.getSqlPartSource());
+        ChangeSet part3 = reader.getChangeSets().get("part3");
+        assertEquals(getPart3Data(), part3.getChangeSetSource());
     }
 
     @Test
     public void testgetSectionDetail() {
         String json = "ffccc";
-        SqlPart detail = SqlPart.xmlToSqlPart(json);
+        ChangeSet detail = ChangeSet.xmlToChangeSet(json);
 
         assertNull(detail);
 
-        detail = SqlPart.xmlToSqlPart("<sqlpart name=\"delete tables\" delimiter=\"/\" />");
+        detail = ChangeSet.xmlToChangeSet("<ChangeSet name=\"delete tables\" delimiter=\"/\" />");
         assertNotNull(detail);
         assertEquals("delete tables", detail.getName());
         assertEquals("/", detail.getDelimiter());
 
-        detail = SqlPart.xmlToSqlPart("<sqlpart name=\"delete tables\"  />");
+        detail = ChangeSet.xmlToChangeSet("<ChangeSet name=\"delete tables\"  />");
         assertNotNull(detail);
         assertEquals("delete tables", detail.getName());
         assertEquals("", detail.getDelimiter());
@@ -133,7 +133,7 @@ public class SqlMultiPartlFileReaderTest {
 
         SqlReaderListener listner = new SectionalFileReadListner();
         InputStream iStream = this.getClass().getResourceAsStream("/multipart.sql");
-        SqlMultiPartFileReader reader = new SqlMultiPartFileReader(iStream);
+        SqlChangeSetFileReader reader = new SqlChangeSetFileReader(iStream);
         reader.setReaderListener(listner);
         actual_part1 = null;
         actual_part2 = null;

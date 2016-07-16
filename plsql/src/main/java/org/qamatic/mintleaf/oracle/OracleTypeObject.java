@@ -34,7 +34,7 @@ import oracle.sql.TypeDescriptor;
 import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
@@ -81,7 +81,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
     @Override
     public SqlReaderListener getSqlReadListener() {
         if (getSectionalFile() != null) {
-            return SqlPartListeners.getPLTypeObjectSectionalListner(getDbContext(), getSectionalFile(), null);
+            return ChangeSetListeners.getPLTypeObjectSectionalListner(getDbContext(), getSectionalFile(), null);
         }
         return super.getSqlReadListener();
     }

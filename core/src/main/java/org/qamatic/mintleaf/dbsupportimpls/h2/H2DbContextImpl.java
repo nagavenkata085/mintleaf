@@ -1,7 +1,6 @@
 package org.qamatic.mintleaf.dbsupportimpls.h2;
 
 import org.qamatic.mintleaf.core.BaseDbContext;
-import org.qamatic.mintleaf.dbsupportimpls.h2.intf.H2DbContext;
 import org.qamatic.mintleaf.interfaces.DbColumn;
 import org.qamatic.mintleaf.interfaces.RowListener;
 import org.qamatic.mintleaf.interfaces.DbMetaData;

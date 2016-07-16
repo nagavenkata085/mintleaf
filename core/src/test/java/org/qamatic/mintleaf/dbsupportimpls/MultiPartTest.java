@@ -29,28 +29,28 @@ package org.qamatic.mintleaf.dbsupportimpls;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.interfaces.SqlPart;
+import org.qamatic.mintleaf.interfaces.ChangeSet;
 
 import static org.junit.Assert.assertEquals;
 
 public class MultiPartTest {
 
     @Test
-    public void testSqlPartJson1() {
-        String serialize = new SqlPart().toString();
-        Assert.assertTrue(serialize, serialize.contains("<sqlPart name=\"\" delimiter=\"\"/>"));
+    public void testChangeSet1() {
+        String serialize = new ChangeSet().toString();
+        Assert.assertTrue(serialize, serialize.contains("<changeSet name=\"\" delimiter=\"\"/>"));
     }
 
     @Test
-    public void testSqlPartJson2() {
-        String serialize = new SqlPart("test", ";", "").toString();
-        Assert.assertTrue(serialize, serialize.contains("<sqlPart name=\"test\" delimiter=\";\"/>"));
+    public void testChangeSet2() {
+        String serialize = new ChangeSet("test", ";", "").toString();
+        Assert.assertTrue(serialize, serialize.contains("<changeSet name=\"test\" delimiter=\";\"/>"));
     }
 
     @Test
     public void testMultiPartTagFromXml() {
-        String xml = "<sqlpart name=\"part1\" delimiter=\"/\" />";
-        SqlPart detail = SqlPart.xmlToSqlPart(xml);
+        String xml = "<changeSet name=\"part1\" delimiter=\"/\" />";
+        ChangeSet detail = ChangeSet.xmlToChangeSet(xml);
         assertEquals("part1", detail.getName());
         assertEquals("/", detail.getDelimiter());
     }

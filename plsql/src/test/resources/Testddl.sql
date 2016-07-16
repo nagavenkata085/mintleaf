@@ -1,5 +1,5 @@
 
--- <sqlpart name="create_test_table" delimiter=";" />
+-- <ChangeSet name="create_test_table" delimiter=";" />
 
 CREATE TABLE TABLE1 
     ( 

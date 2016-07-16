@@ -27,8 +27,8 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.interfaces.MultiPartReader;
-import org.qamatic.mintleaf.interfaces.SqlPart;
+import org.qamatic.mintleaf.interfaces.ChangeSetReader;
+import org.qamatic.mintleaf.interfaces.ChangeSet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,27 +37,27 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class SqlMultiPartFileReader extends BaseSqlReader implements MultiPartReader {
+public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetReader {
 
-    private final HashMap<String, SqlPart> mvSections = new HashMap<String, SqlPart>();
+    private final HashMap<String, ChangeSet> mvSections = new HashMap<String, ChangeSet>();
     protected InputStream mvStream;
 
-    public SqlMultiPartFileReader(InputStream stream) {
+    public SqlChangeSetFileReader(InputStream stream) {
         this.mvStream = stream;
 
     }
 
-    public SqlMultiPartFileReader(String resource) {
+    public SqlChangeSetFileReader(String resource) {
         this.mvStream = this.getClass().getResourceAsStream(resource);
     }
 
     @Override
-    public SqlPart getSqlPart(String sectionName) {
+    public ChangeSet getChangeSet(String sectionName) {
         return mvSections.get(sectionName);
     }
 
     @Override
-    public HashMap<String, SqlPart> getSqlParts() {
+    public HashMap<String, ChangeSet> getChangeSets() {
         return mvSections;
     }
 
@@ -67,7 +67,7 @@ public class SqlMultiPartFileReader extends BaseSqlReader implements MultiPartRe
         StringBuilder childContents = new StringBuilder();
         StringBuilder contents = new StringBuilder();
         BufferedReader input = new BufferedReader(new InputStreamReader(mvStream, "UTF-8"));
-        SqlPart currentSection = null;
+        ChangeSet currentSection = null;
         try {
             String line = null; // not declared within while loop
 
@@ -80,18 +80,18 @@ public class SqlMultiPartFileReader extends BaseSqlReader implements MultiPartRe
                 contents.append(line);
                 contents.append("\n");
 
-                if ((line.trim().contains("<sqlpart")) && SqlPart.xmlToSqlPart(line) != null) {
+                if ((line.trim().contains("<ChangeSet")) && ChangeSet.xmlToChangeSet(line) != null) {
                     if (currentSection == null) {
-                        currentSection = SqlPart.xmlToSqlPart(line);
+                        currentSection = ChangeSet.xmlToChangeSet(line);
                     }
                     String sql = childContents.toString().trim();
                     if (sql.length() != 0) {
                         if (mvreaderListener != null) {
                             mvreaderListener.onReadChild(new StringBuilder(sql), currentSection);
                         }
-                        currentSection.setSqlPartSource(sql);
+                        currentSection.setChangeSetSource(sql);
                         mvSections.put(currentSection.getName(), currentSection);
-                        currentSection = SqlPart.xmlToSqlPart(line);
+                        currentSection = ChangeSet.xmlToChangeSet(line);
                     }
                     childContents.setLength(0);
                     continue;
@@ -108,7 +108,7 @@ public class SqlMultiPartFileReader extends BaseSqlReader implements MultiPartRe
             if (mvreaderListener != null) {
                 mvreaderListener.onReadChild(new StringBuilder(sql), null);
             }
-            currentSection.setSqlPartSource(sql);
+            currentSection.setChangeSetSource(sql);
             mvSections.put(currentSection.getName(), currentSection);
         }
         return contents.toString();

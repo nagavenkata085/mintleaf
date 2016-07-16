@@ -1,4 +1,4 @@
--- <sqlpart name="create schema" delimiter=";" />
+-- <ChangeSet name="create schema" delimiter=";" />
 
 CREATE SCHEMA IF NOT EXISTS HRDB;
 
@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS HRDB.USERS
 (USERID INT NOT NULL , USERNAME VARCHAR2(50),  RATE NUMBER(12,2), CREATE_TIME DATE DEFAULT sysdate, CONSTRAINT PK_USERID PRIMARY KEY (USERID ));
 
 
--- <sqlpart name="load seed data" delimiter=";" />
+-- <ChangeSet name="load seed data" delimiter=";" />
 
 INSERT INTO HRDB.USERS (USERID, USERNAME) VALUES (1, 'Aiden');
 INSERT INTO HRDB.USERS (USERID, USERNAME) VALUES (2, 'Ethan');

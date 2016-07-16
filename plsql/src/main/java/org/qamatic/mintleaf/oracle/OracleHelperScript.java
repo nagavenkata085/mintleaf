@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;

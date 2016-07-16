@@ -1,4 +1,4 @@
-package org.qamatic.mintleaf.dbsupportimpls.h2.intf;
+package org.qamatic.mintleaf.dbsupportimpls.h2;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 

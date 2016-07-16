@@ -1,4 +1,4 @@
-package org.qamatic.mintleaf.dbsupportimpls.oracle.intf;
+package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 

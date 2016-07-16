@@ -1,5 +1,5 @@
 
--- <sqlpart name="delete tables" delimiter="/" />
+-- <ChangeSet name="delete tables" delimiter="/" />
 
 declare
    c int;
@@ -25,7 +25,7 @@ end;
 
 /
 
--- <sqlpart name="create some tables" delimiter=";" />
+-- <ChangeSet name="create some tables" delimiter=";" />
 
 CREATE TABLE TABLE1 
     ( 

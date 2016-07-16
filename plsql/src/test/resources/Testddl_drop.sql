@@ -1,5 +1,5 @@
 
--- <sqlpart name="drop_test_table" delimiter="/" />
+-- <ChangeSet name="drop_test_table" delimiter="/" />
 
 declare
    c int;

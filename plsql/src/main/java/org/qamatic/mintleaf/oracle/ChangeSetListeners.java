@@ -27,14 +27,14 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.core.SqlMultiPartFileReader;
+import org.qamatic.mintleaf.core.SqlChangeSetFileReader;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class SqlPartListeners {
+public class ChangeSetListeners {
 
     public static SqlReaderListener getPLPackageSectionalListner(DbContext context, String sectionalSqlFile, String[] replaceItems) {
         VisitorSqlExecutor listener = new PackageVisitorSqlExecutor(context);
@@ -48,7 +48,7 @@ public class SqlPartListeners {
 
     public static SqlReaderListener getListner(DbContext context, VisitorSqlExecutor listener, String sectionalSqlFile, String[] replaceItems) {
 
-        SqlMultiPartFileReader sectionalReader = new SqlMultiPartFileReader(sectionalSqlFile);
+        SqlChangeSetFileReader sectionalReader = new SqlChangeSetFileReader(sectionalSqlFile);
 
         try {
             sectionalReader.read();
@@ -63,18 +63,18 @@ public class SqlPartListeners {
             intfSectionName = "type";
             bodySectionName = "typebody";
         }
-        if (sectionalReader.getSqlParts().containsKey(intfSectionName)) {
-            listener.setInterfaceSource(sectionalReader.getSqlPart(intfSectionName).getSqlPartSource());
+        if (sectionalReader.getChangeSets().containsKey(intfSectionName)) {
+            listener.setInterfaceSource(sectionalReader.getChangeSet(intfSectionName).getChangeSetSource());
         }
 
-        if (sectionalReader.getSqlParts().containsKey(bodySectionName)) {
-            listener.setBodySource(sectionalReader.getSqlPart(bodySectionName).getSqlPartSource());
+        if (sectionalReader.getChangeSets().containsKey(bodySectionName)) {
+            listener.setBodySource(sectionalReader.getChangeSet(bodySectionName).getChangeSetSource());
         }
 
         if (replaceItems != null) {
             for (String sectionalName : replaceItems) {
-                if (sectionalReader.getSqlParts().containsKey(sectionalName)) {
-                    listener.getTemplateValues().put(sectionalName, sectionalReader.getSqlPart(sectionalName).getSqlPartSource());
+                if (sectionalReader.getChangeSets().containsKey(sectionalName)) {
+                    listener.getTemplateValues().put(sectionalName, sectionalReader.getChangeSet(sectionalName).getChangeSetSource());
                 }
             }
         }

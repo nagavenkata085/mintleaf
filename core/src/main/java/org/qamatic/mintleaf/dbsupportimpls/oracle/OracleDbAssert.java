@@ -27,7 +27,6 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
 import org.qamatic.mintleaf.interfaces.DbContext;
 
 import org.springframework.jdbc.core.JdbcTemplate;
