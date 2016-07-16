@@ -36,7 +36,7 @@ import org.qamatic.mintleaf.interfaces.DbContext;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@SqlObjectDependsOn(Using = {OracleDbHelperScript.class})
+@SqlObjectDependsOn(Using = {OracleHelperScript.class})
 public abstract class BaseSqlScriptArrayTypeObject extends OracleTypeObject {
 
     public BaseSqlScriptArrayTypeObject(DbContext context) {

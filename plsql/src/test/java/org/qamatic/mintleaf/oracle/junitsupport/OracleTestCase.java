@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.runner.RunWith;
 
-import org.qamatic.mintleaf.interfaces.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
 
 @RunWith(DbWorksTestRunner.class)
 public abstract class OracleTestCase {

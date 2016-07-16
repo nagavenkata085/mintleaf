@@ -34,9 +34,9 @@ import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import java.sql.Types;
 
 @SqlObjectInfo(name = "TestDbProvisioning", source = "/TestDbProvisioning.sql")
-public class TestDbProvisioningScript extends OraclePackage {
+public class TestProvisioningScript extends OraclePackage {
 
-    public TestDbProvisioningScript(DbContext dbContext) {
+    public TestProvisioningScript(DbContext dbContext) {
         super(dbContext);
     }
 

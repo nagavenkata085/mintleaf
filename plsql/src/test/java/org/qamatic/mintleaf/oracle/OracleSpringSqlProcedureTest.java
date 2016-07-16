@@ -269,7 +269,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         }
 
         @Override
-        public TableMetaData getMetaData() throws SQLException {
+        public DbMetaData getMetaData() throws SQLException {
             return null;
         }
 
@@ -283,7 +283,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
         }
 
         @Override
-        public TableMetaData getMetaData() throws SQLException {
+        public DbMetaData getMetaData() throws SQLException {
             return null;
         }
 

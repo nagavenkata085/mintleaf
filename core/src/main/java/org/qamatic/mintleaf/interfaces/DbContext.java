@@ -61,7 +61,7 @@ public interface DbContext {
 
     List<String> getPrimaryKeys(String ownerName, String tableName);
 
-    TableMetaData getObjectMetaData(String objectName) throws SQLException;
+    DbMetaData getMetaData(String objectName) throws SQLException;
 
     boolean isPrivilegeExists(String granteeName, String privilegeName, String objectName);
 

@@ -28,13 +28,13 @@
 package org.qamatic.mintleaf.oracle.core;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.DbSqlScript;
+import org.qamatic.mintleaf.interfaces.SqlScript;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public interface SqlScriptObject extends DbSqlScript {
+public interface SqlScriptObject extends SqlScript {
     DbContext getDbContext();
 
     String getName();

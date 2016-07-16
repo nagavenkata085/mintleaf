@@ -217,7 +217,7 @@ public class OraclePLProcedure extends OracleProcedure {
     protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {
         PLCreateType p = null;
         try {
-            p = new OracleDbHelperScript(dbContext).createTypeFromTable(supportedType, null, rowTypeTableName);
+            p = new OracleHelperScript(dbContext).createTypeFromTable(supportedType, null, rowTypeTableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.interfaces;
 
-public class Column {
+public class DbColumn {
     protected String mvColumnName;
     protected String mvTypeName;
     protected int mvDatatype;

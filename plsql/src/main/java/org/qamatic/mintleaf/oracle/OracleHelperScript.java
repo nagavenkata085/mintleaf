@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.interfaces.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
@@ -44,9 +44,9 @@ import java.util.List;
 
 
 @SqlObjectInfo(name = "OracleDbHelper")
-public class OracleDbHelperScript extends OraclePackage {
+public class OracleHelperScript extends OraclePackage {
 
-    public OracleDbHelperScript(DbContext context) {
+    public OracleHelperScript(DbContext context) {
         super(context);
     }
 
@@ -166,10 +166,10 @@ public class OracleDbHelperScript extends OraclePackage {
         return getOracleDbContext().isPackageExists(objAnnot.name(), false);
     }
 
-    public List<PLTableColumnDef> getTableColumnCodeObjects(TableMetaData metaData) {
+    public List<PLTableColumnDef> getTableColumnCodeObjects(DbMetaData metaData) {
 
         List<PLTableColumnDef> list = new ArrayList<PLTableColumnDef>();
-        for (Column colMetaData : metaData.getColumns()) {
+        for (DbColumn colMetaData : metaData.getColumns()) {
             list.add(new PLTableColumnDef(colMetaData.getColumnName(), colMetaData.getTypeName()));
         }
         return list;
@@ -177,7 +177,7 @@ public class OracleDbHelperScript extends OraclePackage {
 
 
     public List<PLTableColumnDef> getTableColumnCodeObjects(String tableName) throws SQLException {
-        return getTableColumnCodeObjects(getDbContext().getObjectMetaData(tableName));
+        return getTableColumnCodeObjects(getDbContext().getMetaData(tableName));
     }
 
 

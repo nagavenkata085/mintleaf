@@ -7,8 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.dbsupportimpls.h2.H2DbContextImpl;
-import org.qamatic.mintleaf.interfaces.H2DbContext;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.dbsupportimpls.h2.intf.H2DbContext;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -53,7 +53,7 @@ public class H2DbTests {
 
     @Test
     public void b_CheckMetaData() throws SQLException, IOException {
-        TableMetaData md = h2DbContext.getObjectMetaData("HRDB.USERS");
+        DbMetaData md = h2DbContext.getMetaData("HRDB.USERS");
         Assert.assertEquals(4, md.size());
         Assert.assertEquals("USERID", md.getColumns().get(0).getColumnName());
         Assert.assertEquals(4, md.getColumns().get(0).getDatatype());

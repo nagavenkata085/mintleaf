@@ -38,9 +38,9 @@ import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.SqlTypeObjectValue;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
-import org.qamatic.mintleaf.interfaces.OracleDbContext;
-import org.qamatic.mintleaf.oracle.OracleDbHelperScript;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
+import org.qamatic.mintleaf.oracle.OracleHelperScript;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.OracleTypeObject;
 import org.qamatic.mintleaf.oracle.TypeObjectField;
@@ -63,7 +63,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
                     new String[]{"drop person table"});
             mvtestPackage.dropAll();
 
-            new OracleDbHelperScript(mvtestPackage.getDbContext()).dropType("TPERSON");
+            new OracleHelperScript(mvtestPackage.getDbContext()).dropType("TPERSON");
         }
     }
 
@@ -205,8 +205,8 @@ public class TypeObjectExampleTest extends OracleTestCase {
         }
 
         @Override
-        public TableMetaData getMetaData() throws SQLException {
-            return new TableMetaData(new OracleColumn("id"), new OracleColumn("first_name"), new OracleColumn("last_name"));
+        public DbMetaData getMetaData() throws SQLException {
+            return new DbMetaData(new OracleColumn("id"), new OracleColumn("first_name"), new OracleColumn("last_name"));
 
         }
     }

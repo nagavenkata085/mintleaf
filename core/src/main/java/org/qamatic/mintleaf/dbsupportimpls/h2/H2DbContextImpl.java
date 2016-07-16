@@ -1,10 +1,10 @@
 package org.qamatic.mintleaf.dbsupportimpls.h2;
 
 import org.qamatic.mintleaf.core.BaseDbContext;
-import org.qamatic.mintleaf.interfaces.Column;
-import org.qamatic.mintleaf.interfaces.H2DbContext;
+import org.qamatic.mintleaf.dbsupportimpls.h2.intf.H2DbContext;
+import org.qamatic.mintleaf.interfaces.DbColumn;
 import org.qamatic.mintleaf.interfaces.RowListener;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -16,14 +16,14 @@ import java.util.regex.Pattern;
 /**
  * Created by senips on 7/12/16.
  */
-public class H2DbContextImpl extends BaseDbContext implements H2DbContext{
+public class H2DbContextImpl extends BaseDbContext implements H2DbContext {
     public H2DbContextImpl(DataSource datasource) {
         super(datasource);
     }
     
     
     public void iterateTableByQuery(String tableName, String columns, String whereClause, RowListener listener) throws SQLException {
-        TableMetaData metaData = getObjectMetaData(tableName);
+        DbMetaData metaData = getMetaData(tableName);
     }
 
     public void iterativeQuery(String sql, final RowListener listener){
@@ -40,8 +40,8 @@ public class H2DbContextImpl extends BaseDbContext implements H2DbContext{
 
 
     @Override
-    public TableMetaData getObjectMetaData(String objectName) throws SQLException {
-        final TableMetaData metaData = new TableMetaData();
+    public DbMetaData getMetaData(String objectName) throws SQLException {
+        final DbMetaData metaData = new DbMetaData();
         if(objectName != null) {
             objectName = objectName.toUpperCase();
         }
@@ -53,13 +53,13 @@ public class H2DbContextImpl extends BaseDbContext implements H2DbContext{
         String sql = String.format("select * from information_schema.columns where TABLE_SCHEMA ='%s' and TABLE_NAME='%s'", splits[0], splits[1]);
         jdbcTemplate.query(sql, new RowMapper() {
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Column colMetaData = new Column();
+                DbColumn colMetaData = new DbColumn();
                 colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
                 colMetaData.setNullable(rs.getString("IS_NULLABLE")!="NO");
                 colMetaData.setColumnSize(1);
                 colMetaData.setDatatype(rs.getInt("DATA_TYPE"));
 
-                colMetaData.setTypeName(rs.getString("TYPE_NAME"));
+                //colMetaData.setTypeName(rs.getString("TYPE_NAME"));
                 colMetaData.setColumnSize(rs.getInt("CHARACTER_OCTET_LENGTH"));
 
                 if(rs.getString("TYPE_NAME").equals("CHAR")) {

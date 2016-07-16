@@ -33,8 +33,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
-import org.qamatic.mintleaf.interfaces.OracleDbContext;
-import org.qamatic.mintleaf.oracle.OracleDbHelperScript;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
+import org.qamatic.mintleaf.oracle.OracleHelperScript;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
@@ -45,13 +45,13 @@ import static org.junit.Assert.assertEquals;
 
 public class PLCreateTypeBodyTest extends OracleTestCase {
 
-    private static OracleDbHelperScript mvutils;
+    private static OracleHelperScript mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new OracleDbHelperScript(getSchemaOwnerContext());
+            mvutils = new OracleHelperScript(getSchemaOwnerContext());
         }
         mvutils.dropType("MyObject");
         mvutils.dropType("A_Test_Type");

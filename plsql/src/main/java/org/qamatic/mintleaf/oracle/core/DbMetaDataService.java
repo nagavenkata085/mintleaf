@@ -28,16 +28,16 @@
 package org.qamatic.mintleaf.oracle.core;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 
 import java.sql.SQLException;
 
 public interface DbMetaDataService {
 
-    TableMetaData getMetaData(String schemaDotObjectName);
+    DbMetaData getMetaData(String schemaDotObjectName);
 
-    TableMetaData addMetaData(String schemaDotObjectName, TableMetaData metaData);
+    DbMetaData addMetaData(String schemaDotObjectName, DbMetaData metaData);
 
-    TableMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException;
+    DbMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException;
 
 }

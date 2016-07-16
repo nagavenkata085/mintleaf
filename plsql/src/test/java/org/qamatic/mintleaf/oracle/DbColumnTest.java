@@ -30,13 +30,13 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
-import org.qamatic.mintleaf.interfaces.Column;
+import org.qamatic.mintleaf.interfaces.DbColumn;
 
 import java.sql.Types;
 
 import static org.junit.Assert.assertEquals;
 
-public class ColumnTest {
+public class DbColumnTest {
     @Test
     public void testSqlDataTypeCheckNULL() {
         Assert.assertEquals(Types.NULL, new OracleColumn().getDatatype());
@@ -44,7 +44,7 @@ public class ColumnTest {
 
     @Test
     public void testSqlDataTypeAutoDetect() {
-        Column d = new OracleColumn();
+        DbColumn d = new OracleColumn();
 
         d.setTypeName("varchar2");
         d.setColumnSize(10);

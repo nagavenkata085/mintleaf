@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.core.DbMetaDataService;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -37,10 +37,10 @@ import java.util.Map;
 
 public class SchemaMetaDataService implements DbMetaDataService {
 
-    private final Map<String, TableMetaData> mvstructuredObjectsMetaData = new HashMap<String, TableMetaData>();
+    private final Map<String, DbMetaData> mvstructuredObjectsMetaData = new HashMap<String, DbMetaData>();
 
     @Override
-    public TableMetaData getMetaData(String schemaDotObjectName) {
+    public DbMetaData getMetaData(String schemaDotObjectName) {
         schemaDotObjectName = schemaDotObjectName.toUpperCase();
         if (mvstructuredObjectsMetaData.containsKey(schemaDotObjectName)) {
             return mvstructuredObjectsMetaData.get(schemaDotObjectName);
@@ -49,9 +49,9 @@ public class SchemaMetaDataService implements DbMetaDataService {
     }
 
     @Override
-    public TableMetaData addMetaData(String schemaDotObjectName, TableMetaData metaData) {
+    public DbMetaData addMetaData(String schemaDotObjectName, DbMetaData metaData) {
         schemaDotObjectName = schemaDotObjectName.toUpperCase();
-        TableMetaData mData = getMetaData(schemaDotObjectName);
+        DbMetaData mData = getMetaData(schemaDotObjectName);
 
         if (mData == null) {
             mData = metaData;
@@ -62,9 +62,9 @@ public class SchemaMetaDataService implements DbMetaDataService {
     }
 
     @Override
-    public TableMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException {
+    public DbMetaData addMetaDataFromTable(DbContext context, String tableNameName) throws SQLException {
 
-        TableMetaData metaData = context.getObjectMetaData(tableNameName);
+        DbMetaData metaData = context.getMetaData(tableNameName);
         addMetaData(context.getDbSettings().getUsername() + "." + tableNameName, metaData);
         return metaData;
     }

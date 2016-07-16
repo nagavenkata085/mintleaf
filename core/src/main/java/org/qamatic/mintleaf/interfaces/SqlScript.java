@@ -6,7 +6,7 @@ import java.sql.SQLException;
 /**
  * Created by senips on 7/16/16.
  */
-public interface DbSqlScript {
+public interface SqlScript {
     DbContext getDbContext();
 
     String getSource();

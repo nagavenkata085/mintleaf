@@ -32,7 +32,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OracleTypeObjectValue;
 
@@ -47,8 +47,8 @@ public class OracleTypeObjectValueTest extends OracleTestCase {
     private static List<Object> mvtestObjects = new ArrayList<Object>();
 
 
-    private static TableMetaData getSampleMetaData() {
-        TableMetaData metadata = new TableMetaData();
+    private static DbMetaData getSampleMetaData() {
+        DbMetaData metadata = new DbMetaData();
         metadata.add(new OracleColumn("emp_id", "number"));
         metadata.add(new OracleColumn("emp_name", "varchar(2000)"));
         return metadata;

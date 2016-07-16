@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-public class DbSqlScriptObject implements DbSqlScript {
+public class SqlScriptObject implements SqlScript {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     protected DbContext mvContext;
@@ -45,7 +45,7 @@ public class DbSqlScriptObject implements DbSqlScript {
     protected SqlReaderListener mvlistener;
     protected String mvdelimiter;
 
-    public DbSqlScriptObject(DbContext context) {
+    public SqlScriptObject(DbContext context) {
         mvContext = context;
     }
 

@@ -34,7 +34,7 @@ import oracle.sql.TypeDescriptor;
 import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
-import org.qamatic.mintleaf.interfaces.OracleDbContext;
+import org.qamatic.mintleaf.dbsupportimpls.oracle.intf.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
@@ -53,7 +53,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
     protected SqlTypeObjectValue mvtypeobjectValue;
     protected PLCreateType mvPLCreateType;
     protected PLCreateTypeBody mvPLCreateTypeBody;
-    protected TableMetaData mvmetaData;
+    protected DbMetaData mvmetaData;
     protected boolean mvcustomMetaData;
 
     public OracleTypeObject(DbContext context) {
@@ -88,7 +88,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
 
     @Override
     protected void onAfterCreate() {
-        OracleDbHelperScript utils = new OracleDbHelperScript(getDbContext());
+        OracleHelperScript utils = new OracleHelperScript(getDbContext());
         utils.alterType(getName());
     }
 
@@ -152,7 +152,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
 
     protected PLCreateType getCreateTypeInstance() throws SQLException {
         if (mvPLCreateType == null) {
-            OracleDbHelperScript utils = new OracleDbHelperScript(getDbContext());
+            OracleHelperScript utils = new OracleHelperScript(getDbContext());
             mvPLCreateType = utils.createType(getName(), getTypeObjectExtendsFrom(), null, false);
             invalidateColumnList();
         }
@@ -167,7 +167,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
         }
         getCreateTypeInstance().getColumnDefs().clear();
 
-        for (Column colMetaData : getMetaData().getColumns()) {
+        for (DbColumn colMetaData : getMetaData().getColumns()) {
             if (colMetaData.isIgnoreColumn()) {
                 continue;
             }
@@ -195,7 +195,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
 
     @Override
     public void invalidate() {
-        OracleDbHelperScript utils = new OracleDbHelperScript(getDbContext());
+        OracleHelperScript utils = new OracleHelperScript(getDbContext());
         Class<? extends SqlScriptTypeObject>[] dependentTypes = SqlObjectHelper.getDependencyItems(this, SqlScriptTypeObject.class);
         for (Class<? extends SqlScriptTypeObject> typeObjClass : dependentTypes) {
             utils.alterType(typeObjClass);
@@ -205,7 +205,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
 
     @Override
     public void drop() {
-        new OracleDbHelperScript(getDbContext()).dropType(getName());
+        new OracleHelperScript(getDbContext()).dropType(getName());
     }
 
     private Field[] getTypeObjectFields(Class<?> type) {
@@ -228,11 +228,11 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
         return result.toArray(new Field[result.size()]);
     }
 
-    private TableMetaData getMetaDataFromTypeObjectFieldAnnotation(Class<?> type) {
-        TableMetaData result = new TableMetaData();
+    private DbMetaData getMetaDataFromTypeObjectFieldAnnotation(Class<?> type) {
+        DbMetaData result = new DbMetaData();
         for (Field field : getTypeObjectFields(type)) {
             TypeObjectField antot = field.getAnnotation(TypeObjectField.class);
-            Column colMetaData = new OracleColumn(antot.name(), antot.dataType());
+            DbColumn colMetaData = new OracleColumn(antot.name(), antot.dataType());
             colMetaData.setCalculated(antot.isCalculated());
             colMetaData.setIgnoreForTypeObjectCreation(antot.isIgnoreForTypeObjectCreation());
             colMetaData.setColumnSize(antot.columnSize());
@@ -245,11 +245,11 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
     }
 
     @Override
-    public TableMetaData getMetaData() throws SQLException {
+    public DbMetaData getMetaData() throws SQLException {
 
         if (mvmetaData == null) {
             if (!isCustomMetaData() && (getCreateFromSchemaTableName() != null)) {
-                mvmetaData = getDbContext().getObjectMetaData(getCreateFromSchemaTableName());
+                mvmetaData = getDbContext().getMetaData(getCreateFromSchemaTableName());
 
             } else {
                 mvmetaData = getMetaDataFromTypeObjectFieldAnnotation(this.getClass());
@@ -260,7 +260,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
     }
 
     @Override
-    public void setMetaData(TableMetaData metaData) {
+    public void setMetaData(DbMetaData metaData) {
         mvmetaData = metaData;
     }
 
@@ -271,7 +271,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
 
     @Override
     public void setTypeObjectValue(SqlTypeObjectValue value) throws SQLException {
-        TableMetaData metaData = getMetaData();
+        DbMetaData metaData = getMetaData();
         if (metaData != null) {
             value.setMetaData(metaData);
         }

@@ -36,7 +36,7 @@ import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateTypeBody;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
@@ -86,7 +86,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     public void testBindButExitOnNoColumn() throws SQLException {
         MockTypeObject typeObj = new MockTypeObject(getSchemaOwnerContext()) {
             @Override
-            public TableMetaData getMetaData() throws SQLException {
+            public DbMetaData getMetaData() throws SQLException {
 
                 return null;
             }
@@ -101,7 +101,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     public void testAutoBindString() throws SQLException {
         MockTypeObject typeObj = new MockTypeObject(getSchemaOwnerContext()) {
             @Override
-            public TableMetaData getMetaData() throws SQLException {
+            public DbMetaData getMetaData() throws SQLException {
 
                 return null;
             }
@@ -117,7 +117,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     public void testAutoBindNumber() throws SQLException {
         MockTypeObject typeObj = new MockTypeObject(getSchemaOwnerContext()) {
             @Override
-            public TableMetaData getMetaData() throws SQLException {
+            public DbMetaData getMetaData() throws SQLException {
 
                 return null;
             }
@@ -197,7 +197,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
             }
 
             @Override
-            public TableMetaData getMetaData() throws SQLException {
+            public DbMetaData getMetaData() throws SQLException {
 
                 return null;
             }
@@ -254,7 +254,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
                 }
             };
 
-            TableMetaData metaData = typeObj1.getMetaData();
+            DbMetaData metaData = typeObj1.getMetaData();
             assertNotNull(metaData);
             assertEquals(3, metaData.size());
             assertEquals("ID", metaData.getColumns().get(0).getColumnName());
@@ -277,7 +277,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
 
             MockTypeObject typeObj1 = new MockTypeObject(getSchemaOwnerContext());
 
-            TableMetaData metaData = typeObj1.getMetaData();
+            DbMetaData metaData = typeObj1.getMetaData();
 
             assertNotNull(metaData);
             assertEquals(5, metaData.size());

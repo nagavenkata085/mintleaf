@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.oracle.core.DbMetaDataService;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 
 import java.sql.SQLException;
 
@@ -44,9 +44,9 @@ public interface SqlTypeObjectValue {
 
     String getTypeName();
 
-    TableMetaData getMetaData() throws SQLException;
+    DbMetaData getMetaData() throws SQLException;
 
-    void setMetaData(TableMetaData metaData);
+    void setMetaData(DbMetaData metaData);
 
     DbMetaDataService getMetaDataService();
 

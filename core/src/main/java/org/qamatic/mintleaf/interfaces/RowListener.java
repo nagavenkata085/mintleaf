@@ -9,6 +9,6 @@ public interface RowListener {
 
 
 
-    Column getMetaData(int col);
+    DbColumn getMetaData(int col);
 
 }

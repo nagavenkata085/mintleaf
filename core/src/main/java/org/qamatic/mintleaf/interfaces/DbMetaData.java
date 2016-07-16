@@ -30,31 +30,31 @@ package org.qamatic.mintleaf.interfaces;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableMetaData {
-    private final List<Column> mvcolumnsMetaData = new ArrayList<Column>();
+public class DbMetaData {
+    private final List<DbColumn> mvcolumnsMetaData = new ArrayList<DbColumn>();
     private String mvobjectName;
 
-    public TableMetaData() {
+    public DbMetaData() {
 
     }
 
-    public TableMetaData(Column... columns) {
-        for (Column column : columns) {
+    public DbMetaData(DbColumn... dbColumns) {
+        for (DbColumn dbColumn : dbColumns) {
 
-            mvcolumnsMetaData.add(column);
+            mvcolumnsMetaData.add(dbColumn);
         }
     }
 
 
-    public void add(int idx, Column column) {
-        mvcolumnsMetaData.add(idx, column);
+    public void add(int idx, DbColumn dbColumn) {
+        mvcolumnsMetaData.add(idx, dbColumn);
     }
 
-    public void add(Column column) {
-        mvcolumnsMetaData.add(column);
+    public void add(DbColumn dbColumn) {
+        mvcolumnsMetaData.add(dbColumn);
     }
 
-    public List<Column> getColumns() {
+    public List<DbColumn> getColumns() {
         return mvcolumnsMetaData;
     }
 
@@ -69,7 +69,7 @@ public class TableMetaData {
         return -1;
     }
 
-    public Column findColumn(String columnName) {
+    public DbColumn findColumn(String columnName) {
         int idx = getIndex(columnName);
         if (idx != -1) {
             return mvcolumnsMetaData.get(idx);
@@ -92,7 +92,7 @@ public class TableMetaData {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Column mdata : mvcolumnsMetaData) {
+        for (DbColumn mdata : mvcolumnsMetaData) {
             if (sb.length() != 0) {
                 sb.append(", ");
             }

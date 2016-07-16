@@ -31,7 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
 
-public class PLTableColumnDefTest {
+public class PLTableDbColumnDefTest {
 
     @Test
     public void testTableColumnDef() {

@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbMetaData;
 
 import java.sql.SQLException;
 
@@ -45,7 +45,7 @@ public interface SqlScriptTypeObject extends SqlScriptObject {
 
     SqlStoredProcedure getMemberProcedure(String memberProcName);
 
-    TableMetaData getMetaData() throws SQLException;
+    DbMetaData getMetaData() throws SQLException;
 
-    void setMetaData(TableMetaData metaData);
+    void setMetaData(DbMetaData metaData);
 }
