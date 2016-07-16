@@ -78,7 +78,7 @@ public class ExecuteQuery {
 
     // for JUnit, if context is not known
     public void loadSource(DbContext dbcontext, String script, String delimiter) throws SQLException, IOException {
-        SqlObject loadSql = new LoadSqlScript(dbcontext, script, delimiter);
+        DbSql loadSql = new LoadSqlScript(dbcontext, script, delimiter);
         loadSql.create();
     }
 
@@ -97,7 +97,7 @@ public class ExecuteQuery {
         new ExecuteQuery().loadFromSectionalFile(mvDbContext, getFileName(sectionalFileCommaSectionalNames), getSectionNames(sectionalFileCommaSectionalNames));
     }
 
-    private static class LoadSqlScript extends BaseSqlObject {
+    private static class LoadSqlScript extends DbSqlObject {
         private final String mvdelimiter;
         private final String mvscripttext;
 
@@ -146,7 +146,7 @@ public class ExecuteQuery {
             for (String sectionName : mvsectionsToLoad) {
                 if (reader.getSqlParts().containsKey(sectionName)) {
                     SqlPart section = reader.getSqlPart(sectionName);
-                    SqlObject loadSql = new LoadSqlScript(mvContext, section.getSqlPartSource(), section.getDelimiter());
+                    DbSql loadSql = new LoadSqlScript(mvContext, section.getSqlPartSource(), section.getDelimiter());
                     loadSql.create();
                 }
             }

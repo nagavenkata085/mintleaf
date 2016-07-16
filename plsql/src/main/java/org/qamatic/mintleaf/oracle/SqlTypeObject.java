@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.interfaces.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlObject;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
 

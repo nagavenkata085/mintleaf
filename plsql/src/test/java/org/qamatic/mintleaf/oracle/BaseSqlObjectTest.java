@@ -29,11 +29,11 @@ package org.qamatic.mintleaf.oracle;
 
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.BaseSqlObject;
+import org.qamatic.mintleaf.oracle.core.BaseSqlObject;
 import org.qamatic.mintleaf.core.SqlExecutor;
 import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlObject;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 

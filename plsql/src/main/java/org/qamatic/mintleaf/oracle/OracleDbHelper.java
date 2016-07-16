@@ -34,6 +34,7 @@ import org.qamatic.mintleaf.interfaces.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
+import org.qamatic.mintleaf.oracle.core.SqlObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;

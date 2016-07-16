@@ -25,12 +25,16 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf.oracle.core;
+
+import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.interfaces.DbSql;
+import org.qamatic.mintleaf.interfaces.SqlReaderListener;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public interface SqlObject {
+public interface SqlObject extends DbSql {
     DbContext getDbContext();
 
     String getName();

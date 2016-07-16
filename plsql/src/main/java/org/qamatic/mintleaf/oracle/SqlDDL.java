@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.core.BaseSqlObject;
+import org.qamatic.mintleaf.oracle.core.BaseSqlObject;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlReader;
 

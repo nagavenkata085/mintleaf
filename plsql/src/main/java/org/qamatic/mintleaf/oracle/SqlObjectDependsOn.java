@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.interfaces.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlObject;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
