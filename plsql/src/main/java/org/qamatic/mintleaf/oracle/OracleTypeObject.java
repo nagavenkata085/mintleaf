@@ -48,7 +48,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class OracleTypeObject extends OracleBaseSqlObject implements SqlTypeObject, SqlTypeValue {
+public abstract class OracleTypeObject extends OracleBaseSqlScriptObject implements SqlScriptTypeObject, SqlTypeValue {
 
     protected SqlTypeObjectValue mvtypeobjectValue;
     protected PLCreateType mvPLCreateType;
@@ -88,7 +88,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlObject implements Sq
 
     @Override
     protected void onAfterCreate() {
-        OracleDbHelper utils = new OracleDbHelper(getDbContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getDbContext());
         utils.alterType(getName());
     }
 
@@ -152,7 +152,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlObject implements Sq
 
     protected PLCreateType getCreateTypeInstance() throws SQLException {
         if (mvPLCreateType == null) {
-            OracleDbHelper utils = new OracleDbHelper(getDbContext());
+            OracleDbHelperScript utils = new OracleDbHelperScript(getDbContext());
             mvPLCreateType = utils.createType(getName(), getTypeObjectExtendsFrom(), null, false);
             invalidateColumnList();
         }
@@ -195,9 +195,9 @@ public abstract class OracleTypeObject extends OracleBaseSqlObject implements Sq
 
     @Override
     public void invalidate() {
-        OracleDbHelper utils = new OracleDbHelper(getDbContext());
-        Class<? extends SqlTypeObject>[] dependentTypes = SqlObjectHelper.getDependencyItems(this, SqlTypeObject.class);
-        for (Class<? extends SqlTypeObject> typeObjClass : dependentTypes) {
+        OracleDbHelperScript utils = new OracleDbHelperScript(getDbContext());
+        Class<? extends SqlScriptTypeObject>[] dependentTypes = SqlObjectHelper.getDependencyItems(this, SqlScriptTypeObject.class);
+        for (Class<? extends SqlScriptTypeObject> typeObjClass : dependentTypes) {
             utils.alterType(typeObjClass);
         }
         utils.alterType(getName());
@@ -205,7 +205,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlObject implements Sq
 
     @Override
     public void drop() {
-        new OracleDbHelper(getDbContext()).dropType(getName());
+        new OracleDbHelperScript(getDbContext()).dropType(getName());
     }
 
     private Field[] getTypeObjectFields(Class<?> type) {

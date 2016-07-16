@@ -32,7 +32,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.oracle.SqlObjectDependsOn;
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
@@ -40,7 +40,7 @@ import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.SqlTypeObjectValue;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.interfaces.OracleDbContext;
-import org.qamatic.mintleaf.oracle.OracleDbHelper;
+import org.qamatic.mintleaf.oracle.OracleDbHelperScript;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 import org.qamatic.mintleaf.oracle.OracleTypeObject;
 import org.qamatic.mintleaf.oracle.TypeObjectField;
@@ -63,7 +63,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
                     new String[]{"drop person table"});
             mvtestPackage.dropAll();
 
-            new OracleDbHelper(mvtestPackage.getDbContext()).dropType("TPERSON");
+            new OracleDbHelperScript(mvtestPackage.getDbContext()).dropType("TPERSON");
         }
     }
 

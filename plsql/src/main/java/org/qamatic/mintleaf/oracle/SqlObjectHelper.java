@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class SqlObjectHelper {
     protected static Logger logger = LoggerFactory.getLogger(SqlObjectHelper.class);
 
     @SuppressWarnings("unchecked")
-    public static SqlObjectInfo getDbObjectInfo(Class<? extends SqlObject> sqlObjectClass) {
+    public static SqlObjectInfo getDbObjectInfo(Class<? extends SqlScriptObject> sqlObjectClass) {
         SqlObjectInfo sqlObjectInfo = null;
         Annotation[] annotations = sqlObjectClass.getAnnotations();
 
@@ -55,23 +55,23 @@ public class SqlObjectHelper {
             }
         }
         if (sqlObjectInfo == null) {
-            if (SqlObject.class.isAssignableFrom(sqlObjectClass.getSuperclass())) {
-                Class<? extends SqlObject> sc = (Class<? extends SqlObject>) sqlObjectClass.getSuperclass();
+            if (SqlScriptObject.class.isAssignableFrom(sqlObjectClass.getSuperclass())) {
+                Class<? extends SqlScriptObject> sc = (Class<? extends SqlScriptObject>) sqlObjectClass.getSuperclass();
                 sqlObjectInfo = getDbObjectInfo(sc);
             }
         }
         return sqlObjectInfo;
     }
 
-    public static SqlObjectInfo getDbObjectInfo(SqlObject sqlObj) {
+    public static SqlObjectInfo getDbObjectInfo(SqlScriptObject sqlObj) {
         return getDbObjectInfo(sqlObj.getClass());
     }
 
-    public static SqlObjectDependsOn getPLImportAnnotation(SqlObject sqlObject) {
+    public static SqlObjectDependsOn getPLImportAnnotation(SqlScriptObject sqlObject) {
         return getPLImportAnnotation(sqlObject.getClass());
     }
 
-    public static SqlObjectDependsOn getPLImportAnnotation(Class<? extends SqlObject> sqlObjectClass) {
+    public static SqlObjectDependsOn getPLImportAnnotation(Class<? extends SqlScriptObject> sqlObjectClass) {
         Annotation[] annotations = sqlObjectClass.getAnnotations();
 
         for (Annotation annotation : annotations) {
@@ -83,7 +83,7 @@ public class SqlObjectHelper {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T extends SqlObject> void walkDependency(SqlObjectTreeWalker item, List<String> lookUp) throws IllegalStateException {
+    private static <T extends SqlScriptObject> void walkDependency(SqlObjectTreeWalker item, List<String> lookUp) throws IllegalStateException {
 
         SqlObjectDependsOn importAnnotation = getPLImportAnnotation(item.getClassItem());
         if (importAnnotation == null) {
@@ -130,24 +130,24 @@ public class SqlObjectHelper {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends SqlObject> void walkDependency(List<Class<T>> list1, Class<T> rootClass) {
+    public static <T extends SqlScriptObject> void walkDependency(List<Class<T>> list1, Class<T> rootClass) {
 
         List<String> lookUp = new ArrayList<String>();
         SqlObjectTreeWalker rootNode = new SqlObjectTreeWalker(rootClass);
         walkDependency(rootNode, lookUp);
-        List<Class<? extends SqlObject>> distinctList = SqlObjectTreeWalker.distinct(rootNode);
-        for (Class<? extends SqlObject> dependencyTree : distinctList) {
+        List<Class<? extends SqlScriptObject>> distinctList = SqlObjectTreeWalker.distinct(rootNode);
+        for (Class<? extends SqlScriptObject> dependencyTree : distinctList) {
             list1.add((Class<T>) dependencyTree);
         }
 
     }
 
-    public static Class<? extends SqlObject>[] getDependencyItems(SqlObject sqlObject) {
+    public static Class<? extends SqlScriptObject>[] getDependencyItems(SqlScriptObject sqlObject) {
         return getDependencyItems(sqlObject, null);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends SqlObject> Class<T>[] getDependencyItems(SqlObject sqlObject, Class<T> filterbyClassType) {
+    public static <T extends SqlScriptObject> Class<T>[] getDependencyItems(SqlScriptObject sqlObject, Class<T> filterbyClassType) {
         List<Class<T>> sqlObjectList = new ArrayList<Class<T>>();
 
         walkDependency(sqlObjectList, (Class<T>) sqlObject.getClass());
@@ -166,17 +166,17 @@ public class SqlObjectHelper {
         return list.toArray(new Class[list.size()]);
     }
 
-    public static SqlObject createSqlObjectInstance(DbContext context, Class<? extends SqlObject> pkgClass) throws InstantiationException, IllegalAccessException,
+    public static SqlScriptObject createSqlObjectInstance(DbContext context, Class<? extends SqlScriptObject> pkgClass) throws InstantiationException, IllegalAccessException,
             InvocationTargetException {
-        SqlObject sqlObject = null;
+        SqlScriptObject sqlObject = null;
         @SuppressWarnings("rawtypes")
         Constructor ctor = pkgClass.getConstructors()[0];
         // ugly fix but revisit if test fails,
         if (ctor.getParameterTypes().length == 1) {
-            sqlObject = (SqlObject) ctor.newInstance(context);
+            sqlObject = (SqlScriptObject) ctor.newInstance(context);
         }
         if (ctor.getParameterTypes().length == 2) {
-            sqlObject = (SqlObject) ctor.newInstance(null, context);
+            sqlObject = (SqlScriptObject) ctor.newInstance(null, context);
         }
         return sqlObject;
     }

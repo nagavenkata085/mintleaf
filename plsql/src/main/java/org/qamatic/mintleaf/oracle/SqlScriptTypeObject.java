@@ -27,8 +27,25 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
+import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
+import org.qamatic.mintleaf.interfaces.TableMetaData;
 
-public interface SqlDDLObject extends SqlObject {
+import java.sql.SQLException;
 
+public interface SqlScriptTypeObject extends SqlScriptObject {
+
+    SqlTypeObjectValue getTypeObjectValue() throws SQLException;
+
+    void setTypeObjectValue(SqlTypeObjectValue value) throws SQLException;
+
+    boolean isTypeObjectValueNull();
+
+    void autoBind() throws SQLException;
+
+    SqlStoredProcedure getMemberProcedure(String memberProcName);
+
+    TableMetaData getMetaData() throws SQLException;
+
+    void setMetaData(TableMetaData metaData);
 }

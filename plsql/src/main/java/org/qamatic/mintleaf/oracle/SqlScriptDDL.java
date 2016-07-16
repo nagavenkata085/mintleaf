@@ -27,15 +27,15 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.oracle.core.BaseSqlObject;
+import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlReader;
 
 import java.io.InputStream;
 
-public class SqlDDL extends BaseSqlObject implements SqlDDLObject {
+public class SqlScriptDDL extends BaseSqlScriptObject implements SqlScriptDDLObject {
 
-    public SqlDDL(DbContext context) {
+    public SqlScriptDDL(DbContext context) {
         super(context);
     }
 

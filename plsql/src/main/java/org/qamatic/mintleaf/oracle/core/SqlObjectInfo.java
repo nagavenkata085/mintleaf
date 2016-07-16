@@ -25,34 +25,23 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.oracle.core;
 
-import oracle.sql.ARRAY;
-import oracle.sql.ArrayDescriptor;
-import oracle.sql.DatumWithConnection;
-import oracle.sql.TypeDescriptor;
-import org.qamatic.mintleaf.interfaces.DbContext;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface SqlObjectInfo {
+    String name();
 
-@SqlObjectDependsOn(Using = {OracleDbHelper.class})
-public abstract class BaseSqlArrayTypeObject extends OracleTypeObject {
+    String source() default "";
 
-    public BaseSqlArrayTypeObject(DbContext context) {
-        super(context);
+    String sourceDelimiter() default "";
 
-    }
+    String dropSource() default "";
 
-    @Override
-    protected TypeDescriptor getDescriptor(Connection conn, String typeName) throws SQLException {
-
-        return new ArrayDescriptor(typeName, conn);
-    }
-
-    @Override
-    protected DatumWithConnection getDatum(TypeDescriptor descriptor, Connection conn, String typeName) throws SQLException {
-
-        return new ARRAY((ArrayDescriptor) getDescriptor(conn, typeName), conn, getValues());
-    }
+    String dropSourceDelimiter() default "";
 }

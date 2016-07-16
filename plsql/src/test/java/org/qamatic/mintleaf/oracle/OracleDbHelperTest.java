@@ -33,10 +33,11 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.*;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.interfaces.TableMetaData;
 import org.qamatic.mintleaf.interfaces.OracleDbContext;
-import org.qamatic.mintleaf.oracle.core.BaseSqlObject;
+import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestDatabase;
 import org.qamatic.mintleaf.oracle.mocks.CreateTable1;
@@ -55,7 +56,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Before
     public void init() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         utils.create();
         mvtestPackage = new MockTestPackage2(getSchemaOwnerContext());
         mvtestPackage.create();
@@ -68,7 +69,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testtruncateTable() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         try {
             table1.dropAll();
@@ -98,7 +99,7 @@ public class OracleDbHelperTest extends OracleTestCase {
     @SuppressWarnings("boxing")
     @Test
     public void testIsColumnExists() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         try {
             table1.dropAll();
@@ -116,7 +117,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testCreateType() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         try {
             table1.dropAll();
@@ -133,7 +134,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testCreateTypeFromSynonym() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getSchemaOwnerContext().getDataSource());
@@ -153,7 +154,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testgetobjectcolumnsdef() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getSchemaOwnerContext().getDataSource());
@@ -260,19 +261,19 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testIsDatabaseUserExists() {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         assertTrue("DBWORKSUser user not found: ", getSchemaOwnerContext().isUserExists(getSchemaOwnerContext().getDbSettings().getUsername()));
     }
 
     @Test
     public void testIsPackageBodyExists() {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         assertTrue("MockTestPackage2 package body not found: ", getOracleDbContext().isPackageBodyExists("MockTestPackage2", false));
     }
 
     @Test
     public void testIsUserObjectExists() {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         assertTrue("MockTestPackage2 package not found: ", getSchemaOwnerContext().isSqlObjectExists("MockTestPackage2", "PACKAGE", false));
     }
 
@@ -315,7 +316,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testGetNextSequenceNumber() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         JdbcTemplate template = new JdbcTemplate();
         template.setDataSource(getSchemaOwnerContext().getDataSource());
         try {
@@ -331,11 +332,11 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testIsDependencyPackageExists() throws SQLException, IOException {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
 
         DependencyExistsTestPackage pkg = new DependencyExistsTestPackage(getSchemaOwnerContext());
         pkg.dropAll();
-        Class<? extends SqlObject>[] dependencies = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
+        Class<? extends SqlScriptObject>[] dependencies = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
 
         assertEquals(1, dependencies.length);
         assertEquals(TestLog.class, dependencies[0]);
@@ -348,7 +349,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testGetUserObjectList() {
-        OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+        OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
         List<String> list = getSchemaOwnerContext().getSqlObjects("PACKAGE");
         assertTrue("getSqlObjects does not return any one of the pacakge at least", list.size() != 0);
     }
@@ -358,7 +359,7 @@ public class OracleDbHelperTest extends OracleTestCase {
         new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
-            OracleDbHelper utils = new OracleDbHelper(getSchemaOwnerContext());
+            OracleDbHelperScript utils = new OracleDbHelperScript(getSchemaOwnerContext());
             List<String> keys = getSchemaOwnerContext().getPrimaryKeys(null, "person");
             assertEquals("ID", keys.get(0));
 
@@ -371,7 +372,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @SqlObjectInfo(name = "few test data", source = "/AddDataToTable2Count5.sql")
     @SqlObjectDependsOn(Using = CreateTable1.class)
-    public static class PopulateTestDataForTable2 extends BaseSqlObject {
+    public static class PopulateTestDataForTable2 extends BaseSqlScriptObject {
 
         public PopulateTestDataForTable2(DbContext context) {
             super(context);
@@ -391,7 +392,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @SqlObjectInfo(name = "few test data", source = "/AddDataToTable1Count2.sql", sourceDelimiter = ";")
     @SqlObjectDependsOn(Using = CreateTable1.class)
-    public class PopulateTestDataForTable1 extends BaseSqlObject {
+    public class PopulateTestDataForTable1 extends BaseSqlScriptObject {
 
         public PopulateTestDataForTable1(DbContext context) {
             super(context);

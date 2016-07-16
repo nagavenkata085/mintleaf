@@ -28,13 +28,13 @@
 package org.qamatic.mintleaf.oracle;
 
 
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.interfaces.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
@@ -44,9 +44,9 @@ import java.util.List;
 
 
 @SqlObjectInfo(name = "OracleDbHelper")
-public class OracleDbHelper extends OraclePackage {
+public class OracleDbHelperScript extends OraclePackage {
 
-    public OracleDbHelper(DbContext context) {
+    public OracleDbHelperScript(DbContext context) {
         super(context);
     }
 
@@ -117,7 +117,7 @@ public class OracleDbHelper extends OraclePackage {
     }
 
 
-    public void alterType(Class<? extends SqlTypeObject> aType) {
+    public void alterType(Class<? extends SqlScriptTypeObject> aType) {
         alterType(SqlObjectHelper.getDbObjectInfo(aType).name());
     }
 
@@ -146,7 +146,7 @@ public class OracleDbHelper extends OraclePackage {
     }
 
 
-    public boolean isDependencyPackageExists(SqlStoredProcedureModule pkg) {
+    public boolean isDependencyPackageExists(SqlScriptStoredProcedureModule pkg) {
 
         Class<OraclePackage>[] items = SqlObjectHelper.getDependencyItems(pkg, OraclePackage.class);
         for (Class<OraclePackage> sqlClass : items) {
@@ -157,7 +157,7 @@ public class OracleDbHelper extends OraclePackage {
         return true;
     }
 
-    public boolean isPackageExists(Class<? extends SqlObject> pkgClass) {
+    public boolean isPackageExists(Class<? extends SqlScriptObject> pkgClass) {
         SqlObjectInfo objAnnot = SqlObjectHelper.getDbObjectInfo(pkgClass);
         if (objAnnot == null) {
             return true;

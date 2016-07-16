@@ -31,7 +31,7 @@ import oracle.jdbc.OracleTypes;
 import oracle.sql.NUMBER;
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.interfaces.*;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
@@ -306,7 +306,7 @@ public class OracleSpringSqlProcedureTest extends OracleTestCase {
 
 
         @Override
-        public Map<String, SqlTypeObject> getTypeObjectRegistry() {
+        public Map<String, SqlScriptTypeObject> getTypeObjectRegistry() {
 
             return super.getTypeObjectRegistry();
         }

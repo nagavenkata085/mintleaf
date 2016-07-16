@@ -30,7 +30,6 @@ package org.qamatic.mintleaf.oracle.core;
 
 import org.qamatic.mintleaf.core.SqlExecutor;
 import org.qamatic.mintleaf.core.SqlFileReader;
-import org.qamatic.mintleaf.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlReader;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
@@ -44,7 +43,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
-public class BaseSqlObject implements SqlObject {
+public class BaseSqlScriptObject implements SqlScriptObject {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     protected DbContext mvContext;
@@ -54,7 +53,7 @@ public class BaseSqlObject implements SqlObject {
     protected SqlReaderListener mvlastChildListner;
     protected SqlReaderListener mvlistener;
 
-    public BaseSqlObject(DbContext context) {
+    public BaseSqlScriptObject(DbContext context) {
         mvContext = context;
     }
 
@@ -132,15 +131,15 @@ public class BaseSqlObject implements SqlObject {
         return p.dropSourceDelimiter().equals("") ? null : p.dropSourceDelimiter();
     }
 
-    protected boolean canCreate(SqlObject sqlObject) {
+    protected boolean canCreate(SqlScriptObject sqlObject) {
         return true;
     }
 
-    protected boolean canDrop(SqlObject sqlObject) {
+    protected boolean canDrop(SqlScriptObject sqlObject) {
         return true;
     }
 
-    protected void onDependencyObjectCreated(SqlObject sqlObject) {
+    protected void onDependencyObjectCreated(SqlScriptObject sqlObject) {
 
     }
 
@@ -267,7 +266,7 @@ public class BaseSqlObject implements SqlObject {
 
 
     @SuppressWarnings("unchecked")
-    public static SqlObjectInfo getDbObjectInfo(Class<? extends SqlObject> sqlObjectClass) {
+    public static SqlObjectInfo getDbObjectInfo(Class<? extends SqlScriptObject> sqlObjectClass) {
         SqlObjectInfo sqlObjectInfo = null;
         Annotation[] annotations = sqlObjectClass.getAnnotations();
 
@@ -277,29 +276,29 @@ public class BaseSqlObject implements SqlObject {
             }
         }
         if (sqlObjectInfo == null) {
-            if (SqlObject.class.isAssignableFrom(sqlObjectClass.getSuperclass())) {
-                Class<? extends SqlObject> sc = (Class<? extends SqlObject>) sqlObjectClass.getSuperclass();
+            if (SqlScriptObject.class.isAssignableFrom(sqlObjectClass.getSuperclass())) {
+                Class<? extends SqlScriptObject> sc = (Class<? extends SqlScriptObject>) sqlObjectClass.getSuperclass();
                 sqlObjectInfo = getDbObjectInfo(sc);
             }
         }
         return sqlObjectInfo;
     }
 
-    public static SqlObjectInfo getDbObjectInfo(SqlObject sqlObj) {
+    public static SqlObjectInfo getDbObjectInfo(SqlScriptObject sqlObj) {
         return getDbObjectInfo(sqlObj.getClass());
     }
 
-    public static SqlObject createSqlObjectInstance(DbContext context, Class<? extends SqlObject> pkgClass) throws InstantiationException, IllegalAccessException,
+    public static SqlScriptObject createSqlObjectInstance(DbContext context, Class<? extends SqlScriptObject> pkgClass) throws InstantiationException, IllegalAccessException,
             InvocationTargetException {
-        SqlObject sqlObject = null;
+        SqlScriptObject sqlObject = null;
         @SuppressWarnings("rawtypes")
         Constructor ctor = pkgClass.getConstructors()[0];
         // ugly fix but revisit if test fails,
         if (ctor.getParameterTypes().length == 1) {
-            sqlObject = (SqlObject) ctor.newInstance(context);
+            sqlObject = (SqlScriptObject) ctor.newInstance(context);
         }
         if (ctor.getParameterTypes().length == 2) {
-            sqlObject = (SqlObject) ctor.newInstance(null, context);
+            sqlObject = (SqlScriptObject) ctor.newInstance(null, context);
         }
         return sqlObject;
     }

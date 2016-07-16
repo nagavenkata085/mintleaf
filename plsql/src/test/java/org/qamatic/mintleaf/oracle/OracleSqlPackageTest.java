@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
@@ -59,7 +59,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
 
     @Test
     public void TestPackageTest() {
-        SqlStoredProcedureModule pkg = new ATestPackage1(getSchemaOwnerContext());
+        SqlScriptStoredProcedureModule pkg = new ATestPackage1(getSchemaOwnerContext());
         assertNotNull(pkg.getDbContext());
     }
 

@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.OracleDbContext;
-import org.qamatic.mintleaf.oracle.OracleDbHelper;
+import org.qamatic.mintleaf.oracle.OracleDbHelperScript;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
@@ -44,13 +44,13 @@ import static org.junit.Assert.assertEquals;
 
 public class PLCreatePackageTest extends OracleTestCase {
 
-    private static OracleDbHelper mvutils;
+    private static OracleDbHelperScript mvutils;
 
 
     @Before
     public void init() {
         if (mvutils == null) {
-            mvutils = new OracleDbHelper(getSchemaOwnerContext());
+            mvutils = new OracleDbHelperScript(getSchemaOwnerContext());
         }
     }
 

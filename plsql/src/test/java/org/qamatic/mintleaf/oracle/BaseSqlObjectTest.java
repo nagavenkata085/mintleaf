@@ -29,11 +29,11 @@ package org.qamatic.mintleaf.oracle;
 
 
 import org.junit.Test;
-import org.qamatic.mintleaf.oracle.core.BaseSqlObject;
+import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
 import org.qamatic.mintleaf.core.SqlExecutor;
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.interfaces.SqlReaderListener;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
@@ -49,7 +49,7 @@ public final class BaseSqlObjectTest extends OracleTestCase {
 
     @Test
     public void testSqlObjectName() {
-        SqlObject pkg = new TestObject1(getSchemaOwnerContext());
+        SqlScriptObject pkg = new TestObject1(getSchemaOwnerContext());
         assertEquals("atest_pkg1", pkg.getName());
 
         pkg = new TestObjectWithoutAnnotation(getSchemaOwnerContext());
@@ -61,19 +61,19 @@ public final class BaseSqlObjectTest extends OracleTestCase {
 
     @Test
     public void testSourceTest2() {
-        SqlObject pkg = new TestObjectWithoutAnnotation(getSchemaOwnerContext());
+        SqlScriptObject pkg = new TestObjectWithoutAnnotation(getSchemaOwnerContext());
         assertNull(pkg.getSource());
     }
 
     @Test
     public void testSourceTest1() {
-        SqlObject pkg = new TestObject1(getSchemaOwnerContext());
+        SqlScriptObject pkg = new TestObject1(getSchemaOwnerContext());
         assertEquals("/ATestPackage1.sql", pkg.getSource());
     }
 
     @Test
     public void testAddChildListener() {
-        BaseSqlObject sqlObj = new BaseSqlObject(null) {
+        BaseSqlScriptObject sqlObj = new BaseSqlScriptObject(null) {
         };
         assertNull(sqlObj.getChildListener());
         SqlReaderListener listener = sqlObj.getSqlReadListener();
@@ -94,7 +94,7 @@ public final class BaseSqlObjectTest extends OracleTestCase {
     }
 
     @SqlObjectInfo(name = "atest_pkg1", source = "/ATestPackage1.sql")
-    private class TestObject1 extends BaseSqlObject {
+    private class TestObject1 extends BaseSqlScriptObject {
 
         public TestObject1(DbContext context) {
             super(context);
@@ -107,7 +107,7 @@ public final class BaseSqlObjectTest extends OracleTestCase {
 
     }
 
-    private class TestObjectWithoutAnnotation extends BaseSqlObject {
+    private class TestObjectWithoutAnnotation extends BaseSqlScriptObject {
 
         public TestObjectWithoutAnnotation(DbContext context) {
             super(context);

@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class OracleBatchDDL extends SqlDDL implements SqlDDLObject, SqlReaderListener {
+public class OracleBatchDDL extends SqlScriptDDL implements SqlScriptDDLObject, SqlReaderListener {
 
     private static final int BATCH_SIZE = 1000;
 

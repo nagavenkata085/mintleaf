@@ -1,8 +1,8 @@
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.oracle.core.BaseSqlObject;
+import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -10,9 +10,9 @@ import java.sql.SQLException;
 /**
  * Created by senips on 7/11/16.
  */
-public class OracleBaseSqlObject extends BaseSqlObject {
+public class OracleBaseSqlScriptObject extends BaseSqlScriptObject {
 
-    public OracleBaseSqlObject(DbContext context) {
+    public OracleBaseSqlScriptObject(DbContext context) {
         super(context);
     }
 
@@ -29,10 +29,10 @@ public class OracleBaseSqlObject extends BaseSqlObject {
 
 
 
-    private void createDependencies(Class<? extends SqlObject>[] dependencies) {
-        for (Class<? extends SqlObject> dependencie : dependencies) {
+    private void createDependencies(Class<? extends SqlScriptObject>[] dependencies) {
+        for (Class<? extends SqlScriptObject> dependencie : dependencies) {
             try {
-                SqlObject sqlObject = createSqlObjectInstance(mvContext, dependencie);
+                SqlScriptObject sqlObject = createSqlObjectInstance(mvContext, dependencie);
                 onDependencyObjectCreated(sqlObject);
                 if (sqlObject != null) {
 
@@ -47,10 +47,10 @@ public class OracleBaseSqlObject extends BaseSqlObject {
 
     }
 
-    private void dropDependencies(Class<? extends SqlObject>[] dependencies) {
+    private void dropDependencies(Class<? extends SqlScriptObject>[] dependencies) {
         for (int i = dependencies.length - 1; i >= 0; i--) {
             try {
-                SqlObject sqlObject = createSqlObjectInstance(mvContext, dependencies[i]);
+                SqlScriptObject sqlObject = createSqlObjectInstance(mvContext, dependencies[i]);
                 if (sqlObject != null) {
 
                     if (canDrop(sqlObject)) {

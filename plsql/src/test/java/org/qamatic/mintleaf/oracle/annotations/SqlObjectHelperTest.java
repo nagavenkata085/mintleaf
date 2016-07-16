@@ -32,11 +32,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.SqlObjectDependsOn;
 import org.qamatic.mintleaf.oracle.SqlObjectHelper;
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlObject;
-import org.qamatic.mintleaf.oracle.SqlStoredProcedureModule;
-import org.qamatic.mintleaf.oracle.OracleDbHelper;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
+import org.qamatic.mintleaf.oracle.SqlScriptStoredProcedureModule;
+import org.qamatic.mintleaf.oracle.OracleDbHelperScript;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class SqlObjectHelperTest {
         SqlObjectDependsOn plAnnotation = SqlObjectHelper.getPLImportAnnotation(pkg);
         assertNotNull(plAnnotation);
         assertEquals(2, plAnnotation.Using().length);
-        assertTrue(plAnnotation.Using()[0] == OracleDbHelper.class);
+        assertTrue(plAnnotation.Using()[0] == OracleDbHelperScript.class);
         assertTrue(plAnnotation.Using()[1] == MockTestPackage2.class);
     }
 
@@ -127,7 +127,7 @@ public class SqlObjectHelperTest {
         assertEquals(pkgList.size(), 2);
 
 
-        assertEquals(pkgList.get(0), OracleDbHelper.class);
+        assertEquals(pkgList.get(0), OracleDbHelperScript.class);
         assertEquals(pkgList.get(1), MockTestPackage2.class);
     }
 
@@ -135,13 +135,13 @@ public class SqlObjectHelperTest {
     public void testPLImporgetPackageDependency() {
         MockTestPackage3 pkg = new MockTestPackage3(null);
 
-        Class<? extends SqlObject>[] items = SqlObjectHelper.getDependencyItems(pkg);
+        Class<? extends SqlScriptObject>[] items = SqlObjectHelper.getDependencyItems(pkg);
         assertNotNull(items);
 
         assertEquals(items.length, 2);
 
 
-        assertEquals(items[0], OracleDbHelper.class);
+        assertEquals(items[0], OracleDbHelperScript.class);
         assertEquals(items[1], MockTestPackage2.class);
     }
 
@@ -153,7 +153,7 @@ public class SqlObjectHelperTest {
         assertEquals(pkgList.size(), 4);
         Object[] items = pkgList.toArray();
 
-        assertEquals(items[0], OracleDbHelper.class);
+        assertEquals(items[0], OracleDbHelperScript.class);
         assertEquals(items[1], MockTestPackage2.class);
         assertEquals(items[2], MockTestPackage3.class);
         assertEquals(items[3], MockTestPackage4.class);
@@ -167,10 +167,10 @@ public class SqlObjectHelperTest {
 
         assertEquals(pkgList.size(), 4);
         @SuppressWarnings("unchecked")
-        Class<? extends SqlStoredProcedureModule>[] items = pkgList.toArray(new Class[pkgList.size()]);
+        Class<? extends SqlScriptStoredProcedureModule>[] items = pkgList.toArray(new Class[pkgList.size()]);
 
 
-        assertEquals(items[0], OracleDbHelper.class);
+        assertEquals(items[0], OracleDbHelperScript.class);
         assertEquals(items[1], MockTestPackage2.class);
         assertEquals(items[2], MockTestPackage3.class);
         assertEquals(items[3], MockTestPackage4.class);
@@ -222,7 +222,7 @@ public class SqlObjectHelperTest {
         }
     }
 
-    @SqlObjectDependsOn(Using = {MockTestPackageSelfDependency.class, MockTestPackage4.class, OracleDbHelper.class, MockTestPackage2.class})
+    @SqlObjectDependsOn(Using = {MockTestPackageSelfDependency.class, MockTestPackage4.class, OracleDbHelperScript.class, MockTestPackage2.class})
     private class MockTestPackageSelfDependency extends OraclePackage {
         public MockTestPackageSelfDependency(DbContext context) {
             super(context);
@@ -231,7 +231,7 @@ public class SqlObjectHelperTest {
 
     }
 
-    @SqlObjectDependsOn(Using = {MockTestPackage4.class, OracleDbHelper.class, MockTestPackage2.class})
+    @SqlObjectDependsOn(Using = {MockTestPackage4.class, OracleDbHelperScript.class, MockTestPackage2.class})
     private class MockTestPackage5 extends OraclePackage {
         public MockTestPackage5(DbContext context) {
             super(context);
@@ -240,7 +240,7 @@ public class SqlObjectHelperTest {
 
     }
 
-    @SqlObjectDependsOn(Using = {MockTestPackage3.class, OracleDbHelper.class, MockTestPackage2.class})
+    @SqlObjectDependsOn(Using = {MockTestPackage3.class, OracleDbHelperScript.class, MockTestPackage2.class})
     private class MockTestPackage4 extends OraclePackage {
         public MockTestPackage4(DbContext context) {
             super(context);
@@ -249,7 +249,7 @@ public class SqlObjectHelperTest {
     }
 
     @SqlObjectInfo(name = "MockTestPackage2", source = "/MockTestPackage2.sql")
-    @SqlObjectDependsOn(Using = {OracleDbHelper.class, MockTestPackage2.class})
+    @SqlObjectDependsOn(Using = {OracleDbHelperScript.class, MockTestPackage2.class})
     private class MockTestPackage3 extends OraclePackage {
         public MockTestPackage3(DbContext context) {
             super(context);

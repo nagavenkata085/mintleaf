@@ -25,30 +25,42 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle.examples;
+package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
-import org.qamatic.mintleaf.oracle.OraclePackage;
 
 import java.sql.Types;
 
-@SqlObjectInfo(name = "StringExample", source = "/examples/StringExample.sql")
-public class StringExample extends OraclePackage {
+@SqlObjectInfo(name = "TestDbProvisioning", source = "/TestDbProvisioning.sql")
+public class TestDbProvisioningScript extends OraclePackage {
 
-    public StringExample(DbContext context) {
-        super(context);
+    public TestDbProvisioningScript(DbContext dbContext) {
+        super(dbContext);
     }
 
-    public String replaceSpaceWithDollarSign(String inputValue) {
-        SqlStoredProcedure proc = getFunction("replace_Space_With_DollarSign", Types.VARCHAR);
-
-        proc.createInParameter("pstr", Types.VARCHAR);
+    public void dropSchemaUser(String userName) {
+        SqlStoredProcedure proc = getProcedure("dropApplicationUser");
+        proc.createInParameter("pusername", Types.VARCHAR);
         proc.compile();
-        proc.setValue("pstr", inputValue);
+        proc.setValue("pusername", userName);
         proc.execute();
-
-        return proc.getStringValue("result");
     }
+
+    public void createSchemaUser(String userName, String appUserPassword) {
+        SqlStoredProcedure proc = getProcedure("createApplicationUser");
+        proc.createInParameter("pusername", Types.VARCHAR);
+        proc.createInParameter("puserPassword", Types.VARCHAR);
+        proc.compile();
+        proc.setValue("pusername", userName);
+        proc.setValue("puserPassword", appUserPassword);
+        proc.execute();
+    }
+
+    public void recreateSchemaUser(String userName, String appUserPassword) {
+        dropSchemaUser(userName);
+        createSchemaUser(userName, appUserPassword);
+    }
+
 }

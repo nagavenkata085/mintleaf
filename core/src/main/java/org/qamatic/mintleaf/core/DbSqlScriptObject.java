@@ -34,12 +34,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
-public class DbSqlObject implements DbSql {
+public class DbSqlScriptObject implements DbSqlScript {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     protected DbContext mvContext;
@@ -48,7 +45,7 @@ public class DbSqlObject implements DbSql {
     protected SqlReaderListener mvlistener;
     protected String mvdelimiter;
 
-    public DbSqlObject(DbContext context) {
+    public DbSqlScriptObject(DbContext context) {
         mvContext = context;
     }
 

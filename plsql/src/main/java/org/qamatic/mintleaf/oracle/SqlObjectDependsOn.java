@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface SqlObjectDependsOn {
-    Class<? extends SqlObject>[] Using();
+    Class<? extends SqlScriptObject>[] Using();
 
 }
 

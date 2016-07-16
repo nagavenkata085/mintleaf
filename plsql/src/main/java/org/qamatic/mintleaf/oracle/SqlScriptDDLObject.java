@@ -27,19 +27,8 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.oracle.core.SqlObject;
-import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
-import org.qamatic.mintleaf.oracle.core.SqlValue;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 
-public interface SqlStoredProcedureModule extends SqlObject {
-    SqlStoredProcedure getProcedure(String procName);
-
-    SqlStoredProcedure getFunction(String functionName);
-
-    SqlStoredProcedure getFunction(String functionName, int type);
-
-    SqlStoredProcedure getFunction(String functionName, int type, String typeObjectName);
-
-    SqlValue getConstant(String constantName, int dataType);
+public interface SqlScriptDDLObject extends SqlScriptObject {
 
 }

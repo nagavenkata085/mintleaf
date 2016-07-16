@@ -28,10 +28,10 @@
 package org.qamatic.mintleaf;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.oracle.core.BaseSqlObject;
+import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
 import org.qamatic.mintleaf.oracle.SqlObjectTreeWalker;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 
 import java.util.List;
 
@@ -175,7 +175,7 @@ public class SqlObjectTreeWalkerTest {
         SqlObjectTreeWalker dclass = new SqlObjectTreeWalker(d.class);
         bclass.addChild(dclass);
 
-        List<Class<? extends SqlObject>> d = SqlObjectTreeWalker.distinct(root);
+        List<Class<? extends SqlScriptObject>> d = SqlObjectTreeWalker.distinct(root);
 
         assertEquals(d.class, d.get(0));
         assertEquals(b.class, d.get(1));
@@ -185,7 +185,7 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class a extends BaseSqlObject {
+    private class a extends BaseSqlScriptObject {
 
         public a(DbContext context) {
             super(context);
@@ -194,7 +194,7 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class b extends BaseSqlObject {
+    private class b extends BaseSqlScriptObject {
 
         public b(DbContext context) {
             super(context);
@@ -203,7 +203,7 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class c extends BaseSqlObject {
+    private class c extends BaseSqlScriptObject {
 
         public c(DbContext context) {
             super(context);
@@ -212,7 +212,7 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class d extends BaseSqlObject {
+    private class d extends BaseSqlScriptObject {
 
         public d(DbContext context) {
             super(context);
@@ -221,7 +221,7 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class c1 extends BaseSqlObject {
+    private class c1 extends BaseSqlScriptObject {
 
         public c1(DbContext context) {
             super(context);
@@ -230,7 +230,7 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class c11 extends BaseSqlObject {
+    private class c11 extends BaseSqlScriptObject {
 
         public c11(DbContext context) {
             super(context);
@@ -239,7 +239,7 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class c12 extends BaseSqlObject {
+    private class c12 extends BaseSqlScriptObject {
 
         public c12(DbContext context) {
             super(context);
@@ -248,42 +248,42 @@ public class SqlObjectTreeWalkerTest {
 
     }
 
-    private class c2 extends BaseSqlObject {
+    private class c2 extends BaseSqlScriptObject {
         public c2(DbContext context) {
             super(context);
 
         }
     }
 
-    private class c21 extends BaseSqlObject {
+    private class c21 extends BaseSqlScriptObject {
         public c21(DbContext context) {
             super(context);
 
         }
     }
 
-    private class c211 extends BaseSqlObject {
+    private class c211 extends BaseSqlScriptObject {
         public c211(DbContext context) {
             super(context);
 
         }
     }
 
-    private class c3 extends BaseSqlObject {
+    private class c3 extends BaseSqlScriptObject {
         public c3(DbContext context) {
             super(context);
 
         }
     }
 
-    private class c4 extends BaseSqlObject {
+    private class c4 extends BaseSqlScriptObject {
         public c4(DbContext context) {
             super(context);
 
         }
     }
 
-    private class c5 extends BaseSqlObject {
+    private class c5 extends BaseSqlScriptObject {
         public c5(DbContext context) {
             super(context);
 

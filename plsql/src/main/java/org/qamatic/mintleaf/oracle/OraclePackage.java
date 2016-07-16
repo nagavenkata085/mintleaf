@@ -35,7 +35,7 @@ import org.qamatic.mintleaf.oracle.core.SqlValue;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class OraclePackage extends OracleBaseSqlObject implements SqlStoredProcedureModule {
+public class OraclePackage extends OracleBaseSqlScriptObject implements SqlScriptStoredProcedureModule {
 
     public OraclePackage(DbContext context) {
         super(context);
@@ -67,7 +67,7 @@ public class OraclePackage extends OracleBaseSqlObject implements SqlStoredProce
     }
 
 
-    public SqlStoredProcedure getFunction(String functionName, Class<? extends SqlTypeObject> typeObjectClass) {
+    public SqlStoredProcedure getFunction(String functionName, Class<? extends SqlScriptTypeObject> typeObjectClass) {
         try {
             OraclePLProcedure proc = (OraclePLProcedure) getFunction(functionName);
             proc.setSqlReadyForUse(false);

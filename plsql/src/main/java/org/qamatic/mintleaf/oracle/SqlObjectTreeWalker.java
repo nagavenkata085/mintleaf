@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.oracle.core.SqlObject;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,13 +37,13 @@ import java.util.List;
 public class SqlObjectTreeWalker {
 
     protected static Logger logger = LoggerFactory.getLogger(SqlObjectTreeWalker.class);
-    private final Class<? extends SqlObject> mvClassItem;
+    private final Class<? extends SqlScriptObject> mvClassItem;
     private final List<SqlObjectTreeWalker> mvChildren = new ArrayList<SqlObjectTreeWalker>();
     private int mvNodeId;
     private boolean mvDbObjectImported = true;
     private SqlObjectTreeWalker mvParent;
 
-    public <T extends SqlObject> SqlObjectTreeWalker(Class<T> aClass) {
+    public <T extends SqlScriptObject> SqlObjectTreeWalker(Class<T> aClass) {
         mvClassItem = aClass;
         mvNodeId = 0;
     }
@@ -72,8 +72,8 @@ public class SqlObjectTreeWalker {
         return maxLevel;
     }
 
-    public static List<Class<? extends SqlObject>> distinct(SqlObjectTreeWalker node) {
-        List<Class<? extends SqlObject>> result = new ArrayList<Class<? extends SqlObject>>();
+    public static List<Class<? extends SqlScriptObject>> distinct(SqlObjectTreeWalker node) {
+        List<Class<? extends SqlScriptObject>> result = new ArrayList<Class<? extends SqlScriptObject>>();
 
         List<SqlObjectTreeWalker> flatList = flaten(node);
         int maxLvl = findMaxLevel(flatList);
@@ -93,7 +93,7 @@ public class SqlObjectTreeWalker {
         return result;
     }
 
-    public Class<? extends SqlObject> getClassItem() {
+    public Class<? extends SqlScriptObject> getClassItem() {
         return mvClassItem;
     }
 

@@ -27,40 +27,32 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
+import oracle.sql.DatumWithConnection;
+import oracle.sql.TypeDescriptor;
 import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 
-import java.sql.Types;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-@SqlObjectInfo(name = "TestDbProvisioning", source = "/TestDbProvisioning.sql")
-public class TestDbProvisioning extends OraclePackage {
+@SqlObjectDependsOn(Using = {OracleDbHelperScript.class})
+public abstract class BaseSqlScriptArrayTypeObject extends OracleTypeObject {
 
-    public TestDbProvisioning(DbContext dbContext) {
-        super(dbContext);
+    public BaseSqlScriptArrayTypeObject(DbContext context) {
+        super(context);
+
     }
 
-    public void dropSchemaUser(String userName) {
-        SqlStoredProcedure proc = getProcedure("dropApplicationUser");
-        proc.createInParameter("pusername", Types.VARCHAR);
-        proc.compile();
-        proc.setValue("pusername", userName);
-        proc.execute();
+    @Override
+    protected TypeDescriptor getDescriptor(Connection conn, String typeName) throws SQLException {
+
+        return new ArrayDescriptor(typeName, conn);
     }
 
-    public void createSchemaUser(String userName, String appUserPassword) {
-        SqlStoredProcedure proc = getProcedure("createApplicationUser");
-        proc.createInParameter("pusername", Types.VARCHAR);
-        proc.createInParameter("puserPassword", Types.VARCHAR);
-        proc.compile();
-        proc.setValue("pusername", userName);
-        proc.setValue("puserPassword", appUserPassword);
-        proc.execute();
-    }
+    @Override
+    protected DatumWithConnection getDatum(TypeDescriptor descriptor, Connection conn, String typeName) throws SQLException {
 
-    public void recreateSchemaUser(String userName, String appUserPassword) {
-        dropSchemaUser(userName);
-        createSchemaUser(userName, appUserPassword);
+        return new ARRAY((ArrayDescriptor) getDescriptor(conn, typeName), conn, getValues());
     }
-
 }

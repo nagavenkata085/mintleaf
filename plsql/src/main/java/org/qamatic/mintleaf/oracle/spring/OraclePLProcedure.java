@@ -46,7 +46,7 @@ import java.util.Map;
 
 public class OraclePLProcedure extends OracleProcedure {
 
-    private Map<String, SqlTypeObject> mvtypeObjectRegistry;
+    private Map<String, SqlScriptTypeObject> mvtypeObjectRegistry;
 
     public OraclePLProcedure(DbContext context) {
         super(context);
@@ -85,16 +85,16 @@ public class OraclePLProcedure extends OracleProcedure {
         return proc;
     }
 
-    public SqlArgument createRowTypeOutParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
-        SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
+    public SqlArgument createRowTypeOutParameter(String parameterName, Class<? extends SqlScriptTypeObject> typeObjectClass) {
+        SqlScriptObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createRowTypeOutParameter(parameterName, sobj.getName().toUpperCase());
         sobj.setName(arg.getCustomArg().getSupportedType());
         return arg;
     }
 
-    public SqlArgument createTypeObjectParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
+    public SqlArgument createTypeObjectParameter(String parameterName, Class<? extends SqlScriptTypeObject> typeObjectClass) {
 
-        SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
+        SqlScriptObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createInParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
         CustomArg ext = new OracleArg();
         ext.setSupportedType(arg.getTypeName());
@@ -103,9 +103,9 @@ public class OraclePLProcedure extends OracleProcedure {
 
     }
 
-    public SqlArgument createTypeObjectOutParameter(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
+    public SqlArgument createTypeObjectOutParameter(String parameterName, Class<? extends SqlScriptTypeObject> typeObjectClass) {
 
-        SqlObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
+        SqlScriptObject sobj = getTypeObjectInstance(parameterName, typeObjectClass);
         SqlArgument arg = createOutParameter(parameterName, Types.STRUCT, sobj.getName().toUpperCase());
         CustomArg ext = new OracleArg();
         ext.setSupportedType(arg.getTypeName());
@@ -117,29 +117,29 @@ public class OraclePLProcedure extends OracleProcedure {
 
     }
 
-    public SqlTypeObject getTypeObject(String parameterName) throws SQLException {
-        SqlTypeObject typeObj = getTypeObjectInstance(parameterName, null);
+    public SqlScriptTypeObject getTypeObject(String parameterName) throws SQLException {
+        SqlScriptTypeObject typeObj = getTypeObjectInstance(parameterName, null);
         typeObj.setTypeObjectValue(getTypeObjectValue(parameterName));
         typeObj.autoBind();
         return typeObj;
     }
 
 
-    protected Map<String, SqlTypeObject> getTypeObjectRegistry() {
+    protected Map<String, SqlScriptTypeObject> getTypeObjectRegistry() {
         if (mvtypeObjectRegistry == null) {
-            mvtypeObjectRegistry = new HashMap<String, SqlTypeObject>();
+            mvtypeObjectRegistry = new HashMap<String, SqlScriptTypeObject>();
         }
         return mvtypeObjectRegistry;
     }
 
 
-    private SqlTypeObject getTypeObjectInstance(String parameterName, Class<? extends SqlTypeObject> typeObjectClass) {
+    private SqlScriptTypeObject getTypeObjectInstance(String parameterName, Class<? extends SqlScriptTypeObject> typeObjectClass) {
         try {
-            SqlTypeObject typeObj = null;
+            SqlScriptTypeObject typeObj = null;
             if (getTypeObjectRegistry().containsKey(parameterName)) {
                 typeObj = getTypeObjectRegistry().get(parameterName);
             } else {
-                typeObj = (SqlTypeObject) SqlObjectHelper.createSqlObjectInstance(dbContext, typeObjectClass);
+                typeObj = (SqlScriptTypeObject) SqlObjectHelper.createSqlObjectInstance(dbContext, typeObjectClass);
                 getTypeObjectRegistry().put(parameterName, typeObj);
             }
             return typeObj;
@@ -151,7 +151,7 @@ public class OraclePLProcedure extends OracleProcedure {
 
     public SqlTypeObjectValue getTypeObjectValue(String parameterName) throws SQLException {
 
-        SqlTypeObject typeObj = null;
+        SqlScriptTypeObject typeObj = null;
 
         if (getTypeObjectRegistry().containsKey(parameterName)) {
             typeObj = getTypeObjectInstance(parameterName, null);
@@ -217,7 +217,7 @@ public class OraclePLProcedure extends OracleProcedure {
     protected OracleRowType getRowType(String rowTypeTableName, String supportedType) {
         PLCreateType p = null;
         try {
-            p = new OracleDbHelper(dbContext).createTypeFromTable(supportedType, null, rowTypeTableName);
+            p = new OracleDbHelperScript(dbContext).createTypeFromTable(supportedType, null, rowTypeTableName);
         } catch (SQLException e) {
             e.printStackTrace();
         }

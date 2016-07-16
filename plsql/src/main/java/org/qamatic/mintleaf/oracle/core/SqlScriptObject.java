@@ -25,27 +25,46 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.oracle.core;
 
-import org.qamatic.mintleaf.oracle.core.SqlObject;
-import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
-import org.qamatic.mintleaf.interfaces.TableMetaData;
+import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.interfaces.DbSqlScript;
+import org.qamatic.mintleaf.interfaces.SqlReaderListener;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
-public interface SqlTypeObject extends SqlObject {
+public interface SqlScriptObject extends DbSqlScript {
+    DbContext getDbContext();
 
-    SqlTypeObjectValue getTypeObjectValue() throws SQLException;
+    String getName();
 
-    void setTypeObjectValue(SqlTypeObjectValue value) throws SQLException;
+    void setName(String value);
 
-    boolean isTypeObjectValueNull();
+    String getSource();
 
-    void autoBind() throws SQLException;
+    void setSource(String source);
 
-    SqlStoredProcedure getMemberProcedure(String memberProcName);
+    String getDropSource();
 
-    TableMetaData getMetaData() throws SQLException;
+    void create() throws SQLException, IOException;
 
-    void setMetaData(TableMetaData metaData);
+    void drop() throws SQLException, IOException;
+
+    void createDependencies() throws SQLException, IOException;
+
+    void dropDependencies() throws SQLException, IOException;
+
+    void dropAll() throws SQLException, IOException;
+
+    void createAll() throws SQLException, IOException;
+
+    boolean isExists();
+
+    String getSql();
+
+
+    void invalidate();
+
+    void AddReaderListener(SqlReaderListener childListener);
 }

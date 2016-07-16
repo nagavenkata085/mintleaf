@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.interfaces.SqlReader;
@@ -45,7 +45,7 @@ import static org.junit.Assert.assertEquals;
 public class OracleOracleBatchDDLTest extends OracleTestCase {
 
 
-    private SqlDDL mvdropScript;
+    private SqlScriptDDL mvdropScript;
 
     @Before
     public void init() throws SQLException, IOException {
@@ -120,7 +120,7 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
     }
 
     @SqlObjectInfo(name = "a test ddl", source = "/Testddl_drop.sql")
-    private class TestDDLDrop extends SqlDDL {
+    private class TestDDLDrop extends SqlScriptDDL {
 
         public TestDDLDrop(DbContext context) {
             super(context);
