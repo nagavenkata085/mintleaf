@@ -38,18 +38,18 @@ public class MultiPartTest {
     @Test
     public void testChangeSet1() {
         String serialize = new ChangeSet().toString();
-        Assert.assertTrue(serialize, serialize.contains("<changeSet name=\"\" delimiter=\"\"/>"));
+        Assert.assertTrue(serialize, serialize.contains("<changeSet id=\"\" delimiter=\"\"/>"));
     }
 
     @Test
     public void testChangeSet2() {
         String serialize = new ChangeSet("test", ";", "").toString();
-        Assert.assertTrue(serialize, serialize.contains("<changeSet name=\"test\" delimiter=\";\"/>"));
+        Assert.assertTrue(serialize, serialize.contains("<changeSet id=\"test\" delimiter=\";\"/>"));
     }
 
     @Test
     public void testMultiPartTagFromXml() {
-        String xml = "<changeSet name=\"part1\" delimiter=\"/\" />";
+        String xml = "<changeSet id=\"part1\" delimiter=\"/\" />";
         ChangeSet detail = ChangeSet.xmlToChangeSet(xml);
         assertEquals("part1", detail.getId());
         assertEquals("/", detail.getDelimiter());

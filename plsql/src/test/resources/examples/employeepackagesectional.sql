@@ -1,5 +1,5 @@
 
--- <ChangeSet id="create employee table" delimiter="/" />
+-- <ChangeSet id=create employee table" delimiter="/" />
 
 CREATE TABLE EMPLOYEE 
     ( 
@@ -17,7 +17,7 @@ end;
 /
 
 
--- <ChangeSet id="drop employee table" delimiter="/" />
+-- <ChangeSet id=drop employee table" delimiter="/" />
 
 
 begin

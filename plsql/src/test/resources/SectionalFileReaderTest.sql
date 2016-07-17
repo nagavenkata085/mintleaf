@@ -1,4 +1,4 @@
--- <ChangeSet id="part1" delimiter="/" />
+-- <ChangeSet id=part1" delimiter="/" />
 
 -- empty package
 create or replace package EmptyPackage
@@ -8,7 +8,7 @@ end EmptyPackage;
 
 /
 
--- <ChangeSet id="part2" delimiter="/" />
+-- <ChangeSet id=part2" delimiter="/" />
 
 create or replace
 package body EmptyPackage
@@ -18,7 +18,7 @@ end EmptyPackage;
 
 /
 
--- <ChangeSet id="part3" delimiter="/" />
+-- <ChangeSet id=part3" delimiter="/" />
 
 
 

@@ -1,5 +1,5 @@
 
--- <ChangeSet id="create_test_table" delimiter="/" />
+-- <ChangeSet id=create_test_table" delimiter="/" />
 
 CREATE TABLE EMP
     ( 
@@ -10,13 +10,13 @@ CREATE TABLE EMP
     ) 
 /
 
--- <ChangeSet id="insert_into_table" delimiter="/" />
+-- <ChangeSet id=insert_into_table" delimiter="/" />
 
 INSERT INTO EMP VALUES ('1429','Bob','Martin','10-Oct-1975')
 
 /
 
--- <ChangeSet id="insert_into_table2" delimiter="/" />
+-- <ChangeSet id=insert_into_table2" delimiter="/" />
 
 
 INSERT INTO EMP VALUES ('9924','Bill','Mitchell','19-Dec-1966')
@@ -25,7 +25,7 @@ INSERT INTO EMP VALUES ('9924','Bill','Mitchell','19-Dec-1966')
 /
 
 
--- <ChangeSet id="drop_test_table" delimiter="/" />
+-- <ChangeSet id=drop_test_table" delimiter="/" />
 
 declare
   cursor ix is

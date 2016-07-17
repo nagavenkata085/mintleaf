@@ -79,12 +79,12 @@ public class SqlMultiPartlFileReaderTest {
 
         assertNull(detail);
 
-        detail = ChangeSet.xmlToChangeSet("<ChangeSet name=\"delete tables\" delimiter=\"/\" />");
+        detail = ChangeSet.xmlToChangeSet("<ChangeSet id=\"delete tables\" delimiter=\"/\" />");
         assertNotNull(detail);
         assertEquals("delete tables", detail.getId());
         assertEquals("/", detail.getDelimiter());
 
-        detail = ChangeSet.xmlToChangeSet("<ChangeSet name=\"delete tables\"  />");
+        detail = ChangeSet.xmlToChangeSet("<ChangeSet id=\"delete tables\"  />");
         assertNotNull(detail);
         assertEquals("delete tables", detail.getId());
         assertEquals("", detail.getDelimiter());

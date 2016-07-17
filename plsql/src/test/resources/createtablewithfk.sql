@@ -1,5 +1,5 @@
 
--- <ChangeSet id="create tables" delimiter=":" />
+-- <ChangeSet id=create tables" delimiter=":" />
 CREATE TABLE PTABLE1 
     ( 
      ID NUMBER (18)  NOT NULL ,      
