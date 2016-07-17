@@ -1,5 +1,5 @@
 
--- <ChangeSet name="drop_test_table" delimiter="/" />
+-- <ChangeSet id="drop_test_table" delimiter="/" />
 
 declare
    c int;

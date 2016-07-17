@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf;
 
 import java.io.IOException;
 import java.sql.SQLException;

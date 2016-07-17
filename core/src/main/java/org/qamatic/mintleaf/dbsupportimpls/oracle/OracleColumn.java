@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.interfaces.DbColumn;
+import org.qamatic.mintleaf.DbColumn;
 
 import java.sql.Date;
 import java.sql.Types;

@@ -29,8 +29,8 @@ package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
 
 import org.qamatic.mintleaf.core.BaseDbContext;
-import org.qamatic.mintleaf.interfaces.DbColumn;
-import org.qamatic.mintleaf.interfaces.DbMetaData;
+import org.qamatic.mintleaf.DbColumn;
+import org.qamatic.mintleaf.DbMetaData;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 

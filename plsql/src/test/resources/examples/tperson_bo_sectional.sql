@@ -1,11 +1,11 @@
 
--- <ChangeSet name="type" delimiter="/" />
+-- <ChangeSet id="type" delimiter="/" />
 
 ,MEMBER function getFirstName return varchar2
  
 
 
--- <ChangeSet name="typebody" delimiter="/" />
+-- <ChangeSet id="typebody" delimiter="/" />
 
 
 MEMBER function getFirstName return varchar2 is

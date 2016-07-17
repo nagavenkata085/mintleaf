@@ -1,6 +1,6 @@
 package org.qamatic.mintleaf.dbsupportimpls.h2;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 
 /**
  * Created by senips on 7/12/16.

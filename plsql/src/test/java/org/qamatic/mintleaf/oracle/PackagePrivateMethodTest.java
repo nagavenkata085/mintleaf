@@ -31,8 +31,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlReaderListener;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.SqlReaderListener;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 

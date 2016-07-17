@@ -1,5 +1,5 @@
 
--- <ChangeSet name="create_test_table" delimiter=";" />
+-- <ChangeSet id="create_test_table" delimiter=";" />
 
 CREATE TABLE TABLE1 
     ( 

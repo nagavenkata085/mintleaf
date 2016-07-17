@@ -31,7 +31,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.core.OracleProcedureCall;
 import org.qamatic.mintleaf.oracle.core.CustomArg;
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlArgument;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 

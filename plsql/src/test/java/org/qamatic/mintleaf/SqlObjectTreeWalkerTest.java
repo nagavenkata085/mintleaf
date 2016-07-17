@@ -30,7 +30,6 @@ package org.qamatic.mintleaf;
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
 import org.qamatic.mintleaf.oracle.SqlObjectTreeWalker;
-import org.qamatic.mintleaf.interfaces.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 
 import java.util.List;

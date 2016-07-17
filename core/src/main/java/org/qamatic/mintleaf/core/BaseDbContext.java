@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.DbSettings;
-import org.qamatic.mintleaf.interfaces.DbMetaData;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.DbSettings;
+import org.qamatic.mintleaf.DbMetaData;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -79,6 +79,7 @@ public class BaseDbContext implements DbContext {
         }
         return template.queryForInt(sql, whereClauseValues);
     }
+
     @Override
     public boolean isSqlObjectExists(String objectName, String objectType, boolean ignoreValidity) {
         throw new UnsupportedOperationException();

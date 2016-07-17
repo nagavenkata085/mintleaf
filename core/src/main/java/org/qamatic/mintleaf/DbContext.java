@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

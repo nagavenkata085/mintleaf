@@ -1,5 +1,5 @@
 
--- <ChangeSet name="delete tables" delimiter="/" />
+-- <ChangeSet id="delete tables" delimiter="/" />
 
 declare
    c int;
@@ -25,7 +25,7 @@ end;
 
 /
 
--- <ChangeSet name="create some tables" delimiter=";" />
+-- <ChangeSet id="create some tables" delimiter=";" />
 
 CREATE TABLE TABLE1 
     ( 

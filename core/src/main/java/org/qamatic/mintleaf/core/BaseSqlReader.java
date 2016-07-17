@@ -27,8 +27,8 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.interfaces.SqlReader;
-import org.qamatic.mintleaf.interfaces.SqlReaderListener;
+import org.qamatic.mintleaf.SqlReader;
+import org.qamatic.mintleaf.SqlReaderListener;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -30,8 +30,7 @@ package junitsupport;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContextImpl;
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.DbSettings;
+import org.qamatic.mintleaf.DbContext;
 
 
 public class OracleTestDatabase {

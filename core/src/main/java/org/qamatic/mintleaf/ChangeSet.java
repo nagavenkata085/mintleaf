@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;/*
+package org.qamatic.mintleaf;/*
  * Copyright {2015} {Senthil Maruthaiappan}
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -54,11 +54,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 @XmlRootElement
-@XmlType(propOrder = {"name", "delimiter"})
+@XmlType(propOrder = {"id", "delimiter"})
 public class ChangeSet {
 
     private static final Logger logger = LoggerFactory.getLogger(ChangeSet.class);
-    private String name = "";
+    private String id = "";
     private String delimiter = "";
     private String ChangeSetSource = "";
 
@@ -68,7 +68,7 @@ public class ChangeSet {
 
 
     public ChangeSet(String partName, String delimiter, String source) {
-        this.name = partName;
+        this.id = partName;
         this.delimiter = delimiter;
         ChangeSetSource = source;
     }
@@ -101,13 +101,13 @@ public class ChangeSet {
         this.ChangeSetSource = ChangeSetSource;
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
     @XmlAttribute
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDelimiter() {

@@ -1,6 +1,6 @@
 package org.qamatic.mintleaf.dbsupportimpls.oracle;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 
 /**
  * Created by senips on 6/19/16.

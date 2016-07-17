@@ -30,9 +30,9 @@ package org.qamatic.mintleaf.oracle.core;
 
 import org.qamatic.mintleaf.core.SqlExecutor;
 import org.qamatic.mintleaf.core.SqlFileReader;
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlReader;
-import org.qamatic.mintleaf.interfaces.SqlReaderListener;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.SqlReader;
+import org.qamatic.mintleaf.SqlReaderListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,7 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 
 import java.io.IOException;

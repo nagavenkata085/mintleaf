@@ -1,4 +1,4 @@
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf;
 
 /**
  * Created by senips on 7/12/16.

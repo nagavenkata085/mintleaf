@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.dbsupportimpls;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlExecutor;
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 
 import static org.junit.Assert.*;
 

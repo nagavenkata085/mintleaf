@@ -29,9 +29,9 @@ package org.qamatic.mintleaf.dbsupportimpls;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.SqlChangeSetFileReader;
-import org.qamatic.mintleaf.interfaces.ChangeSetReader;
-import org.qamatic.mintleaf.interfaces.ChangeSet;
-import org.qamatic.mintleaf.interfaces.SqlReaderListener;
+import org.qamatic.mintleaf.ChangeSetReader;
+import org.qamatic.mintleaf.ChangeSet;
+import org.qamatic.mintleaf.SqlReaderListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -81,12 +81,12 @@ public class SqlMultiPartlFileReaderTest {
 
         detail = ChangeSet.xmlToChangeSet("<ChangeSet name=\"delete tables\" delimiter=\"/\" />");
         assertNotNull(detail);
-        assertEquals("delete tables", detail.getName());
+        assertEquals("delete tables", detail.getId());
         assertEquals("/", detail.getDelimiter());
 
         detail = ChangeSet.xmlToChangeSet("<ChangeSet name=\"delete tables\"  />");
         assertNotNull(detail);
-        assertEquals("delete tables", detail.getName());
+        assertEquals("delete tables", detail.getId());
         assertEquals("", detail.getDelimiter());
 
     }

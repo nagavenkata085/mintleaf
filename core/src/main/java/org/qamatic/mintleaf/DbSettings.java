@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf;
 
 public interface DbSettings {
     String getJdbcUrl();

@@ -28,8 +28,8 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.core.SqlChangeSetFileReader;
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlReaderListener;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.SqlReaderListener;
 
 import java.io.IOException;
 import java.sql.SQLException;

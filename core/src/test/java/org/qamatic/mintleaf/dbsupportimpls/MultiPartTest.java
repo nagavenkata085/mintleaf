@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.dbsupportimpls;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.interfaces.ChangeSet;
+import org.qamatic.mintleaf.ChangeSet;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,7 +51,7 @@ public class MultiPartTest {
     public void testMultiPartTagFromXml() {
         String xml = "<changeSet name=\"part1\" delimiter=\"/\" />";
         ChangeSet detail = ChangeSet.xmlToChangeSet(xml);
-        assertEquals("part1", detail.getName());
+        assertEquals("part1", detail.getId());
         assertEquals("/", detail.getDelimiter());
     }
 

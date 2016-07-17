@@ -27,8 +27,8 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.interfaces.ChangeSetReader;
-import org.qamatic.mintleaf.interfaces.ChangeSet;
+import org.qamatic.mintleaf.ChangeSetReader;
+import org.qamatic.mintleaf.ChangeSet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,7 +90,7 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
                             mvreaderListener.onReadChild(new StringBuilder(sql), currentSection);
                         }
                         currentSection.setChangeSetSource(sql);
-                        mvSections.put(currentSection.getName(), currentSection);
+                        mvSections.put(currentSection.getId(), currentSection);
                         currentSection = ChangeSet.xmlToChangeSet(line);
                     }
                     childContents.setLength(0);
@@ -104,12 +104,12 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
         }
 
         String sql = childContents.toString().trim();
-        if ((currentSection != null) && (currentSection.getName() != null) && (currentSection.getName().length() != 0) && (sql.length() != 0)) {
+        if ((currentSection != null) && (currentSection.getId() != null) && (currentSection.getId().length() != 0) && (sql.length() != 0)) {
             if (mvreaderListener != null) {
                 mvreaderListener.onReadChild(new StringBuilder(sql), null);
             }
             currentSection.setChangeSetSource(sql);
-            mvSections.put(currentSection.getName(), currentSection);
+            mvSections.put(currentSection.getId(), currentSection);
         }
         return contents.toString();
     }

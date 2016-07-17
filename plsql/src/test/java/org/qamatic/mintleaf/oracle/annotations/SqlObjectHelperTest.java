@@ -33,7 +33,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.oracle.SqlObjectDependsOn;
 import org.qamatic.mintleaf.oracle.SqlObjectHelper;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.oracle.SqlScriptStoredProcedureModule;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;

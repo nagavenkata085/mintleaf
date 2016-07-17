@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.oracle.codevisitors.TypeObjectBodySourceAppender;
 import org.qamatic.mintleaf.oracle.codevisitors.TypeObjectSourceAppender;
 

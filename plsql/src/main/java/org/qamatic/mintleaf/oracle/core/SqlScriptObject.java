@@ -27,9 +27,9 @@
 
 package org.qamatic.mintleaf.oracle.core;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlScript;
-import org.qamatic.mintleaf.interfaces.SqlReaderListener;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.SqlScript;
+import org.qamatic.mintleaf.SqlReaderListener;
 
 import java.io.IOException;
 import java.sql.SQLException;

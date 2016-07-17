@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.interfaces;
+package org.qamatic.mintleaf;
 
 import java.util.ArrayList;
 import java.util.List;

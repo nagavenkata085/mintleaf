@@ -27,8 +27,8 @@
 
 package org.qamatic.mintleaf.oracle.core;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.DbMetaData;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.DbMetaData;
 
 import java.sql.SQLException;
 

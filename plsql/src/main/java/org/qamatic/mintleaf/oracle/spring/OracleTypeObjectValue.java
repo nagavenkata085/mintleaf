@@ -29,7 +29,9 @@ package org.qamatic.mintleaf.oracle.spring;
 
 import oracle.sql.CHAR;
 import oracle.sql.NUMBER;
-import org.qamatic.mintleaf.interfaces.*;
+import org.qamatic.mintleaf.DbColumn;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.DbMetaData;
 import org.qamatic.mintleaf.oracle.SqlTypeObjectValue;
 import org.qamatic.mintleaf.oracle.core.DbMetaDataService;
 

@@ -32,7 +32,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;
 

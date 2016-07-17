@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.core.DbConnectionProperties;
-import org.qamatic.mintleaf.interfaces.DbSettings;
+import org.qamatic.mintleaf.DbSettings;
 
 import static org.junit.Assert.*;
 

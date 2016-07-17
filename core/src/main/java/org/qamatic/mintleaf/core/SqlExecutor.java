@@ -27,8 +27,8 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.interfaces.DbContext;
-import org.qamatic.mintleaf.interfaces.SqlReaderListener;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.SqlReaderListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -102,7 +102,7 @@ public class SqlExecutor implements SqlReaderListener {
             template.execute(sql.toString());
         } catch (Throwable e1) {
 
-            logger.error("OracleSqlCodeExecutor:", e1);
+            logger.error("SqlExecutor:", e1);
 
             if (e1 instanceof SQLException) {
                 throw new SQLException(e1);

@@ -28,7 +28,10 @@
 package org.qamatic.mintleaf.core;
 
 
-import org.qamatic.mintleaf.interfaces.*;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.SqlReader;
+import org.qamatic.mintleaf.SqlReaderListener;
+import org.qamatic.mintleaf.SqlScript;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

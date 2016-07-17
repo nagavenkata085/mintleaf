@@ -30,7 +30,7 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
-import org.qamatic.mintleaf.interfaces.DbColumn;
+import org.qamatic.mintleaf.DbColumn;
 
 import java.sql.Types;
 

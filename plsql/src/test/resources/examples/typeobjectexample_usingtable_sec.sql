@@ -1,5 +1,5 @@
 
--- <ChangeSet name="create person table" delimiter="/" />
+-- <ChangeSet id="create person table" delimiter="/" />
 
 CREATE TABLE PERSON 
     ( 
@@ -18,7 +18,7 @@ end;
 /
 
 
--- <ChangeSet name="drop person table" delimiter="/" />
+-- <ChangeSet id="drop person table" delimiter="/" />
 
 begin
 execute immediate 'drop table PERSON purge';

@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle.examples;
 
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.interfaces.DbContext;
+import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.OraclePackage;
 
