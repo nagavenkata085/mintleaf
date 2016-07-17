@@ -35,32 +35,32 @@ import java.sql.SQLException;
 
 public class ExecuteQuery {
 
-    private DbContext mvDbContext;
+    private DbContext dbContext;
 
     public ExecuteQuery() {
 
     }
 
     public ExecuteQuery(DbContext context) {
-        mvDbContext = context;
+        dbContext = context;
     }
 
-    public static String getFileName(String sectionalFileCommaSectionalNames) {
-        if ((sectionalFileCommaSectionalNames == null) || (!sectionalFileCommaSectionalNames.contains(","))) {
+    public static String getFileName(String commaSepartedChangeSetIds) {
+        if ((commaSepartedChangeSetIds == null) || (!commaSepartedChangeSetIds.contains(","))) {
             return null;
         }
-        String[] sectionsToLoad = sectionalFileCommaSectionalNames.split(",");
+        String[] sectionsToLoad = commaSepartedChangeSetIds.split(",");
         if (sectionsToLoad.length >= 1) {
             return sectionsToLoad[0].trim();
         }
         return null;
     }
 
-    public static String[] getSectionNames(String sectionalFileCommaSectionalNames) {
-        if ((sectionalFileCommaSectionalNames == null) || (!sectionalFileCommaSectionalNames.contains(","))) {
+    public static String[] getChangeSetIds(String commaSepartedChangeSetIds) {
+        if ((commaSepartedChangeSetIds == null) || (!commaSepartedChangeSetIds.contains(","))) {
             return null;
         }
-        String[] sectionsToLoad = sectionalFileCommaSectionalNames.split(",");
+        String[] sectionsToLoad = commaSepartedChangeSetIds.split(",");
         if (sectionsToLoad.length <= 1) {
             return null;
         }
@@ -73,7 +73,7 @@ public class ExecuteQuery {
 
     // for fitnesse, if context is already available
     public void loadSource(String script, String delimiter) throws SQLException, IOException {
-        loadSource(mvDbContext, script, delimiter);
+        loadSource(dbContext, script, delimiter);
     }
 
     // for JUnit, if context is not known
@@ -94,7 +94,7 @@ public class ExecuteQuery {
     }
 
     public void loadSqlSectionsFitnesse(String sectionalFileCommaSectionalNames) throws SQLException, IOException {
-        new ExecuteQuery().loadFromSectionalFile(mvDbContext, getFileName(sectionalFileCommaSectionalNames), getSectionNames(sectionalFileCommaSectionalNames));
+        new ExecuteQuery().loadFromSectionalFile(dbContext, getFileName(sectionalFileCommaSectionalNames), getChangeSetIds(sectionalFileCommaSectionalNames));
     }
 
     private static class LoadSqlScriptScript extends SqlScriptObject {

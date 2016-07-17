@@ -38,15 +38,15 @@ import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class SqlExecutor implements SqlReaderListener {
+public class CommandExecutor implements SqlReaderListener {
 
-    protected final DbContext mvContext;
+    protected final DbContext dbContext;
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-    private final Map<String, String> mvtemplateValues = new Hashtable<String, String>();
-    private SqlReaderListener mvchildListner;
+    private final Map<String, String> templateValues = new Hashtable<String, String>();
+    private SqlReaderListener childListner;
 
-    public SqlExecutor(DbContext context) {
-        mvContext = context;
+    public CommandExecutor(DbContext context) {
+        dbContext = context;
     }
 
     public static void replaceStr(StringBuilder sqlBuilder, String findStr, String replaceStr) {
@@ -58,17 +58,17 @@ public class SqlExecutor implements SqlReaderListener {
 
     @Override
     public SqlReaderListener getChildReaderListener() {
-        return mvchildListner;
+        return childListner;
     }
 
     @Override
     public void setChildReaderListener(SqlReaderListener childListner) {
-        mvchildListner = childListner;
+        this.childListner = childListner;
     }
 
     @Override
     public Map<String, String> getTemplateValues() {
-        return mvtemplateValues;
+        return templateValues;
     }
 
     private void findAndReplace(StringBuilder sqlText) {
@@ -98,11 +98,11 @@ public class SqlExecutor implements SqlReaderListener {
 
     protected void execute(StringBuilder sql) throws SQLException {
         try {
-            JdbcTemplate template = new JdbcTemplate(mvContext.getDataSource());
+            JdbcTemplate template = new JdbcTemplate(dbContext.getDataSource());
             template.execute(sql.toString());
         } catch (Throwable e1) {
 
-            logger.error("SqlExecutor:", e1);
+            logger.error("CommandExecutor:", e1);
 
             if (e1 instanceof SQLException) {
                 throw new SQLException(e1);

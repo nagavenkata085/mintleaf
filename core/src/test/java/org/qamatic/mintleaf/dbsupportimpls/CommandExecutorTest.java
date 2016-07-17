@@ -25,26 +25,47 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.dbsupportimpls;
 
+import org.junit.Test;
+import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.oracle.codevisitors.PackageBodySourceAppender;
-import org.qamatic.mintleaf.oracle.codevisitors.PackageSourceAppender;
 
-public class PackageVisitorSqlExecutor extends VisitorSqlExecutor {
+import static org.junit.Assert.*;
 
-    public PackageVisitorSqlExecutor(DbContext context) {
-        super(context);
+public class CommandExecutorTest {
+
+    @Test
+    public void testCheckTemplateValuesNotNull() {
+        CommandExecutor executor = new CommandExecutor(null);
+        assertNotNull(executor.getTemplateValues());
+        assertNull(executor.getChildReaderListener());
+        executor.setChildReaderListener(new CommandExecutor(null));
+        assertNotNull(executor.getChildReaderListener());
     }
 
-    @Override
-    protected SqlSourceVisitor[] getInterfaceVisitors() {
-        return new SqlSourceVisitor[]{new PackageSourceAppender()};
+
+    @Test
+    public void testfindAndReplace() {
+
+        CommandExecutorMock executor = new CommandExecutorMock(null);
+        StringBuilder inputText = new StringBuilder();
+        inputText.append("here is my text $x");
+        executor.getTemplateValues().put("$x", "blue");
+        executor.preProcess(inputText);
+        assertEquals("here is my text blue", inputText.toString());
     }
 
-    @Override
-    protected SqlSourceVisitor[] getBodyVisitors() {
-        return new SqlSourceVisitor[]{new PackageBodySourceAppender()};
+    private class CommandExecutorMock extends CommandExecutor {
+
+        public CommandExecutorMock(DbContext context) {
+            super(context);
+        }
+
+        @Override
+        public void preProcess(StringBuilder sqlText) {
+            super.preProcess(sqlText);
+        }
     }
 
 }

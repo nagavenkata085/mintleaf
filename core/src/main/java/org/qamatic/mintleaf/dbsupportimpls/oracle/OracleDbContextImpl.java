@@ -145,8 +145,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     }
 
 
-    @Override
-    protected String getSqlObjectMetaSql(String objectName) {
+    private String getSqlObjectMetaSql(String objectName) {
         final String objectName1 = objectName;
         final StringBuilder sql = new StringBuilder(
                 String.format(

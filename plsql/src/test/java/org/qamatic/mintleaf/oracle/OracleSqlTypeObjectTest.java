@@ -31,7 +31,7 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.Assert;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.core.SqlExecutor;
+import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
 import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
@@ -229,14 +229,14 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     public void testgetReadListener() {
 
         MockTypeObject typeObj1 = new MockTypeObject(getSchemaOwnerContext());
-        assertTrue("not instance of OracleSqlCodeExecutor", typeObj1.getSqlReadListener() instanceof SqlExecutor);
+        assertTrue("not instance of OracleSqlCodeExecutor", typeObj1.getSqlReadListener() instanceof CommandExecutor);
         MockTypeObject typeObj2 = new MockTypeObject(getSchemaOwnerContext()) {
             @Override
             public String getSectionalFile() {
                 return "/examples/typeobjectexample_usingtable_sec.sql";
             }
         };
-        assertTrue("not instance of TypeObjectVisitorSqlCodeExecutor", typeObj2.getSqlReadListener() instanceof TypeObjectVisitorSqlExecutor);
+        assertTrue("not instance of TypeObjectVisitorSqlCodeExecutor", typeObj2.getSqlReadListener() instanceof TypeObjectVisitorCommandExecutor);
     }
 
     @Test

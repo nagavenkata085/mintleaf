@@ -27,7 +27,7 @@
 
 package org.qamatic.mintleaf.oracle.codevisitors;
 
-import org.qamatic.mintleaf.core.SqlExecutor;
+import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
 
 public class PackageBodySourceAppender implements SqlSourceVisitor {
@@ -56,7 +56,7 @@ public class PackageBodySourceAppender implements SqlSourceVisitor {
             lastIdx = str.indexOf(mvinsertAtTag);
 
             if (lastIdx != -1) {
-                SqlExecutor.replaceStr(sql, mvinsertAtTag, actionContent.toString());
+                CommandExecutor.replaceStr(sql, mvinsertAtTag, actionContent.toString());
             }
 
         } else {

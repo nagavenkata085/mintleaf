@@ -1,9 +1,9 @@
 
--- <ChangeSet id=package"  />
+-- <ChangeSet id="package"  />
 
   function getTEST_ID return varchar2;
 
--- <ChangeSet id=packagebody"  />
+-- <ChangeSet id="packagebody"  />
 
 
   function getTEST_ID return varchar2 as

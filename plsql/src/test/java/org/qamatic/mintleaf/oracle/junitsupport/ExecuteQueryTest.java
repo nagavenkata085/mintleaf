@@ -113,9 +113,9 @@ public class ExecuteQueryTest extends OracleTestCase {
 
     @Test
     public void testGetSectionalNames() {
-        assertEquals("create_test_table", ExecuteQuery.getSectionNames(" /loadSqlbyPart, create_test_table")[0]);
-        assertNull(ExecuteQuery.getSectionNames(null));
-        assertNull(ExecuteQuery.getSectionNames(" /loadSqlbyPart create_test_table"));
+        assertEquals("create_test_table", ExecuteQuery.getChangeSetIds(" /loadSqlbyPart, create_test_table")[0]);
+        assertNull(ExecuteQuery.getChangeSetIds(null));
+        assertNull(ExecuteQuery.getChangeSetIds(" /loadSqlbyPart create_test_table"));
     }
 
 }

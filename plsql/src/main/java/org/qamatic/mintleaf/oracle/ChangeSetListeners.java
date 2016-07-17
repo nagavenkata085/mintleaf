@@ -37,16 +37,16 @@ import java.sql.SQLException;
 public class ChangeSetListeners {
 
     public static SqlReaderListener getPLPackageSectionalListner(DbContext context, String sectionalSqlFile, String[] replaceItems) {
-        VisitorSqlExecutor listener = new PackageVisitorSqlExecutor(context);
+        VisitorCommandExecutor listener = new PackageVisitorCommandExecutor(context);
         return getListner(context, listener, sectionalSqlFile, replaceItems);
     }
 
     public static SqlReaderListener getPLTypeObjectSectionalListner(DbContext context, String sectionalSqlFile, String[] replaceItems) {
-        VisitorSqlExecutor listener = new TypeObjectVisitorSqlExecutor(context);
+        VisitorCommandExecutor listener = new TypeObjectVisitorCommandExecutor(context);
         return getListner(context, listener, sectionalSqlFile, replaceItems);
     }
 
-    public static SqlReaderListener getListner(DbContext context, VisitorSqlExecutor listener, String sectionalSqlFile, String[] replaceItems) {
+    public static SqlReaderListener getListner(DbContext context, VisitorCommandExecutor listener, String sectionalSqlFile, String[] replaceItems) {
 
         SqlChangeSetFileReader sectionalReader = new SqlChangeSetFileReader(sectionalSqlFile);
 
@@ -59,7 +59,7 @@ public class ChangeSetListeners {
         }
         String intfSectionName = "package";
         String bodySectionName = "packagebody";
-        if (listener instanceof TypeObjectVisitorSqlExecutor) {
+        if (listener instanceof TypeObjectVisitorCommandExecutor) {
             intfSectionName = "type";
             bodySectionName = "typebody";
         }

@@ -40,31 +40,31 @@ import java.util.List;
 
 public class BaseDbContext implements DbContext {
 
-    private final DataSource mvDataSource;
-    private DbSettings mvDbSettings;
+    private final DataSource dataSource;
+    private DbSettings dbSettings;
 
     public BaseDbContext(DataSource datasource) {
-        mvDataSource = datasource;
+        dataSource = datasource;
     }
 
     @Override
     public DataSource getDataSource() {
-        return mvDataSource;
+        return dataSource;
     }
 
     @Override
     public Connection getConnection() throws SQLException {
 
-        return mvDataSource.getConnection();
+        return dataSource.getConnection();
     }
 
     public DbSettings getDbSettings() {
-        return mvDbSettings;
+        return dbSettings;
     }
 
 
     public void setDbSettings(DbSettings dbSettings) {
-        mvDbSettings = dbSettings;
+        this.dbSettings = dbSettings;
     }
 
     @Override
@@ -125,9 +125,6 @@ public class BaseDbContext implements DbContext {
         throw new UnsupportedOperationException();
     }
 
-    protected String getSqlObjectMetaSql(String objectName){
-        throw new UnsupportedOperationException();
-    }
 
     public DbMetaData getMetaData(String objectName) throws SQLException{
         throw new UnsupportedOperationException();

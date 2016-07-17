@@ -96,7 +96,7 @@ public class SqlScriptObject implements SqlScript {
 
     public SqlReaderListener getSqlReadListener() {
         if (mvlistener == null) {
-            mvlistener = new SqlExecutor(mvContext);
+            mvlistener = new CommandExecutor(mvContext);
             mvlistener.setChildReaderListener(getChildListener());
         }
 

@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle.core;
 
 
-import org.qamatic.mintleaf.core.SqlExecutor;
+import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.core.SqlFileReader;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.SqlReader;
@@ -196,7 +196,7 @@ public class BaseSqlScriptObject implements SqlScriptObject {
 
     public SqlReaderListener getSqlReadListener() {
         if (mvlistener == null) {
-            mvlistener = new SqlExecutor(mvContext);
+            mvlistener = new CommandExecutor(mvContext);
             mvlistener.setChildReaderListener(getChildListener());
         }
 

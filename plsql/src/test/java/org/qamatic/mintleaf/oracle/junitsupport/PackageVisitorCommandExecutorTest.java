@@ -25,47 +25,50 @@
  *
  */
 
-package org.qamatic.mintleaf.dbsupportimpls;
+package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlExecutor;
 import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.oracle.PackageVisitorCommandExecutor;
+import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
+import org.qamatic.mintleaf.oracle.codevisitors.PackageBodySourceAppender;
+import org.qamatic.mintleaf.oracle.codevisitors.PackageSourceAppender;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class SqlExecutorTest {
-
-    @Test
-    public void testCheckTemplateValuesNotNull() {
-        SqlExecutor executor = new SqlExecutor(null);
-        assertNotNull(executor.getTemplateValues());
-        assertNull(executor.getChildReaderListener());
-        executor.setChildReaderListener(new SqlExecutor(null));
-        assertNotNull(executor.getChildReaderListener());
-    }
-
+public class PackageVisitorCommandExecutorTest {
 
     @Test
-    public void testfindAndReplace() {
+    public void testVisitors() {
+        PackageVisitorCommandExecutorEx exector = new PackageVisitorCommandExecutorEx(null) {
 
-        SqlExecutorMock executor = new SqlExecutorMock(null);
-        StringBuilder inputText = new StringBuilder();
-        inputText.append("here is my text $x");
-        executor.getTemplateValues().put("$x", "blue");
-        executor.preProcess(inputText);
-        assertEquals("here is my text blue", inputText.toString());
+        };
+
+        assertEquals(1, exector.getInterfaceVisitors().length);
+        assertTrue(exector.getInterfaceVisitors()[0] instanceof PackageSourceAppender);
+        assertEquals(1, exector.getBodyVisitors().length);
+        assertTrue(exector.getBodyVisitors()[0] instanceof PackageBodySourceAppender);
+
     }
 
-    private class SqlExecutorMock extends SqlExecutor {
+    private class PackageVisitorCommandExecutorEx extends PackageVisitorCommandExecutor {
 
-        public SqlExecutorMock(DbContext context) {
+        public PackageVisitorCommandExecutorEx(DbContext context) {
             super(context);
+
         }
 
         @Override
-        public void preProcess(StringBuilder sqlText) {
-            super.preProcess(sqlText);
+        public SqlSourceVisitor[] getInterfaceVisitors() {
+
+            return super.getInterfaceVisitors();
+        }
+
+        @Override
+        public SqlSourceVisitor[] getBodyVisitors() {
+
+            return super.getBodyVisitors();
         }
     }
-
 }

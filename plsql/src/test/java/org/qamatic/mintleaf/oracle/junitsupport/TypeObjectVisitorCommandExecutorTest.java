@@ -25,26 +25,50 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.oracle.junitsupport;
 
+import org.junit.Test;
 import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
+import org.qamatic.mintleaf.oracle.TypeObjectVisitorCommandExecutor;
 import org.qamatic.mintleaf.oracle.codevisitors.TypeObjectBodySourceAppender;
 import org.qamatic.mintleaf.oracle.codevisitors.TypeObjectSourceAppender;
 
-public class TypeObjectVisitorSqlExecutor extends VisitorSqlExecutor {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-    public TypeObjectVisitorSqlExecutor(DbContext context) {
-        super(context);
+public class TypeObjectVisitorCommandExecutorTest {
+
+    @Test
+    public void testVisitors() {
+        TypeObjectVisitorCommandExecutorEx exector = new TypeObjectVisitorCommandExecutorEx(null) {
+
+        };
+
+        assertEquals(1, exector.getInterfaceVisitors().length);
+        assertTrue(exector.getInterfaceVisitors()[0] instanceof TypeObjectSourceAppender);
+        assertEquals(1, exector.getBodyVisitors().length);
+        assertTrue(exector.getBodyVisitors()[0] instanceof TypeObjectBodySourceAppender);
+
     }
 
-    @Override
-    protected SqlSourceVisitor[] getInterfaceVisitors() {
-        return new SqlSourceVisitor[]{new TypeObjectSourceAppender()};
-    }
+    private class TypeObjectVisitorCommandExecutorEx extends TypeObjectVisitorCommandExecutor {
 
-    @Override
-    protected SqlSourceVisitor[] getBodyVisitors() {
-        return new SqlSourceVisitor[]{new TypeObjectBodySourceAppender()};
-    }
+        public TypeObjectVisitorCommandExecutorEx(DbContext context) {
+            super(context);
 
+        }
+
+        @Override
+        public SqlSourceVisitor[] getInterfaceVisitors() {
+
+            return super.getInterfaceVisitors();
+        }
+
+        @Override
+        public SqlSourceVisitor[] getBodyVisitors() {
+
+            return super.getBodyVisitors();
+        }
+    }
 }

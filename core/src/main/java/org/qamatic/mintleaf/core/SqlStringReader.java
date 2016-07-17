@@ -61,8 +61,8 @@ public class SqlStringReader extends BaseSqlReader {
                         childContents.append(splits[0]);
                     }
                     String sql = childContents.toString().trim();
-                    if ((mvreaderListener != null) && (sql.length() != 0)) {
-                        mvreaderListener.onReadChild(new StringBuilder(sql), null);
+                    if ((readerListener != null) && (sql.length() != 0)) {
+                        readerListener.onReadChild(new StringBuilder(sql), null);
                     }
                     childContents.setLength(0);
 

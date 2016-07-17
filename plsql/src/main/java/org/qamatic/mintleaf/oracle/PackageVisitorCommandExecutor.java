@@ -25,50 +25,26 @@
  *
  */
 
-package org.qamatic.mintleaf.oracle.junitsupport;
+package org.qamatic.mintleaf.oracle;
 
-import org.junit.Test;
 import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.oracle.PackageVisitorSqlExecutor;
-import org.qamatic.mintleaf.oracle.SqlSourceVisitor;
 import org.qamatic.mintleaf.oracle.codevisitors.PackageBodySourceAppender;
 import org.qamatic.mintleaf.oracle.codevisitors.PackageSourceAppender;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+public class PackageVisitorCommandExecutor extends VisitorCommandExecutor {
 
-public class PackageVisitorSqlExecutorTest {
-
-    @Test
-    public void testVisitors() {
-        PackageVisitorSqlExecutorEx exector = new PackageVisitorSqlExecutorEx(null) {
-
-        };
-
-        assertEquals(1, exector.getInterfaceVisitors().length);
-        assertTrue(exector.getInterfaceVisitors()[0] instanceof PackageSourceAppender);
-        assertEquals(1, exector.getBodyVisitors().length);
-        assertTrue(exector.getBodyVisitors()[0] instanceof PackageBodySourceAppender);
-
+    public PackageVisitorCommandExecutor(DbContext context) {
+        super(context);
     }
 
-    private class PackageVisitorSqlExecutorEx extends PackageVisitorSqlExecutor {
-
-        public PackageVisitorSqlExecutorEx(DbContext context) {
-            super(context);
-
-        }
-
-        @Override
-        public SqlSourceVisitor[] getInterfaceVisitors() {
-
-            return super.getInterfaceVisitors();
-        }
-
-        @Override
-        public SqlSourceVisitor[] getBodyVisitors() {
-
-            return super.getBodyVisitors();
-        }
+    @Override
+    protected SqlSourceVisitor[] getInterfaceVisitors() {
+        return new SqlSourceVisitor[]{new PackageSourceAppender()};
     }
+
+    @Override
+    protected SqlSourceVisitor[] getBodyVisitors() {
+        return new SqlSourceVisitor[]{new PackageBodySourceAppender()};
+    }
+
 }

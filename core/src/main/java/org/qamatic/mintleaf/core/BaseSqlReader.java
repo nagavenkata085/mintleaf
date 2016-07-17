@@ -35,17 +35,17 @@ import java.sql.SQLException;
 
 public abstract class BaseSqlReader implements SqlReader {
 
-    protected SqlReaderListener mvreaderListener;
-    private String mvdelimiter = "/";
+    protected SqlReaderListener readerListener;
+    private String delimiter = "/";
 
     @Override
     public String getDelimiter() {
-        return mvdelimiter;
+        return delimiter;
     }
 
     @Override
     public void setDelimiter(String delimStr) {
-        this.mvdelimiter = delimStr;
+        this.delimiter = delimStr;
 
     }
 
@@ -54,11 +54,11 @@ public abstract class BaseSqlReader implements SqlReader {
 
     @Override
     public SqlReaderListener getReaderListener() {
-        return mvreaderListener;
+        return readerListener;
     }
 
     @Override
     public void setReaderListener(SqlReaderListener readerListener) {
-        this.mvreaderListener = readerListener;
+        this.readerListener = readerListener;
     }
 }

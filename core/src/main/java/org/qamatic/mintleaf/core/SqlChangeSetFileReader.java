@@ -39,26 +39,26 @@ import java.util.HashMap;
 
 public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetReader {
 
-    private final HashMap<String, ChangeSet> mvSections = new HashMap<String, ChangeSet>();
-    protected InputStream mvStream;
+    private final HashMap<String, ChangeSet> changeSets = new HashMap<String, ChangeSet>();
+    protected InputStream inputStream;
 
     public SqlChangeSetFileReader(InputStream stream) {
-        this.mvStream = stream;
+        this.inputStream = stream;
 
     }
 
     public SqlChangeSetFileReader(String resource) {
-        this.mvStream = this.getClass().getResourceAsStream(resource);
+        this.inputStream = this.getClass().getResourceAsStream(resource);
     }
 
     @Override
-    public ChangeSet getChangeSet(String sectionName) {
-        return mvSections.get(sectionName);
+    public ChangeSet getChangeSet(String changeSetId) {
+        return changeSets.get(changeSetId);
     }
 
     @Override
     public HashMap<String, ChangeSet> getChangeSets() {
-        return mvSections;
+        return changeSets;
     }
 
     @Override
@@ -66,8 +66,8 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
 
         StringBuilder childContents = new StringBuilder();
         StringBuilder contents = new StringBuilder();
-        BufferedReader input = new BufferedReader(new InputStreamReader(mvStream, "UTF-8"));
-        ChangeSet currentSection = null;
+        BufferedReader input = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        ChangeSet currentChangeSet = null;
         try {
             String line = null; // not declared within while loop
 
@@ -81,17 +81,17 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
                 contents.append("\n");
 
                 if ((line.trim().contains("<ChangeSet")) && ChangeSet.xmlToChangeSet(line) != null) {
-                    if (currentSection == null) {
-                        currentSection = ChangeSet.xmlToChangeSet(line);
+                    if (currentChangeSet == null) {
+                        currentChangeSet = ChangeSet.xmlToChangeSet(line);
                     }
                     String sql = childContents.toString().trim();
                     if (sql.length() != 0) {
-                        if (mvreaderListener != null) {
-                            mvreaderListener.onReadChild(new StringBuilder(sql), currentSection);
+                        if (readerListener != null) {
+                            readerListener.onReadChild(new StringBuilder(sql), currentChangeSet);
                         }
-                        currentSection.setChangeSetSource(sql);
-                        mvSections.put(currentSection.getId(), currentSection);
-                        currentSection = ChangeSet.xmlToChangeSet(line);
+                        currentChangeSet.setChangeSetSource(sql);
+                        changeSets.put(currentChangeSet.getId(), currentChangeSet);
+                        currentChangeSet = ChangeSet.xmlToChangeSet(line);
                     }
                     childContents.setLength(0);
                     continue;
@@ -104,24 +104,24 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
         }
 
         String sql = childContents.toString().trim();
-        if ((currentSection != null) && (currentSection.getId() != null) && (currentSection.getId().length() != 0) && (sql.length() != 0)) {
-            if (mvreaderListener != null) {
-                mvreaderListener.onReadChild(new StringBuilder(sql), null);
+        if ((currentChangeSet != null) && (currentChangeSet.getId() != null) && (currentChangeSet.getId().length() != 0) && (sql.length() != 0)) {
+            if (readerListener != null) {
+                readerListener.onReadChild(new StringBuilder(sql), null);
             }
-            currentSection.setChangeSetSource(sql);
-            mvSections.put(currentSection.getId(), currentSection);
+            currentChangeSet.setChangeSetSource(sql);
+            changeSets.put(currentChangeSet.getId(), currentChangeSet);
         }
         return contents.toString();
     }
 
     @Override
     public String getDelimiter() {
-        throw new UnsupportedOperationException("sectional file reader does not support delimiters");
+        throw new UnsupportedOperationException("changeset reader does not support delimiters but declared as part changeset");
     }
 
     @Override
     public void setDelimiter(String delimStr) {
-        throw new UnsupportedOperationException("sectional file reader does not support delimiters");
+        throw new UnsupportedOperationException("changeset reader does not support delimiters but declared as part changeset");
     }
 
 }
