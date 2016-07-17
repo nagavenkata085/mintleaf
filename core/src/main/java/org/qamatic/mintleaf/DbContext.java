@@ -51,7 +51,7 @@ public interface DbContext {
 
     boolean isdbFeatureExists(String featureName);
 
-    int getNextSequenceNumber(String sequenceName);
+
 
     void truncateTable(String tableName);
 
@@ -67,5 +67,5 @@ public interface DbContext {
 
     boolean isColumnExists(String tableName, String columnName);
 
-    boolean isSequenceExists(String sequenceName);
+
 }

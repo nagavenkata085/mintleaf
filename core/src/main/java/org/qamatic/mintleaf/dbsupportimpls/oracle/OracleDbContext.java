@@ -8,6 +8,10 @@ import org.qamatic.mintleaf.DbContext;
 public interface OracleDbContext extends DbContext {
 
 
+    int getNextSequenceNumber(String sequenceName);
+
+    boolean isSequenceExists(String sequenceName);
+
     boolean isPackageExists(String pkgName, boolean igoreValidity);
 
     boolean isPackageBodyExists(String pkgName, boolean igoreValidity);

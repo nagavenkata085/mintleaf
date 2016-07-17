@@ -100,10 +100,7 @@ public class BaseDbContext implements DbContext {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public int getNextSequenceNumber(String sequenceName) {
-        throw new UnsupportedOperationException();
-    }
+
 
     @Override
     public void truncateTable(String tableName) {
@@ -125,7 +122,6 @@ public class BaseDbContext implements DbContext {
         throw new UnsupportedOperationException();
     }
 
-
     public DbMetaData getMetaData(String objectName) throws SQLException{
         throw new UnsupportedOperationException();
     }
@@ -140,10 +136,6 @@ public class BaseDbContext implements DbContext {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    public boolean isSequenceExists(String sequenceName) {
-        throw new UnsupportedOperationException();
-    }
 
 
 }
