@@ -29,7 +29,7 @@ package junitsupport;
 
 import org.apache.commons.dbcp.BasicDataSource;
 
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContextImpl;
+import org.qamatic.mintleaf.dbs.oracle.OracleDbContextImpl;
 import org.qamatic.mintleaf.DbContext;
 
 

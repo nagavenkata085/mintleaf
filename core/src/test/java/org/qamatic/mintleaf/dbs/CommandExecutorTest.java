@@ -25,7 +25,7 @@
  *
  */
 
-package org.qamatic.mintleaf.dbsupportimpls;
+package org.qamatic.mintleaf.dbs;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.CommandExecutor;

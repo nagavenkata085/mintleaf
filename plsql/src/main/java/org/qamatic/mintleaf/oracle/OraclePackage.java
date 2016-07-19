@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle;
 
 
 import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbContext;
+import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.core.SqlValue;
 import org.qamatic.mintleaf.oracle.spring.OraclePLProcedure;

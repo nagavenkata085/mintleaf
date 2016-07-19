@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.DbMetaData;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleColumn;
+import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
 import org.qamatic.mintleaf.oracle.argextensions.OracleRowType;
 import org.qamatic.mintleaf.oracle.core.SqlArgument;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;

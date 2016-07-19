@@ -31,7 +31,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.dbsupportimpls.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.dbs.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.SqlReader;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;

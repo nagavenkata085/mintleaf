@@ -1,4 +1,4 @@
-package org.qamatic.mintleaf.dbsupportimpls;
+package org.qamatic.mintleaf.dbs;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Assert;
@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.dbsupportimpls.h2.H2DbContextImpl;
-import org.qamatic.mintleaf.dbsupportimpls.h2.H2DbContext;
+import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
+import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.DbMetaData;
 
 import java.io.IOException;
@@ -51,6 +51,8 @@ public class H2DbTests {
         Assert.assertEquals(7, cnt);
     }
 
+
+
     @Test
     public void b_CheckMetaData() throws SQLException, IOException {
         DbMetaData md = h2DbContext.getMetaData("HRDB.USERS");
@@ -69,5 +71,12 @@ public class H2DbTests {
     public void useListnerToDumpData(){
 
     }
+
+    @Test
+    public void c_SingScriptLoad() throws SQLException, IOException {
+        int cnt = h2DbContext.getCount("HRDB.USERS");
+        Assert.assertEquals(7, cnt);
+    }
+
 
 }

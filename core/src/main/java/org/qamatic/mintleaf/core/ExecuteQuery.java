@@ -95,7 +95,7 @@ public class ExecuteQuery {
 
 
 
-    private static class LoadSqlScriptScript extends SqlScriptObject {
+    private static class LoadSqlScriptScript extends AbstractSqlScript {
         private final String delimiter;
         private final String scriptText;
 
@@ -106,7 +106,7 @@ public class ExecuteQuery {
         }
 
         @Override
-        protected SqlReader getCreateSourceReader() {
+        protected SqlReader getSourceReader() {
             SqlReader reader =new SqlStringReader(scriptText);
             reader.setDelimiter(delimiter);
             return reader;

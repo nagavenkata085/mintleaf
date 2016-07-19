@@ -36,46 +36,44 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 
-public abstract class SqlScriptObject implements SqlScript {
+public abstract class AbstractSqlScript implements SqlScript {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
-    protected DbContext mvContext;
-    protected SqlReaderListener mvlistener;
+    protected DbContext dbContext;
+    protected SqlReaderListener sqlReaderListener;
 
 
-    public SqlScriptObject(DbContext context) {
-        mvContext = context;
+    public AbstractSqlScript(DbContext context) {
+        dbContext = context;
     }
 
     @Override
     public DbContext getDbContext() {
-        return mvContext;
+        return dbContext;
     }
 
     @Override
     public void create() throws SQLException, IOException {
-        logger.info("Create: source");
-        SqlReader reader = getCreateSourceReader();
+        SqlReader reader = getSourceReader();
         execute(reader);
     }
 
 
-    public SqlReaderListener getSqlReadListener() {
-        if (mvlistener == null) {
-            mvlistener = new CommandExecutor(getDbContext());
+    public SqlReaderListener getReadListener() {
+        if (sqlReaderListener == null) {
+            sqlReaderListener = new CommandExecutor(getDbContext());
         }
 
-        return mvlistener;
+        return sqlReaderListener;
     }
 
 
-    protected abstract SqlReader getCreateSourceReader();
+    protected abstract SqlReader getSourceReader();
 
     protected String execute(SqlReader reader) throws IOException, SQLException {
-        reader.setReaderListener(getSqlReadListener());
+        reader.setReaderListener(getReadListener());
         return reader.read();
     }
 
