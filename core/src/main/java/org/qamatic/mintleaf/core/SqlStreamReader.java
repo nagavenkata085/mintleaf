@@ -33,11 +33,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 
-public class SqlFileReader extends BaseSqlReader {
+public class SqlStreamReader extends AbstractSqlReader {
 
     protected InputStream mvstream;
 
-    public SqlFileReader(InputStream stream) {
+    public SqlStreamReader(InputStream stream) {
         this.mvstream = stream;
 
     }

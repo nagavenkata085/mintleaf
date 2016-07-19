@@ -89,64 +89,55 @@ public class ExecuteQuery {
 
     // for fitnesse, if sections are specified as table argument
     public void loadFromSectionalFile(DbContext dbcontext, String fileName, String[] sectionsToLoad) throws SQLException, IOException {
-        LoadSectionalSqlFile loadSql = new LoadSectionalSqlFile(dbcontext, fileName, sectionsToLoad);
+        LoadChangeSetSqlFile loadSql = new LoadChangeSetSqlFile(dbcontext, fileName, sectionsToLoad);
         loadSql.create();
     }
 
-    public void loadSqlSectionsFitnesse(String sectionalFileCommaSectionalNames) throws SQLException, IOException {
-        new ExecuteQuery().loadFromSectionalFile(dbContext, getFileName(sectionalFileCommaSectionalNames), getChangeSetIds(sectionalFileCommaSectionalNames));
-    }
+
 
     private static class LoadSqlScriptScript extends SqlScriptObject {
-        private final String mvdelimiter;
-        private final String mvscripttext;
+        private final String delimiter;
+        private final String scriptText;
 
         public LoadSqlScriptScript(DbContext context, String scripttext, String delimiter) {
             super(context);
-            mvdelimiter = delimiter;
-            mvscripttext = scripttext;
+            this.delimiter = delimiter;
+            this.scriptText = scripttext;
         }
 
         @Override
         protected SqlReader getCreateSourceReader() {
-            return new SqlStringReader(getSource());
+            SqlReader reader =new SqlStringReader(scriptText);
+            reader.setDelimiter(delimiter);
+            return reader;
         }
 
-        @Override
-        public String getSource() {
-            return mvscripttext;
-        }
-
-        @Override
-        protected String getCreateSourceDelimiter() {
-            return mvdelimiter;
-        }
     }
 
-    private class LoadSectionalSqlFile {
+    private class LoadChangeSetSqlFile {
 
-        private final String[] mvsectionsToLoad;
-        private final String mvfileName;
-        private final DbContext mvContext;
+        private final String[] changeSets;
+        private final String fileName;
+        private final DbContext dbContext;
 
-        public LoadSectionalSqlFile(DbContext context, String fileName, String[] sectionsToLoad) {
+        public LoadChangeSetSqlFile(DbContext context, String fileName, String[] sectionsToLoad) {
 
-            mvfileName = fileName;
-            mvContext = context;
-            mvsectionsToLoad = sectionsToLoad;
+            this.fileName = fileName;
+            dbContext = context;
+            changeSets = sectionsToLoad;
         }
 
         public void create() throws IOException, SQLException {
 
-            if ((mvsectionsToLoad == null) || (mvsectionsToLoad.length == 0)) {
+            if ((changeSets == null) || (changeSets.length == 0)) {
                 return;
             }
-            ChangeSetReader reader = new SqlChangeSetFileReader(mvfileName);
+            ChangeSetReader reader = new SqlChangeSetFileReader(fileName);
             reader.read();
-            for (String sectionName : mvsectionsToLoad) {
+            for (String sectionName : changeSets) {
                 if (reader.getChangeSets().containsKey(sectionName)) {
                     ChangeSet section = reader.getChangeSet(sectionName);
-                    SqlScript loadSql = new LoadSqlScriptScript(mvContext, section.getChangeSetSource(), section.getDelimiter());
+                    SqlScript loadSql = new LoadSqlScriptScript(dbContext, section.getChangeSetSource(), section.getDelimiter());
                     loadSql.create();
                 }
             }

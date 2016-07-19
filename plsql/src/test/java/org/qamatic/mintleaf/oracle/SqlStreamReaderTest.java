@@ -28,7 +28,7 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlFileReader;
+import org.qamatic.mintleaf.core.SqlStreamReader;
 import org.qamatic.mintleaf.SqlReaderListener;
 
 import java.io.IOException;
@@ -38,33 +38,33 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class SqlFileReaderTest {
+public class SqlStreamReaderTest {
 
     private String actual_emptypackage_block1;
     private String actual_emptypackage_block2;
 
     @Test
     public void testDelimiterString() {
-        SqlFileReader reader = new SqlFileReader(null);
+        SqlStreamReader reader = new SqlStreamReader(null);
         reader.setDelimiter(";");
         assertEquals(";", reader.getDelimiter());
     }
 
     @Test
     public void testDelimiterStringDefault() {
-        SqlFileReader reader = new SqlFileReader(null);
+        SqlStreamReader reader = new SqlStreamReader(null);
         assertEquals("/", reader.getDelimiter());
     }
 
     @Test
     public void testSqlReaderListnerDefault() {
-        SqlFileReader reader = new SqlFileReader(null);
+        SqlStreamReader reader = new SqlStreamReader(null);
         assertNull(reader.getReaderListener());
     }
 
     @Test
     public void testSqlReaderListnerTest1() {
-        SqlFileReader reader = new SqlFileReader(null);
+        SqlStreamReader reader = new SqlStreamReader(null);
         reader.setReaderListener(new EmptyPackageReadListner());
         assertNotNull(reader.getReaderListener());
     }
@@ -73,7 +73,7 @@ public class SqlFileReaderTest {
     public void testSqlReaderReadTest() throws IOException, SQLException {
 
         InputStream iStream = this.getClass().getResourceAsStream("/EmptyPackage.sql");
-        SqlFileReader reader = new SqlFileReader(iStream);
+        SqlStreamReader reader = new SqlStreamReader(iStream);
 
         String actual = reader.read();
 
@@ -103,7 +103,7 @@ public class SqlFileReaderTest {
 
         SqlReaderListener listner = new EmptyPackageReadListner();
         InputStream iStream = this.getClass().getResourceAsStream("/EmptyPackage.sql");
-        SqlFileReader reader = new SqlFileReader(iStream);
+        SqlStreamReader reader = new SqlStreamReader(iStream);
         reader.setReaderListener(listner);
         actual_emptypackage_block1 = null;
         actual_emptypackage_block2 = null;

@@ -60,7 +60,7 @@ public class ChangeSet {
     private static final Logger logger = LoggerFactory.getLogger(ChangeSet.class);
     private String id = "";
     private String delimiter = "";
-    private String ChangeSetSource = "";
+    private String changeSetSource = "";
 
     public ChangeSet() {
 
@@ -70,7 +70,7 @@ public class ChangeSet {
     public ChangeSet(String partName, String delimiter, String source) {
         this.id = partName;
         this.delimiter = delimiter;
-        ChangeSetSource = source;
+        changeSetSource = source;
     }
 
     public static ChangeSet xmlToChangeSet(String xmlStr) {
@@ -93,12 +93,12 @@ public class ChangeSet {
     }
 
     public String getChangeSetSource() {
-        return ChangeSetSource;
+        return changeSetSource;
     }
 
     @XmlTransient
     public void setChangeSetSource(String ChangeSetSource) {
-        this.ChangeSetSource = ChangeSetSource;
+        this.changeSetSource = ChangeSetSource;
     }
 
     public String getId() {

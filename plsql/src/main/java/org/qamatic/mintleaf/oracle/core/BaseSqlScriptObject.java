@@ -29,7 +29,7 @@ package org.qamatic.mintleaf.oracle.core;
 
 
 import org.qamatic.mintleaf.core.CommandExecutor;
-import org.qamatic.mintleaf.core.SqlFileReader;
+import org.qamatic.mintleaf.core.SqlStreamReader;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.SqlReader;
 import org.qamatic.mintleaf.SqlReaderListener;
@@ -204,7 +204,7 @@ public class BaseSqlScriptObject implements SqlScriptObject {
     }
 
     protected SqlReader getCreateSourceReader(InputStream stream) {
-        return new SqlFileReader(stream);
+        return new SqlStreamReader(stream);
     }
 
     protected SqlReader getCreateSourceReader() {
@@ -213,7 +213,7 @@ public class BaseSqlScriptObject implements SqlScriptObject {
     }
 
     protected SqlReader getDropSourceReader(InputStream stream) {
-        return new SqlFileReader(stream);
+        return new SqlStreamReader(stream);
     }
 
     protected SqlReader getDropSourceReader() {

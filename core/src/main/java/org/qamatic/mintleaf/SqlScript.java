@@ -9,9 +9,5 @@ import java.sql.SQLException;
 public interface SqlScript {
     DbContext getDbContext();
 
-    String getSource();
-
-    void setSource(String source);
-
     void create() throws SQLException, IOException;
 }

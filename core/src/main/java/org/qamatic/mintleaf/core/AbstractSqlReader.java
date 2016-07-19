@@ -33,7 +33,7 @@ import org.qamatic.mintleaf.SqlReaderListener;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public abstract class BaseSqlReader implements SqlReader {
+public abstract class AbstractSqlReader implements SqlReader {
 
     protected SqlReaderListener readerListener;
     private String delimiter = "/";

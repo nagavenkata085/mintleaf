@@ -39,19 +39,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-public class SqlScriptObject implements SqlScript {
+public abstract class SqlScriptObject implements SqlScript {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     protected DbContext mvContext;
-    protected String mvSource;
-    protected SqlReaderListener mvfirstChildListner;
     protected SqlReaderListener mvlistener;
-    protected String mvdelimiter;
+
 
     public SqlScriptObject(DbContext context) {
         mvContext = context;
     }
-
 
     @Override
     public DbContext getDbContext() {
@@ -59,58 +56,23 @@ public class SqlScriptObject implements SqlScript {
     }
 
     @Override
-    public String getSource() {
-        return mvSource;
-    }
-
-    @Override
-    public void setSource(String source) {
-        mvSource = source;
-    }
-
-    public final SqlReaderListener getChildListener() {
-        return mvfirstChildListner;
-    }
-
-    protected String getCreateSourceDelimiter() {
-        return mvdelimiter;
-    }
-
-    @Override
     public void create() throws SQLException, IOException {
-        if (getSource() == null) {
-            return;
-        }
-        createInternal();
-    }
-
-    protected void createInternal() throws IOException, SQLException {
-        logger.info(String.format("DbSql.Create: source: %s", getSource()));
+        logger.info("Create: source");
         SqlReader reader = getCreateSourceReader();
-        if (getCreateSourceDelimiter() != null) {
-            reader.setDelimiter(getCreateSourceDelimiter());
-        }
         execute(reader);
-
     }
+
 
     public SqlReaderListener getSqlReadListener() {
         if (mvlistener == null) {
-            mvlistener = new CommandExecutor(mvContext);
-            mvlistener.setChildReaderListener(getChildListener());
+            mvlistener = new CommandExecutor(getDbContext());
         }
 
         return mvlistener;
     }
 
-    protected SqlReader getCreateSourceReader(InputStream stream) {
-        return new SqlFileReader(stream);
-    }
 
-    protected SqlReader getCreateSourceReader() {
-        InputStream iStream = this.getClass().getResourceAsStream(getSource());
-        return getCreateSourceReader(iStream);
-    }
+    protected abstract SqlReader getCreateSourceReader();
 
     protected String execute(SqlReader reader) throws IOException, SQLException {
         reader.setReaderListener(getSqlReadListener());
