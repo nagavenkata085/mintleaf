@@ -59,7 +59,7 @@ public class OracleSqlDDLObjectTest extends OracleTestCase {
     }
 
     @Test
-    public void testDdlCheckForTablesCreated() {
+    public void testDdlCheckForTablesCreated() throws SQLException {
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "table1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
     }

@@ -2,12 +2,9 @@ package org.qamatic.mintleaf.dbs;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.qamatic.mintleaf.DbMetaData;
 import org.qamatic.mintleaf.SqlScript;
-import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.core.ExecuteScriptFile;
 import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
@@ -18,7 +15,7 @@ import java.sql.SQLException;
 /**
  * Created by senips on 7/12/16.
  */
-public class h2DbScriptTests {
+public class SingleLoadScriptTests {
 
 
     private static H2DbContext h2DbContext;

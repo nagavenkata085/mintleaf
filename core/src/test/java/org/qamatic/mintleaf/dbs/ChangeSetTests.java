@@ -16,7 +16,7 @@ import java.sql.SQLException;
 /**
  * Created by senips on 7/12/16.
  */
-public class H2DbTests {
+public class ChangeSetTests {
 
 
     private static H2DbContext h2DbContext;
@@ -34,11 +34,11 @@ public class H2DbTests {
 
 
     @Before
-    public void setupSchema() throws IOException, SQLException {
+    public void applyChangeSet() throws IOException, SQLException {
 
         ExecuteQuery executeQuery = new ExecuteQuery(h2DbContext);
         executeQuery.loadSource("DROP ALL OBJECTS;", ";");
-        executeQuery.loadFromSectionalFile(h2DbContext, "/h2testdb.sql", "create schema,load seed data");
+        executeQuery.loadFromSectionalFile(h2DbContext, "/example-changesets.sql", "create schema,load seed data");
 
     }
 
