@@ -47,7 +47,7 @@ public interface DbContext {
 
     int getCount(String tableName);
 
-    boolean isTableExists(String tableName);
+    boolean isTableExists(String tableName) throws SQLException;
 
     boolean isdbFeatureExists(String featureName);
 

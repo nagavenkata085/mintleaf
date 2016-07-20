@@ -75,4 +75,8 @@ public class H2DbContextImpl extends AbstractDbContext implements H2DbContext {
         return metaData;
     }
 
+    @Override
+    public boolean isTableExists(String tableName) throws SQLException {
+         return getMetaData(tableName).size()!=0;
+    }
 }

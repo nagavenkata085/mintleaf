@@ -28,7 +28,8 @@ public class ExecuteScriptFile extends AbstractSqlScript {
         InputStream stream = null;
         logger.info("reading file: " + this.filename);
         if (this.filename.startsWith("res:")) {
-            stream = this.getClass().getResourceAsStream(this.filename);
+            String resFile = this.filename.substring(4);
+            stream = this.getClass().getResourceAsStream(resFile);
         } else {
             try {
                 stream = new FileInputStream(this.filename);

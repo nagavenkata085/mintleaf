@@ -99,7 +99,7 @@ public class OracleDbAssert {
     }
 
 
-    public static void assertTableExists(DbContext context, String tableName) {
+    public static void assertTableExists(DbContext context, String tableName) throws SQLException {
         assertTrue("Table Invalid or not found: " + tableName, context.isTableExists(tableName));
     }
 

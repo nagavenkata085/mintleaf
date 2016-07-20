@@ -22,16 +22,13 @@ public class H2DbTests {
     private static H2DbContext h2DbContext;
 
     @BeforeClass
-    public static void cleanDb() {
-
+    public static void setupDb() {
 
         BasicDataSource ds = new BasicDataSource();
-        ds.setUrl("jdbc:h2:file:./target/h2test;mv_store=false");
+        ds.setUrl("jdbc:h2:file:./target/H2DbTests;mv_store=false");
         ds.setDriverClassName("org.h2.Driver");
 
         h2DbContext = new H2DbContextImpl(ds);
-
-
 
     }
 
@@ -67,16 +64,7 @@ public class H2DbTests {
         Assert.assertEquals(91, md.getColumns().get(3).getDatatype());
     }
 
-    @Test
-    public void useListnerToDumpData(){
 
-    }
-
-    @Test
-    public void c_SingScriptLoad() throws SQLException, IOException {
-        int cnt = h2DbContext.getCount("HRDB.USERS");
-        Assert.assertEquals(7, cnt);
-    }
 
 
 }

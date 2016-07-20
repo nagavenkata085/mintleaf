@@ -91,7 +91,7 @@ public class AbstractDbContext implements DbContext {
     }
 
     @Override
-    public boolean isTableExists(String tableName) {
+    public boolean isTableExists(String tableName) throws SQLException {
         throw new UnsupportedOperationException();
     }
 
