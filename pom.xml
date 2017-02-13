@@ -26,14 +26,13 @@
   ~
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.qamatic</groupId>
     <artifactId>mintleaf</artifactId>
     <packaging>pom</packaging>
-    <version>1.8.10-SNAPSHOT</version>
+    <version>1.8.10</version>
 
     <name>Mintleaf</name>
     <description>Mintleaf is a tool for apply database changes and acceptance testing database</description>
@@ -91,7 +90,7 @@
         <connection>scm:git:https://github.com/senips/mintleaf.git</connection>
         <url>https://github.com/senips/mintleaf</url>
         <developerConnection>scm:git:https://github.com/senips/mintleaf.git</developerConnection>
-        <tag>v1.8.5-SNAPSHOT</tag>
+        <tag>v1.8.10</tag>
     </scm>
 
     <dependencyManagement>
