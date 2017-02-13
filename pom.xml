@@ -32,7 +32,7 @@
     <groupId>org.qamatic</groupId>
     <artifactId>mintleaf</artifactId>
     <packaging>pom</packaging>
-    <version>1.8.12.SNAPSHOT</version>
+    <version>1.8.12-SNAPSHOT</version>
 
     <name>Mintleaf</name>
     <description>Mintleaf is a tool for apply database changes and acceptance testing database</description>
@@ -41,7 +41,7 @@
     <modules>
         <module>core</module>
         <module>dbexamples</module>
-        <!--<module>plsql</module>-->
+        <module>plsql</module>
     </modules>
 
     <licenses>
