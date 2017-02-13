@@ -5,17 +5,22 @@
 Cloudify your database development on Continuous Delivery Model
 
 - Database Migration
-- Acceptance Testing
-- Unit Testing Foundation Framework
-- Unit Testing support for PLSQL
-- Support for mocking : data, schema and database objects
+- Write unit and acceptance level tests
+- Test life cycle management - setup, teardown mock data, schema and any database objects
 
-## JavaDoc
+<!--## JavaDoc-->
 
-~[Java Doc.](http://senips.github.io/mintleaf/javadoc/)
+<!--~[Java Doc.](http://senips.github.io/mintleaf/javadoc/)-->
 
 ## Architecture
 ![Architecture](https://github.com/senips/mintleaf/blob/master/img/mintleafarch.jpg)
+
+## Maven 
+    <dependency>
+        <groupId>org.qamatic</groupId>
+        <artifactId>mintleaf-core</artifactId>
+        <version>1.8.11</version>
+    </dependency>
 
 ## License
 
