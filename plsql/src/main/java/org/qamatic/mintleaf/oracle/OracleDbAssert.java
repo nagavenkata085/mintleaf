@@ -27,10 +27,11 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.dbs.oracle;
+package org.qamatic.mintleaf.oracle;
 
 import org.qamatic.mintleaf.DbContext;
 
+import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 

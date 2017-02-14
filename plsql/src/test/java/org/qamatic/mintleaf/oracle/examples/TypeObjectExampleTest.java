@@ -36,7 +36,7 @@ import org.qamatic.mintleaf.core.ExecuteQuery;
 import org.qamatic.mintleaf.oracle.SqlObjectDependsOn;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
-import org.qamatic.mintleaf.dbs.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
 import org.qamatic.mintleaf.oracle.SqlTypeObjectValue;

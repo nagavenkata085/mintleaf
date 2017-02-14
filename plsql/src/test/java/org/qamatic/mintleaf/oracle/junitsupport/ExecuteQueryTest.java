@@ -31,7 +31,7 @@ package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.dbs.oracle.OracleDbAssert;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
 
 import java.io.IOException;
 import java.sql.SQLException;
