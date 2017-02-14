@@ -40,12 +40,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-public class AbstractDbContext implements DbContext {
+public class BaseDbContext implements DbContext {
 
     private final DataSource dataSource;
     private DbSettings dbSettings;
 
-    public AbstractDbContext(DataSource datasource) {
+    public BaseDbContext(DataSource datasource) {
         dataSource = datasource;
     }
 

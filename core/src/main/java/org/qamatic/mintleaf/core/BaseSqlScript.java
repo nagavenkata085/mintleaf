@@ -40,14 +40,14 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public abstract class AbstractSqlScript implements SqlScript {
+public abstract class BaseSqlScript implements SqlScript {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     protected DbContext dbContext;
     protected SqlReaderListener sqlReaderListener;
 
 
-    public AbstractSqlScript(DbContext context) {
+    public BaseSqlScript(DbContext context) {
         dbContext = context;
     }
 

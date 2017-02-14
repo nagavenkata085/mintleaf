@@ -59,7 +59,7 @@ public class RowTypeExampleTest extends OracleTestCase {
     @Before
     public void init() throws SQLException, IOException {
         mvpkg = new EmployeePackage(getSchemaOwnerContext());
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table",
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table",
                 "create employee table"});
         mvpkg.create();
 
@@ -67,7 +67,7 @@ public class RowTypeExampleTest extends OracleTestCase {
 
     @After
     public void cleanUp() throws SQLException, IOException {
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
         mvpkg.drop();
     }
 

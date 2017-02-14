@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.core;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class SqlStringReader extends AbstractSqlReader {
+public class SqlStringReader extends BaseSqlReader {
 
     private final String mvSqlSource;
 

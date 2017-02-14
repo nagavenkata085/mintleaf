@@ -61,7 +61,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
     // @AfterClass
     public static void cleanUp() throws SQLException, IOException {
         if (mvtestPackage != null) {
-            new ExecuteQuery().loadFromSectionalFile(mvtestPackage.getDbContext(), "/examples/typeobjectexample_usingtable_sec.sql",
+            new ExecuteQuery().loadChangeSets(mvtestPackage.getDbContext(), "/examples/typeobjectexample_usingtable_sec.sql",
                     new String[]{"drop person table"});
             mvtestPackage.dropAll();
 

@@ -30,7 +30,7 @@
 package org.qamatic.mintleaf.dbs.oracle;
 
 
-import org.qamatic.mintleaf.core.AbstractDbContext;
+import org.qamatic.mintleaf.core.BaseDbContext;
 import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.DbMetaData;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Created by Senthil Maruthaiappan on 4/6/15.
  */
-public class OracleDbContextImpl extends AbstractDbContext implements OracleDbContext {
+public class OracleDbContextImpl extends BaseDbContext implements OracleDbContext {
     public OracleDbContextImpl(DataSource datasource) {
         super(datasource);
     }

@@ -39,7 +39,7 @@ import java.io.InputStream;
 /**
  * Created by senips on 7/18/16.
  */
-public class ChangeSetMigrate extends AbstractSqlScript {
+public class ChangeSetMigrate extends BaseSqlScript {
 
     private final DbContext context;
     private final String filename;

@@ -92,7 +92,7 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
 
     @Test
     public void testDbtMetaDataServiceFromTable() throws SQLException, IOException {
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table",
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table",
                 "create employee table"});
         DbMetaDataService svc = new SchemaMetaDataService();
 
@@ -105,7 +105,7 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
             assertEquals(0, empMetaData.getIndex("emp_id"));
 
         } finally {
-            new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
+            new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
         }
 
     }

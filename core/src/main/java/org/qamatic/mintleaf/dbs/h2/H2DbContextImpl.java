@@ -29,7 +29,7 @@
 
 package org.qamatic.mintleaf.dbs.h2;
 
-import org.qamatic.mintleaf.core.AbstractDbContext;
+import org.qamatic.mintleaf.core.BaseDbContext;
 import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.RowListener;
 import org.qamatic.mintleaf.DbMetaData;
@@ -44,7 +44,7 @@ import java.util.regex.Pattern;
 /**
  * Created by senips on 7/12/16.
  */
-public class H2DbContextImpl extends AbstractDbContext implements H2DbContext {
+public class H2DbContextImpl extends BaseDbContext implements H2DbContext {
     public H2DbContextImpl(DataSource datasource) {
         super(datasource);
     }

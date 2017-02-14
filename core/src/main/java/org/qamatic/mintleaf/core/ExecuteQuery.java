@@ -47,57 +47,31 @@ public class ExecuteQuery {
         dbContext = context;
     }
 
-    public static String getFileName(String commaSepartedChangeSetIds) {
-        if ((commaSepartedChangeSetIds == null) || (!commaSepartedChangeSetIds.contains(","))) {
-            return null;
-        }
-        String[] sectionsToLoad = commaSepartedChangeSetIds.split(",");
-        if (sectionsToLoad.length >= 1) {
-            return sectionsToLoad[0].trim();
-        }
-        return null;
-    }
 
-    public static String[] getChangeSetIds(String commaSepartedChangeSetIds) {
-        if ((commaSepartedChangeSetIds == null) || (!commaSepartedChangeSetIds.contains(","))) {
-            return null;
-        }
-        String[] sectionsToLoad = commaSepartedChangeSetIds.split(",");
-        if (sectionsToLoad.length <= 1) {
-            return null;
-        }
-        String[] result = new String[sectionsToLoad.length - 1];
-        for (int i = 1; i < sectionsToLoad.length; i++) {
-            result[i - 1] = sectionsToLoad[i].trim();
-        }
-        return result;
-    }
-
-    // for fitnesse, if context is already available
     public void loadSource(String script, String delimiter) throws SQLException, IOException {
         loadSource(dbContext, script, delimiter);
     }
 
-    // for JUnit, if context is not known
+
     public void loadSource(DbContext dbcontext, String script, String delimiter) throws SQLException, IOException {
         SqlScript loadSql = new LoadSqlScriptScript(dbcontext, script, delimiter);
         loadSql.create();
     }
 
-    // for JUnit, if sections are specified as a comma delimited string
-    public void loadFromSectionalFile(DbContext dbcontext, String fileName, String sectionsToLoadSeparatedByComma) throws SQLException, IOException {
-        loadFromSectionalFile(dbcontext, fileName, sectionsToLoadSeparatedByComma.split(","));
+
+    public void loadChangeSets(DbContext dbcontext, String fileName, String changeSetsToLoadSeparatedByComma) throws SQLException, IOException {
+        loadChangeSets(dbcontext, fileName, changeSetsToLoadSeparatedByComma.split(","));
     }
 
-    // for fitnesse, if sections are specified as table argument
-    public void loadFromSectionalFile(DbContext dbcontext, String fileName, String[] sectionsToLoad) throws SQLException, IOException {
-        LoadChangeSetSqlFile loadSql = new LoadChangeSetSqlFile(dbcontext, fileName, sectionsToLoad);
+
+    public void loadChangeSets(DbContext dbcontext, String fileName, String[] changeSetsToLoad) throws SQLException, IOException {
+        LoadChangeSetSqlFile loadSql = new LoadChangeSetSqlFile(dbcontext, fileName, changeSetsToLoad);
         loadSql.create();
     }
 
 
 
-    private static class LoadSqlScriptScript extends AbstractSqlScript {
+    private static class LoadSqlScriptScript extends BaseSqlScript {
         private final String delimiter;
         private final String scriptText;
 

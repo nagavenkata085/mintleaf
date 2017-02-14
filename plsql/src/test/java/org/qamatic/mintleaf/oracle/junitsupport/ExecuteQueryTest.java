@@ -44,11 +44,11 @@ public class ExecuteQueryTest extends OracleTestCase {
 
     @Test
     public void testLoadFromFile() throws SQLException, IOException {
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/Testddl.sql", "create_test_table");
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/Testddl.sql", "create_test_table");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
     }
@@ -80,7 +80,7 @@ public class ExecuteQueryTest extends OracleTestCase {
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
 
@@ -88,36 +88,24 @@ public class ExecuteQueryTest extends OracleTestCase {
 
     @Test
     public void testLoadFromSectionalFile() throws SQLException, IOException {
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"create some tables"});
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"create some tables"});
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables"});
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables"});
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables"});
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables"});
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables",
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables",
                 "delete tables"});
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
     }
 
-    @Test
-    public void testGetFileName() {
-        assertEquals("/loadSqlbyPart", ExecuteQuery.getFileName(" /loadSqlbyPart, create_test_table"));
-        assertNull(ExecuteQuery.getFileName(null));
-        assertNull(ExecuteQuery.getFileName(" /loadSqlbyPart create_test_table"));
-    }
 
-    @Test
-    public void testGetSectionalNames() {
-        assertEquals("create_test_table", ExecuteQuery.getChangeSetIds(" /loadSqlbyPart, create_test_table")[0]);
-        assertNull(ExecuteQuery.getChangeSetIds(null));
-        assertNull(ExecuteQuery.getChangeSetIds(" /loadSqlbyPart create_test_table"));
-    }
 
 }

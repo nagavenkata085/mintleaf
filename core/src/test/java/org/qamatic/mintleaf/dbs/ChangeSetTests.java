@@ -67,7 +67,7 @@ public class ChangeSetTests {
 
         ExecuteQuery executeQuery = new ExecuteQuery(h2DbContext);
         executeQuery.loadSource("DROP ALL OBJECTS;", ";");
-        executeQuery.loadFromSectionalFile(h2DbContext, "/example-changesets.sql", "create schema,load seed data");
+        executeQuery.loadChangeSets(h2DbContext, "/example-changesets.sql", "create schema,load seed data");
 
     }
 

@@ -39,7 +39,7 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class SqlChangeSetFileReader extends AbstractSqlReader implements ChangeSetReader {
+public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetReader {
 
     private final HashMap<String, ChangeSet> changeSets = new HashMap<String, ChangeSet>();
     protected InputStream inputStream;

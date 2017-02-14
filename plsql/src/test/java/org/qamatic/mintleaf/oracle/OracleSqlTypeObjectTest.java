@@ -243,7 +243,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     @Test
     public void testgetMetaDataFromTable() throws SQLException, IOException {
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
 
@@ -264,7 +264,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
 
         } finally {
             new ExecuteQuery()
-                    .loadFromSectionalFile(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
+                    .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 
     }
@@ -272,7 +272,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     @Test
     public void testbuildMetaDataFromTypeObjectFieldAnnonation() throws SQLException, IOException {
 
-        new ExecuteQuery().loadFromSectionalFile(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
 
@@ -290,7 +290,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
 
         } finally {
             new ExecuteQuery()
-                    .loadFromSectionalFile(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
+                    .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 
     }
