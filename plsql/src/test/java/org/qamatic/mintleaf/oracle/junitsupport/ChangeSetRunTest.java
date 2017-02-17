@@ -30,7 +30,7 @@
 package org.qamatic.mintleaf.oracle.junitsupport;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.ExecuteQuery;
+import org.qamatic.mintleaf.core.ChangeSetRun;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
 
 import java.io.IOException;
@@ -39,16 +39,16 @@ import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class ExecuteQueryTest extends OracleTestCase {
+public class ChangeSetRunTest extends OracleTestCase {
 
 
     @Test
     public void testLoadFromFile() throws SQLException, IOException {
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/Testddl.sql", "create_test_table");
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/Testddl.sql", "create_test_table");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
     }
@@ -76,11 +76,11 @@ public class ExecuteQueryTest extends OracleTestCase {
 
         builder.append(" ");
 
-        new ExecuteQuery().loadSource(getSchemaOwnerContext(), builder.toString(), ";");
+        new ChangeSetRun().loadSource(getSchemaOwnerContext(), builder.toString(), ";");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/Testddl_drop.sql", "drop_test_table");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
 
@@ -88,19 +88,19 @@ public class ExecuteQueryTest extends OracleTestCase {
 
     @Test
     public void testLoadFromSectionalFile() throws SQLException, IOException {
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"create some tables"});
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"create some tables"});
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables"});
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables"});
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables"});
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables"});
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");
 
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables",
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/ChangeSetReaderTest2.sql", new String[]{"delete tables", "create some tables",
                 "delete tables"});
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE1");
         OracleDbAssert.assertTableNotExists(getSchemaOwnerContext(), "TABLE2");

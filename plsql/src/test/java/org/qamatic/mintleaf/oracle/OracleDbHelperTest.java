@@ -357,7 +357,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testGetPrimaryKeys() throws SQLException, IOException {
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
             OracleHelperScript utils = new OracleHelperScript(getSchemaOwnerContext());
@@ -365,7 +365,7 @@ public class OracleDbHelperTest extends OracleTestCase {
             assertEquals("ID", keys.get(0));
 
         } finally {
-            new ExecuteQuery()
+            new ChangeSetRun()
                     .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 

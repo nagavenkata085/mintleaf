@@ -34,10 +34,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.ExecuteQuery;
-import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
-import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.DbMetaData;
+import org.qamatic.mintleaf.core.ChangeSetRun;
+import org.qamatic.mintleaf.dbs.h2.H2DbContext;
+import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -65,9 +65,9 @@ public class ChangeSetTests {
     @Before
     public void applyChangeSet() throws IOException, SQLException {
 
-        ExecuteQuery executeQuery = new ExecuteQuery(h2DbContext);
-        executeQuery.loadSource("DROP ALL OBJECTS;", ";");
-        executeQuery.loadChangeSets(h2DbContext, "/example-changesets.sql", "create schema,load seed data");
+        ChangeSetRun changeSetRun = new ChangeSetRun(h2DbContext);
+        changeSetRun.loadSource("DROP ALL OBJECTS;", ";");
+        changeSetRun.loadChangeSets(h2DbContext, "/example-changesets.sql", "create schema,load seed data");
 
     }
 
@@ -76,7 +76,6 @@ public class ChangeSetTests {
         int cnt = h2DbContext.getCount("HRDB.USERS");
         Assert.assertEquals(7, cnt);
     }
-
 
 
     @Test
@@ -92,8 +91,6 @@ public class ChangeSetTests {
         Assert.assertEquals("CREATE_TIME", md.getColumns().get(3).getColumnName());
         Assert.assertEquals(91, md.getColumns().get(3).getDatatype());
     }
-
-
 
 
 }

@@ -30,19 +30,14 @@
 package org.qamatic.mintleaf.core;
 
 
-import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.SqlReader;
-import org.qamatic.mintleaf.SqlReaderListener;
-import org.qamatic.mintleaf.SqlScript;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.qamatic.mintleaf.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 public abstract class BaseSqlScript implements SqlScript {
 
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final MintLogger logger = MintLogger.getLogger(getClass());
     protected DbContext dbContext;
     protected SqlReaderListener sqlReaderListener;
 

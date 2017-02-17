@@ -30,9 +30,8 @@
 package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.MintLogger;
 import org.qamatic.mintleaf.SqlReaderListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
@@ -42,8 +41,8 @@ import java.util.Map;
 
 public class CommandExecutor implements SqlReaderListener {
 
+    private static final MintLogger logger = MintLogger.getLogger(CommandExecutor.class);
     protected final DbContext dbContext;
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
     private final Map<String, String> templateValues = new Hashtable<String, String>();
     private SqlReaderListener childListner;
 

@@ -30,8 +30,8 @@
 package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.DbSettings;
 import org.qamatic.mintleaf.DbMetaData;
+import org.qamatic.mintleaf.DbSettings;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -103,7 +103,6 @@ public class BaseDbContext implements DbContext {
     }
 
 
-
     @Override
     public void truncateTable(String tableName) {
         throw new UnsupportedOperationException();
@@ -124,7 +123,7 @@ public class BaseDbContext implements DbContext {
         throw new UnsupportedOperationException();
     }
 
-    public DbMetaData getMetaData(String objectName) throws SQLException{
+    public DbMetaData getMetaData(String objectName) throws SQLException {
         throw new UnsupportedOperationException();
     }
 
@@ -137,7 +136,6 @@ public class BaseDbContext implements DbContext {
     public boolean isColumnExists(String tableName, String columnName) {
         throw new UnsupportedOperationException();
     }
-
 
 
 }

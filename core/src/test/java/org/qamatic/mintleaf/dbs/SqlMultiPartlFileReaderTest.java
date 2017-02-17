@@ -30,10 +30,10 @@
 package org.qamatic.mintleaf.dbs;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlChangeSetFileReader;
-import org.qamatic.mintleaf.ChangeSetReader;
 import org.qamatic.mintleaf.ChangeSet;
+import org.qamatic.mintleaf.ChangeSetReader;
 import org.qamatic.mintleaf.SqlReaderListener;
+import org.qamatic.mintleaf.core.SqlChangeSetFileReader;
 
 import java.io.IOException;
 import java.io.InputStream;

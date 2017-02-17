@@ -30,9 +30,9 @@
 package org.qamatic.mintleaf.dbs.oracle;
 
 
-import org.qamatic.mintleaf.core.BaseDbContext;
 import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.DbMetaData;
+import org.qamatic.mintleaf.core.BaseDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -55,9 +55,6 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         int cnt = getCount("user_objects", validSql + "object_name = ? AND Object_Type = ?", new Object[]{objectName.toUpperCase(), objectType});
         return cnt != 0;
     }
-
-
-
 
 
     public boolean isColumnExists(String tableName, String columnName) {
@@ -256,8 +253,6 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         JdbcTemplate template = new JdbcTemplate(getDataSource());
         template.execute(String.format("DROP %s %s %s", objectType, objectName, clause == null ? "" : "force"));
     }
-
-
 
 
 }

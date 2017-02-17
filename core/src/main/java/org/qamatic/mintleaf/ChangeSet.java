@@ -43,8 +43,6 @@ package org.qamatic.mintleaf;/*
  *    limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.*;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -59,7 +57,7 @@ import java.io.StringWriter;
 @XmlType(propOrder = {"id", "delimiter"})
 public class ChangeSet {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChangeSet.class);
+    private static final MintLogger logger = MintLogger.getLogger(ChangeSet.class);
     private String id = "";
     private String delimiter = "";
     private String changeSetSource = "";

@@ -30,7 +30,7 @@
 package org.qamatic.mintleaf.oracle;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.ExecuteQuery;
+import org.qamatic.mintleaf.core.ChangeSetRun;
 import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
 import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.oracle.core.DbMetaDataService;
@@ -92,7 +92,7 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
 
     @Test
     public void testDbtMetaDataServiceFromTable() throws SQLException, IOException {
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table",
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table",
                 "create employee table"});
         DbMetaDataService svc = new SchemaMetaDataService();
 
@@ -105,7 +105,7 @@ public class SchemaMetaDataServiceTest extends OracleTestCase {
             assertEquals(0, empMetaData.getIndex("emp_id"));
 
         } finally {
-            new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
+            new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
         }
 
     }

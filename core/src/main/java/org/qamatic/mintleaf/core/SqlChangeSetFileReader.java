@@ -29,8 +29,9 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.ChangeSetReader;
 import org.qamatic.mintleaf.ChangeSet;
+import org.qamatic.mintleaf.ChangeSetReader;
+import org.qamatic.mintleaf.MintLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,8 +42,10 @@ import java.util.HashMap;
 
 public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetReader {
 
+    private static final MintLogger logger = MintLogger.getLogger(SqlChangeSetFileReader.class);
     private final HashMap<String, ChangeSet> changeSets = new HashMap<String, ChangeSet>();
     protected InputStream inputStream;
+    private String resource;
 
     public SqlChangeSetFileReader(InputStream stream) {
         this.inputStream = stream;
@@ -50,7 +53,8 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
     }
 
     public SqlChangeSetFileReader(String resource) {
-        this.inputStream = this.getClass().getResourceAsStream(resource);
+        this.resource = resource;
+
     }
 
     @Override
@@ -63,12 +67,26 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
         return changeSets;
     }
 
+    private InputStream getInputStream() throws IOException {
+        if (this.inputStream == null) {
+            logger.info(String.format("getting resource as stream : %s", this.resource));
+            this.inputStream = this.getClass().getResourceAsStream(resource);
+
+            if (this.inputStream  == null) {
+                logger.error(String.format("resource not found : %s", this.resource));
+                throw new IOException(String.format("resource not found : %s", this.resource));
+            }
+
+        }
+        return this.inputStream;
+    }
+
     @Override
     public String read() throws IOException, SQLException {
 
         StringBuilder childContents = new StringBuilder();
         StringBuilder contents = new StringBuilder();
-        BufferedReader input = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+        BufferedReader input = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
         ChangeSet currentChangeSet = null;
         try {
             String line = null; // not declared within while loop

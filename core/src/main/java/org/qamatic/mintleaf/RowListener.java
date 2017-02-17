@@ -37,7 +37,6 @@ public interface RowListener {
     void rowData(int row, Object[] values);
 
 
-
     DbColumn getMetaData(int col);
 
 }

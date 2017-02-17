@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.ExecuteQuery;
+import org.qamatic.mintleaf.core.ChangeSetRun;
 import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
@@ -243,7 +243,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     @Test
     public void testgetMetaDataFromTable() throws SQLException, IOException {
 
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
 
@@ -263,7 +263,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
             assertEquals("LAST_NAME", metaData.getColumns().get(2).getColumnName());
 
         } finally {
-            new ExecuteQuery()
+            new ChangeSetRun()
                     .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 
@@ -272,7 +272,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     @Test
     public void testbuildMetaDataFromTypeObjectFieldAnnonation() throws SQLException, IOException {
 
-        new ExecuteQuery().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
 
@@ -289,7 +289,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
             assertEquals("LAST_NAME", metaData.getColumns().get(4).getColumnName());
 
         } finally {
-            new ExecuteQuery()
+            new ChangeSetRun()
                     .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 

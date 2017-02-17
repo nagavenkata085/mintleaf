@@ -54,7 +54,6 @@ public interface DbContext {
     boolean isdbFeatureExists(String featureName);
 
 
-
     void truncateTable(String tableName);
 
     boolean isUserExists(String userName);

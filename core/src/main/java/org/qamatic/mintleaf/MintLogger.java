@@ -27,47 +27,31 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.core;
-
-import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.SqlReader;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+package org.qamatic.mintleaf;
 
 /**
- * Created by senips on 7/18/16.
+ * Created by senips on 2/17/17.
  */
-public class ChangeSetMigrate extends BaseSqlScript {
+public abstract class MintLogger {
 
-    private final DbContext context;
-    private final String filename;
+    private static MintLogger mintLogger;
 
+    public synchronized static MintLogger getLogger(Class<?> clazz) {
 
-    public ChangeSetMigrate(DbContext context, String filename) {
-        super(context);
-        this.context = context;
-        this.filename = filename;
-    }
-
-    @Override
-    protected SqlReader getSourceReader() {
-        InputStream stream = null;
-        logger.info("reading file: " + this.filename);
-        if (this.filename.startsWith("res:")) {
-            String resFile = this.filename.substring(4);
-            stream = this.getClass().getResourceAsStream(resFile);
-        } else {
-            try {
-                stream = new FileInputStream(this.filename);
-            } catch (FileNotFoundException e) {
-                logger.error("file not found " + this.filename, e);
-            }
+        if (mintLogger == null) {
+            mintLogger = new ConsoleLogger();
         }
+        return mintLogger;
 
-        SqlReader reader = new SqlStreamReader(stream);
-
-        return reader;
     }
+
+    public abstract void error(String message, Throwable e);
+
+    public abstract void debug(String message);
+
+    public abstract void info(String message);
+
+    public abstract void error(String message);
+
+    public abstract void warn(String message);
 }

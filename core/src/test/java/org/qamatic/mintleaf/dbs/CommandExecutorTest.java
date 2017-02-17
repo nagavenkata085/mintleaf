@@ -30,8 +30,8 @@
 package org.qamatic.mintleaf.dbs;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.core.CommandExecutor;
 
 import static org.junit.Assert.*;
 

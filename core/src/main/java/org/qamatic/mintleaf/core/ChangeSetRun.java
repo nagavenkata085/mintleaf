@@ -35,15 +35,15 @@ import org.qamatic.mintleaf.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ExecuteQuery {
+public class ChangeSetRun {
 
     private DbContext dbContext;
 
-    public ExecuteQuery() {
+    public ChangeSetRun() {
 
     }
 
-    public ExecuteQuery(DbContext context) {
+    public ChangeSetRun(DbContext context) {
         dbContext = context;
     }
 
@@ -70,7 +70,6 @@ public class ExecuteQuery {
     }
 
 
-
     private static class LoadSqlScriptScript extends BaseSqlScript {
         private final String delimiter;
         private final String scriptText;
@@ -83,7 +82,7 @@ public class ExecuteQuery {
 
         @Override
         protected SqlReader getSourceReader() {
-            SqlReader reader =new SqlStringReader(scriptText);
+            SqlReader reader = new SqlStringReader(scriptText);
             reader.setDelimiter(delimiter);
             return reader;
         }
@@ -111,8 +110,8 @@ public class ExecuteQuery {
             ChangeSetReader reader = new SqlChangeSetFileReader(fileName);
             reader.read();
             for (String sectionName : changeSets) {
-                if (reader.getChangeSets().containsKey(sectionName)) {
-                    ChangeSet section = reader.getChangeSet(sectionName);
+                if (reader.getChangeSets().containsKey(sectionName.trim())) {
+                    ChangeSet section = reader.getChangeSet(sectionName.trim());
                     SqlScript loadSql = new LoadSqlScriptScript(dbContext, section.getChangeSetSource(), section.getDelimiter());
                     loadSql.create();
                 }
