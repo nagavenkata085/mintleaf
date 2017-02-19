@@ -27,58 +27,24 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.dbs;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlStreamReader;
+import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.SqlReaderListener;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class SqlStreamReaderTest {
+public class SqlStringReaderTest {
 
     private String actual_emptypackage_block1;
     private String actual_emptypackage_block2;
 
-    @Test
-    public void testDelimiterString() {
-        SqlStreamReader reader = new SqlStreamReader(null);
-        reader.setDelimiter(";");
-        assertEquals(";", reader.getDelimiter());
-    }
-
-    @Test
-    public void testDelimiterStringDefault() {
-        SqlStreamReader reader = new SqlStreamReader(null);
-        assertEquals("/", reader.getDelimiter());
-    }
-
-    @Test
-    public void testSqlReaderListnerDefault() {
-        SqlStreamReader reader = new SqlStreamReader(null);
-        assertNull(reader.getReaderListener());
-    }
-
-    @Test
-    public void testSqlReaderListnerTest1() {
-        SqlStreamReader reader = new SqlStreamReader(null);
-        reader.setReaderListener(new EmptyPackageReadListner());
-        assertNotNull(reader.getReaderListener());
-    }
-
-    @Test
-    public void testSqlReaderReadTest() throws IOException, SQLException {
-
-        InputStream iStream = this.getClass().getResourceAsStream("/EmptyPackage.sql");
-        SqlStreamReader reader = new SqlStreamReader(iStream);
-
-        String actual = reader.read();
-
+    private String getSamplePackageData() {
         StringBuilder expected = new StringBuilder();
 
         expected.append("create or replace package EmptyPackage\n");
@@ -96,16 +62,15 @@ public class SqlStreamReaderTest {
         expected.append("\n");
         expected.append("/\n");
         expected.append("\n");
-
-        assertEquals(expected.toString(), actual);
+        return expected.toString();
     }
+
 
     @Test
     public void testSqlReaderListnerTest2() throws IOException, SQLException {
 
+        SqlStringReader reader = new SqlStringReader(getSamplePackageData());
         SqlReaderListener listner = new EmptyPackageReadListner();
-        InputStream iStream = this.getClass().getResourceAsStream("/EmptyPackage.sql");
-        SqlStreamReader reader = new SqlStreamReader(iStream);
         reader.setReaderListener(listner);
         actual_emptypackage_block1 = null;
         actual_emptypackage_block2 = null;

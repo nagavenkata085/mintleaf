@@ -52,19 +52,19 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
     public void init() throws SQLException, IOException {
 
         mvdropScript = new TestDDLDrop(getSchemaOwnerContext());
-        mvdropScript.create();
+        mvdropScript.apply();
 
     }
 
     @After
     public void cleanUp() throws SQLException, IOException {
-        mvdropScript.create();
+        mvdropScript.apply();
     }
 
     @Test
     public void testDynamicDdlScript() throws SQLException, IOException {
         OracleBatchDDL dynObject = new TestDDLCreate(getSchemaOwnerContext());
-        dynObject.create();
+        dynObject.apply();
 
         StringBuilder builder = new StringBuilder();
 
@@ -94,7 +94,7 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
     @Test
     public void testDynamicDdlScriptExecution() throws SQLException, IOException {
         OracleBatchDDL dynObject = new TestDDLExecute(getSchemaOwnerContext());
-        dynObject.create();
+        dynObject.apply();
 
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "table1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");

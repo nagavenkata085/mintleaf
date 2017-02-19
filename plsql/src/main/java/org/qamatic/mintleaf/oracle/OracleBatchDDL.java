@@ -77,8 +77,8 @@ public class OracleBatchDDL extends SqlScriptDDL implements SqlScriptDDLObject, 
     }
 
     @Override
-    public void create() throws SQLException, IOException {
-        super.create();
+    public void apply() throws SQLException, IOException {
+        super.apply();
         mvScript.append("\nend;");
         execute();
     }

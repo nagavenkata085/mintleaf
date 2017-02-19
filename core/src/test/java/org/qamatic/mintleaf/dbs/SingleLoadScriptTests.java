@@ -34,7 +34,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.qamatic.mintleaf.SqlScript;
-import org.qamatic.mintleaf.core.ExecuteScriptFile;
+import org.qamatic.mintleaf.core.SqlScriptFile;
 import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
 
@@ -62,8 +62,8 @@ public class SingleLoadScriptTests {
 
     @Test
     public void simpleScriptLoad() throws SQLException, IOException {
-        SqlScript script = new ExecuteScriptFile(h2DbContext, "res:/h2singlescript.sql", ";");
-        script.create();
+        SqlScript script = new SqlScriptFile(h2DbContext, "res:/h2singlescript.sql", ";");
+        script.apply();
 
         Assert.assertTrue(h2DbContext.isTableExists("HRDB.USERS"));
     }

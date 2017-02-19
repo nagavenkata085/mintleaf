@@ -27,7 +27,7 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.dbs;
 
 import org.junit.Assert;
 import org.junit.Test;

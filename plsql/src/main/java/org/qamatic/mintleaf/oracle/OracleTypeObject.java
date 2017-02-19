@@ -63,7 +63,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
     }
 
     @Override
-    public void create() throws SQLException, IOException {
+    public void apply() throws SQLException, IOException {
 
         if (isExists()) {
             return;
@@ -72,7 +72,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
             prepareDefaultPLMethods();
             createInternal();
         } else {
-            super.create();
+            super.apply();
         }
     }
 

@@ -165,7 +165,7 @@ public class BaseSqlScriptObject implements SqlScriptObject {
     }
 
     @Override
-    public void create() throws SQLException, IOException {
+    public void apply() throws SQLException, IOException {
         onBeforeCreate();
         if (getSource() == null) {
             return;
@@ -193,7 +193,7 @@ public class BaseSqlScriptObject implements SqlScriptObject {
     public void createAll() throws SQLException, IOException {
         logger.info(String.format("SqlObject.CreateAll: Name: %s,  source: %s", getName(), getSource()));
         createDependencies();
-        create();
+        apply();
     }
 
     public SqlReaderListener getSqlReadListener() {
@@ -237,7 +237,8 @@ public class BaseSqlScriptObject implements SqlScriptObject {
 
     protected String execute(SqlReader reader) throws IOException, SQLException {
         reader.setReaderListener(getSqlReadListener());
-        return reader.read();
+        reader.read();
+        return null; //sen
     }
 
     @Override

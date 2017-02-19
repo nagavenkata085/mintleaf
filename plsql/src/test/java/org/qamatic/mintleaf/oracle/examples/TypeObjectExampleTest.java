@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.oracle.examples;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.ChangeSetRun;
+import org.qamatic.mintleaf.core.OldChangeSetRun;
 import org.qamatic.mintleaf.oracle.SqlObjectDependsOn;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
@@ -61,7 +61,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
     // @AfterClass
     public static void cleanUp() throws SQLException, IOException {
         if (mvtestPackage != null) {
-            new ChangeSetRun().loadChangeSets(mvtestPackage.getDbContext(), "/examples/typeobjectexample_usingtable_sec.sql",
+            new OldChangeSetRun().loadChangeSets(mvtestPackage.getDbContext(), "/examples/typeobjectexample_usingtable_sec.sql",
                     new String[]{"drop person table"});
             mvtestPackage.dropAll();
 
@@ -72,7 +72,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
     private TypeObjectExample_Package getTestPackage() throws SQLException, IOException {
         if (mvtestPackage == null) {
             mvtestPackage = new TypeObjectExample_Package(getSchemaOwnerContext());
-            mvtestPackage.create();// create first because type object needs it
+            mvtestPackage.apply();// create first because type object needs it
             mvtestPackage.createAll();
         }
         return mvtestPackage;

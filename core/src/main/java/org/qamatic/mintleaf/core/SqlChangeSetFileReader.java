@@ -31,6 +31,7 @@ package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.ChangeSet;
 import org.qamatic.mintleaf.ChangeSetReader;
+import org.qamatic.mintleaf.MintException;
 import org.qamatic.mintleaf.MintLogger;
 
 import java.io.BufferedReader;
@@ -43,9 +44,10 @@ import java.util.HashMap;
 public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetReader {
 
     private static final MintLogger logger = MintLogger.getLogger(SqlChangeSetFileReader.class);
-    private final HashMap<String, ChangeSet> changeSets = new HashMap<String, ChangeSet>();
+    private final HashMap<String, ChangeSet> changeSets = new HashMap<>();
     protected InputStream inputStream;
     private String resource;
+    private boolean bRead;
 
     public SqlChangeSetFileReader(InputStream stream) {
         this.inputStream = stream;
@@ -59,11 +61,19 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
 
     @Override
     public ChangeSet getChangeSet(String changeSetId) {
-        return changeSets.get(changeSetId);
+        return getChangeSets().get(changeSetId);
     }
 
     @Override
-    public HashMap<String, ChangeSet> getChangeSets() {
+    public HashMap<String, ChangeSet> getChangeSets()  {
+        if (!bRead){
+            bRead=true;
+            try {
+               // read();
+            } catch (Exception e) {
+                new MintException(e);
+            }
+        }
         return changeSets;
     }
 
@@ -72,7 +82,7 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
             logger.info(String.format("getting resource as stream : %s", this.resource));
             this.inputStream = this.getClass().getResourceAsStream(resource);
 
-            if (this.inputStream  == null) {
+            if (this.inputStream == null) {
                 logger.error(String.format("resource not found : %s", this.resource));
                 throw new IOException(String.format("resource not found : %s", this.resource));
             }
@@ -82,7 +92,8 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
     }
 
     @Override
-    public String read() throws IOException, SQLException {
+    public void read() throws IOException, SQLException {
+
 
         StringBuilder childContents = new StringBuilder();
         StringBuilder contents = new StringBuilder();
@@ -110,7 +121,7 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
                             readerListener.onReadChild(new StringBuilder(sql), currentChangeSet);
                         }
                         currentChangeSet.setChangeSetSource(sql);
-                        changeSets.put(currentChangeSet.getId(), currentChangeSet);
+                        getChangeSets().put(currentChangeSet.getId(), currentChangeSet);
                         currentChangeSet = ChangeSet.xmlToChangeSet(line);
                     }
                     childContents.setLength(0);
@@ -129,9 +140,9 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
                 readerListener.onReadChild(new StringBuilder(sql), null);
             }
             currentChangeSet.setChangeSetSource(sql);
-            changeSets.put(currentChangeSet.getId(), currentChangeSet);
+            getChangeSets().put(currentChangeSet.getId(), currentChangeSet);
         }
-        return contents.toString();
+
     }
 
     @Override

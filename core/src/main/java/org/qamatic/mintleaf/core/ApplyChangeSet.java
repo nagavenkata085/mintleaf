@@ -27,46 +27,43 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.oracle;
+package org.qamatic.mintleaf.core;
 
-import org.junit.Test;
-import org.qamatic.mintleaf.oracle.core.DbConnectionProperties;
-import org.qamatic.mintleaf.DbSettings;
+import org.qamatic.mintleaf.ChangeSetReader;
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.MintLogger;
+import org.qamatic.mintleaf.SqlReader;
 
-import static org.junit.Assert.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
+
+/**
+ * Created by senips on 7/18/16.
+ */
+public class ApplyChangeSet extends BaseSqlScript {
+
+    private final static MintLogger logger = MintLogger.getLogger(SqlScriptFile.class);
+    private ChangeSetReader changeSetReader;
+    private String[] changeSetsToApply;
 
 
-public class ConnectionParameterTest {
-
-
-    @Test
-    public void testDefaultDevMode() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertFalse(settings.isDebugEnabled());
+    public ApplyChangeSet(DbContext context, ChangeSetReader changeSetReader, String[] changeSetsToApply) {
+        super(context);
+        this.changeSetReader = changeSetReader;
+        this.changeSetsToApply = changeSetsToApply;
     }
 
-    @Test
-    public void testDataFileLocation() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertEquals("?/a_data_file0", settings.getDataLocation());
+
+    @Override
+    public void apply() throws SQLException, IOException {
+        super.apply();
     }
 
-    @Test
-    public void testJdbcUrl() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertNotNull(settings.getJdbcUrl());
+    @Override
+    protected SqlReader getSourceReader() {
+        return this.changeSetReader;
     }
-
-    @Test
-    public void testUsername() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertEquals("sys", settings.getUsername().toLowerCase());
-    }
-
-    @Test
-    public void testPassword() {
-        DbSettings settings = new DbConnectionProperties("test_db.properties");
-        assertEquals("1234", settings.getPassword());
-    }
-
 }

@@ -27,47 +27,64 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.core;
+package org.qamatic.mintleaf;
 
-import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.SqlReader;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import javax.sql.DataSource;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
+import java.util.logging.Logger;
 
 /**
- * Created by senips on 7/18/16.
+ * Created by senips on 2/19/16.
  */
-public class ChangeSetMigrate extends BaseSqlScript {
+public class DataSourceWrapper implements DataSource{
 
-    private final DbContext context;
-    private final String filename;
+    private DataSource internalDataSource;
 
-
-    public ChangeSetMigrate(DbContext context, String filename) {
-        super(context);
-        this.context = context;
-        this.filename = filename;
+    @Override
+    public Connection getConnection() throws SQLException {
+        return null;
     }
 
     @Override
-    protected SqlReader getSourceReader() {
-        InputStream stream = null;
-        logger.info("reading file: " + this.filename);
-        if (this.filename.startsWith("res:")) {
-            String resFile = this.filename.substring(4);
-            stream = this.getClass().getResourceAsStream(resFile);
-        } else {
-            try {
-                stream = new FileInputStream(this.filename);
-            } catch (FileNotFoundException e) {
-                logger.error("file not found " + this.filename, e);
-            }
-        }
+    public Connection getConnection(String username, String password) throws SQLException {
+        return null;
+    }
 
-        SqlReader reader = new SqlStreamReader(stream);
+    @Override
+    public PrintWriter getLogWriter() throws SQLException {
+        return null;
+    }
 
-        return reader;
+    @Override
+    public void setLogWriter(PrintWriter out) throws SQLException {
+
+    }
+
+    @Override
+    public void setLoginTimeout(int seconds) throws SQLException {
+
+    }
+
+    @Override
+    public int getLoginTimeout() throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        return null;
+    }
+
+    @Override
+    public <T> T unwrap(Class<T> iface) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean isWrapperFor(Class<?> iface) throws SQLException {
+        return false;
     }
 }

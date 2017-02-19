@@ -27,11 +27,7 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.oracle.core;
-
-import org.qamatic.mintleaf.DbSettings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package org.qamatic.mintleaf;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +35,7 @@ import java.util.Properties;
 
 public class DbConnectionProperties implements DbSettings {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final MintLogger logger = MintLogger.getLogger(DbConnectionProperties.class);
     private Properties mvProperties;
     private String mvPropFile;
 

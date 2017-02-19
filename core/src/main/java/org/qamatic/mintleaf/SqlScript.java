@@ -38,5 +38,5 @@ import java.sql.SQLException;
 public interface SqlScript {
     DbContext getDbContext();
 
-    void create() throws SQLException, IOException;
+    void apply() throws SQLException, IOException;
 }

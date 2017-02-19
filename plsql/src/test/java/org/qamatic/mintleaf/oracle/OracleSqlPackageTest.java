@@ -67,7 +67,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     @Test
     public void TestBasicPackageCreate() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
-        pkg.create();
+        pkg.apply();
         OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
         assertTrue(pkg.isExists());
     }
@@ -75,14 +75,14 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     @Test
     public void TestaFunctionFindMax() throws SQLException, IOException {
         ATestPackage4 pkg = new ATestPackage4(getSchemaOwnerContext());
-        pkg.create();
+        pkg.apply();
         assertEquals(20, pkg.FindMax(10, 20));
     }
 
     @Test
     public void TestDrop() throws SQLException, IOException {
         ATestPackage2 pkg = new ATestPackage2(getSchemaOwnerContext());
-        pkg.create();
+        pkg.apply();
 
         OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
 
@@ -96,7 +96,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         DependencyPackageCreate1 pkg = new DependencyPackageCreate1(getSchemaOwnerContext());
         pkg.createDependencies();
         OracleDbAssert.assertPackageExists((OracleDbContext) getSchemaOwnerContext(), "TESTLOG");
-        pkg.create();
+        pkg.apply();
 
         OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
@@ -104,7 +104,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     @Test
     public void TestDependencyPackageCreate2() throws SQLException, IOException {
         DependencyPackageCreate1 pkg = new DependencyPackageCreate1(getSchemaOwnerContext());
-        pkg.create();
+        pkg.apply();
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
         OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
     }
@@ -113,7 +113,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void TestDependencyPackageCreate3() throws SQLException, IOException {
         DependencyPackageCreate2 pkg = new DependencyPackageCreate2(getSchemaOwnerContext());
         pkg.createDependencies();
-        pkg.create();
+        pkg.apply();
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
         OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());
@@ -123,7 +123,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
     public void TestDependencyPackageDrop1() throws SQLException, IOException {
         DependencyPackageCreate2 pkg = new DependencyPackageCreate2(getSchemaOwnerContext());
         pkg.createDependencies();
-        pkg.create();
+        pkg.apply();
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTLOG");
         OracleDbAssert.assertPackageExists(getSchemaOwnerContext(), "TESTCONST");
         OracleDbAssert.assertPackageExists((OracleDbContext) pkg.getDbContext(), pkg.getName());

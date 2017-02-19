@@ -92,8 +92,8 @@ public class OraclePLRecordTypeTest extends OracleTestCase {
     @Before
     public void init() throws SQLException, IOException {
         mvpkg = new PackageThanContainsRecord(getSchemaOwnerContext());
-        mvpkg.create();
-        new EmployeeTypeObject(getSchemaOwnerContext()).create();
+        mvpkg.apply();
+        new EmployeeTypeObject(getSchemaOwnerContext()).apply();
     }
 
     @After

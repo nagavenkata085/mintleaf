@@ -32,12 +32,15 @@ package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 public abstract class BaseSqlScript implements SqlScript {
 
-    protected final MintLogger logger = MintLogger.getLogger(getClass());
+    private final static MintLogger logger = MintLogger.getLogger(BaseSqlScript.class);
     protected DbContext dbContext;
     protected SqlReaderListener sqlReaderListener;
 
@@ -52,7 +55,7 @@ public abstract class BaseSqlScript implements SqlScript {
     }
 
     @Override
-    public void create() throws SQLException, IOException {
+    public void apply() throws SQLException, IOException {
         SqlReader reader = getSourceReader();
         execute(reader);
     }
@@ -71,7 +74,24 @@ public abstract class BaseSqlScript implements SqlScript {
 
     protected String execute(SqlReader reader) throws IOException, SQLException {
         reader.setReaderListener(getReadListener());
-        return reader.read();
+        reader.read();
+        return null;//sen
+    }
+
+    public static InputStream getInputStreamFromFile(String resourceOrFileName) {
+        InputStream stream = null;
+        logger.info("reading file: " + resourceOrFileName);
+        if (resourceOrFileName.startsWith("res:")) {
+            String resFile = resourceOrFileName.substring(4);
+            stream = logger.getClass().getResourceAsStream(resFile);
+        } else {
+            try {
+                stream = new FileInputStream(resourceOrFileName);
+            } catch (FileNotFoundException e) {
+                logger.error("file not found " + resourceOrFileName, e);
+            }
+        }
+        return stream;
     }
 
 }

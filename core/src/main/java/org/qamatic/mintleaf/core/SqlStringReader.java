@@ -41,7 +41,7 @@ public class SqlStringReader extends BaseSqlReader {
     }
 
     @Override
-    public String read() throws IOException, SQLException {
+    public void read() throws IOException, SQLException {
 
         StringBuilder childContents = new StringBuilder();
 
@@ -77,7 +77,7 @@ public class SqlStringReader extends BaseSqlReader {
         } finally {
 
         }
-        return mvSqlSource;
+        //return mvSqlSource;
     }
 
 }

@@ -1,3 +1,5 @@
+-- <ChangeSet id="single script" delimiter=";" />
+
 DROP ALL OBJECTS;
 
 CREATE SCHEMA IF NOT EXISTS HRDB;

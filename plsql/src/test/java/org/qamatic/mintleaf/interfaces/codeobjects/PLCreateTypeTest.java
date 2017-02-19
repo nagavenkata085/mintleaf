@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.interfaces.codeobjects;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.ChangeSetRun;
+import org.qamatic.mintleaf.core.OldChangeSetRun;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;
@@ -154,7 +154,7 @@ public class PLCreateTypeTest extends OracleTestCase {
                 String.format("create or replace type MyObject as OBJECT(%n\tid number,%n\tname varchar(100),%n\tCONSTRUCTOR FUNCTION MyObject return SELF AS RESULT,%n\tMEMBER FUNCTION MyMethod2 return varchar2\n) not final;"),
                 p.toString());
 
-        new ChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
+        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
         OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "MyObject");
     }
 

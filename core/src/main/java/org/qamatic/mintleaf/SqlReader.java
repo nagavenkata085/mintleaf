@@ -41,5 +41,5 @@ public interface SqlReader {
 
     void setReaderListener(SqlReaderListener mvreaderListener);
 
-    String read() throws IOException, SQLException;
+    void read() throws IOException, SQLException;
 }

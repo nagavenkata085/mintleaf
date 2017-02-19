@@ -33,7 +33,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.ChangeSetRun;
+import org.qamatic.mintleaf.core.OldChangeSetRun;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;
@@ -115,7 +115,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
 
             }
         };
-        new ChangeSetRun().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
+        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
         OracleDbAssert.assertTypeExists(getOracleDbContext(), "MyObject");
 
         PLCreateTypeBody p = new PLCreateTypeBody("MyObject") {
@@ -131,7 +131,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
             }
         };
 
-        new ChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
+        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
         OracleDbAssert.assertTypeBodyExists(getOracleDbContext(), "MyObject");
 
     }
@@ -156,7 +156,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
 
             }
         };
-        new ChangeSetRun().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
+        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p1.toString() + "\n/", "/");
         OracleDbAssert.assertTypeExists(getOracleDbContext(), "A_Test_Type");
 
         PLCreateTypeBody p = new PLCreateTypeBody("A_Test_Type") {
@@ -177,7 +177,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
             }
         };
 
-        new ChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
+        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
         OracleDbAssert.assertTypeExists(getOracleDbContext(), "A_Test_Type");
     }
 }

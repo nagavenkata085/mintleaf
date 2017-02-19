@@ -52,7 +52,7 @@ public abstract class BaseSqlReader implements SqlReader {
     }
 
     @Override
-    public abstract String read() throws IOException, SQLException;
+    public abstract void read() throws IOException, SQLException;
 
     @Override
     public SqlReaderListener getReaderListener() {

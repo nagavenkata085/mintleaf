@@ -49,7 +49,7 @@ public interface SqlScriptObject extends SqlScript {
 
     String getDropSource();
 
-    void create() throws SQLException, IOException;
+    void apply() throws SQLException, IOException;
 
     void drop() throws SQLException, IOException;
 

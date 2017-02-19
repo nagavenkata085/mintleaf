@@ -49,7 +49,7 @@ public class SqlStreamReader extends BaseSqlReader {
     }
 
     @Override
-    public String read() throws IOException, SQLException {
+    public void read() throws IOException, SQLException {
 
         StringBuilder childContents = new StringBuilder();
         StringBuilder contents = new StringBuilder();
@@ -87,7 +87,7 @@ public class SqlStreamReader extends BaseSqlReader {
         } finally {
             input.close();
         }
-        return contents.toString();
+        //return contents.toString();
     }
 
 }

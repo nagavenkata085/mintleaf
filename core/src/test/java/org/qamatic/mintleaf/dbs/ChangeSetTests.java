@@ -35,7 +35,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.qamatic.mintleaf.DbMetaData;
-import org.qamatic.mintleaf.core.ChangeSetRun;
+import org.qamatic.mintleaf.core.OldChangeSetRun;
 import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
 
@@ -65,9 +65,9 @@ public class ChangeSetTests {
     @Before
     public void applyChangeSet() throws IOException, SQLException {
 
-        ChangeSetRun changeSetRun = new ChangeSetRun(h2DbContext);
-        changeSetRun.loadSource("DROP ALL OBJECTS;", ";");
-        changeSetRun.loadChangeSets(h2DbContext, "/example-changesets.sql", "create schema,load seed data");
+        OldChangeSetRun oldChangeSetRun = new OldChangeSetRun(h2DbContext);
+        oldChangeSetRun.loadSource("DROP ALL OBJECTS;", ";");
+        oldChangeSetRun.loadChangeSets(h2DbContext, "/example-changesets.sql", "create schema,load seed data");
 
     }
 

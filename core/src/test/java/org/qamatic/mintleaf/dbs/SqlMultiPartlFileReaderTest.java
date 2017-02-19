@@ -49,7 +49,7 @@ public class SqlMultiPartlFileReaderTest {
     private String actual_part3;
 
     @Test
-    public void testSqlSectionalReaderCount() throws IOException, SQLException {
+    public void testSqlChangeSetReaderCount() throws IOException, SQLException {
         InputStream iStream = this.getClass().getResourceAsStream("/multipart2.sql");
         ChangeSetReader reader = new SqlChangeSetFileReader(iStream);
         reader.read();
@@ -57,7 +57,7 @@ public class SqlMultiPartlFileReaderTest {
     }
 
     @Test
-    public void testSqlSectionalReaderSections() throws IOException, SQLException {
+    public void testSqlChangeSetReaderSections() throws IOException, SQLException {
         ChangeSetReader reader = new SqlChangeSetFileReader("/multipart2.sql");
         reader.read();
 
@@ -131,7 +131,7 @@ public class SqlMultiPartlFileReaderTest {
     }
 
     @Test
-    public void testSqlSectionalReaderListnerTest() throws IOException, SQLException {
+    public void testSqlChangeSetReaderListnerTest() throws IOException, SQLException {
 
         SqlReaderListener listner = new SectionalFileReadListner();
         InputStream iStream = this.getClass().getResourceAsStream("/multipart.sql");

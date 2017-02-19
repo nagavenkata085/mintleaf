@@ -53,7 +53,7 @@ public class TestInstaller implements DbModule {
     protected int preInstall() throws SQLException, IOException {
 
         TestProvisioningScript provision = new TestProvisioningScript(mvSysDbContext);
-        provision.create();
+        provision.apply();
 
         provision.recreateSchemaUser(mvSchemaOwnerDbContext.getDbSettings().getUsername(), mvSchemaOwnerDbContext.getDbSettings().getPassword());
 

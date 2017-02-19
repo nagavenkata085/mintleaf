@@ -66,7 +66,7 @@ public class OracleBaseSqlScriptObject extends BaseSqlScriptObject {
                 if (sqlObject != null) {
 
                     if (canCreate(sqlObject)) {
-                        sqlObject.create();
+                        sqlObject.apply();
                     }
                 }
             } catch (Exception e) {

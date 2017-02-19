@@ -29,8 +29,44 @@
 
 package org.qamatic.mintleaf.dbs;
 
-/**
- * Created by senips on 2/12/16.
- */
-public class DxContext {
+import org.junit.Test;
+import org.qamatic.mintleaf.DbConnectionProperties;
+import org.qamatic.mintleaf.DbSettings;
+
+import static org.junit.Assert.*;
+
+
+public class ConnectionParameterTest {
+
+
+    @Test
+    public void testDefaultDevMode() {
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertFalse(settings.isDebugEnabled());
+    }
+
+    @Test
+    public void testDataFileLocation() {
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertEquals("?/a_data_file0", settings.getDataLocation());
+    }
+
+    @Test
+    public void testJdbcUrl() {
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertNotNull(settings.getJdbcUrl());
+    }
+
+    @Test
+    public void testUsername() {
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertEquals("sys", settings.getUsername().toLowerCase());
+    }
+
+    @Test
+    public void testPassword() {
+        DbSettings settings = new DbConnectionProperties("test_db.properties");
+        assertEquals("1234", settings.getPassword());
+    }
+
 }

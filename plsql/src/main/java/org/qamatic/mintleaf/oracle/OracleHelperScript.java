@@ -60,7 +60,7 @@ public class OracleHelperScript extends OraclePackage {
     }
 
     @Override
-    public void create() throws SQLException, IOException {
+    public void apply() throws SQLException, IOException {
         //no need to create anything.
     }
 
