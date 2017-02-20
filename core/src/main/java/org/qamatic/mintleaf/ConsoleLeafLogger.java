@@ -32,26 +32,31 @@ package org.qamatic.mintleaf;
 /**
  * Created by senips on 2/16/16.
  */
-public abstract class MintLogger {
+public class ConsoleLeafLogger extends MintLeafLogger {
 
-    private static MintLogger mintLogger;
-
-    public synchronized static MintLogger getLogger(Class<?> clazz) {
-
-        if (mintLogger == null) {
-            mintLogger = new ConsoleLogger();
-        }
-        return mintLogger;
-
+    @Override
+    public void error(String message, Throwable e) {
+        System.out.println(message);
+        System.out.println(e.getMessage());
     }
 
-    public abstract void error(String message, Throwable e);
+    @Override
+    public void debug(String message) {
+        System.out.println(message);
+    }
 
-    public abstract void debug(String message);
+    @Override
+    public void info(String message) {
+        System.out.println(message);
+    }
 
-    public abstract void info(String message);
+    @Override
+    public void error(String message) {
+        System.out.println(message);
+    }
 
-    public abstract void error(String message);
-
-    public abstract void warn(String message);
+    @Override
+    public void warn(String message) {
+        System.out.println(message);
+    }
 }

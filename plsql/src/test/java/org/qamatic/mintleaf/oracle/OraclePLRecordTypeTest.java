@@ -121,7 +121,7 @@ public class OraclePLRecordTypeTest extends OracleTestCase {
     }
 
 
-    @SqlObjectInfo(name = "OraclePLRecordTypeTest", source = "/OraclePLRecordTypeTest.sql")
+    @SqlObjectInfo(name = "OraclePLRecordTypeTest", source = "res:/OraclePLRecordTypeTest.sql")
     private class PackageThanContainsRecord extends OraclePackage {
         public PackageThanContainsRecord(DbContext context) {
             super(context);
@@ -151,7 +151,7 @@ public class OraclePLRecordTypeTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "employee_type", source = "/EmployeeTypeObject.sql", sourceDelimiter = ";")
+    @SqlObjectInfo(name = "employee_type", source = "res:/EmployeeTypeObject.sql", sourceDelimiter = ";")
     private class EmployeeTypeObject extends OracleTypeObject {
         public EmployeeTypeObject(DbContext context) {
             super(context);

@@ -117,7 +117,7 @@ public class BooleanTest extends OracleTestCase {
         assertTrue(false);
     }
 
-    @SqlObjectInfo(name = "BooleanTest", source = "/BooleanTest.sql")
+    @SqlObjectInfo(name = "BooleanTest", source = "res:/BooleanTest.sql")
     private class BooleanTestPackage extends OraclePackage {
         public BooleanTestPackage(DbContext context) {
             super(context);

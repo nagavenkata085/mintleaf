@@ -27,28 +27,41 @@
  *   -->
  */
 
-package org.qamatic.mintleaf;
+package org.qamatic.mintleaf.core;
 
-/**
- * Created by senips on 2/16/16.
- */
-public class MintException extends Exception {
-    public MintException() {
+
+import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.SqlReader;
+import org.qamatic.mintleaf.SqlScript;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class ApplyChangeSets {
+
+
+    public static void applySource(final DbContext dbContext, final String script, final String delimiter) throws SQLException, IOException {
+        SqlScript sqlScript = new BaseSqlScript(dbContext) {
+            @Override
+            protected SqlReader getSourceReader() {
+                SqlReader reader = new SqlStringReader(script);
+                reader.setDelimiter(delimiter);
+                return reader;
+            }
+        };
+        sqlScript.apply();
     }
 
-    public MintException(String message) {
-        super(message);
+
+    public static void apply(DbContext dbcontext, String fileName, String changeSetsToLoadSeparatedByComma) throws SQLException, IOException {
+        apply(dbcontext, fileName, changeSetsToLoadSeparatedByComma.split(","));
     }
 
-    public MintException(String message, Throwable cause) {
-        super(message, cause);
+
+    public static void apply(DbContext dbcontext, String fileName, String[] changeSetsToLoad) throws SQLException, IOException {
+        SqlChangeSets changeSets = new SqlChangeSets(dbcontext, new SqlChangeSetFileReader(fileName), changeSetsToLoad);
+        changeSets.apply();
     }
 
-    public MintException(Throwable cause) {
-        super(cause);
-    }
 
-    public MintException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
 }

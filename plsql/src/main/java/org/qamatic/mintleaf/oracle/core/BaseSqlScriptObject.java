@@ -30,6 +30,7 @@
 package org.qamatic.mintleaf.oracle.core;
 
 
+import org.qamatic.mintleaf.core.BaseSqlReader;
 import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.core.SqlStreamReader;
 import org.qamatic.mintleaf.DbContext;
@@ -210,7 +211,7 @@ public class BaseSqlScriptObject implements SqlScriptObject {
     }
 
     protected SqlReader getCreateSourceReader() {
-        InputStream iStream = this.getClass().getResourceAsStream(getSource());
+        InputStream iStream = BaseSqlReader.getInputStreamFromFile(this.getSource());
         return getCreateSourceReader(iStream);
     }
 
@@ -219,13 +220,13 @@ public class BaseSqlScriptObject implements SqlScriptObject {
     }
 
     protected SqlReader getDropSourceReader() {
-        InputStream iStream = this.getClass().getResourceAsStream(getDropSource());
+        InputStream iStream = BaseSqlReader.getInputStreamFromFile(this.getDropSource());
         return getDropSourceReader(iStream);
     }
 
     @Override
     public void drop() throws SQLException, IOException {
-        if (getDropSource() == null) {
+        if ( (getDropSource() == null) || (getDropSource().length()==0) ) {
             return;
         }
         SqlReader reader = getDropSourceReader();
@@ -235,10 +236,9 @@ public class BaseSqlScriptObject implements SqlScriptObject {
         execute(reader);
     }
 
-    protected String execute(SqlReader reader) throws IOException, SQLException {
+    protected void execute(SqlReader reader) throws IOException, SQLException {
         reader.setReaderListener(getSqlReadListener());
         reader.read();
-        return null; //sen
     }
 
     @Override

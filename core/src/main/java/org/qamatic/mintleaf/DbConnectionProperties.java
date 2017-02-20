@@ -35,7 +35,7 @@ import java.util.Properties;
 
 public class DbConnectionProperties implements DbSettings {
 
-    private static final MintLogger logger = MintLogger.getLogger(DbConnectionProperties.class);
+    private static final MintLeafLogger logger = MintLeafLogger.getLogger(DbConnectionProperties.class);
     private Properties mvProperties;
     private String mvPropFile;
 

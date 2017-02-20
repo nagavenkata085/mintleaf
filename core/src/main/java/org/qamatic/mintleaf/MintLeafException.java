@@ -32,31 +32,23 @@ package org.qamatic.mintleaf;
 /**
  * Created by senips on 2/16/16.
  */
-public class ConsoleLogger extends MintLogger {
-
-    @Override
-    public void error(String message, Throwable e) {
-        System.out.println(message);
-        System.out.println(e.getMessage());
+public class MintLeafException extends Exception {
+    public MintLeafException() {
     }
 
-    @Override
-    public void debug(String message) {
-        System.out.println(message);
+    public MintLeafException(String message) {
+        super(message);
     }
 
-    @Override
-    public void info(String message) {
-        System.out.println(message);
+    public MintLeafException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    @Override
-    public void error(String message) {
-        System.out.println(message);
+    public MintLeafException(Throwable cause) {
+        super(cause);
     }
 
-    @Override
-    public void warn(String message) {
-        System.out.println(message);
+    public MintLeafException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

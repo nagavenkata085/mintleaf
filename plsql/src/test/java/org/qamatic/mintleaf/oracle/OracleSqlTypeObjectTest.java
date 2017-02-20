@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.oracle;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.OldChangeSetRun;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.core.CommandExecutor;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
@@ -234,7 +234,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
         MockTypeObject typeObj2 = new MockTypeObject(getSchemaOwnerContext()) {
             @Override
             public String getSectionalFile() {
-                return "/examples/typeobjectexample_usingtable_sec.sql";
+                return "res:/examples/typeobjectexample_usingtable_sec.sql";
             }
         };
         assertTrue("not instance of TypeObjectVisitorSqlCodeExecutor", typeObj2.getSqlReadListener() instanceof TypeObjectVisitorCommandExecutor);
@@ -243,7 +243,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     @Test
     public void testgetMetaDataFromTable() throws SQLException, IOException {
 
-        new OldChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ApplyChangeSets().apply(getSchemaOwnerContext(), "res:/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
 
@@ -263,8 +263,8 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
             assertEquals("LAST_NAME", metaData.getColumns().get(2).getColumnName());
 
         } finally {
-            new OldChangeSetRun()
-                    .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
+            new ApplyChangeSets()
+                    .apply(getSchemaOwnerContext(), "res:/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 
     }
@@ -272,7 +272,7 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
     @Test
     public void testbuildMetaDataFromTypeObjectFieldAnnonation() throws SQLException, IOException {
 
-        new OldChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ApplyChangeSets().apply(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
 
@@ -289,8 +289,8 @@ public class OracleSqlTypeObjectTest extends OracleTestCase {
             assertEquals("LAST_NAME", metaData.getColumns().get(4).getColumnName());
 
         } finally {
-            new OldChangeSetRun()
-                    .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
+            new ApplyChangeSets()
+                    .apply(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 
     }

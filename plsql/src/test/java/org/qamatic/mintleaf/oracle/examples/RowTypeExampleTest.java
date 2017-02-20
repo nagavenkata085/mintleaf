@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.oracle.examples;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.OldChangeSetRun;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
@@ -59,7 +59,7 @@ public class RowTypeExampleTest extends OracleTestCase {
     @Before
     public void init() throws SQLException, IOException {
         mvpkg = new EmployeePackage(getSchemaOwnerContext());
-        new OldChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table",
+        new ApplyChangeSets().apply(getSchemaOwnerContext(), "res:/examples/employeepackagesectional.sql", new String[]{"drop employee table",
                 "create employee table"});
         mvpkg.apply();
 
@@ -67,7 +67,7 @@ public class RowTypeExampleTest extends OracleTestCase {
 
     @After
     public void cleanUp() throws SQLException, IOException {
-        new OldChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
+        new ApplyChangeSets().apply(getSchemaOwnerContext(), "res:/examples/employeepackagesectional.sql", new String[]{"drop employee table"});
         mvpkg.drop();
     }
 
@@ -83,7 +83,7 @@ public class RowTypeExampleTest extends OracleTestCase {
 //        assertEquals(10, emp.getEmpId());
 //    }
 
-    @SqlObjectInfo(name = "employee_package", source = "/examples/employeepackage.sql")
+    @SqlObjectInfo(name = "employee_package", source = "res:/examples/employeepackage.sql")
     private class EmployeePackage extends OraclePackage {
         public EmployeePackage(DbContext context) {
             super(context);

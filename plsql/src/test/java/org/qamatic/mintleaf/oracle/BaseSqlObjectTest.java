@@ -70,7 +70,7 @@ public final class BaseSqlObjectTest extends OracleTestCase {
     @Test
     public void testSourceTest1() {
         SqlScriptObject pkg = new TestObject1(getSchemaOwnerContext());
-        assertEquals("/ATestPackage1.sql", pkg.getSource());
+        assertEquals("res:/ATestPackage1.sql", pkg.getSource());
     }
 
     @Test
@@ -95,7 +95,7 @@ public final class BaseSqlObjectTest extends OracleTestCase {
     private @interface ATestPackage3Annotation {
     }
 
-    @SqlObjectInfo(name = "atest_pkg1", source = "/ATestPackage1.sql")
+    @SqlObjectInfo(name = "atest_pkg1", source = "res:/ATestPackage1.sql")
     private class TestObject1 extends BaseSqlScriptObject {
 
         public TestObject1(DbContext context) {

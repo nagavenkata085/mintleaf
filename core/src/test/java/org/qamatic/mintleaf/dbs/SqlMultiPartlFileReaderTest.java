@@ -58,7 +58,7 @@ public class SqlMultiPartlFileReaderTest {
 
     @Test
     public void testSqlChangeSetReaderSections() throws IOException, SQLException {
-        ChangeSetReader reader = new SqlChangeSetFileReader("/multipart2.sql");
+        ChangeSetReader reader = new SqlChangeSetFileReader("res:/multipart2.sql");
         reader.read();
 
         assertTrue(reader.getChangeSets().containsKey("part1"));

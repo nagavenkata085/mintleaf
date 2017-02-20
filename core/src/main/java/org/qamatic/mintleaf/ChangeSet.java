@@ -57,7 +57,7 @@ import java.io.StringWriter;
 @XmlType(propOrder = {"id", "delimiter"})
 public class ChangeSet {
 
-    private static final MintLogger logger = MintLogger.getLogger(ChangeSet.class);
+    private static final MintLeafLogger logger = MintLeafLogger.getLogger(ChangeSet.class);
     private String id = "";
     private String delimiter = "";
     private String changeSetSource = "";

@@ -357,7 +357,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     @Test
     public void testGetPrimaryKeys() throws SQLException, IOException {
-        new OldChangeSetRun().loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
+        new ApplyChangeSets().apply(getSchemaOwnerContext(), "res:/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table",
                 "create person table"});
         try {
             OracleHelperScript utils = new OracleHelperScript(getSchemaOwnerContext());
@@ -365,13 +365,13 @@ public class OracleDbHelperTest extends OracleTestCase {
             assertEquals("ID", keys.get(0));
 
         } finally {
-            new OldChangeSetRun()
-                    .loadChangeSets(getSchemaOwnerContext(), "/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
+            new ApplyChangeSets()
+                    .apply(getSchemaOwnerContext(), "res:/examples/typeobjectexample_usingtable_sec.sql", new String[]{"drop person table"});
         }
 
     }
 
-    @SqlObjectInfo(name = "few test data", source = "/AddDataToTable2Count5.sql")
+    @SqlObjectInfo(name = "few test data", source = "res:/AddDataToTable2Count5.sql")
     @SqlObjectDependsOn(Using = CreateTable1.class)
     public static class PopulateTestDataForTable2 extends BaseSqlScriptObject {
 
@@ -381,7 +381,7 @@ public class OracleDbHelperTest extends OracleTestCase {
         }
     }
 
-    @SqlObjectInfo(name = "MockTestPackage2", source = "/MockTestPackage2.sql")
+    @SqlObjectInfo(name = "MockTestPackage2", source = "res:/MockTestPackage2.sql")
     @SqlObjectDependsOn(Using = {TestLog.class, CreateTable1.class})
     public static class DependencyExistsTestPackage extends OraclePackage {
         public DependencyExistsTestPackage(DbContext context) {
@@ -391,7 +391,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "few test data", source = "/AddDataToTable1Count2.sql", sourceDelimiter = ";")
+    @SqlObjectInfo(name = "few test data", source = "res:/AddDataToTable1Count2.sql", sourceDelimiter = ";")
     @SqlObjectDependsOn(Using = CreateTable1.class)
     public class PopulateTestDataForTable1 extends BaseSqlScriptObject {
 
@@ -401,7 +401,7 @@ public class OracleDbHelperTest extends OracleTestCase {
         }
     }
 
-    @SqlObjectInfo(name = "MockTestPackage2", source = "/MockTestPackage2.sql")
+    @SqlObjectInfo(name = "MockTestPackage2", source = "res:/MockTestPackage2.sql")
     public class MockTestPackage2 extends OraclePackage {
         public MockTestPackage2(DbContext context) {
             super(context);
@@ -410,7 +410,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "TestLog", source = "/TestLog.sql")
+    @SqlObjectInfo(name = "TestLog", source = "res:/TestLog.sql")
     public class TestLog extends OraclePackage {
 
         public TestLog(DbContext context) {

@@ -40,7 +40,7 @@ import java.sql.SQLException;
 
 public abstract class BaseSqlScript implements SqlScript {
 
-    private final static MintLogger logger = MintLogger.getLogger(BaseSqlScript.class);
+    private final static MintLeafLogger logger = MintLeafLogger.getLogger(BaseSqlScript.class);
     protected DbContext dbContext;
     protected SqlReaderListener sqlReaderListener;
 
@@ -72,26 +72,11 @@ public abstract class BaseSqlScript implements SqlScript {
 
     protected abstract SqlReader getSourceReader();
 
-    protected String execute(SqlReader reader) throws IOException, SQLException {
+    protected void execute(SqlReader reader) throws IOException, SQLException {
         reader.setReaderListener(getReadListener());
         reader.read();
-        return null;//sen
     }
 
-    public static InputStream getInputStreamFromFile(String resourceOrFileName) {
-        InputStream stream = null;
-        logger.info("reading file: " + resourceOrFileName);
-        if (resourceOrFileName.startsWith("res:")) {
-            String resFile = resourceOrFileName.substring(4);
-            stream = logger.getClass().getResourceAsStream(resFile);
-        } else {
-            try {
-                stream = new FileInputStream(resourceOrFileName);
-            } catch (FileNotFoundException e) {
-                logger.error("file not found " + resourceOrFileName, e);
-            }
-        }
-        return stream;
-    }
+
 
 }

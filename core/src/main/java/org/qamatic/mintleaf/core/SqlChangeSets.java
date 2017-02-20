@@ -29,28 +29,22 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.ChangeSetReader;
-import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.MintLogger;
-import org.qamatic.mintleaf.SqlReader;
+import org.qamatic.mintleaf.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 
 /**
  * Created by senips on 7/18/16.
  */
-public class ApplyChangeSet extends BaseSqlScript {
+public class SqlChangeSets extends BaseSqlScript {
 
-    private final static MintLogger logger = MintLogger.getLogger(SqlScriptFile.class);
+    private final static MintLeafLogger logger = MintLeafLogger.getLogger(SqlScriptFile.class);
     private ChangeSetReader changeSetReader;
     private String[] changeSetsToApply;
 
 
-    public ApplyChangeSet(DbContext context, ChangeSetReader changeSetReader, String[] changeSetsToApply) {
+    public SqlChangeSets(DbContext context, ChangeSetReader changeSetReader, String[] changeSetsToApply) {
         super(context);
         this.changeSetReader = changeSetReader;
         this.changeSetsToApply = changeSetsToApply;
@@ -59,7 +53,20 @@ public class ApplyChangeSet extends BaseSqlScript {
 
     @Override
     public void apply() throws SQLException, IOException {
-        super.apply();
+        for (String sectionName : changeSetsToApply) {
+            if (changeSetReader.getChangeSets().containsKey(sectionName.trim())) {
+                final ChangeSet section = changeSetReader.getChangeSet(sectionName.trim());
+                SqlScript script = new BaseSqlScript(dbContext) {
+                    @Override
+                    protected SqlReader getSourceReader() {
+                        SqlReader reader = new SqlStringReader(section.getChangeSetSource());
+                        reader.setDelimiter(section.getDelimiter());
+                        return reader;
+                    }
+                };
+                script.apply();
+            }
+        }
     }
 
     @Override

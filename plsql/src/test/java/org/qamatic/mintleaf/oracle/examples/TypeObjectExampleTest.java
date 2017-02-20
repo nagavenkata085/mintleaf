@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.oracle.examples;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.OldChangeSetRun;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.oracle.SqlObjectDependsOn;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbs.oracle.OracleColumn;
@@ -61,7 +61,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
     // @AfterClass
     public static void cleanUp() throws SQLException, IOException {
         if (mvtestPackage != null) {
-            new OldChangeSetRun().loadChangeSets(mvtestPackage.getDbContext(), "/examples/typeobjectexample_usingtable_sec.sql",
+            new ApplyChangeSets().apply(mvtestPackage.getDbContext(), "/examples/typeobjectexample_usingtable_sec.sql",
                     new String[]{"drop person table"});
             mvtestPackage.dropAll();
 
@@ -148,7 +148,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
         assertEquals("martin", result.getStringValue("last_name"));
     }
 
-    @SqlObjectInfo(name = "typeobjectexample_package", source = "/examples/typeobjectexample_package.sql")
+    @SqlObjectInfo(name = "typeobjectexample_package", source = "res:/examples/typeobjectexample_package.sql")
     @SqlObjectDependsOn(Using = {TPerson.class})
     private class TypeObjectExample_Package extends OraclePackage {
         public TypeObjectExample_Package(DbContext context) {
@@ -179,7 +179,7 @@ public class TypeObjectExampleTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "TPerson", source = "/examples/tperson.sql")
+    @SqlObjectInfo(name = "TPerson", source = "res:/examples/tperson.sql")
     public class TPerson extends OracleTypeObject {
 
         @TypeObjectField(name = "id")

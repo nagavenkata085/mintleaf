@@ -65,7 +65,7 @@ public class OracleSqlDDLObjectTest extends OracleTestCase {
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
     }
 
-    @SqlObjectInfo(name = "a test ddl", source = "/Testddl.sql", dropSource = "/Testddl_drop.sql")
+    @SqlObjectInfo(name = "a test ddl", source = "res:/Testddl.sql", dropSource = "res:/Testddl_drop.sql")
     public class TestDDL extends SqlScriptDDL {
 
         public TestDDL(DbContext context) {

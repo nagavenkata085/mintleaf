@@ -145,7 +145,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "ATestPackage2", source = "/ATestPackage2.sql")
+    @SqlObjectInfo(name = "ATestPackage2", source = "res:/ATestPackage2.sql")
     @SqlObjectDependsOn(Using = {TestConst.class, DependencyPackageCreate1.class})
     public class DependencyPackageCreate2 extends OraclePackage {
 
@@ -154,7 +154,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         }
     }
 
-    @SqlObjectInfo(name = "ATestPackage2", source = "/ATestPackage2.sql")
+    @SqlObjectInfo(name = "ATestPackage2", source = "res:/ATestPackage2.sql")
     @SqlObjectDependsOn(Using = {TestLog.class})
     public class DependencyPackageCreate1 extends OraclePackage {
 
@@ -163,7 +163,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         }
     }
 
-    @SqlObjectInfo(name = "TestLog", source = "/TestLog.sql")
+    @SqlObjectInfo(name = "TestLog", source = "res:/TestLog.sql")
     public class TestLog extends OraclePackage {
 
         public TestLog(DbContext context) {
@@ -171,7 +171,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         }
     }
 
-    @SqlObjectInfo(name = "", source = "/ATestPackage1.sql")
+    @SqlObjectInfo(name = "", source = "res:/ATestPackage1.sql")
     public class ATestPackage4 extends OraclePackage {
 
         public ATestPackage4(DbContext context) {
@@ -193,7 +193,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "ATestPackage2", source = "/ATestPackage2.sql")
+    @SqlObjectInfo(name = "ATestPackage2", source = "res:/ATestPackage2.sql")
     public class ATestPackage2 extends OraclePackage {
 
         public ATestPackage2(DbContext context) {
@@ -201,7 +201,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         }
     }
 
-    @SqlObjectInfo(name = "atest_pkg1", source = "/ATestPackage1.sql")
+    @SqlObjectInfo(name = "atest_pkg1", source = "res:/ATestPackage1.sql")
     public class ATestPackage1 extends OraclePackage {
 
         public ATestPackage1(DbContext context) {
@@ -209,7 +209,7 @@ public final class OracleSqlPackageTest extends OracleTestCase {
         }
     }
 
-    @SqlObjectInfo(name = "TESTCONST", source = "/TestConst.sql")
+    @SqlObjectInfo(name = "TESTCONST", source = "res:/TestConst.sql")
     public class TestConst extends OraclePackage {
 
         public TestConst(DbContext context) {

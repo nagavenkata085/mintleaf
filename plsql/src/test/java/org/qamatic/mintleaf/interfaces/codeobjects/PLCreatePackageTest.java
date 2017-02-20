@@ -32,7 +32,7 @@ package org.qamatic.mintleaf.interfaces.codeobjects;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.OldChangeSetRun;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;
@@ -95,7 +95,7 @@ public class PLCreatePackageTest extends OracleTestCase {
                 addMemberMethod(m);
             }
         };
-        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
+        new ApplyChangeSets().applySource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
         OracleDbAssert.assertPackageInterfaceExists(getOracleSchemaOwnerDbContext(), "MyPackage");
 
     }
@@ -146,7 +146,7 @@ public class PLCreatePackageTest extends OracleTestCase {
             }
         };
 
-        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
+        new ApplyChangeSets().applySource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
         OracleDbAssert.assertPackageInterfaceExists(getOracleSchemaOwnerDbContext(), "MyPackage");
     }
 }

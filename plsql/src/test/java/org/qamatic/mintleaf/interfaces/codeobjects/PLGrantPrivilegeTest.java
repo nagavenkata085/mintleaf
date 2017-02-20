@@ -31,7 +31,7 @@ package org.qamatic.mintleaf.interfaces.codeobjects;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.OldChangeSetRun;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;
 import org.qamatic.mintleaf.oracle.TestProvisioningScript;
@@ -69,11 +69,11 @@ public class PLGrantPrivilegeTest extends OracleTestCase {
                 addMemberMethod(m);
             }
         };
-        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
+        new ApplyChangeSets().applySource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
 
         PLGrantPrivilege priv = new PLGrantPrivilege("TESTUSER", "Execute", "MyPackage");
 
-        new OldChangeSetRun().loadSource(getSchemaOwnerContext(), priv.toString() + "\n/", "/");
+        new ApplyChangeSets().applySource(getSchemaOwnerContext(), priv.toString() + "\n/", "/");
         OracleDbAssert.assertPrivilegeExists(getSchemaOwnerContext(), "TESTUSER", "EXECUTE", "MYPACKAGE");
     }
 }

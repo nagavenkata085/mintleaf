@@ -64,7 +64,7 @@ public class SqlObjectHelperTest {
         SqlObjectInfo plAnnotation = SqlObjectHelper.getDbObjectInfo(pkg);
         assertNotNull(plAnnotation);
         assertEquals("MockTestPackage2", plAnnotation.name());
-        assertEquals("/MockTestPackage2.sql", plAnnotation.source());
+        assertEquals("res:/MockTestPackage2.sql", plAnnotation.source());
     }
 
     @Test
@@ -208,7 +208,7 @@ public class SqlObjectHelperTest {
         }
     }
 
-    @SqlObjectInfo(name = "TestLog", source = "/TestLog.sql")
+    @SqlObjectInfo(name = "TestLog", source = "res:/TestLog.sql")
     private class TestLog extends OraclePackage {
 
         public TestLog(DbContext context) {
@@ -250,7 +250,7 @@ public class SqlObjectHelperTest {
         }
     }
 
-    @SqlObjectInfo(name = "MockTestPackage2", source = "/MockTestPackage2.sql")
+    @SqlObjectInfo(name = "MockTestPackage2", source = "res:/MockTestPackage2.sql")
     @SqlObjectDependsOn(Using = {OracleHelperScript.class, MockTestPackage2.class})
     private class MockTestPackage3 extends OraclePackage {
         public MockTestPackage3(DbContext context) {

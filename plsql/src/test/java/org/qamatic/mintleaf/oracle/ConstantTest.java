@@ -70,7 +70,7 @@ public class ConstantTest extends OracleTestCase {
         assertEquals("DBWORKS", mvtestConst.getConstAppName());
     }
 
-    @SqlObjectInfo(name = "TestConst", source = "/TestConst.sql")
+    @SqlObjectInfo(name = "TestConst", source = "res:/TestConst.sql")
     private class TestConst extends OraclePackage {
         public TestConst(DbContext context) {
             super(context);
@@ -88,7 +88,7 @@ public class ConstantTest extends OracleTestCase {
 
         @Override
         public SqlReaderListener getSqlReadListener() {
-            return ChangeSetListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "/TestConst_Sections.sql", new String[]{"appname", "syncsut"});
+            return ChangeSetListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "res:/TestConst_Sections.sql", new String[]{"appname", "syncsut"});
         }
     }
 }

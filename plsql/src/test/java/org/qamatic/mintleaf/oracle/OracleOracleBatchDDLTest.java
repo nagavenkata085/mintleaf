@@ -100,7 +100,7 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
     }
 
-    @SqlObjectInfo(name = "createschema", source = "/Testddl.sql")
+    @SqlObjectInfo(name = "createschema", source = "res:/Testddl.sql")
     private class TestDDLCreate extends OracleBatchDDL {
 
         public TestDDLCreate(DbContext context) {
@@ -110,7 +110,7 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "createschema", source = "/Testddl.sql")
+    @SqlObjectInfo(name = "createschema", source = "res:/Testddl.sql")
     private class TestDDLExecute extends OracleBatchDDL {
 
         public TestDDLExecute(DbContext context) {
@@ -120,7 +120,7 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "a test ddl", source = "/Testddl_drop.sql")
+    @SqlObjectInfo(name = "a test ddl", source = "res:/Testddl_drop.sql")
     private class TestDDLDrop extends SqlScriptDDL {
 
         public TestDDLDrop(DbContext context) {

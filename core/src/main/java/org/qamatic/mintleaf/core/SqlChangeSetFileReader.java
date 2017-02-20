@@ -31,8 +31,8 @@ package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.ChangeSet;
 import org.qamatic.mintleaf.ChangeSetReader;
-import org.qamatic.mintleaf.MintException;
-import org.qamatic.mintleaf.MintLogger;
+import org.qamatic.mintleaf.MintLeafException;
+import org.qamatic.mintleaf.MintLeafLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,7 +43,7 @@ import java.util.HashMap;
 
 public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetReader {
 
-    private static final MintLogger logger = MintLogger.getLogger(SqlChangeSetFileReader.class);
+    private static final MintLeafLogger logger = MintLeafLogger.getLogger(SqlChangeSetFileReader.class);
     private final HashMap<String, ChangeSet> changeSets = new HashMap<>();
     protected InputStream inputStream;
     private String resource;
@@ -65,28 +65,21 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
     }
 
     @Override
-    public HashMap<String, ChangeSet> getChangeSets()  {
-        if (!bRead){
-            bRead=true;
-            try {
-               // read();
-            } catch (Exception e) {
-                new MintException(e);
-            }
+    public HashMap<String, ChangeSet> getChangeSets() {
+
+        try {
+            read();
+        } catch (Exception e) {
+            new MintLeafException(e);
         }
+
         return changeSets;
     }
 
     private InputStream getInputStream() throws IOException {
         if (this.inputStream == null) {
-            logger.info(String.format("getting resource as stream : %s", this.resource));
-            this.inputStream = this.getClass().getResourceAsStream(resource);
-
-            if (this.inputStream == null) {
-                logger.error(String.format("resource not found : %s", this.resource));
-                throw new IOException(String.format("resource not found : %s", this.resource));
-            }
-
+            logger.info(String.format("reading resource : %s", this.resource));
+            this.inputStream = BaseSqlReader.getInputStreamFromFile(this.resource);
         }
         return this.inputStream;
     }
@@ -94,9 +87,12 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
     @Override
     public void read() throws IOException, SQLException {
 
-
+        if (bRead) {
+            return;
+        }
+        bRead = true;
         StringBuilder childContents = new StringBuilder();
-        StringBuilder contents = new StringBuilder();
+
         BufferedReader input = new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
         ChangeSet currentChangeSet = null;
         try {
@@ -107,9 +103,6 @@ public class SqlChangeSetFileReader extends BaseSqlReader implements ChangeSetRe
                 if (line.length() == 0) {
                     continue;
                 }
-
-                contents.append(line);
-                contents.append("\n");
 
                 if ((line.trim().contains("<ChangeSet")) && ChangeSet.xmlToChangeSet(line) != null) {
                     if (currentChangeSet == null) {

@@ -27,30 +27,31 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.oracle.examples;
+package org.qamatic.mintleaf;
 
-import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlStoredProcedure;
-import org.qamatic.mintleaf.oracle.OraclePackage;
+/**
+ * Created by senips on 2/16/16.
+ */
+public abstract class MintLeafLogger {
 
-import java.sql.Types;
+    private static MintLeafLogger mintLeafLogger;
 
-@SqlObjectInfo(name = "StringExample", source = "res:/examples/StringExample.sql")
-public class StringExample extends OraclePackage {
+    public synchronized static MintLeafLogger getLogger(Class<?> clazz) {
 
-    public StringExample(DbContext context) {
-        super(context);
+        if (mintLeafLogger == null) {
+            mintLeafLogger = new ConsoleLeafLogger();
+        }
+        return mintLeafLogger;
+
     }
 
-    public String replaceSpaceWithDollarSign(String inputValue) {
-        SqlStoredProcedure proc = getFunction("replace_Space_With_DollarSign", Types.VARCHAR);
+    public abstract void error(String message, Throwable e);
 
-        proc.createInParameter("pstr", Types.VARCHAR);
-        proc.compile();
-        proc.setValue("pstr", inputValue);
-        proc.execute();
+    public abstract void debug(String message);
 
-        return proc.getStringValue("result");
-    }
+    public abstract void info(String message);
+
+    public abstract void error(String message);
+
+    public abstract void warn(String message);
 }

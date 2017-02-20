@@ -40,7 +40,7 @@ public class UnitTestHelperTest {
     @Test
     public void testGetListnerForPackageTestsThatContainsValidOnes() {
         VisitorCommandExecutor listener = (VisitorCommandExecutor) ChangeSetListeners.getPLPackageSectionalListner(null,
-                "/TestConst_Sections.sql", null);
+                "res:/TestConst_Sections.sql", null);
         assertNotNull(listener.getInterfaceSource());
         assertNotNull(listener.getBodySource());
 
@@ -49,7 +49,7 @@ public class UnitTestHelperTest {
     @Test
     public void testGetListnerForPackageTestsSectionalFileButPackageNotThere() {
         VisitorCommandExecutor listener = (VisitorCommandExecutor) ChangeSetListeners.getPLPackageSectionalListner(null,
-                "/ChangeSetReaderTest.sql", null);
+                "res:/ChangeSetReaderTest.sql", null);
         assertNull(listener.getInterfaceSource());
         assertNull(listener.getBodySource());
 
@@ -57,7 +57,7 @@ public class UnitTestHelperTest {
 
     @Test
     public void testGetListnerForPackageTestsForInvalidFile() {
-        VisitorCommandExecutor listener = (VisitorCommandExecutor) ChangeSetListeners.getPLPackageSectionalListner(null, "/Testddl.sql", null);
+        VisitorCommandExecutor listener = (VisitorCommandExecutor) ChangeSetListeners.getPLPackageSectionalListner(null, "res:/Testddl.sql", null);
         assertNull(listener.getInterfaceSource());
         assertNull(listener.getBodySource());
 

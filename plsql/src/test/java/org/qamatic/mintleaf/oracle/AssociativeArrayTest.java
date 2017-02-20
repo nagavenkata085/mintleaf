@@ -92,7 +92,7 @@ public class AssociativeArrayTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "AssociativeArray", source = "/AssociativeArrayTest.sql")
+    @SqlObjectInfo(name = "AssociativeArray", source = "res:/AssociativeArrayTest.sql")
     private static class AssociativeArray extends OraclePackage {
         public AssociativeArray(DbContext context) {
             super(context);

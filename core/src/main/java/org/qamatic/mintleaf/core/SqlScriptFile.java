@@ -30,11 +30,9 @@
 package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.MintLogger;
+import org.qamatic.mintleaf.MintLeafLogger;
 import org.qamatic.mintleaf.SqlReader;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
@@ -42,7 +40,7 @@ import java.io.InputStream;
  */
 public class SqlScriptFile extends BaseSqlScript {
 
-    private final static MintLogger logger = MintLogger.getLogger(SqlScriptFile.class);
+    private final static MintLeafLogger logger = MintLeafLogger.getLogger(SqlScriptFile.class);
     private final String filename;
     private final String delimiter;
 
@@ -54,7 +52,7 @@ public class SqlScriptFile extends BaseSqlScript {
 
     @Override
     protected SqlReader getSourceReader() {
-        InputStream stream = getInputStreamFromFile(this.filename);
+        InputStream stream = BaseSqlReader.getInputStreamFromFile(this.filename);
 
         SqlReader reader = new SqlStreamReader(stream);
         reader.setDelimiter(this.delimiter);

@@ -34,7 +34,7 @@ import org.qamatic.mintleaf.oracle.SqlScriptDDL;
 import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.DbContext;
 
-@SqlObjectInfo(name = "setup schema", dropSourceDelimiter = "/", source = "/Testddl.sql", dropSource = "/Testddl_drop.sql")
+@SqlObjectInfo(name = "setup schema", dropSourceDelimiter = "/", source = "res:/Testddl.sql", dropSource = "res:/Testddl_drop.sql")
 public class CreateTable1 extends SqlScriptDDL {
 
     public CreateTable1(DbContext context) {

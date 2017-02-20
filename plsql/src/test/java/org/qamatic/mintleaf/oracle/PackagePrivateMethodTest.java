@@ -65,7 +65,7 @@ public class PackagePrivateMethodTest extends OracleTestCase {
         assertEquals("3433", mvtestConst.getTestId());
     }
 
-    @SqlObjectInfo(name = "TestConst", source = "/TestConst.sql")
+    @SqlObjectInfo(name = "TestConst", source = "res:/TestConst.sql")
     private class TestablePackage extends OriginalPackageClass {
         public TestablePackage(DbContext context) {
             super(context);
@@ -73,7 +73,7 @@ public class PackagePrivateMethodTest extends OracleTestCase {
 
         @Override
         public SqlReaderListener getSqlReadListener() {
-            return ChangeSetListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "/TestConst_Sections.sql", null);
+            return ChangeSetListeners.getPLPackageSectionalListner(getSchemaOwnerContext(), "res:/TestConst_Sections.sql", null);
         }
 
         public String getTestId() {
@@ -84,7 +84,7 @@ public class PackagePrivateMethodTest extends OracleTestCase {
 
     }
 
-    @SqlObjectInfo(name = "TestConst", source = "/TestConst.sql")
+    @SqlObjectInfo(name = "TestConst", source = "res:/TestConst.sql")
     private class OriginalPackageClass extends OraclePackage {
         public OriginalPackageClass(DbContext context) {
             super(context);

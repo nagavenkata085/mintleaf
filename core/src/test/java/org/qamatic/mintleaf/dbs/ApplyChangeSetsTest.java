@@ -34,14 +34,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.OldChangeSetRun;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class OldChangeSetRunTest {
+public class ApplyChangeSetsTest {
 
     private static H2DbContext h2DbContext;
 
@@ -58,16 +58,16 @@ public class OldChangeSetRunTest {
 
     @Before
     public void cleanDb() throws IOException, SQLException {
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", "clean db, create schema");
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", "clean db, create schema");
     }
 
     @Test
     public void testLoadFromFile() throws SQLException, IOException {
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", "create tables");
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", "create tables");
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE2"));
 
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", "drop tables");
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", "drop tables");
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE2"));
 
@@ -96,11 +96,11 @@ public class OldChangeSetRunTest {
 
         builder.append(" ");
 
-        new OldChangeSetRun().loadSource(h2DbContext, builder.toString(), ";");
+        new ApplyChangeSets().applySource(h2DbContext, builder.toString(), ";");
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE2"));
 
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", "drop tables");
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", "drop tables");
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE2"));
 
@@ -109,22 +109,22 @@ public class OldChangeSetRunTest {
 
     @Test
     public void testChangeSetScenario2() throws SQLException, IOException {
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", new String[]{"create tables"});
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", new String[]{"create tables"});
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE2"));
 
 
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", new String[]{"drop tables", "create tables"});
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", new String[]{"drop tables", "create tables"});
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertTrue(h2DbContext.isTableExists("mintleaf.TABLE2"));
 
 
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", new String[]{"drop tables"});
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", new String[]{"drop tables"});
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE2"));
 
 
-        new OldChangeSetRun().loadChangeSets(h2DbContext, "/Testddl.sql", new String[]{"drop tables", "create tables",
+        new ApplyChangeSets().apply(h2DbContext, "res:/Testddl.sql", new String[]{"drop tables", "create tables",
                 "drop tables"});
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE1"));
         Assert.assertFalse(h2DbContext.isTableExists("mintleaf.TABLE2"));
