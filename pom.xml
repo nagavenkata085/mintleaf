@@ -43,7 +43,7 @@
     <modules>
         <module>core</module>
         <module>dbexamples</module>
-        <module>plsql</module>
+        <!--<module>plsql</module>-->
     </modules>
 
     <licenses>
