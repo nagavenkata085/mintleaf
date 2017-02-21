@@ -29,19 +29,19 @@
 
 package org.qamatic.mintleaf.core;
 
-import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.DbMetaData;
-import org.qamatic.mintleaf.DbSettings;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.qamatic.mintleaf.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class BaseDbContext implements DbContext {
 
+    private static final MintLeafLogger logger = MintLeafLogger.getLogger(BaseDbContext.class);
     private final DataSource dataSource;
     private DbSettings dbSettings;
 
@@ -64,14 +64,48 @@ public class BaseDbContext implements DbContext {
         return dbSettings;
     }
 
+    public FluentJdbc newQuery() {
+        return new FluentJdbc(dataSource);
+    }
+
 
     public void setDbSettings(DbSettings dbSettings) {
         this.dbSettings = dbSettings;
     }
 
+    public <T> List<T> query(String sql, final RowListener<T> listener) throws SQLException {
+
+        final List<T> rows = new ArrayList<T>();
+
+        FluentJdbc fluentJdbc = newQuery().createStatement(sql).query(new RowListener<T>() {
+            @Override
+            public T eachRow(int row, ResultSet resultSet) throws SQLException {
+                rows.add(listener.eachRow(row, resultSet));
+                return null;
+            }
+        }).close();
+        return rows;
+    }
+
+    public int queryInt(String sql, Object[] whereClauseValues) {
+        FluentJdbc fluentJdbc = null;
+        try {
+            fluentJdbc = newQuery().createStatement(sql).withParamValues(whereClauseValues).first();
+            return fluentJdbc.getResultSet().getInt(1);
+
+        } catch (SQLException e) {
+            logger.error("getCount()", e);
+
+        } finally {
+            if (fluentJdbc != null) {
+                fluentJdbc.close();
+            }
+        }
+        return -1;
+    }
+
     @Override
     public int getCount(String tableName, String whereClause, Object[] whereClauseValues) {
-        JdbcTemplate template = new JdbcTemplate(getDataSource());
 
         String sql = "";
         if (whereClause != null) {
@@ -79,7 +113,8 @@ public class BaseDbContext implements DbContext {
         } else {
             sql = String.format("select count(*) from %s", tableName);
         }
-        return template.queryForInt(sql, whereClauseValues);
+
+        return queryInt(sql, whereClauseValues);
     }
 
     @Override
@@ -90,6 +125,7 @@ public class BaseDbContext implements DbContext {
     @Override
     public int getCount(String tableName) {
         return getCount(tableName, null, null);
+
     }
 
     @Override
@@ -119,7 +155,7 @@ public class BaseDbContext implements DbContext {
     }
 
     @Override
-    public List<String> getPrimaryKeys(String ownerName, String tableName) {
+    public List<String> getPrimaryKeys(String ownerName, String tableName) throws SQLException {
         throw new UnsupportedOperationException();
     }
 

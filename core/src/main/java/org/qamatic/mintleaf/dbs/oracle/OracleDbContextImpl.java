@@ -32,6 +32,7 @@ package org.qamatic.mintleaf.dbs.oracle;
 
 import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.DbMetaData;
+import org.qamatic.mintleaf.RowListener;
 import org.qamatic.mintleaf.core.BaseDbContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -69,18 +70,15 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
 
     @Override
     public boolean isdbFeatureExists(String featureName) {
-        JdbcTemplate template = new JdbcTemplate();
-        template.setDataSource(getDataSource());
+
         int cnt = getCount("dba_server_registry", "comp_id=? and status=?", new Object[]{featureName.toUpperCase(), "VALID"});
         return cnt != 0;
     }
 
     @Override
     public int getNextSequenceNumber(String sequenceName) {
-        JdbcTemplate template = new JdbcTemplate();
-        template.setDataSource(getDataSource());
 
-        return template.queryForInt(String.format("select %s.NextVal from dual", sequenceName));
+        return queryInt(String.format("select %s.NextVal from dual", sequenceName), null);
     }
 
     @Override
@@ -109,7 +107,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     }
 
     @Override
-    public List<String> getPrimaryKeys(String ownerName, String tableName) {
+    public List<String> getPrimaryKeys(String ownerName, String tableName) throws SQLException {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         String owner = "";
@@ -119,14 +117,15 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         String sql = String
                 .format("select ucc.column_name as keyname from all_constraints uc, all_cons_columns ucc where uc.table_name = upper('%s') and uc.constraint_type = 'P' and (uc.constraint_name=ucc.constraint_name) and  uc.owner=ucc.owner %s",
                         tableName, owner);
-        return jdbcTemplate
-                .query(sql, new RowMapper<String>() {
-                    @Override
-                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return query(sql, new RowListener<String>() {
 
-                        return rs.getString("keyname");
-                    }
-                });
+            @Override
+            public String eachRow(int row, ResultSet resultSet) throws SQLException {
+                return resultSet.getString("keyname");
+            }
+
+
+        });
     }
 
     @Override

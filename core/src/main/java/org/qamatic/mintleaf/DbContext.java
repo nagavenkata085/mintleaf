@@ -60,7 +60,7 @@ public interface DbContext {
 
     List<String> getSqlObjects(String objectType);
 
-    List<String> getPrimaryKeys(String ownerName, String tableName);
+    List<String> getPrimaryKeys(String ownerName, String tableName) throws SQLException;
 
     DbMetaData getMetaData(String objectName) throws SQLException;
 

@@ -29,14 +29,22 @@
 
 package org.qamatic.mintleaf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * Created by senips on 7/12/16.
  */
-public interface RowListener {
+public abstract class RowListener<T> {
 
-    void rowData(int row, Object[] values);
+    public T eachRow(int row, ResultSet resultSet) throws SQLException {
+        return null;
+    }
+
+    public void firstRow(ResultSet resultSet) throws SQLException {
+
+    }
 
 
-    DbColumn getMetaData(int col);
 
 }

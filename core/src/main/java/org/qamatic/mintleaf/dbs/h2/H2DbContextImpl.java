@@ -33,8 +33,6 @@ import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.DbMetaData;
 import org.qamatic.mintleaf.RowListener;
 import org.qamatic.mintleaf.core.BaseDbContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -50,23 +48,6 @@ public class H2DbContextImpl extends BaseDbContext implements H2DbContext {
     }
 
 
-    public void iterateTableByQuery(String tableName, String columns, String whereClause, RowListener listener) throws SQLException {
-        DbMetaData metaData = getMetaData(tableName);
-    }
-
-    public void iterativeQuery(String sql, final RowListener listener) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(this.getDataSource());
-        jdbcTemplate.query(sql, new RowMapper() {
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                listener.getMetaData(1);
-
-                return null;
-            }
-        });
-
-    }
-
-
     @Override
     public DbMetaData getMetaData(String objectName) throws SQLException {
         final DbMetaData metaData = new DbMetaData();
@@ -77,28 +58,30 @@ public class H2DbContextImpl extends BaseDbContext implements H2DbContext {
         String[] splits = objectName.split(Pattern.quote("."));
 
         metaData.setObjectName(objectName);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(this.getDataSource());
+
         String sql = String.format("select * from information_schema.columns where TABLE_SCHEMA ='%s' and TABLE_NAME='%s'", splits[0], splits[1]);
-        jdbcTemplate.query(sql, new RowMapper() {
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+        query(sql, new RowListener<DbColumn>() {
+            public DbColumn eachRow(int rowNum, ResultSet rs) {
                 DbColumn colMetaData = new DbColumn();
-                colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
-                colMetaData.setNullable(rs.getString("IS_NULLABLE") != "NO");
-                colMetaData.setColumnSize(1);
-                colMetaData.setDatatype(rs.getInt("DATA_TYPE"));
+                try {
+                    colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
+                    colMetaData.setNullable(rs.getString("IS_NULLABLE") != "NO");
+                    colMetaData.setColumnSize(1);
+                    colMetaData.setDatatype(rs.getInt("DATA_TYPE"));
+                    colMetaData.setColumnSize(rs.getInt("CHARACTER_OCTET_LENGTH"));
 
-                //colMetaData.setTypeName(rs.getString("TYPE_NAME"));
-                colMetaData.setColumnSize(rs.getInt("CHARACTER_OCTET_LENGTH"));
+                    if (rs.getString("TYPE_NAME").equals("CHAR")) {
 
-                if (rs.getString("TYPE_NAME").equals("CHAR")) {
-                    //  colMetaData.setColumnSize(rs.getInt("CHARACTER_OCTET_LENGTH"));
-                } else if (rs.getString("TYPE_NAME").equals("DECIMAL")) {
-                    colMetaData.setColumnSize(rs.getInt("NUMERIC_PRECISION"));
+                    } else if (rs.getString("TYPE_NAME").equals("DECIMAL")) {
+                        colMetaData.setColumnSize(rs.getInt("NUMERIC_PRECISION"));
+                    }
+                    colMetaData.setDecimalDigits(rs.getInt("NUMERIC_SCALE"));
+
+                    metaData.add(colMetaData);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                colMetaData.setDecimalDigits(rs.getInt("NUMERIC_SCALE"));
-
-                metaData.add(colMetaData);
-                return null;
+                return colMetaData;
             }
         });
         return metaData;
