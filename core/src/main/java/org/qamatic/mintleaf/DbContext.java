@@ -29,6 +29,8 @@
 
 package org.qamatic.mintleaf;
 
+import org.qamatic.mintleaf.core.FluentJdbc;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -53,12 +55,13 @@ public interface DbContext {
 
     boolean isdbFeatureExists(String featureName);
 
+    FluentJdbc newQuery();
 
-    void truncateTable(String tableName);
+    void truncateTable(String tableName) throws SQLException;
 
     boolean isUserExists(String userName);
 
-    List<String> getSqlObjects(String objectType);
+    List<String> getSqlObjects(String objectType) throws SQLException;
 
     List<String> getPrimaryKeys(String ownerName, String tableName) throws SQLException;
 

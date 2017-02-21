@@ -29,12 +29,10 @@
 
 package org.qamatic.mintleaf;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 public interface ChangeSetReader extends SqlReader {
     ChangeSet getChangeSet(String sectionName);
 
-    HashMap<String, ChangeSet> getChangeSets() ;
+    HashMap<String, ChangeSet> getChangeSets();
 }

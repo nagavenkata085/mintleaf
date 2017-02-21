@@ -30,9 +30,8 @@
 package org.qamatic.mintleaf.dbs;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlStreamReader;
 import org.qamatic.mintleaf.SqlReaderListener;
-import org.qamatic.mintleaf.core.SqlStringReader;
+import org.qamatic.mintleaf.core.SqlStreamReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -80,7 +79,7 @@ public class SqlStreamReaderTest {
 
 
         final StringBuilder actual = new StringBuilder();
-        SqlReaderListener listner = new EmptyPackageReadListner(){
+        SqlReaderListener listner = new EmptyPackageReadListner() {
             @Override
             public void onReadChild(StringBuilder sql, Object context) throws SQLException, IOException {
                 actual.append(sql.toString());

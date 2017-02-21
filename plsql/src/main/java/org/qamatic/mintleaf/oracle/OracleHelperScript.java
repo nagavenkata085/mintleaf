@@ -33,11 +33,11 @@ package org.qamatic.mintleaf.oracle;
 import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.DbMetaData;
-import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLGrantPrivilege;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -140,12 +140,12 @@ public class OracleHelperScript extends OraclePackage {
 
     }
 
-    public void dropType(String typeName) {
+    public void dropType(String typeName) throws SQLException {
         getOracleDbContext().dropObject(typeName, "TYPE");
     }
 
 
-    public void dropPackage(String pkgName) {
+    public void dropPackage(String pkgName) throws SQLException {
         getOracleDbContext().dropObject(pkgName, "package");
     }
 

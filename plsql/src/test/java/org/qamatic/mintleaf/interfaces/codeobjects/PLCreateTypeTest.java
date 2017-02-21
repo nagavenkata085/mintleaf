@@ -34,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.oracle.OracleDbAssert;
-import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;
 import org.qamatic.mintleaf.oracle.codeobjects.PLCreateType;
 import org.qamatic.mintleaf.oracle.codeobjects.PLTableColumnDef;
@@ -94,7 +93,7 @@ public class PLCreateTypeTest extends OracleTestCase {
                 add(new PLTableColumnDef("y", "number"));
             }
         });
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "MyObject");
 
     }
 
@@ -109,29 +108,29 @@ public class PLCreateTypeTest extends OracleTestCase {
                 add(new PLTableColumnDef("y", "number"));
             }
         });
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ParentObject");
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ChildObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "ParentObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "ChildObject");
 
     }
 
     @Test
-    public void testCreateTypeInDb() {
+    public void testCreateTypeInDb() throws SQLException {
         mvutils.dropType("MyObject");
         mvutils.createType("MyObject");
 
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "MyObject");
         mvutils.dropType("MyObject");
 
     }
 
     @Test
-    public void testCreateTypeUnderTypeInDb() {
+    public void testCreateTypeUnderTypeInDb() throws SQLException {
         mvutils.dropType("ChildObject");
         mvutils.dropType("ParentObject");
         mvutils.createType("ParentObject");
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ParentObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "ParentObject");
         mvutils.createType("ChildObject", "ParentObject");
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ChildObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "ChildObject");
         mvutils.dropType("ChildObject");
         mvutils.dropType("ParentObject");
 
@@ -155,7 +154,7 @@ public class PLCreateTypeTest extends OracleTestCase {
                 p.toString());
 
         new ApplyChangeSets().applySource(getSchemaOwnerContext(), p.toString() + "\n/", "/");
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "MyObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "MyObject");
     }
 
     @SuppressWarnings("serial")
@@ -169,8 +168,8 @@ public class PLCreateTypeTest extends OracleTestCase {
                 add(new PLTableColumnDef("y", "number"));
             }
         });
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ParentObject");
-        OracleDbAssert.assertTypeExists((OracleDbContext) getSchemaOwnerContext(), "ChildObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "ParentObject");
+        OracleDbAssert.assertTypeExists(getSchemaOwnerContext(), "ChildObject");
 
     }
 

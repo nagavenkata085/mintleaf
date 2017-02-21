@@ -45,6 +45,22 @@ public abstract class BaseSqlReader implements SqlReader {
     protected SqlReaderListener readerListener;
     private String delimiter = "/";
 
+    public static InputStream getInputStreamFromFile(String resourceOrFileName) {
+        InputStream stream = null;
+        logger.info("reading file: " + resourceOrFileName);
+        if (resourceOrFileName.startsWith("res:")) {
+            String resFile = resourceOrFileName.substring(4);
+            stream = logger.getClass().getResourceAsStream(resFile);
+        } else {
+            try {
+                stream = new FileInputStream(resourceOrFileName);
+            } catch (FileNotFoundException e) {
+                logger.error("file not found " + resourceOrFileName, e);
+            }
+        }
+        return stream;
+    }
+
     @Override
     public String getDelimiter() {
         return delimiter;
@@ -67,21 +83,5 @@ public abstract class BaseSqlReader implements SqlReader {
     @Override
     public void setReaderListener(SqlReaderListener readerListener) {
         this.readerListener = readerListener;
-    }
-
-    public static InputStream getInputStreamFromFile(String resourceOrFileName) {
-        InputStream stream = null;
-        logger.info("reading file: " + resourceOrFileName);
-        if (resourceOrFileName.startsWith("res:")) {
-            String resFile = resourceOrFileName.substring(4);
-            stream = logger.getClass().getResourceAsStream(resFile);
-        } else {
-            try {
-                stream = new FileInputStream(resourceOrFileName);
-            } catch (FileNotFoundException e) {
-                logger.error("file not found " + resourceOrFileName, e);
-            }
-        }
-        return stream;
     }
 }

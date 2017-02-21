@@ -34,8 +34,6 @@ import org.qamatic.mintleaf.DbColumn;
 import org.qamatic.mintleaf.DbMetaData;
 import org.qamatic.mintleaf.RowListener;
 import org.qamatic.mintleaf.core.BaseDbContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -82,11 +80,9 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     }
 
     @Override
-    public void truncateTable(String tableName) {
-        JdbcTemplate template = new JdbcTemplate();
-        template.setDataSource(getDataSource());
+    public void truncateTable(String tableName) throws SQLException {
         String sql = String.format("truncate  table %s", tableName);
-        template.execute(sql);
+        newQuery().createStatement(sql).execute().close();
     }
 
     @Override
@@ -95,20 +91,21 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     }
 
     @Override
-    public List<String> getSqlObjects(String objectType) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.query(String.format("select object_name from user_objects where object_type='%s'", objectType), new RowMapper<String>() {
-            @Override
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public List<String> getSqlObjects(String objectType) throws SQLException {
 
-                return rs.getString("object_name");
+        return query(String.format("select object_name from user_objects where object_type='%s'", objectType), new RowListener<String>() {
+
+            @Override
+            public String eachRow(int row, ResultSet resultSet) throws SQLException {
+                return resultSet.getString("object_name");
             }
+
+
         });
     }
 
     @Override
     public List<String> getPrimaryKeys(String ownerName, String tableName) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         String owner = "";
         if (ownerName != null) {
@@ -143,19 +140,19 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     }
 
 
-    private String getSqlObjectMetaSql(String objectName) {
+    private String getSqlObjectMetaSql(String objectName) throws SQLException {
         final String objectName1 = objectName;
         final StringBuilder sql = new StringBuilder(
                 String.format(
                         "Select Column_Name , Data_Type TYPE_NAME, Data_Length, Data_Precision , Data_Scale,Char_Length from all_tab_columns where table_name = upper('%s') ORDER BY column_id",
                         objectName, objectName));
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        jdbcTemplate.query(String.format("Select decode(object_type,'TYPE',1,0) istype FROM user_objects Where object_name = upper('%s')", objectName),
-                new RowMapper() {
+        query(String.format("Select decode(object_type,'TYPE',1,0) istype FROM user_objects Where object_name = upper('%s')", objectName),
+                new RowListener() {
 
                     @Override
-                    public Object mapRow(ResultSet rs, int arg1) throws SQLException {
-                        if (rs.getInt("ISTYPE") == 1) {
+                    public Object eachRow(int row, ResultSet resultSet) throws SQLException {
+
+                        if (resultSet.getInt("ISTYPE") == 1) {
                             sql.setLength(0);
                             sql.append(String
                                     .format("select attr_name column_name, attr_type_name TYPE_NAME, length DATA_LENGTH, precision DATA_PRECISION, scale Data_Scale,length Char_Length from user_type_attrs where type_name =upper('%s')  order by attr_no",
@@ -179,11 +176,12 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
         final String objectName1 = objectName;
         metaData.setObjectName(objectName);
 
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
         String sql = getSqlObjectMetaSql(objectName);
-        jdbcTemplate.query(sql, new RowMapper<String>() {
+        query(sql, new RowListener<String>() {
             @Override
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public String eachRow(int row, ResultSet rs) throws SQLException {
+
 
                 DbColumn colMetaData = new OracleColumn();
                 colMetaData.setColumnName(rs.getString("COLUMN_NAME"));
@@ -239,18 +237,18 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     }
 
 
-    public void dropObject(String objectName, String objectType) {
+    public void dropObject(String objectName, String objectType) throws SQLException {
         dropObject(objectName, objectType, null);
     }
 
-    public void dropObject(String objectName, String objectType, String clause) {
+    public void dropObject(String objectName, String objectType, String clause) throws SQLException {
         objectType = objectType.toUpperCase();
         objectName = objectName.toUpperCase();
         if (!isSqlObjectExists(objectName, objectType, true)) {
             return;
         }
-        JdbcTemplate template = new JdbcTemplate(getDataSource());
-        template.execute(String.format("DROP %s %s %s", objectType, objectName, clause == null ? "" : "force"));
+
+        newQuery().createStatement(String.format("DROP %s %s %s", objectType, objectName, clause == null ? "" : "force")).execute().close();
     }
 
 

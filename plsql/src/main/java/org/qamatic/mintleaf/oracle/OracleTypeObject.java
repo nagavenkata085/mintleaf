@@ -206,7 +206,7 @@ public abstract class OracleTypeObject extends OracleBaseSqlScriptObject impleme
     }
 
     @Override
-    public void drop() {
+    public void drop() throws SQLException {
         new OracleHelperScript(getDbContext()).dropType(getName());
     }
 

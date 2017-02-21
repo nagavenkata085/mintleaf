@@ -32,13 +32,13 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.core.*;
 import org.qamatic.mintleaf.DbContext;
-import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
-import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.DbMetaData;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
+import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestDatabase;
 import org.qamatic.mintleaf.oracle.mocks.CreateTable1;
@@ -88,7 +88,7 @@ public class OracleDbHelperTest extends OracleTestCase {
     }
 
     protected OracleDbContext getOracleDbContext() {
-        return (OracleDbContext) getSchemaOwnerContext();
+        return getSchemaOwnerContext();
     }
 
 
@@ -327,7 +327,7 @@ public class OracleDbHelperTest extends OracleTestCase {
         }
 
         template.execute("CREATE SEQUENCE TESTSEQUENCE INCREMENT BY 1 START WITH 998");
-        OracleDbAssert.assertSequenceExists((OracleDbContext) getSchemaOwnerContext(), "TESTSEQUENCE");
+        OracleDbAssert.assertSequenceExists(getSchemaOwnerContext(), "TESTSEQUENCE");
         assertEquals(998, getSchemaOwnerContext().getNextSequenceNumber("TESTSEQUENCE"));
     }
 
@@ -349,7 +349,7 @@ public class OracleDbHelperTest extends OracleTestCase {
     }
 
     @Test
-    public void testGetUserObjectList() {
+    public void testGetUserObjectList() throws SQLException {
         OracleHelperScript utils = new OracleHelperScript(getSchemaOwnerContext());
         List<String> list = getSchemaOwnerContext().getSqlObjects("PACKAGE");
         assertTrue("getSqlObjects does not return any one of the pacakge at least", list.size() != 0);

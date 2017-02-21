@@ -34,8 +34,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.qamatic.mintleaf.core.ApplyChangeSets;
-import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
+import org.qamatic.mintleaf.oracle.OracleDbAssert;
 import org.qamatic.mintleaf.oracle.OracleHelperScript;
 import org.qamatic.mintleaf.oracle.codeobjects.*;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
@@ -51,7 +51,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
 
 
     @Before
-    public void init() {
+    public void init() throws SQLException {
         if (mvutils == null) {
             mvutils = new OracleHelperScript(getSchemaOwnerContext());
         }
@@ -97,7 +97,7 @@ public class PLCreateTypeBodyTest extends OracleTestCase {
     }
 
     private OracleDbContext getOracleDbContext() {
-        return (OracleDbContext) getSchemaOwnerContext();
+        return getSchemaOwnerContext();
     }
 
     @Test

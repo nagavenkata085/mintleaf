@@ -31,6 +31,8 @@ package org.qamatic.mintleaf.dbs.oracle;
 
 import org.qamatic.mintleaf.DbContext;
 
+import java.sql.SQLException;
+
 /**
  * Created by senips on 6/19/16.
  */
@@ -56,8 +58,8 @@ public interface OracleDbContext extends DbContext {
     boolean isSynonymExists(String synonymName, boolean igoreValidity);
 
 
-    void dropObject(String objectName, String objectType, String clause);
+    void dropObject(String objectName, String objectType, String clause) throws SQLException;
 
-    void dropObject(String objectName, String objectType);
+    void dropObject(String objectName, String objectType) throws SQLException;
 
 }

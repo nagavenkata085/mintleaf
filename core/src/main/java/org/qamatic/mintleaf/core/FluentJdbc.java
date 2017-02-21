@@ -47,6 +47,7 @@ public class FluentJdbc {
     private Connection connection;
     private PreparedStatement statement;
     private ResultSet resultSet;
+    private String sql;
 
     public FluentJdbc(DataSource dataSource) {
 
@@ -59,6 +60,7 @@ public class FluentJdbc {
         }
         connection = dataSource.getConnection();
         statement = connection.prepareStatement(sql);
+        this.sql = sql;
         return this;
     }
 
@@ -144,8 +146,10 @@ public class FluentJdbc {
     }
 
 
-    public boolean execute() throws SQLException {
-        return statement.execute();
+    public FluentJdbc execute() throws SQLException {
+        logger.info(sql);
+        statement.execute();
+        return this;
     }
 
 

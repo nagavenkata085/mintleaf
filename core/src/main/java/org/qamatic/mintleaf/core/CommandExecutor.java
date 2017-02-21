@@ -32,7 +32,6 @@ package org.qamatic.mintleaf.core;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.MintLeafLogger;
 import org.qamatic.mintleaf.SqlReaderListener;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -98,17 +97,9 @@ public class CommandExecutor implements SqlReaderListener {
     }
 
     protected void execute(StringBuilder sql) throws SQLException {
-        try {
-            JdbcTemplate template = new JdbcTemplate(dbContext.getDataSource());
-            template.execute(sql.toString());
-        } catch (Throwable e1) {
 
-            logger.error("CommandExecutor:", e1);
+        dbContext.newQuery().createStatement(sql.toString()).execute().close();
 
-            if (e1 instanceof SQLException) {
-                throw new SQLException(e1);
-            }
-        }
     }
 
 }

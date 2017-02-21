@@ -64,13 +64,12 @@ public class BaseDbContext implements DbContext {
         return dbSettings;
     }
 
-    public FluentJdbc newQuery() {
-        return new FluentJdbc(dataSource);
-    }
-
-
     public void setDbSettings(DbSettings dbSettings) {
         this.dbSettings = dbSettings;
+    }
+
+    public FluentJdbc newQuery() {
+        return new FluentJdbc(dataSource);
     }
 
     public <T> List<T> query(String sql, final RowListener<T> listener) throws SQLException {
@@ -140,7 +139,7 @@ public class BaseDbContext implements DbContext {
 
 
     @Override
-    public void truncateTable(String tableName) {
+    public void truncateTable(String tableName) throws SQLException {
         throw new UnsupportedOperationException();
     }
 
@@ -150,7 +149,7 @@ public class BaseDbContext implements DbContext {
     }
 
     @Override
-    public List<String> getSqlObjects(String objectType) {
+    public List<String> getSqlObjects(String objectType) throws SQLException {
         throw new UnsupportedOperationException();
     }
 

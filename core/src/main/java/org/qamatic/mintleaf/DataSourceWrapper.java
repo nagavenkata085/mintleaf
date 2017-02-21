@@ -39,7 +39,7 @@ import java.util.logging.Logger;
 /**
  * Created by senips on 2/19/16.
  */
-public class DataSourceWrapper implements DataSource{
+public class DataSourceWrapper implements DataSource {
 
     private DataSource internalDataSource;
 
@@ -64,13 +64,13 @@ public class DataSourceWrapper implements DataSource{
     }
 
     @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-
+    public int getLoginTimeout() throws SQLException {
+        return 0;
     }
 
     @Override
-    public int getLoginTimeout() throws SQLException {
-        return 0;
+    public void setLoginTimeout(int seconds) throws SQLException {
+
     }
 
     @Override

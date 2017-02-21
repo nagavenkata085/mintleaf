@@ -30,8 +30,8 @@
 package org.qamatic.mintleaf.dbs;
 
 import org.junit.Test;
-import org.qamatic.mintleaf.core.SqlStringReader;
 import org.qamatic.mintleaf.SqlReaderListener;
+import org.qamatic.mintleaf.core.SqlStringReader;
 
 import java.io.IOException;
 import java.sql.SQLException;

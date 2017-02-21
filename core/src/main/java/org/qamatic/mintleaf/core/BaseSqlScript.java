@@ -32,10 +32,7 @@ package org.qamatic.mintleaf.core;
 
 import org.qamatic.mintleaf.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 
 public abstract class BaseSqlScript implements SqlScript {
@@ -76,7 +73,6 @@ public abstract class BaseSqlScript implements SqlScript {
         reader.setReaderListener(getReadListener());
         reader.read();
     }
-
 
 
 }
