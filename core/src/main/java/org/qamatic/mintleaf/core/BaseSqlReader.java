@@ -51,6 +51,9 @@ public abstract class BaseSqlReader implements SqlReader {
         if (resourceOrFileName.startsWith("res:")) {
             String resFile = resourceOrFileName.substring(4);
             stream = logger.getClass().getResourceAsStream(resFile);
+            if (stream == null) {
+                logger.error("file not found " + resourceOrFileName);
+            }
         } else {
             try {
                 stream = new FileInputStream(resourceOrFileName);

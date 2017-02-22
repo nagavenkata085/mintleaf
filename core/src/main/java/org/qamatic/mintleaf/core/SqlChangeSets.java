@@ -53,9 +53,9 @@ public class SqlChangeSets extends BaseSqlScript {
 
     @Override
     public void apply() throws SQLException, IOException {
-        for (String sectionName : changeSetsToApply) {
-            if (changeSetReader.getChangeSets().containsKey(sectionName.trim())) {
-                final ChangeSet section = changeSetReader.getChangeSet(sectionName.trim());
+        for (String changeSetName : changeSetsToApply) {
+            if (changeSetReader.getChangeSets().containsKey(changeSetName.trim())) {
+                final ChangeSet section = changeSetReader.getChangeSet(changeSetName.trim());
                 SqlScript script = new BaseSqlScript(dbContext) {
                     @Override
                     protected SqlReader getSourceReader() {
@@ -65,6 +65,8 @@ public class SqlChangeSets extends BaseSqlScript {
                     }
                 };
                 script.apply();
+            } else {
+                logger.error("apply a changeset does not exist: " + changeSetName);
             }
         }
     }

@@ -27,10 +27,46 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.dbs;
+package junitsupport;
 
-/**
- * Created by senips on 2/12/16.
- */
-public class DxContext {
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.qamatic.mintleaf.core.ApplyChangeSets;
+import org.qamatic.mintleaf.dbs.h2.H2DbContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import static junit.framework.TestCase.assertEquals;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:database-config.xml")
+public class H2SchemaExampleTest {
+
+    @Autowired()
+    @Qualifier("H2-HRDB")
+    private H2DbContext hrDbContext;
+
+
+    @Before
+    public void createDb() throws IOException, SQLException {
+        if (hrDbContext.isTableExists("HRDB.USERS"))
+            return;
+
+        new ApplyChangeSets().apply(hrDbContext, "res:/h2-changesets/v1/schema-v1.sql", "create schema, load seed data");
+
+    }
+
+    @Test
+    public void testCount() {
+        assertEquals(7, hrDbContext.getCount("HRDB.USERS"));
+    }
+
+
 }

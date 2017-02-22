@@ -75,6 +75,10 @@ public class FluentJdbc {
         return this.resultSet;
     }
 
+    public int[] executeBatch() throws SQLException {
+        return new int[0];
+    }
+
 
     public FluentJdbc close() {
         try {
@@ -103,6 +107,11 @@ public class FluentJdbc {
     public FluentJdbc executeQuery() throws SQLException {
         this.resultSet = statement.executeQuery();
         return this;
+    }
+
+
+    public int executeUpdate() throws SQLException {
+        return 0;
     }
 
 
@@ -150,6 +159,11 @@ public class FluentJdbc {
         logger.info(sql);
         statement.execute();
         return this;
+    }
+
+
+    public void addBatch() throws SQLException {
+
     }
 
 
