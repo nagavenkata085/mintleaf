@@ -54,7 +54,7 @@ public class FluentJdbc {
         this.dataSource = dataSource;
     }
 
-    public FluentJdbc createStatement(final String sql) throws SQLException {
+    public FluentJdbc withSql(final String sql) throws SQLException {
         if (statement != null) {
             close();
         }

@@ -32,6 +32,7 @@ package org.qamatic.mintleaf;
 import org.qamatic.mintleaf.core.FluentJdbc;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -57,6 +58,10 @@ public interface DbContext {
 
     FluentJdbc newQuery();
 
+    <T> List<T> query(String sql, final RowListener<T> listener) throws SQLException;
+
+    int queryInt(String sql, Object[] whereClauseValues);
+
     void truncateTable(String tableName) throws SQLException;
 
     boolean isUserExists(String userName);
@@ -71,5 +76,5 @@ public interface DbContext {
 
     boolean isColumnExists(String tableName, String columnName);
 
-
+    void toCSV(String fileName, String sql, Object[] paramValues) throws SQLException, IOException;
 }

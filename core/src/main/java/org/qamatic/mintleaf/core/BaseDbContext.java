@@ -32,8 +32,10 @@ package org.qamatic.mintleaf.core;
 import org.qamatic.mintleaf.*;
 
 import javax.sql.DataSource;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,15 +70,17 @@ public class BaseDbContext implements DbContext {
         this.dbSettings = dbSettings;
     }
 
+    @Override
     public FluentJdbc newQuery() {
         return new FluentJdbc(dataSource);
     }
 
+    @Override
     public <T> List<T> query(String sql, final RowListener<T> listener) throws SQLException {
 
         final List<T> rows = new ArrayList<T>();
 
-        FluentJdbc fluentJdbc = newQuery().createStatement(sql).query(new RowListener<T>() {
+        FluentJdbc fluentJdbc = newQuery().withSql(sql).query(new RowListener<T>() {
             @Override
             public T eachRow(int row, ResultSet resultSet) throws SQLException {
                 rows.add(listener.eachRow(row, resultSet));
@@ -86,10 +90,11 @@ public class BaseDbContext implements DbContext {
         return rows;
     }
 
+    @Override
     public int queryInt(String sql, Object[] whereClauseValues) {
         FluentJdbc fluentJdbc = null;
         try {
-            fluentJdbc = newQuery().createStatement(sql).withParamValues(whereClauseValues).first();
+            fluentJdbc = newQuery().withSql(sql).withParamValues(whereClauseValues).first();
             return fluentJdbc.getResultSet().getInt(1);
 
         } catch (SQLException e) {
@@ -173,4 +178,53 @@ public class BaseDbContext implements DbContext {
     }
 
 
+    public void toCSV(String fileName, String sql, Object[] paramValues) throws SQLException, IOException {
+
+        FluentJdbc fluentJdbc = newQuery().withSql(sql).withParamValues(paramValues);
+        try {
+
+            File f = new File(fileName);
+            ResultSetMetaData metaData = fluentJdbc.getResultSet().getMetaData();
+            int columnCount = metaData.getColumnCount();
+            try (OutputStream os = new FileOutputStream(f)) {
+                os.write(239);
+                os.write(187);
+                os.write(191);
+                try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, "UTF-8"))) {
+                    for (int i = 1; i <= columnCount; i++) {
+                        pw.print(metaData.getColumnName(i));
+                        if (i < columnCount) {
+                            pw.print(",");
+                            pw.flush();
+                        }
+                        if (i == columnCount) {
+                            pw.println();
+                            pw.flush();
+                        }
+                    }
+                    while (fluentJdbc.getResultSet().next()) {
+                        for (int i = 1; i <= columnCount; i++) {
+                            Object fValueObj = fluentJdbc.getResultSet().getObject(i);
+                            String fValue = fValueObj == null ? "NULL" : fValueObj.toString();
+                            if (fValue.contains(","))
+                                pw.print("\"" + fValue + "\"");
+                            else
+                                pw.print(fValue);
+
+                            if (i < columnCount) {
+                                pw.print(",");
+                                pw.flush();
+                            }
+                            if (i == columnCount) {
+                                pw.println();
+                                pw.flush();
+                            }
+                        }
+                    }
+                }
+            }
+        } finally {
+            fluentJdbc.close();
+        }
+    }
 }

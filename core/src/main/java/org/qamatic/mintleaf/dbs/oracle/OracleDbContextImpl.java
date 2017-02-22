@@ -82,7 +82,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
     @Override
     public void truncateTable(String tableName) throws SQLException {
         String sql = String.format("truncate  table %s", tableName);
-        newQuery().createStatement(sql).execute().close();
+        newQuery().withSql(sql).execute().close();
     }
 
     @Override
@@ -248,7 +248,7 @@ public class OracleDbContextImpl extends BaseDbContext implements OracleDbContex
             return;
         }
 
-        newQuery().createStatement(String.format("DROP %s %s %s", objectType, objectName, clause == null ? "" : "force")).execute().close();
+        newQuery().withSql(String.format("DROP %s %s %s", objectType, objectName, clause == null ? "" : "force")).execute().close();
     }
 
 

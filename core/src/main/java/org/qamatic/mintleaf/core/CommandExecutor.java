@@ -98,7 +98,7 @@ public class CommandExecutor implements SqlReaderListener {
 
     protected void execute(StringBuilder sql) throws SQLException {
 
-        dbContext.newQuery().createStatement(sql.toString()).execute().close();
+        dbContext.newQuery().withSql(sql.toString()).execute().close();
 
     }
 

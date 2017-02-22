@@ -71,6 +71,14 @@ public class ChangeSetTests {
 
     }
 
+
+    @Test
+    public void checkCSVDump() throws SQLException, IOException {
+
+        h2DbContext.toCSV("testfile.csv", "select * from HRDB.USERS", null);
+    }
+
+
     @Test
     public void a_CheckSchemaLoaded() throws SQLException, IOException {
         int cnt = h2DbContext.getCount("HRDB.USERS");
