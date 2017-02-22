@@ -33,6 +33,7 @@ import org.qamatic.mintleaf.core.FluentJdbc;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -77,4 +78,6 @@ public interface DbContext {
     boolean isColumnExists(String tableName, String columnName);
 
     void toCSV(String fileName, String sql, Object[] paramValues) throws SQLException, IOException;
+
+    void importFromCsv(final Reader aCsvFileReader, final String sqlTemplate) throws IOException, SQLException, MintLeafException;
 }

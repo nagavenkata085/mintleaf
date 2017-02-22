@@ -45,7 +45,7 @@ public class FluentJdbc {
     private DataSource dataSource;
 
     private Connection connection;
-    private PreparedStatement statement;
+    private Statement statement;
     private ResultSet resultSet;
     private String sql;
 
@@ -64,9 +64,6 @@ public class FluentJdbc {
         return this;
     }
 
-    public PreparedStatement getStatement() {
-        return this.statement;
-    }
 
     public ResultSet getResultSet() throws SQLException {
         if (this.resultSet == null) {
@@ -76,7 +73,9 @@ public class FluentJdbc {
     }
 
     public int[] executeBatch() throws SQLException {
-        return new int[0];
+
+
+        return this.statement.executeBatch();
     }
 
 
@@ -103,84 +102,86 @@ public class FluentJdbc {
         }
     }
 
+    private PreparedStatement getPrepStmt() {
+        return (PreparedStatement) statement;
+    }
 
     public FluentJdbc executeQuery() throws SQLException {
-        this.resultSet = statement.executeQuery();
+        this.resultSet = getPrepStmt().executeQuery();
         return this;
     }
 
 
-    public int executeUpdate() throws SQLException {
-        return 0;
-    }
-
-
-//    public int executeUpdate() throws SQLException {
-//        return 0;
-//    }
-
     public FluentJdbc setNull(int parameterIndex, int sqlType) throws SQLException {
-        statement.setNull(parameterIndex, sqlType);
+        getPrepStmt().setNull(parameterIndex, sqlType);
         return this;
     }
 
 
     public FluentJdbc setInt(int parameterIndex, int x) throws SQLException {
-        statement.setInt(parameterIndex, x);
+        getPrepStmt().setInt(parameterIndex, x);
         return this;
     }
 
 
     public FluentJdbc setString(int parameterIndex, String x) throws SQLException {
-        statement.setString(parameterIndex, x);
+        getPrepStmt().setString(parameterIndex, x);
         return this;
     }
 
 
     public FluentJdbc clearParameters() throws SQLException {
-        statement.clearParameters();
+        getPrepStmt().clearParameters();
         return this;
     }
 
 
     public FluentJdbc setObject(int parameterIndex, Object x, int targetSqlType) throws SQLException {
-        statement.setObject(parameterIndex, x, targetSqlType);
+        getPrepStmt().setObject(parameterIndex, x, targetSqlType);
         return this;
     }
 
 
     public FluentJdbc setObject(int parameterIndex, Object x) throws SQLException {
-        statement.setObject(parameterIndex, x);
+        getPrepStmt().setObject(parameterIndex, x);
         return this;
     }
 
 
     public FluentJdbc execute() throws SQLException {
         logger.info(sql);
-        statement.execute();
+        getPrepStmt().execute();
         return this;
     }
 
 
     public void addBatch() throws SQLException {
-
+        getPrepStmt().addBatch();
     }
 
+    public FluentJdbc addBatch(String sql) throws SQLException {
+        if (statement == null) {
+            connection = dataSource.getConnection();
+            statement = connection.createStatement();
+        }
+        statement.addBatch(sql);
+        return this;
+    }
 
     public FluentJdbc setDate(int parameterIndex, Date x, Calendar cal) throws SQLException {
-        statement.setDate(parameterIndex, x, cal);
+        getPrepStmt().setDate(parameterIndex, x, cal);
         return this;
     }
 
 
     public FluentJdbc setTime(int parameterIndex, Time x, Calendar cal) throws SQLException {
-        statement.setTime(parameterIndex, x, cal);
+        getPrepStmt().setTime(parameterIndex, x, cal);
         return this;
     }
 
 
     public FluentJdbc setTimestamp(int parameterIndex, Timestamp x, Calendar cal) throws SQLException {
-        statement.setTimestamp(parameterIndex, x, cal);
+        getPrepStmt().setTimestamp(parameterIndex, x, cal);
         return this;
     }
 

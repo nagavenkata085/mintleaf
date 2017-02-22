@@ -39,6 +39,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class BaseDbContext implements DbContext {
@@ -178,6 +180,39 @@ public class BaseDbContext implements DbContext {
     }
 
 
+    //this is meant for testing purpose of loading data but for production side you should consider using param binds..
+    public void importFromCsv(final Reader aCsvFileReader, final String sqlTemplate) throws IOException, SQLException, MintLeafException {
+        final Pattern columnPattern = Pattern.compile("\\$(\\w+)\\$", Pattern.DOTALL | Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
+        final Matcher columns = columnPattern.matcher(sqlTemplate);
+        logger.info("importCsvInto " + sqlTemplate);
+        final FluentJdbc fluentJdbc = newQuery();
+        CsvReaderWriter.getInstance().importFrom(aCsvFileReader, new DataReaderWriter.DataReaderListener() {
+
+            @Override
+            public void eachRow(int rowNum, DataReaderWriter.DataRow row) throws MintLeafException {
+                try {
+                    StringBuffer buffer = new StringBuffer(sqlTemplate);
+                    columns.reset();
+                    while (columns.find()) {
+                        int idx = buffer.indexOf("$" + columns.group(1));
+                        buffer.replace(idx, idx + columns.group(1).length() + 2, row.get(columns.group(1)));
+                    }
+                    fluentJdbc.addBatch(buffer.toString());
+
+
+                } catch (SQLException e) {
+                    logger.error("importCsvInto()", e);
+                    throw new MintLeafException("importCsvInto()", e);
+                }
+
+            }
+
+        });
+        fluentJdbc.executeBatch();
+        fluentJdbc.close();
+    }
+
+
     public void toCSV(String fileName, String sql, Object[] paramValues) throws SQLException, IOException {
 
         FluentJdbc fluentJdbc = newQuery().withSql(sql).withParamValues(paramValues);
@@ -187,9 +222,7 @@ public class BaseDbContext implements DbContext {
             ResultSetMetaData metaData = fluentJdbc.getResultSet().getMetaData();
             int columnCount = metaData.getColumnCount();
             try (OutputStream os = new FileOutputStream(f)) {
-                os.write(239);
-                os.write(187);
-                os.write(191);
+
                 try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, "UTF-8"))) {
                     for (int i = 1; i <= columnCount; i++) {
                         pw.print(metaData.getColumnName(i));
