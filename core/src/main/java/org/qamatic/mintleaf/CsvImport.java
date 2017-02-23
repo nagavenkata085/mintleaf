@@ -38,43 +38,39 @@ import java.io.Reader;
 
 /**
  * Created by senips on 2/22/17.
- * wrapping CSV reader library
  */
-public class CsvReaderWriter implements DataReaderWriter {
+public class CsvImport implements DataImport {
 
-    private static DataReaderWriter instance;
+    private Reader afileReader;
 
-
-    public void toCSV() {
-
+    public CsvImport(Reader afileReader) {
+        this.afileReader = afileReader;
     }
 
-    public void importFrom(Reader afileReader, DataReaderListener listener) throws IOException, MintLeafException {
-        importFrom(afileReader, ',', listener);
+    protected CSVParser getCSVParser() throws IOException {
+        return new CSVParser(afileReader, CSVFormat.EXCEL.withHeader().withIgnoreEmptyLines());
     }
 
-    public void importFrom(Reader afileReader, char demilitedBy, DataReaderListener listener) throws IOException, MintLeafException {
+    public void doImport(DataReaderListener listener) throws MintLeafException {
 
-        final CSVParser parser = new CSVParser(afileReader, CSVFormat.EXCEL.withHeader().withIgnoreEmptyLines().withDelimiter(demilitedBy));
-        final CsvRowWrapper csvRowWrapper = new CsvRowWrapper();
-        int i = 0;
-        for (CSVRecord record : parser) {
-            csvRowWrapper.setRecord(record);
-            listener.eachRow(i++, csvRowWrapper);
+        final CSVParser parser;
+        try {
+            parser = getCSVParser();
+
+            final CsvRowWrapper csvRowWrapper = new CsvRowWrapper();
+            int i = 0;
+            for (CSVRecord record : parser) {
+                csvRowWrapper.setRecord(record);
+                listener.eachRow(i++, csvRowWrapper);
+            }
+
+        } catch (IOException e) {
+            throw new MintLeafException(e);
         }
     }
 
-    public synchronized static DataReaderWriter getInstance() {
-        if (instance == null)
-            instance = new CsvReaderWriter();
-        return instance;
-    }
 
-    public static void setInstance(DataReaderWriter instance) {
-        CsvReaderWriter.instance = instance;
-    }
-
-    private class CsvRowWrapper implements DataRow {
+    private class CsvRowWrapper implements ImportedRow {
         private CSVRecord record;
 
 

@@ -30,21 +30,16 @@
 package org.qamatic.mintleaf;
 
 
-import java.io.IOException;
-import java.io.Reader;
-
 /**
  * Created by senips on 2/22/17.
  */
-public interface DataReaderWriter {
+public interface DataImport {
 
 
-    void importFrom(Reader afileReader, DataReaderListener listener) throws IOException, MintLeafException;
-
-    void importFrom(Reader afileReader, char demilitedBy, DataReaderListener listener) throws IOException, MintLeafException;
+    void doImport(DataReaderListener listener) throws MintLeafException;
 
 
-    interface DataRow {
+    interface ImportedRow {
 
         String get(int i);
 
@@ -54,6 +49,6 @@ public interface DataReaderWriter {
     }
 
     interface DataReaderListener {
-        void eachRow(int rowNum, DataRow row) throws MintLeafException;
+        void eachRow(int rowNum, ImportedRow row) throws MintLeafException;
     }
 }

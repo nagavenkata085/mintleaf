@@ -32,8 +32,10 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.qamatic.mintleaf.CsvExport;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.DbMetaData;
+import org.qamatic.mintleaf.MintLeafException;
 import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.dbs.oracle.OracleDbContext;
 import org.qamatic.mintleaf.oracle.core.BaseSqlScriptObject;
@@ -44,6 +46,8 @@ import org.qamatic.mintleaf.oracle.junitsupport.OracleTestDatabase;
 import org.qamatic.mintleaf.oracle.mocks.CreateTable1;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -69,7 +73,7 @@ public class OracleDbHelperTest extends OracleTestCase {
     }
 
     @Test
-    public void testtruncateTable() throws SQLException, IOException {
+    public void testtruncateTable() throws SQLException, IOException, MintLeafException {
         OracleHelperScript utils = new OracleHelperScript(getSchemaOwnerContext());
         PopulateTestDataForTable1 table1 = new PopulateTestDataForTable1(getSchemaOwnerContext());
         try {
@@ -78,7 +82,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
 
             OracleDbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
-            getSchemaOwnerContext().toCSV("testfileora.csv", "select * from TABLE1", null);
+            getSchemaOwnerContext().export(new CsvExport(new FileWriter(new File("testfileora.csv"))), "select * from TABLE1", null);
             getSchemaOwnerContext().truncateTable("TABLE1");
             assertEquals(0, getSchemaOwnerContext().getCount("TABLE1"));
 

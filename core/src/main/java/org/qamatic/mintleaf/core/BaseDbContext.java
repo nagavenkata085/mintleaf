@@ -32,10 +32,9 @@ package org.qamatic.mintleaf.core;
 import org.qamatic.mintleaf.*;
 
 import javax.sql.DataSource;
-import java.io.*;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -181,15 +180,15 @@ public class BaseDbContext implements DbContext {
 
 
     //this is meant for testing purpose of loading data but for production side you should consider using param binds..
-    public void importFromCsv(final Reader aCsvFileReader, final String sqlTemplate) throws IOException, SQLException, MintLeafException {
+    public void importData(final DataImport dataImport, final String sqlTemplate) throws IOException, SQLException, MintLeafException {
         final Pattern columnPattern = Pattern.compile("\\$(\\w+)\\$", Pattern.DOTALL | Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
         final Matcher columns = columnPattern.matcher(sqlTemplate);
         logger.info("importCsvInto " + sqlTemplate);
         final FluentJdbc fluentJdbc = newQuery();
-        CsvReaderWriter.getInstance().importFrom(aCsvFileReader, new DataReaderWriter.DataReaderListener() {
+        dataImport.doImport(new DataImport.DataReaderListener() {
 
             @Override
-            public void eachRow(int rowNum, DataReaderWriter.DataRow row) throws MintLeafException {
+            public void eachRow(int rowNum, DataImport.ImportedRow row) throws MintLeafException {
                 try {
                     StringBuffer buffer = new StringBuffer(sqlTemplate);
                     columns.reset();
@@ -212,52 +211,14 @@ public class BaseDbContext implements DbContext {
         fluentJdbc.close();
     }
 
-
-    public void toCSV(String fileName, String sql, Object[] paramValues) throws SQLException, IOException {
-
-        FluentJdbc fluentJdbc = newQuery().withSql(sql).withParamValues(paramValues);
+    public void export(final DataExport dataExport, String sql, Object[] optionalParamValueBindings) throws SQLException, IOException, MintLeafException {
+        FluentJdbc fluentJdbc = newQuery().withSql(sql).withParamValues(optionalParamValueBindings);
         try {
-
-            File f = new File(fileName);
-            ResultSetMetaData metaData = fluentJdbc.getResultSet().getMetaData();
-            int columnCount = metaData.getColumnCount();
-            try (OutputStream os = new FileOutputStream(f)) {
-
-                try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, "UTF-8"))) {
-                    for (int i = 1; i <= columnCount; i++) {
-                        pw.print(metaData.getColumnName(i));
-                        if (i < columnCount) {
-                            pw.print(",");
-                            pw.flush();
-                        }
-                        if (i == columnCount) {
-                            pw.println();
-                            pw.flush();
-                        }
-                    }
-                    while (fluentJdbc.getResultSet().next()) {
-                        for (int i = 1; i <= columnCount; i++) {
-                            Object fValueObj = fluentJdbc.getResultSet().getObject(i);
-                            String fValue = fValueObj == null ? "NULL" : fValueObj.toString();
-                            if (fValue.contains(","))
-                                pw.print("\"" + fValue + "\"");
-                            else
-                                pw.print(fValue);
-
-                            if (i < columnCount) {
-                                pw.print(",");
-                                pw.flush();
-                            }
-                            if (i == columnCount) {
-                                pw.println();
-                                pw.flush();
-                            }
-                        }
-                    }
-                }
-            }
+            dataExport.export(fluentJdbc.getResultSet());
         } finally {
             fluentJdbc.close();
         }
     }
+
+
 }

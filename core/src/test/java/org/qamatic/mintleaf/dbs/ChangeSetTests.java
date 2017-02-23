@@ -34,17 +34,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.qamatic.mintleaf.DbMetaData;
-import org.qamatic.mintleaf.MintLeafException;
-import org.qamatic.mintleaf.RowListener;
+import org.qamatic.mintleaf.*;
 import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -79,11 +74,11 @@ public class ChangeSetTests {
 
 
     @Test
-    public void a_checkCSVDump() throws SQLException, IOException {
+    public void a_checkCSVDump() throws SQLException, IOException, MintLeafException {
         File f = new File("testfile.csv");
         if (f.exists())
             f.delete();
-        h2DbContext.toCSV("testfile.csv", "select * from HRDB.USERS", null);
+        h2DbContext.export(new CsvExport(new FileWriter(f)), "select * from HRDB.USERS", null);
         assertTrue(new File("testfile.csv").exists());
     }
 
@@ -95,7 +90,7 @@ public class ChangeSetTests {
         if (f.exists()) {
 
             Reader reader = new FileReader(f);
-            h2DbContext.importFromCsv(reader, "UPDATE HRDB.USERS SET USERNAME = '$USERNAME$-changed' WHERE USERID=$USERID$");
+            h2DbContext.importData(new CsvImport(reader), "UPDATE HRDB.USERS SET USERNAME = '$USERNAME$-changed' WHERE USERID=$USERID$");
 
             h2DbContext.query("SELECT USERNAME FROM HRDB.USERS", new RowListener<String>() {
 
