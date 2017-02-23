@@ -85,7 +85,7 @@
 
     </dependencies>
     <build>
-        <finalName>mintleaf</finalName>
+
         <plugins>
 
             <plugin>

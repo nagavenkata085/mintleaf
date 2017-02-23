@@ -49,7 +49,7 @@
         <processorPath useClasspath="true" />
         <module name="mintleaf-dbexamples" />
       </profile>
-      <profile default="false" name="Annotation profile for mintleaf-plsql" enabled="true">
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -65,7 +65,7 @@
       <module name="mintleaf-dbs" target="1.7" />
       <module name="mintleaf-dbunittests" target="1.7" />
       <module name="mintleaf-h2db" target="1.7" />
-      <module name="mintleaf-plsql" target="1.7" />
+      <module name="mintleaf-plsql" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
