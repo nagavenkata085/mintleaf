@@ -82,7 +82,7 @@ public class OracleDbHelperTest extends OracleTestCase {
 
 
             OracleDbAssert.assertCountEquals(2, getSchemaOwnerContext(), "table1");
-            getSchemaOwnerContext().export(new CsvExport(new FileWriter(new File("testfileora.csv"))), "select * from TABLE1", null);
+            getSchemaOwnerContext().exportDataTo(new CsvExport(new FileWriter(new File("testfileora.csv"))), "select * from TABLE1", null);
             getSchemaOwnerContext().truncateTable("TABLE1");
             assertEquals(0, getSchemaOwnerContext().getCount("TABLE1"));
 

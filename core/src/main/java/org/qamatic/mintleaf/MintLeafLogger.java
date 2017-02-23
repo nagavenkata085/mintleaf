@@ -39,7 +39,7 @@ public abstract class MintLeafLogger {
     public synchronized static MintLeafLogger getLogger(Class<?> clazz) {
 
         if (mintLeafLogger == null) {
-            mintLeafLogger = new ConsoleLeafLogger();
+            mintLeafLogger = new ConsoleLogger();
         }
         return mintLeafLogger;
 

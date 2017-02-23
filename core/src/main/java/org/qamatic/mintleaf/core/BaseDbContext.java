@@ -180,15 +180,15 @@ public class BaseDbContext implements DbContext {
 
 
     //this is meant for testing purpose of loading data but for production side you should consider using param binds..
-    public void importData(final DataImport dataImport, final String sqlTemplate) throws IOException, SQLException, MintLeafException {
+    public void importDataFrom(final DataImportSource dataImportSource, final String sqlTemplate) throws IOException, SQLException, MintLeafException {
         final Pattern columnPattern = Pattern.compile("\\$(\\w+)\\$", Pattern.DOTALL | Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
         final Matcher columns = columnPattern.matcher(sqlTemplate);
         logger.info("importCsvInto " + sqlTemplate);
         final FluentJdbc fluentJdbc = newQuery();
-        dataImport.doImport(new DataImport.DataReaderListener() {
+        dataImportSource.doImport(new DataImportSource.SourceRowListener() {
 
             @Override
-            public void eachRow(int rowNum, DataImport.ImportedRow row) throws MintLeafException {
+            public void eachRow(int rowNum, DataImportSource.ImportedSourceRow row) throws MintLeafException {
                 try {
                     StringBuffer buffer = new StringBuffer(sqlTemplate);
                     columns.reset();
@@ -211,7 +211,7 @@ public class BaseDbContext implements DbContext {
         fluentJdbc.close();
     }
 
-    public void export(final DataExport dataExport, String sql, Object[] optionalParamValueBindings) throws SQLException, IOException, MintLeafException {
+    public void exportDataTo(final DataExport dataExport, String sql, Object[] optionalParamValueBindings) throws SQLException, IOException, MintLeafException {
         FluentJdbc fluentJdbc = newQuery().withSql(sql).withParamValues(optionalParamValueBindings);
         try {
             dataExport.export(fluentJdbc.getResultSet());

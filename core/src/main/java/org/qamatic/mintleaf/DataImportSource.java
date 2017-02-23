@@ -33,13 +33,13 @@ package org.qamatic.mintleaf;
 /**
  * Created by senips on 2/22/17.
  */
-public interface DataImport {
+public interface DataImportSource {
 
 
-    void doImport(DataReaderListener listener) throws MintLeafException;
+    void doImport(SourceRowListener listener) throws MintLeafException;
 
 
-    interface ImportedRow {
+    interface ImportedSourceRow {
 
         String get(int i);
 
@@ -48,7 +48,7 @@ public interface DataImport {
         int size();
     }
 
-    interface DataReaderListener {
-        void eachRow(int rowNum, ImportedRow row) throws MintLeafException;
+    interface SourceRowListener {
+        void eachRow(int rowNum, ImportedSourceRow row) throws MintLeafException;
     }
 }

@@ -76,7 +76,7 @@ public interface DbContext {
 
     boolean isColumnExists(String tableName, String columnName);
 
-    void importData(final DataImport dataImport, final String sqlTemplate) throws IOException, SQLException, MintLeafException;
+    void importDataFrom(final DataImportSource dataImportSource, final String sqlTemplate) throws IOException, SQLException, MintLeafException;
 
-    void export(final DataExport dataExporter, String sql, Object[] optionalParamValueBindings) throws SQLException, IOException, MintLeafException;
+    void exportDataTo(final DataExport dataExporter, String sql, Object[] optionalParamValueBindings) throws SQLException, IOException, MintLeafException;
 }

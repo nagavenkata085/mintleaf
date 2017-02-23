@@ -32,7 +32,7 @@ package org.qamatic.mintleaf;
 /**
  * Created by senips on 2/16/16.
  */
-public class ConsoleLeafLogger extends MintLeafLogger {
+public class ConsoleLogger extends MintLeafLogger {
 
     @Override
     public void error(String message, Throwable e) {

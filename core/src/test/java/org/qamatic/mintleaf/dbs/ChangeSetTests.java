@@ -78,7 +78,7 @@ public class ChangeSetTests {
         File f = new File("testfile.csv");
         if (f.exists())
             f.delete();
-        h2DbContext.export(new CsvExport(new FileWriter(f)), "select * from HRDB.USERS", null);
+        h2DbContext.exportDataTo(new CsvExport(new FileWriter(f)), "select * from HRDB.USERS", null);
         assertTrue(new File("testfile.csv").exists());
     }
 
@@ -90,7 +90,7 @@ public class ChangeSetTests {
         if (f.exists()) {
 
             Reader reader = new FileReader(f);
-            h2DbContext.importData(new CsvImport(reader), "UPDATE HRDB.USERS SET USERNAME = '$USERNAME$-changed' WHERE USERID=$USERID$");
+            h2DbContext.importDataFrom(new CsvImportSource(reader), "UPDATE HRDB.USERS SET USERNAME = '$USERNAME$-changed' WHERE USERID=$USERID$");
 
             h2DbContext.query("SELECT USERNAME FROM HRDB.USERS", new RowListener<String>() {
 

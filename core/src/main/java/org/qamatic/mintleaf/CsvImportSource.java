@@ -39,11 +39,11 @@ import java.io.Reader;
 /**
  * Created by senips on 2/22/17.
  */
-public class CsvImport implements DataImport {
+public class CsvImportSource implements DataImportSource {
 
     private Reader afileReader;
 
-    public CsvImport(Reader afileReader) {
+    public CsvImportSource(Reader afileReader) {
         this.afileReader = afileReader;
     }
 
@@ -51,13 +51,13 @@ public class CsvImport implements DataImport {
         return new CSVParser(afileReader, CSVFormat.EXCEL.withHeader().withIgnoreEmptyLines());
     }
 
-    public void doImport(DataReaderListener listener) throws MintLeafException {
+    public void doImport(SourceRowListener listener) throws MintLeafException {
 
         final CSVParser parser;
         try {
             parser = getCSVParser();
 
-            final CsvRowWrapper csvRowWrapper = new CsvRowWrapper();
+            final CsvSourceRowWrapper csvRowWrapper = new CsvSourceRowWrapper();
             int i = 0;
             for (CSVRecord record : parser) {
                 csvRowWrapper.setRecord(record);
@@ -70,7 +70,7 @@ public class CsvImport implements DataImport {
     }
 
 
-    private class CsvRowWrapper implements ImportedRow {
+    private class CsvSourceRowWrapper implements ImportedSourceRow {
         private CSVRecord record;
 
 
