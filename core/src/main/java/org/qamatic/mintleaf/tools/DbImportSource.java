@@ -27,75 +27,74 @@
  *   -->
  */
 
-package org.qamatic.mintleaf;
+package org.qamatic.mintleaf.tools;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
+import org.qamatic.mintleaf.DataImportSource;
+import org.qamatic.mintleaf.MintLeafException;
+import org.qamatic.mintleaf.MintLeafLogger;
 
-import java.io.IOException;
-import java.io.Reader;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by senips on 2/22/17.
  */
-public class CsvImportSource implements DataImportSource {
+public class DbImportSource implements DataImportSource {
 
-    private Reader afileReader;
+    private static final MintLeafLogger logger = MintLeafLogger.getLogger(DbImportSource.class);
+    private ResultSet resultSet;
 
-    public CsvImportSource(Reader afileReader) {
-        this.afileReader = afileReader;
+    public DbImportSource(ResultSet resultSet) {
+
+        this.resultSet = resultSet;
     }
 
-    protected CSVParser getCSVParser() throws IOException {
-        return new CSVParser(afileReader, CSVFormat.EXCEL.withHeader().withIgnoreEmptyLines());
-    }
-
+    @Override
     public void doImport(SourceRowListener listener) throws MintLeafException {
-
-        final CSVParser parser;
+        final DbSourceRowWrapper dbRowWrapper = new DbSourceRowWrapper();
+        int i = 0;
         try {
-            parser = getCSVParser();
-
-            final CsvSourceRowWrapper csvRowWrapper = new CsvSourceRowWrapper();
-            int i = 0;
-            for (CSVRecord record : parser) {
-                csvRowWrapper.setRecord(record);
-                listener.eachRow(i++, csvRowWrapper);
+            while (this.resultSet.next()) {
+                dbRowWrapper.setResultSet(this.resultSet);
+                listener.eachRow(i++, dbRowWrapper);
             }
-
-        } catch (IOException e) {
+        } catch (SQLException e) {
             throw new MintLeafException(e);
         }
     }
 
+    private class DbSourceRowWrapper implements ImportedSourceRow {
 
-    private class CsvSourceRowWrapper implements ImportedSourceRow {
-        private CSVRecord record;
-
-
-        public CSVRecord getRecord() {
-            return record;
-        }
-
-
-        public void setRecord(CSVRecord record) {
-            this.record = record;
-        }
+        private ResultSet resultSet;
 
         @Override
         public String get(int i) {
-            return record.get(i);
+            try {
+                return resultSet.getObject(i).toString();
+            } catch (SQLException e) {
+                logger.error("CsvSourceRowWrapper", e);
+            }
+            return null;
         }
 
         @Override
         public String get(String name) {
-            return record.get(name);
+            try {
+                return resultSet.getObject(name).toString();
+            } catch (SQLException e) {
+                logger.error("CsvSourceRowWrapper", e);
+            }
+            return null;
         }
 
         @Override
         public int size() {
-            return record.size();
+            return -1;
+        }
+
+
+        public void setResultSet(ResultSet resultSet) {
+            this.resultSet = resultSet;
         }
     }
 

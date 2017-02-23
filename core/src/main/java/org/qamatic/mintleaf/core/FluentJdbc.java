@@ -200,10 +200,6 @@ public class FluentJdbc {
         return this;
     }
 
-//    public <T> FluentJdbc query(final String sql, final RowListener<T> listener) throws SQLException {
-//        createStatement(sql);
-//        return query(listener);
-//    }
 
     public FluentJdbc first() throws SQLException {
         getResultSet().next();

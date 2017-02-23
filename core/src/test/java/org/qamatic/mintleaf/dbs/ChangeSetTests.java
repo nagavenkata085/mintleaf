@@ -34,19 +34,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.qamatic.mintleaf.*;
+import org.qamatic.mintleaf.DbMetaData;
 import org.qamatic.mintleaf.core.ApplyChangeSets;
 import org.qamatic.mintleaf.dbs.h2.H2DbContext;
 import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
 
-import java.io.*;
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by senips on 7/12/16.
@@ -73,38 +67,7 @@ public class ChangeSetTests {
     }
 
 
-    @Test
-    public void a_checkCSVDump() throws SQLException, IOException, MintLeafException {
-        File f = new File("testfile.csv");
-        if (f.exists())
-            f.delete();
-        h2DbContext.exportDataTo(new CsvExport(new FileWriter(f)), "select * from HRDB.USERS", null);
-        assertTrue(new File("testfile.csv").exists());
-    }
 
-
-    @Test
-    public void a1_readCSV() throws SQLException, IOException, MintLeafException {
-        a_checkCSVDump();//dependent..
-        File f = new File("testfile.csv");
-        if (f.exists()) {
-
-            Reader reader = new FileReader(f);
-            h2DbContext.importDataFrom(new CsvImportSource(reader), "UPDATE HRDB.USERS SET USERNAME = '$USERNAME$-changed' WHERE USERID=$USERID$");
-
-            h2DbContext.query("SELECT USERNAME FROM HRDB.USERS", new RowListener<String>() {
-
-                @Override
-                public String eachRow(int row, ResultSet resultSet) throws SQLException {
-                    assertTrue(resultSet.getString("USERNAME").contains("-changed"));
-                    return null;
-                }
-
-
-            });
-
-        } else assertTrue("testfile.csv file not found", false);
-    }
 
     @Test
     public void a_CheckSchemaLoaded() throws SQLException, IOException {
@@ -112,15 +75,7 @@ public class ChangeSetTests {
         Assert.assertEquals(7, cnt);
     }
 
-    @Test
-    public void testInlineParamRegEx() {
-        Pattern pattern = Pattern.compile("\\$(\\w+)\\$", Pattern.DOTALL | Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher("UPDATE HRDB.USERS SET USERID= $USERID$, USERNAME = '$USERNAME$'");
-        matcher.find();
-        assertEquals("USERID", matcher.group(1));
 
-
-    }
 
     @Test
     public void b_CheckMetaData() throws SQLException, IOException {

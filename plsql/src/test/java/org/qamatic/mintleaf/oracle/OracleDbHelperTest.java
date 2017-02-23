@@ -32,7 +32,6 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.CsvExport;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.DbMetaData;
 import org.qamatic.mintleaf.MintLeafException;
@@ -44,6 +43,7 @@ import org.qamatic.mintleaf.oracle.core.SqlScriptObject;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestDatabase;
 import org.qamatic.mintleaf.oracle.mocks.CreateTable1;
+import org.qamatic.mintleaf.tools.CsvExport;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.File;

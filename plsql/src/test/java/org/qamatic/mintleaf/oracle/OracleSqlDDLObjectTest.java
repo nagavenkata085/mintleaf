@@ -32,14 +32,19 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.DbContext;
+import org.qamatic.mintleaf.MintLeafException;
 import org.qamatic.mintleaf.SqlReader;
+import org.qamatic.mintleaf.core.FluentJdbc;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
+import org.qamatic.mintleaf.tools.DbImportSource;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+
+import static org.junit.Assert.assertEquals;
 
 public class OracleSqlDDLObjectTest extends OracleTestCase {
 
@@ -63,6 +68,20 @@ public class OracleSqlDDLObjectTest extends OracleTestCase {
     public void testDdlCheckForTablesCreated() throws SQLException {
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "table1");
         OracleDbAssert.assertTableExists(getSchemaOwnerContext(), "TABLE2");
+    }
+
+    @Test
+    public void testImportDbToDb() throws SQLException, IOException, MintLeafException {
+        assertEquals(3, getSchemaOwnerContext().getCount("table1"));
+        assertEquals(0, getSchemaOwnerContext().getCount("table2"));
+
+        FluentJdbc fluentJdbc = getSchemaOwnerContext().newQuery().withSql("SELECT * FROM TABLE1");
+
+        getSchemaOwnerContext().importDataFrom(new DbImportSource(fluentJdbc.getResultSet()),
+                "INSERT INTO TABLE2 (ID, NAME) VALUES ($ID$, '$NAME$')");
+        assertEquals(3, getSchemaOwnerContext().getCount("TABLE2"));
+
+
     }
 
     @SqlObjectInfo(name = "a test ddl", source = "res:/Testddl.sql", dropSource = "res:/Testddl_drop.sql")

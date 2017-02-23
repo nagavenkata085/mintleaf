@@ -32,16 +32,14 @@ package org.qamatic.mintleaf.oracle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.DbContext;
 import org.qamatic.mintleaf.SqlReader;
+import org.qamatic.mintleaf.oracle.core.SqlObjectInfo;
 import org.qamatic.mintleaf.oracle.junitsupport.OracleTestCase;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-
-import static org.junit.Assert.assertEquals;
 
 public class OracleOracleBatchDDLTest extends OracleTestCase {
 
@@ -61,35 +59,6 @@ public class OracleOracleBatchDDLTest extends OracleTestCase {
         mvdropScript.apply();
     }
 
-    @Test
-    public void testDynamicDdlScript() throws SQLException, IOException {
-        OracleBatchDDL dynObject = new TestDDLCreate(getSchemaOwnerContext());
-        dynObject.apply();
-
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("declare \n");
-        builder.append(" begin \n");
-        builder.append("\n");
-        builder.append("execute immediate 'CREATE TABLE TABLE1\n");
-        builder.append("(\n");
-        builder.append("\n");
-        builder.append("ID NUMBER (18)  NOT NULL ,\n");
-        builder.append("NAME VARCHAR2 (60 CHAR)  NOT NULL\n");
-        builder.append("\n");
-        builder.append(")';\n");
-        builder.append("\n");
-        builder.append("execute immediate 'CREATE TABLE TABLE2\n");
-        builder.append("(\n");
-        builder.append("ID NUMBER (18)  NOT NULL ,\n");
-        builder.append("NAME VARCHAR2 (60 CHAR)  NOT NULL\n");
-        builder.append(")';\n");
-        builder.append("\n");
-        builder.append("end;");
-
-        assertEquals(builder.toString(), dynObject.getSql());
-
-    }
 
     @Test
     public void testDynamicDdlScriptExecution() throws SQLException, IOException {

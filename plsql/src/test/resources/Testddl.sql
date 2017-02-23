@@ -20,4 +20,8 @@ CREATE TABLE TABLE2
 
 
  
+insert into TABLE1 values(1,'aa');
 
+insert into TABLE1 values(2,'bb');
+
+insert into TABLE1 values(3,'cc');
