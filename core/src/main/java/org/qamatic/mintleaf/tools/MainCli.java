@@ -27,46 +27,34 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.dbs;
+package org.qamatic.mintleaf.tools;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.qamatic.mintleaf.SqlScript;
-import org.qamatic.mintleaf.core.SqlScriptFile;
-import org.qamatic.mintleaf.dbs.h2.H2DbContext;
-import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
-
-import java.io.IOException;
-import java.sql.SQLException;
+import org.apache.commons.cli.*;
 
 /**
- * Created by senips on 3/6/16.
+ * Created by senips on 2/22/17.
  */
-public class SingleLoadScriptTests {
+public class MainCli {
+
+    public static void main(String[] args) {
+        CommandLineParser parser = new DefaultParser();
+
+        Options options = new Options();
+        options.addOption("help", "help", false, "usage");
 
 
-    private static H2DbContext h2DbContext;
+        try {
+            // parse the command line arguments
+            CommandLine line = parser.parse(options, args);
+            if (args.length == 0) {
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("mintleaf", options);
+                System.exit(0);
+            }
 
-    @BeforeClass
-    public static void setupDb() {
-
-        BasicDataSource ds = new BasicDataSource();
-        ds.setUrl("jdbc:h2:file:./target/H2DbScriptTests;mv_store=false");
-        ds.setDriverClassName("org.h2.Driver");
-
-        h2DbContext = new H2DbContextImpl(ds);
-
+        } catch (ParseException exp) {
+            System.out.println("Unexpected exception:" + exp.getMessage());
+            System.exit(-1);
+        }
     }
-
-    @Test
-    public void simpleScriptLoad() throws SQLException, IOException {
-        SqlScript script = new SqlScriptFile(h2DbContext, "res:/h2singlescript.sql", ";");
-        script.apply();
-
-        Assert.assertTrue(h2DbContext.isTableExists("HRDB.USERS"));
-    }
-
-
 }

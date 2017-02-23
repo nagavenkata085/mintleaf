@@ -27,46 +27,12 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.dbs;
+package org.qamatic.mintleaf.dbs.mssql;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.qamatic.mintleaf.SqlScript;
-import org.qamatic.mintleaf.core.SqlScriptFile;
-import org.qamatic.mintleaf.dbs.h2.H2DbContext;
-import org.qamatic.mintleaf.dbs.h2.H2DbContextImpl;
-
-import java.io.IOException;
-import java.sql.SQLException;
+import org.qamatic.mintleaf.DbContext;
 
 /**
  * Created by senips on 3/6/16.
  */
-public class SingleLoadScriptTests {
-
-
-    private static H2DbContext h2DbContext;
-
-    @BeforeClass
-    public static void setupDb() {
-
-        BasicDataSource ds = new BasicDataSource();
-        ds.setUrl("jdbc:h2:file:./target/H2DbScriptTests;mv_store=false");
-        ds.setDriverClassName("org.h2.Driver");
-
-        h2DbContext = new H2DbContextImpl(ds);
-
-    }
-
-    @Test
-    public void simpleScriptLoad() throws SQLException, IOException {
-        SqlScript script = new SqlScriptFile(h2DbContext, "res:/h2singlescript.sql", ";");
-        script.apply();
-
-        Assert.assertTrue(h2DbContext.isTableExists("HRDB.USERS"));
-    }
-
-
+public interface MSSqlDbContext extends DbContext {
 }
