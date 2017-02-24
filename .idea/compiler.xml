@@ -56,10 +56,18 @@
         <processorPath useClasspath="true" />
         <module name="mintleaf-plsql" />
       </profile>
+      <profile default="false" name="Annotation profile for mintleaf-cmd" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="mintleaf-cmd" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="dbs" target="1.7" />
       <module name="mintleaf" target="1.7" />
+      <module name="mintleaf-cmd" target="1.7" />
       <module name="mintleaf-core" target="1.7" />
       <module name="mintleaf-dbexamples" target="1.7" />
       <module name="mintleaf-dbs" target="1.7" />

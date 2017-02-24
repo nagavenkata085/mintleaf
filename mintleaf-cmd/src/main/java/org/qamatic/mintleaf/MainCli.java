@@ -27,7 +27,7 @@
  *   -->
  */
 
-package org.qamatic.mintleaf.tools;
+package org.qamatic.mintleaf;
 
 import org.apache.commons.cli.*;
 

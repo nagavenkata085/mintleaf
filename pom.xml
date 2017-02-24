@@ -44,6 +44,7 @@
         <module>core</module>
         <module>dbexamples</module>
         <module>plsql</module>
+        <module>mintleaf-cmd</module>
     </modules>
 
     <licenses>
