@@ -19,3 +19,5 @@ plsql/src/test/resources/test_sysdba.properties
 plsql/src/test/resources/test_schema.properties
 
 *.iml
+
+doc/build/*
