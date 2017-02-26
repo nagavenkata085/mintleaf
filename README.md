@@ -5,21 +5,19 @@
 Cloudify your database development on Continuous Delivery Model
 
 - Database Migration
-- Write unit and acceptance level tests
-- Test life cycle management - setup, teardown mock data, schema and any database objects
+- Run tests on migrated database
+- Write automated tests for ETL scenarios
+- Seamless Test life cycle management - setup, teardown mock data, schema and any database objects using changesets
 
 <!--## JavaDoc-->
 
 <!--~[Java Doc.](http://senips.github.io/mintleaf/javadoc/)-->
 
-## Architecture
-![Architecture](https://github.com/senips/mintleaf/blob/master/img/mintleafarch.jpg)
-
 ## Maven 
     <dependency>
         <groupId>org.qamatic</groupId>
         <artifactId>mintleaf-core</artifactId>
-        <version>1.8.11</version>
+        <version>1.8.13</version>
     </dependency>
 
 ## License

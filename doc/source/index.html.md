@@ -3,13 +3,10 @@ title: API Reference
 
 language_tabs:
   - shell
-  - ruby
-  - python
-  - javascript
+  - java
 
-toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+toc_footers:  
+  - <a href='http://getmintleaf.org'>getmintleaf.org</a>
 
 includes:
   - errors
@@ -28,31 +25,19 @@ This example API documentation page was created with [Slate](https://github.com/
 # Authentication
 
 > To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
+ 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+
+ 
+  
 ```
 
-```javascript
-const kittn = require('kittn');
+```java
 
-let api = kittn.authorize('meowmeowmeow');
+ 
+  
 ```
-
+ 
 > Make sure to replace `meowmeowmeow` with your API key.
 
 Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
