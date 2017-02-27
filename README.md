@@ -1,9 +1,6 @@
 [![Build Status](https://travis-ci.org/senips/mintleaf.svg?branch=master)](https://travis-ci.org/senips/mintleaf)
 
 ![logo](https://github.com/senips/mintleaf/blob/master/doc/source/images/logosimple.png)
-
-# MintLeaf
-
 Welcome to the Mintleaf! Mintleaf is a light weight framework tool helps you to advance your database developement on continuous integration / continuous delivery model as easy as possible.
 
 
