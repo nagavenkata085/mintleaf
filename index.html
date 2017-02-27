@@ -230,12 +230,15 @@
 <li>Database Migration (either from command line or programatic approach)</li>
 <li>Ability to write automated tests and run them on migrated database schemas, objects, data integrity checks during CI/CD</li>
 <li>Seamless Test life cycle management such as setup, teardown mock data, schema and any database objects using changesets</li>
+<li>Transfer/Copy data between datbases</li>
 <li>Nothing more but to use Plain old SQL that you know of</li>
 </ul>
 
 <h1 id="database-migration">Database Migration</h1>
 
-<p>Database migraton refers to the management of incremental, reversible changes to relational database schemas. A schema migration is performed on a database whenever it is necessary to update or revert that database&rsquo;s schema to some newer or older version.  Look at the below diagram which shows you the schema changes over a period of time during a software developement life cycle.  </p>
+<h2 id="what-is-migration-means">What is migration means?</h2>
+
+<p>Database migraton refers to the management of incremental, reversible changes to relational database schemas. A schema migration is performed on a database whenever it is necessary to update or revert that database&rsquo;s schema to some newer or older version.  Look at the below diagram which shows you the schema changes over a period of time during a Agile Software Developement Life Cycle.   Every schema changes during a developement sprint will be applied to QA Databases and Prod Database at the end of sprint release.    </p>
 
 <p><img src="images/basicflow.png" alt="Alt text" />   </p>
 
