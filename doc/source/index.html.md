@@ -21,12 +21,16 @@ Welcome to the Mintleaf! Mintleaf is a light weight framework tool helps you to 
 - Transfer/Copy data between datbases
 - Nothing more but to use Plain old SQL that you know of
 
+
+![Mintleaf](/images/overall.png)   
+
+
 # Database Migration
 
 ## What is migration means?
 Database migraton refers to the management of incremental, reversible changes to relational database schemas. A schema migration is performed on a database whenever it is necessary to update or revert that database's schema to some newer or older version.  Look at the below diagram which shows you the schema changes over a period of time during a Agile Software Developement Life Cycle.   Every schema changes during a developement sprint will be applied to QA Databases and Prod Database at the end of sprint release.    
 
-![Alt text](/images/basicflow.png)   
+![Database Migration](/images/basicflow.png)   
 
 
 ```sql
@@ -37,12 +41,27 @@ create table A;
 
 ## Change sets
  
- >A file *abcdb-changeset-demo.sql* contains the following two changesets create schema and create tables
+
+ Changesets are basically contains one ore more changes that are to be applied during database migration.  Mintleaf changesets are stored in plain old sql files but described in comment lines 
  
 ```sql
+-- <ChangeSet id="{a-change-set-id}" delimiter=";" userdata="" />
+```
+
+where,
+ 
+Parameter | Description
+--------- | -----------
+id | The ID of the changeset
+delimiter | sql script ending delimiter
+userdata | user defined columns that one can store additional meta data of the changeset
+
 
  
+For example, a file 'abcdb-changeset-demo.sql' contains the following two changesets create schema and create tables
 
+ 
+```sql
 -- <ChangeSet id="create schema" delimiter=";" userdata="" />
 DROP SCHEMA IF EXISTS ABCDB;
 CREATE SCHEMA IF NOT EXISTS ABCDB;
@@ -57,22 +76,7 @@ CREATE TABLE IF NOT EXISTS ABCDB.USERS
   CONSTRAINT PK_USERID PRIMARY KEY (USERID)
 );
  
-```
-
- Changesets are basically contains one ore more changes that are to be applied during database migration.  Mintleaf changesets are stored in plain old sql files but described in comment lines 
+``` 
  
- <aside class="notice">
-      <code> -- &lt;ChangeSet id=&quot;{a-change-set-id}&quot; delimiter=&quot;;&quot; delimiter=&quot;&quot; /&gt; </code> 
- </aside>
- 
- 
-### changeset parameters
- 
-Parameter | Description
---------- | -----------
-id | The ID of the changeset
-delimiter | sql script ending delimiter
-userdata | user defined columns that one can store additional meta data of the changeset
-
 
 # Create Test Data

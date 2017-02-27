@@ -272,7 +272,7 @@ html, body {
   // I know, it's hackish, but it's the simplist way to make the left
   // half of the content always this background color.
   .dark-box {
-    width: $examples-width;
+    //width: $examples-width;
     background-color: $examples-bg;
     position: absolute;
     right: 0;
@@ -526,11 +526,11 @@ html, body {
     color: #fff;
 
     padding: 2em $main-padding;
-    margin: 0;
-    width: $examples-width;
+    margin: 9px;
+//    width: $examples-width;
 
-    float:right;
-    clear:right;
+    //float:right;
+    //clear:right;
 
     box-sizing: border-box;
     text-shadow: 0px 1px 2px rgba(0,0,0,0.4);
