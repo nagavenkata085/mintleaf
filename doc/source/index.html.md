@@ -29,6 +29,50 @@ Database migraton refers to the management of incremental, reversible changes to
 ![Alt text](/images/basicflow.png)   
 
 
+```sql
+create schema ABCDB;
+create table A;
+
+```
+
+## Change sets
+ 
+ >A file *abcdb-changeset-demo.sql* contains the following two changesets create schema and create tables
+ 
+```sql
 
  
+
+-- <ChangeSet id="create schema" delimiter=";" userdata="" />
+DROP SCHEMA IF EXISTS ABCDB;
+CREATE SCHEMA IF NOT EXISTS ABCDB;
  
+-- <ChangeSet id="create tables" delimiter=";" userdata="" /> 
+CREATE TABLE IF NOT EXISTS ABCDB.USERS
+(
+  USERID      INT NOT NULL,
+  USERNAME    VARCHAR2(50),
+  RATE        NUMBER(12, 2),
+  CREATE_TIME DATE DEFAULT sysdate,
+  CONSTRAINT PK_USERID PRIMARY KEY (USERID)
+);
+ 
+```
+
+ Changesets are basically contains one ore more changes that are to be applied during database migration.  Mintleaf changesets are stored in plain old sql files but described in comment lines 
+ 
+ <aside class="notice">
+      <code> -- &lt;ChangeSet id=&quot;{a-change-set-id}&quot; delimiter=&quot;;&quot; delimiter=&quot;&quot; /&gt; </code> 
+ </aside>
+ 
+ 
+### changeset parameters
+ 
+Parameter | Description
+--------- | -----------
+id | The ID of the changeset
+delimiter | sql script ending delimiter
+userdata | user defined columns that one can store additional meta data of the changeset
+
+
+# Create Test Data

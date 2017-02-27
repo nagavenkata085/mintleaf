@@ -10,9 +10,9 @@ Welcome to the Mintleaf! Mintleaf is a light weight framework tool helps you to 
 - Create mock data or transfer/copy data between databases for your tests
 - Nothing more but to use Plain old SQL that you know of
 
-<!--## JavaDoc-->
+## Documentation
 
-<!--~[Java Doc.](http://senips.github.io/mintleaf/javadoc/)-->
+- [Usage Documentation](http://doc.getmintleaf.org/)
 
 ## Maven 
     <dependency>
