@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/senips/mintleaf.svg?branch=master)](https://travis-ci.org/senips/mintleaf)
 
-![logo](https://github.com/senips/mintleaf/blob/master/img/mintleafarch.jpg)
+![logo](https://github.com/senips/mintleaf/blob/master/doc/source/images/logosimple.png)
 
 # MintLeaf
 
