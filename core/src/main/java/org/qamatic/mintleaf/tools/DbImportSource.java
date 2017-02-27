@@ -72,7 +72,7 @@ public class DbImportSource implements DataImportSource {
             try {
                 return resultSet.getObject(i).toString();
             } catch (SQLException e) {
-                logger.error("CsvSourceRowWrapper", e);
+                logger.error("DbSourceRowWrapper", e);
             }
             return null;
         }
@@ -82,7 +82,7 @@ public class DbImportSource implements DataImportSource {
             try {
                 return resultSet.getObject(name).toString();
             } catch (SQLException e) {
-                logger.error("CsvSourceRowWrapper", e);
+                logger.error("DbSourceRowWrapper", e);
             }
             return null;
         }
