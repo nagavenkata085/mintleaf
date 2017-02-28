@@ -226,6 +226,8 @@
 
 <p>Welcome to the Mintleaf! Mintleaf is a light weight framework tool helps you to advance your database developement on continuous integration / continuous delivery model as easy as possible.</p>
 
+<h3 id="features">Features</h3>
+
 <ul>
 <li>Database Migration (either from command line or programatic approach)</li>
 <li>Ability to write automated tests and run them on migrated database schemas, objects, data integrity checks during CI/CD</li>
@@ -234,21 +236,47 @@
 <li>Nothing more but to use Plain old SQL that you know of</li>
 </ul>
 
-<h1 id="database-migration">Database Migration</h1>
+<p><strong><em>Before we deep dive into the Mintleaf, lets look at what migration means and how it works.</em></strong></p>
 
-<h2 id="what-is-migration-means">What is migration means?</h2>
+<h2 id="migration-at-a-glance">Migration at a glance</h2>
 
-<p>Database migraton refers to the management of incremental, reversible changes to relational database schemas. A schema migration is performed on a database whenever it is necessary to update or revert that database&rsquo;s schema to some newer or older version.  Look at the below diagram which shows you the schema changes over a period of time during a Agile Software Developement Life Cycle.   Every schema changes during a developement sprint will be applied to QA Databases and Prod Database at the end of sprint release.    </p>
+<p>Database migraton refers to the management of incremental, reversible changes to relational database schemas. A schema migration is performed on a database whenever it is necessary to update or revert that database&rsquo;s schema to some newer or older version.  Look at the below diagram which shows you the schema changes over a period of time during a Agile Software Developement Life Cycle.   Every schema changes during a developement sprint will be applied to QA Databases and Prod Database at the end of sprint release.  </p>
 
-<p><img src="images/basicflow.png" alt="Alt text" />   </p>
-<pre class="highlight sql tab-sql"><code><span class="k">create</span> <span class="k">schema</span> <span class="n">ABCDB</span><span class="p">;</span>
-<span class="k">create</span> <span class="k">table</span> <span class="n">A</span><span class="p">;</span>
+<p><img src="images/basicflow.png" alt="Database Migration" />   </p>
 
-</code></pre>
+<p>When developing software applications backed by a database, developers typically develop the application source code in tandem with an evolving database schema. The code typically has rigid expectations of what columns, tables and constraints are present in the database schema whenever it needs to interact with one, so only the version of database schema against which the code was developed is considered fully compatible with that version of source code.</p>
+
+<h4 id="version-control-systems-v-s-database-migration-versions">Version Control Systems v.s Database Migration Versions?</h4>
+
+<p>Teams of software developers usually use version control systems to manage and collaborate on changes made to versions of source code. Different developers can develop on divergent, relatively older or newer branches of the same source code to make changes and additions during development.  So version control system by itself does not maintain database versions but data migration tools does it for you.  So using Mintleaf you can maintain your database versions either upgrade to a newer version or degrade it a older version. </p>
+
+<h2 id="why-mintleaf">Why MintLeaf?</h2>
+
+<p>Schema migration to a production database is always a risky task. Production databases are usually huge, old, and full of surprise things like the following </p>
+
+<ul>
+<li>Assumptions on certian data conditions </li>
+<li>Implied dependencies which no body knows</li>
+<li>Unclean / stale data which are hard to resolve </li>
+<li>Direct schema patches for bug fixes </li>
+<li>Direct performance fixes
+and so on&hellip;.</li>
+</ul>
+
+<blockquote>
+<p>So for these reasons, a solid migration process needs high level of discipline through build, test and deploy strategy is a way to go as like shown in below diagram where <strong>Mintleaf</strong> serves as a tool and as a framework to help an organisation move forward to next level of Agile Database Developement.</p>
+</blockquote>
+
+<p><img src="images/overall.png" alt="Mintleaf" />   </p>
+
+<p>So again, welcome to the Mintleaf!  Mintleaf is a light weight framework tool helps you to advance your database developement on continuous integration / continuous delivery model as easy as possible.</p>
+
+<h1 id="understanding-mintleaf">Understanding Mintleaf</h1>
+
 <h2 id="change-sets">Change sets</h2>
 
-<p>Changesets are basically contains one ore more changes that are to be applied during database migration.  Mintleaf changesets are stored in plain old sql files but described in comment lines </p>
-<pre class="highlight sql tab-sql"><code><span class="c1">-- &lt;ChangeSet id="{a-change-set-id}" delimiter=";" userdata="" /&gt;</span>
+<p>Changesets are basically contains one ore more changes that are to be applied during a database migration.  Mintleaf changesets are stored in plain old sql files but changeset informatino is described using sql comment lines as shown below </p>
+<pre class="highlight sql tab-sql"><code> <span class="c1">-- &lt;ChangeSet id="{a-change-set-id}" delimiter=";" userdata="" /&gt;</span>
 </code></pre>
 <p>where,</p>
 
@@ -264,15 +292,15 @@
 </tr>
 <tr>
 <td>delimiter</td>
-<td>sql script ending delimiter</td>
+<td>Sql DDL/DML statement delimiter</td>
 </tr>
 <tr>
 <td>userdata</td>
-<td>user defined columns that one can store additional meta data of the changeset</td>
+<td>user defined columns that one can store additional meta data of the changeset.</td>
 </tr>
 </tbody></table>
 
-<p>For example, a file &lsquo;abcdb-changeset-demo.sql&rsquo; contains the following two changesets create schema and create tables</p>
+<p>For example, a file &lsquo;abcdb-changeset.sql&rsquo; contains the following two changesets: create schema and create tables</p>
 <pre class="highlight sql tab-sql"><code><span class="c1">-- &lt;ChangeSet id="create schema" delimiter=";" userdata="" /&gt;</span>
 <span class="k">DROP</span> <span class="k">SCHEMA</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">ABCDB</span><span class="p">;</span>
 <span class="k">CREATE</span> <span class="k">SCHEMA</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">ABCDB</span><span class="p">;</span>
