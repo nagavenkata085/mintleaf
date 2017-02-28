@@ -339,37 +339,26 @@ It&rsquo;s very easy to add changeset definition on your exising sql files if yo
 
 <p>Version profile is a configuration file which contains list of changesets to be applied for a particular version of a database migration.  Typically you will have all versions from the beginning to the latest.   So the Mintleaf looks for a default version profile at the folder where it is being execution location.</p>
 
-<p><strong>mintleaf.xml</strong></p>
-<pre class="highlight xml tab-xml"><code><span class="nt">&lt;mintleaf&gt;</span>
+<p><strong>mintleaf.yml</strong></p>
+<pre class="highlight yaml"><code><span class="na">databases</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">database</span><span class="pi">:</span>
+        <span class="na">id </span><span class="pi">:</span> <span class="s">abcdb</span>
+        <span class="na">type </span><span class="pi">:</span> <span class="s">h2|oracle|sqlserver|postgres|mysql|sybase</span>
+        <span class="na">url </span><span class="pi">:</span>  <span class="s">jdbc:h2:file:./target/ABCDB;mv_store=false;</span>
+        <span class="na">username </span><span class="pi">:</span> 
+        <span class="na">password </span><span class="pi">:</span> 
 
-    <span class="nt">&lt;databases&gt;</span>
-        <span class="nt">&lt;database</span> <span class="na">id=</span><span class="s">"abcdb"</span> <span class="na">type=</span><span class="s">"h2|oracle|sqlserver|postgres|mysql|sybase"</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;url&gt;</span>jdbc:h2:file:./target/ABCDB;mv_store=false;<span class="nt">&lt;/ur&gt;</span>
-            <span class="nt">&lt;username&gt;&lt;/username&gt;</span>
-            <span class="nt">&lt;password&gt;&lt;/password&gt;</span>
-        <span class="nt">&lt;/database&gt;</span>
-    <span class="nt">&lt;/databases&gt;</span>
+<span class="na">versions</span><span class="pi">:</span>
 
-    <span class="nt">&lt;versions&gt;</span>
-
-        <span class="nt">&lt;version</span> <span class="na">id=</span><span class="s">"abcdb-v1"</span> <span class="na">ver=</span><span class="s">"1.0"</span> <span class="nt">&gt;</span>
-            <span class="nt">&lt;description&gt;&lt;/description&gt;</span>
-            <span class="nt">&lt;changesets&gt;</span>
-                <span class="nt">&lt;changeset&gt;</span>create schema<span class="nt">&lt;/changeset&gt;</span>
-                <span class="nt">&lt;changeset&gt;</span>create table<span class="nt">&lt;/changeset&gt;</span>                
-            <span class="nt">&lt;/changesets&gt;</span>        
-
-            <span class="nt">&lt;location&gt;</span>
-                <span class="nt">&lt;path&gt;</span>/*.sql<span class="nt">&lt;/path&gt;</span>                
-            <span class="nt">&lt;/location&gt;</span>
-        <span class="nt">&lt;/version&gt;</span>
-    <span class="nt">&lt;/versions&gt;</span>
-
-
-
-<span class="nt">&lt;/mintleaf&gt;</span>
-</code></pre><pre class="highlight xml tab-xml"><code>
-
+    <span class="pi">-</span> <span class="na">version</span><span class="pi">:</span>
+        <span class="na">id </span><span class="pi">:</span> <span class="s">abcdb-v1</span>
+        <span class="na">ver </span><span class="pi">:</span> <span class="s">1.0</span>
+        <span class="na">database </span><span class="pi">:</span> <span class="s">abcdb</span>
+        <span class="na">changesets</span><span class="pi">:</span>  
+            <span class="pi">-</span> <span class="s">create schema</span>
+            <span class="pi">-</span> <span class="s">create tables</span>        
+        <span class="na">location</span><span class="pi">:</span>
+            <span class="pi">-</span>  <span class="s">path/*.sql</span>
 
 </code></pre>
 <h1 id="create-test-data">Create Test Data</h1>
