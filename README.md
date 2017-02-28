@@ -12,7 +12,7 @@ Welcome to the Mintleaf! Mintleaf is a light weight framework tool helps you to 
 
 ## Documentation
 
-- [Usage Documentation](http://doc.getmintleaf.org/)
+- [Usage Documentation](http://getmintleaf.org/)
 
 ## Maven 
     <dependency>
