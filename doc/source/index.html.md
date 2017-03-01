@@ -3,8 +3,8 @@ title: Mintleaf Documentation
  
 toc_footers:  
   - <a href='http://getmintleaf.org'>getmintleaf.org</a>
-  - <a href='https://github.com/senips/mintleaf'>Source@github</a>
-
+  - <a href='https://github.com/senips/mintleaf'>Source @ github</a>
+ 
 includes:
   
 
@@ -56,10 +56,14 @@ So again, welcome to the Mintleaf!  Mintleaf is a light weight framework tool he
 
  
 # Understanding Mintleaf
-## Change sets
+
+Let's look at the core concepts behind Mintleaf design so that you will be able to understand and use it accordingly before you move onto technical section.  Here is the simple steps to get you started quick.
+
+
+## Changesets
  
 
- Changesets are basically contains one ore more changes that are to be applied during a database migration.  Mintleaf changesets are stored in plain old sql files but changeset informatino is described using sql comment lines as shown below 
+ Changesets are basically contains one ore more changes that are to be applied during a database migration.  Mintleaf changesets are stored in plain old sql files but changeset information is described using sql comment lines as shown below 
  
 ```sql
  -- <ChangeSet id="{a-change-set-id}" delimiter=";" userdata="" />
@@ -68,13 +72,13 @@ where,
  
 Parameter | Description
 --------- | -----------
-id | The ID of the changeset
+id | The ID of the changeset and it should be unique
 delimiter | Sql DDL/DML statement delimiter
 userdata | user defined columns that one can store additional meta data of the changeset. 
 
 
  
-For example, a file 'abcdb-changeset.sql' contains the following two changesets: create schema and create tables
+**_For example, a file 'abcdb-changeset.sql' contains the following two changesets: create schema and create tables_**
 
  
 ```sql
@@ -94,5 +98,51 @@ CREATE TABLE IF NOT EXISTS ABCDB.USERS
  
 ``` 
  
+ 
+<!--Tips: -->
+<!--- Create a folder-->
+<!--- Under that new folder, just create plain old sql file with an extension .sql-->
+<!--- Edit that sql file to create a new changeset by starting a single line comment inside that sql file-->
+<!--- Add your changes (DDL/DML scripts) after changeset comment line declaration-->
+<!--- And repeat as much as changeset that you like and you can create as many as sql files as you like to spread them up-->
+
+
+
+ 
+<aside class="notice"> 
+It's very easy to add changeset definition on your exising sql files if you would like.  So nothing much to do apart from this comment line declaration. 
+</aside>
+
+
+## Version profile
+
+Version profile is a configuration file which contains list of changesets to be applied for a particular version of a database migration.  Typically you will have all versions from the beginning to the latest.   So the Mintleaf looks for a default version profile at the folder where it is being execution location.
+
+ **mintleaf.yml**
+
+```yml
+databases:
+    - database:
+        id : abcdb
+        type : h2|oracle|sqlserver|postgres|mysql|sybase
+        url :  jdbc:h2:file:./target/ABCDB;mv_store=false;
+        username : 
+        password : 
+
+versions:
+    
+    - version:
+        id : abcdb-v1
+        ver : 1.0
+        database : abcdb
+        changesets:  
+            - create schema
+            - create tables        
+        location:
+            -  path/*.sql
+        
+```
+
+
 
 # Create Test Data
