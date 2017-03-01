@@ -70,6 +70,8 @@ public class DbImportSource implements DataImportSource {
         @Override
         public String get(int i) {
             try {
+                if (resultSet.getObject(i) == null)
+                    return "NULL";
                 return resultSet.getObject(i).toString();
             } catch (SQLException e) {
                 logger.error("DbSourceRowWrapper", e);
@@ -80,6 +82,8 @@ public class DbImportSource implements DataImportSource {
         @Override
         public String get(String name) {
             try {
+                if (resultSet.getObject(name) == null)
+                    return "NULL";
                 return resultSet.getObject(name).toString();
             } catch (SQLException e) {
                 logger.error("DbSourceRowWrapper", e);

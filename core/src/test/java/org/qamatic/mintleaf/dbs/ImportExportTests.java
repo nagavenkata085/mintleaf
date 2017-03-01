@@ -133,4 +133,19 @@ public class ImportExportTests {
 
     }
 
+
+
+    @Test
+    public void DbToDbImportNullIssue() throws SQLException, IOException, MintLeafException {
+        ApplyChangeSets.apply(h2DbContext, "res:/example-changesets.sql", "DROP_CREATE_USERS_IMPORT_TABLE");
+
+        FluentJdbc fluentJdbc = h2DbContext.newQuery().withSql("SELECT * FROM HRDB.USERS");
+
+        h2DbContext.importDataFrom(new DbImportSource(fluentJdbc.getResultSet()),
+                "INSERT INTO HRDB.USERS_IMPORT_TABLE (USERID, USERNAME, RATE) VALUES ($USERID$, '$USERNAME$', $RATE$)");
+        assertEquals(7, h2DbContext.getCount("HRDB.USERS_IMPORT_TABLE"));
+
+
+    }
+
 }
