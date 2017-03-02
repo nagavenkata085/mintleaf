@@ -525,7 +525,7 @@ html, body {
     //background-color: $code-bg;
     color: #fff;
 
-    padding: 2em $main-padding;
+    padding: 1em $main-padding;
     //margin: 9px;
 //    width: $examples-width;
 
@@ -626,4 +626,8 @@ html, body {
 .highlight, .highlight .w {
   background-color: $code-bg;
   margin:15px;
+}
+
+.langmargin{
+  margin-top:-10px;
 }

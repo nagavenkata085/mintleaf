@@ -153,6 +153,10 @@ under the License.
 
   // if we click on a language tab, activate that language
   $(function() {
+
+    $(".tab-sql code").prepend('<b class="langmargin">SQL:</b> </br>');
+    $(".tab-shell code").prepend('<b class="langmargin">Shell:</b> </br>');
+    $(".tab-java code").prepend('<b class="langmargin">Java:</b> </br>');
     $(".lang-selector a").on("click", function() {
       var language = $(this).data("language-name");
       pushURL(language);

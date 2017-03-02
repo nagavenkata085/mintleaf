@@ -5,6 +5,8 @@ toc_footers:
   - <a href='http://getmintleaf.org'>getmintleaf.org</a>
   - <a href='https://github.com/senips/mintleaf'>Source @ github</a>
  
+
+ 
 includes:
   
 
@@ -175,7 +177,7 @@ For example, if we want to dump data from a table called HRDB.USERS in abcd-db t
 > mintleaf --config=connection.yml  targetdb=abcd-db -file=abcd-db.csv -task=dbtocsv targetsql="select * from HRDB.USERS"
 
 running...done.
-results stored in adcd-db.csv, 2cols and 5 rows copied
+results stored in users.csv, 2cols and 4 rows copied
 |ID|NAME| 
 |1|Allen| 
 |2|Jim| 
@@ -185,6 +187,19 @@ results stored in adcd-db.csv, 2cols and 5 rows copied
 
 ```
   
+```java
+ 
+        //connect to a database, below is an example for H2 database but you can change to any database
+        DataSource ds = new BasicDataSource();
+        ds.setUrl("jdbc:h2:file:./target/H2DbTests;mv_store=false");
+        ds.setDriverClassName("org.h2.Driver");
+
+        //create a database context and call exportDataTo
+        DbContext dbContext = new H2DbContextImpl(ds);         
+        File f = new File("users.csv");                
+        h2DbContext.exportDataTo(new CsvExport(new FileWriter(f)), "select * from ABCDB.USERS", null);
+        
+```  
  
   
 ## CSV to Database
@@ -198,7 +213,20 @@ Suppose you have a data in a CSV file called abcd.csv and want to load it in to 
 
 ```
  
+```java
  
+        //connect to a database, below is an example for H2 database but you can change to any database
+        DataSource ds = new BasicDataSource();
+        ds.setUrl("jdbc:h2:file:./target/H2DbTests;mv_store=false");
+        ds.setDriverClassName("org.h2.Driver");
+
+        //create a database context and call importDataFrom
+        Reader reader = new FileReader(new File("users.csv"));
+        DbContext dbContext = new H2DbContextImpl(ds);
+        h2DbContext.importDataFrom(new CsvImportSource(reader), "INSERT INTO ABCDB.USERS (ID, USERNAME) VALUES($USERID$, '$USERNAME$'");      
+        
+```  
+  
  
  
 ## Database to Database
@@ -211,7 +239,26 @@ Suppose you have a data in a CSV file called abcd.csv and want to load it in to 
   
  
  
+```java
+ 
+        //connect to a database, below is an example for H2 database but you can change to any database
+        DataSource targetDbContext = new BasicDataSource();
+        targetDbContext.setUrl("jdbc:h2:file:./target/H2DbTests;mv_store=false");
+        targetDbContext.setDriverClassName("org.h2.Driver");
+        
+        DataSource sourceDbContext = new BasicDataSource();
+        sourceDbContext.setUrl("jdbc:oracle:thin:@localhost:1521:xe");  // set your database connection detail here
+        sourceDbContext.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 
+        //create a database context and call importDataFrom    
+        FluentJdbc source = sourceDbContext.newQuery().withSql("SELECT * FROM ABCDB.USERS");
+
+        targetDbContext.importDataFrom(new DbImportSource(source.getResultSet()),
+                "INSERT INTO ABCDDB.USERS_IMPORT_TABLE (USERID, USERNAME) VALUES ($USERID$, '$USERNAME$')");
+                              
+        
+```  
+  
 
 
 
