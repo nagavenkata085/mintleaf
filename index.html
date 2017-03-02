@@ -335,7 +335,7 @@ and so on&hellip;.</li>
 It&rsquo;s very easy to add changeset definition on your exising sql files if you would like.  So nothing much to do apart from this comment line declaration. 
 </aside>
 
-<h2 id="version-profile">Version profile</h2>
+<h2 id="configuration-file">Configuration file</h2>
 
 <p>Version profile is a configuration file which contains list of changesets to be applied for a particular version of a database migration.  Typically you will have all versions from the beginning to the latest.   So the Mintleaf looks for a default version profile at the folder where it is being execution location.</p>
 
@@ -353,16 +353,64 @@ It&rsquo;s very easy to add changeset definition on your exising sql files if yo
     <span class="pi">-</span> <span class="na">version</span><span class="pi">:</span>
         <span class="na">id </span><span class="pi">:</span> <span class="s">abcdb-v1</span>
         <span class="na">ver </span><span class="pi">:</span> <span class="s">1.0</span>
-        <span class="na">database </span><span class="pi">:</span> <span class="s">abcdb</span>
         <span class="na">changesets</span><span class="pi">:</span>  
             <span class="pi">-</span> <span class="s">create schema</span>
             <span class="pi">-</span> <span class="s">create tables</span>        
         <span class="na">location</span><span class="pi">:</span>
             <span class="pi">-</span>  <span class="s">path/*.sql</span>
 
-</code></pre>
-<h1 id="create-test-data">Create Test Data</h1>
 
+
+
+
+</code></pre>
+<h1 id="creating-test-data">Creating test data</h1>
+
+<p>Before run your test you should load your test data to target test database so that your tests can be run for to prove to be working with developer code changes. So generally, your test scenearios may be involved with one or more database tables that needs to be populated with data in order to verify developer code changes either stored procedure side or application side. Mintleaf simplifies the test data creation process as easy as possible.  Here are the possible ways that one can think of creating test data with Mintleaf, </p>
+
+<ul>
+<li>Create your own data set in a csv file format and load it to your target test database</li>
+<li>Or copy data from existing database to a csv file and later use it for loading in to your target test database </li>
+<li>Or directly copy data from one database to another database/your target test database</li>
+</ul>
+
+<p>So over all you can use csv file and database-to-database copy of data for your tests.  </p>
+
+<aside class="warning"> Mintleaf copy data process is intended for to use for test data creation purpose only so it is not meant for production use   
+</aside>
+
+<h3 id="usage"><em>Usage:</em></h3>
+
+<p><strong>mintleaf -config=&lt;<a href="#configuration-file">configuration file</a>&gt; -targetdb=&lt;db id&gt; -file=&lt;csv file to save&gt; -task=&lt;dbtocsv|csvtodb|dbtodb&gt; -targetsql=&lt;a select query&gt;</strong></p>
+
+<h2 id="database-to-csv">Database to CSV</h2>
+
+<p>For example, if we want to dump data from a table called HRDB.USERS in abcd-db to a CSV file then you run like the following </p>
+<pre class="highlight shell tab-shell"><code>
+<span class="gp">&gt; </span>mintleaf --config<span class="o">=</span>connection.yml  <span class="nv">targetdb</span><span class="o">=</span>abcd-db -file<span class="o">=</span>abcd-db.csv -task<span class="o">=</span>dbtocsv <span class="nv">targetsql</span><span class="o">=</span><span class="s2">"select * from HRDB.USERS"</span>
+
+running...done.
+results stored <span class="k">in </span>adcd-db.csv, 2cols and 5 rows copied
+|ID|NAME| 
+|1|Allen| 
+|2|Jim| 
+|3|Gary|
+|4|Sen|
+
+
+</code></pre>
+<h2 id="csv-to-database">CSV to Database</h2>
+
+<p>Suppose you have a data in a CSV file called abcd.csv and want to load it in to a table called HRDB.USERS then you run like the following command.  Note that CSV file must have a header row as first which contains column names. Please note that whatever the column name you define in CSV file will be used exactly in your targetsql argument as shown below.  Here target sql is a template and the CSV column names are prefixed and suffixed with dollar sign as variables.   One great thing about using a template approach here is that it enables use of builtin functions of the database inside your insert statement some instances like any date formatting functions or math functions and so on.   </p>
+<pre class="highlight shell tab-shell"><code>
+<span class="gp">&gt; </span>mintleaf --config<span class="o">=</span>connection.yml  <span class="nv">targetdb</span><span class="o">=</span>abcd-db -file<span class="o">=</span>abcd.csv -task<span class="o">=</span>csvtodb <span class="nv">targetsql</span><span class="o">=</span><span class="s2">"INSERT INTO HRDB.USERS (ID, NAME) VALUES (</span><span class="nv">$ID$,</span><span class="s2"> </span><span class="nv">$NAME$)</span><span class="s2">"</span>
+
+</code></pre>
+<h2 id="database-to-database">Database to Database</h2>
+<pre class="highlight shell tab-shell"><code>
+<span class="gp">&gt; </span>mintleaf --config<span class="o">=</span>connection.yml  <span class="nv">targetdb</span><span class="o">=</span>abcd-db -sourcedb<span class="o">=</span>poppy-db -task<span class="o">=</span>dbtodb <span class="nv">targetsql</span><span class="o">=</span><span class="s2">"INSERT INTO HRDB.USERS (ID, NAME) VALUES (</span><span class="nv">$ID$,</span><span class="s2"> '</span><span class="nv">$NAME$'</span><span class="s2">)"</span> <span class="nv">sourcesql</span><span class="o">=</span><span class="s2">"SELECT ID, NAME FROM HRDB.USERS"</span>
+
+</code></pre>
       </div>
       <div class="dark-box">
       </div>
