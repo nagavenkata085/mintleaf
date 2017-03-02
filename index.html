@@ -390,13 +390,24 @@ It&rsquo;s very easy to add changeset definition on your exising sql files if yo
 <span class="gp">&gt; </span>mintleaf --config<span class="o">=</span>connection.yml  <span class="nv">targetdb</span><span class="o">=</span>abcd-db -file<span class="o">=</span>abcd-db.csv -task<span class="o">=</span>dbtocsv <span class="nv">targetsql</span><span class="o">=</span><span class="s2">"select * from HRDB.USERS"</span>
 
 running...done.
-results stored <span class="k">in </span>adcd-db.csv, 2cols and 5 rows copied
+results stored <span class="k">in </span>users.csv, 2cols and 4 rows copied
 |ID|NAME| 
 |1|Allen| 
 |2|Jim| 
 |3|Gary|
 |4|Sen|
 
+
+</code></pre><pre class="highlight java tab-java"><code>
+        <span class="c1">//connect to a database, below is an example for H2 database but you can change to any database</span>
+        <span class="n">DataSource</span> <span class="n">ds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicDataSource</span><span class="o">();</span>
+        <span class="n">ds</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">"jdbc:h2:file:./target/H2DbTests;mv_store=false"</span><span class="o">);</span>
+        <span class="n">ds</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="s">"org.h2.Driver"</span><span class="o">);</span>
+
+        <span class="c1">//create a database context and call exportDataTo</span>
+        <span class="n">DbContext</span> <span class="n">dbContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">H2DbContextImpl</span><span class="o">(</span><span class="n">ds</span><span class="o">);</span>         
+        <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">"users.csv"</span><span class="o">);</span>                
+        <span class="n">h2DbContext</span><span class="o">.</span><span class="na">exportDataTo</span><span class="o">(</span><span class="k">new</span> <span class="n">CsvExport</span><span class="o">(</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">f</span><span class="o">)),</span> <span class="s">"select * from ABCDB.USERS"</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
 
 </code></pre>
 <h2 id="csv-to-database">CSV to Database</h2>
@@ -405,10 +416,38 @@ results stored <span class="k">in </span>adcd-db.csv, 2cols and 5 rows copied
 <pre class="highlight shell tab-shell"><code>
 <span class="gp">&gt; </span>mintleaf --config<span class="o">=</span>connection.yml  <span class="nv">targetdb</span><span class="o">=</span>abcd-db -file<span class="o">=</span>abcd.csv -task<span class="o">=</span>csvtodb <span class="nv">targetsql</span><span class="o">=</span><span class="s2">"INSERT INTO HRDB.USERS (ID, NAME) VALUES (</span><span class="nv">$ID$,</span><span class="s2"> </span><span class="nv">$NAME$)</span><span class="s2">"</span>
 
+</code></pre><pre class="highlight java tab-java"><code>
+        <span class="c1">//connect to a database, below is an example for H2 database but you can change to any database</span>
+        <span class="n">DataSource</span> <span class="n">ds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicDataSource</span><span class="o">();</span>
+        <span class="n">ds</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">"jdbc:h2:file:./target/H2DbTests;mv_store=false"</span><span class="o">);</span>
+        <span class="n">ds</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="s">"org.h2.Driver"</span><span class="o">);</span>
+
+        <span class="c1">//create a database context and call importDataFrom</span>
+        <span class="n">Reader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">"users.csv"</span><span class="o">));</span>
+        <span class="n">DbContext</span> <span class="n">dbContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">H2DbContextImpl</span><span class="o">(</span><span class="n">ds</span><span class="o">);</span>
+        <span class="n">h2DbContext</span><span class="o">.</span><span class="na">importDataFrom</span><span class="o">(</span><span class="k">new</span> <span class="n">CsvImportSource</span><span class="o">(</span><span class="n">reader</span><span class="o">),</span> <span class="s">"INSERT INTO ABCDB.USERS (ID, USERNAME) VALUES($USERID$, '$USERNAME$'"</span><span class="o">);</span>      
+
 </code></pre>
 <h2 id="database-to-database">Database to Database</h2>
 <pre class="highlight shell tab-shell"><code>
 <span class="gp">&gt; </span>mintleaf --config<span class="o">=</span>connection.yml  <span class="nv">targetdb</span><span class="o">=</span>abcd-db -sourcedb<span class="o">=</span>poppy-db -task<span class="o">=</span>dbtodb <span class="nv">targetsql</span><span class="o">=</span><span class="s2">"INSERT INTO HRDB.USERS (ID, NAME) VALUES (</span><span class="nv">$ID$,</span><span class="s2"> '</span><span class="nv">$NAME$'</span><span class="s2">)"</span> <span class="nv">sourcesql</span><span class="o">=</span><span class="s2">"SELECT ID, NAME FROM HRDB.USERS"</span>
+
+</code></pre><pre class="highlight java tab-java"><code>
+        <span class="c1">//connect to a database, below is an example for H2 database but you can change to any database</span>
+        <span class="n">DataSource</span> <span class="n">targetDbContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicDataSource</span><span class="o">();</span>
+        <span class="n">targetDbContext</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">"jdbc:h2:file:./target/H2DbTests;mv_store=false"</span><span class="o">);</span>
+        <span class="n">targetDbContext</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="s">"org.h2.Driver"</span><span class="o">);</span>
+
+        <span class="n">DataSource</span> <span class="n">sourceDbContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicDataSource</span><span class="o">();</span>
+        <span class="n">sourceDbContext</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">"jdbc:oracle:thin:@localhost:1521:xe"</span><span class="o">);</span>  <span class="c1">// set your database connection detail here</span>
+        <span class="n">sourceDbContext</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="s">"oracle.jdbc.driver.OracleDriver"</span><span class="o">);</span>
+
+        <span class="c1">//create a database context and call importDataFrom    </span>
+        <span class="n">FluentJdbc</span> <span class="n">source</span> <span class="o">=</span> <span class="n">sourceDbContext</span><span class="o">.</span><span class="na">newQuery</span><span class="o">().</span><span class="na">withSql</span><span class="o">(</span><span class="s">"SELECT * FROM ABCDB.USERS"</span><span class="o">);</span>
+
+        <span class="n">targetDbContext</span><span class="o">.</span><span class="na">importDataFrom</span><span class="o">(</span><span class="k">new</span> <span class="n">DbImportSource</span><span class="o">(</span><span class="n">source</span><span class="o">.</span><span class="na">getResultSet</span><span class="o">()),</span>
+                <span class="s">"INSERT INTO ABCDDB.USERS_IMPORT_TABLE (USERID, USERNAME) VALUES ($USERID$, '$USERNAME$')"</span><span class="o">);</span>
+
 
 </code></pre>
       </div>
